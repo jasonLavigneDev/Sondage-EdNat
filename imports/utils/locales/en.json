@@ -1,0 +1,70 @@
+{
+  "title": "LaBoite - Polls",
+  "loading": "Loading",
+  "polls": "Polls",
+  "back": "Back",
+  "menu": "Menu",
+  "save_research": "Save search",
+  "links": {
+    "home": "Administration",
+    "polls": "Polls",
+    "new_poll": "Create",
+    "new_poll_1": "Create - Informations",
+    "new_poll_2": "Create - Dates",
+    "new_poll_3": "Create - Hours",
+    "legal": "Legal",
+    "accessibility": "Accessibility",
+    "gcu": "Term of use",
+    "personalData": "Personnal data"
+  },
+  "pages": {
+    "home": {
+      "title": "My polls",
+      "new_poll": "Create a poll"
+    },
+    "login": {
+      "title": "You are not logged in",
+      "signin": "Signin"
+    },
+    "new_poll": {
+      "next": "Next",
+      "previous": "previous",
+      "cancel": "Cancel"
+    },
+    "new_poll_1": {
+      "title": "New Poll: Informations",
+      "title_input": "Poll's title",
+      "group_input": "Groups polled",
+      "public_input": "Public poll"
+    },
+    "new_poll_2": {
+      "title": "New Poll: Dates",
+      "selected_dates": "Selected dates",
+      "no_selected_dates": "No dates selected"
+    }
+  },
+  "components": {
+    "Time": {
+      "dateFormat": "#{l}, #{F} #{j}, #{Y}",
+      "daysOfWeek": "[[\"Sunday\",\"Sun\"],[\"Monday\",\"Mon\"],[\"Tuesday\",\"Tue\"],[\"Wednesday\",\"Wed\"],[\"Thursday\",\"Thu\"],[\"Friday\",\"Fri\"],[\"Saturday\",\"Sat\"]]",
+      "monthsOfYear": "[[\"January\",\"Jan\"],[\"February\",\"Feb\"],[\"March\",\"Mar\"],[\"April\",\"Apr\"],[\"May\",\"May\"],[\"June\",\"Jun\"],[\"July\",\"Jul\"],[\"August\",\"Aug\"],[\"September\",\"Sep\"],[\"October\",\"Oct\"],[\"November\",\"Nov\"],[\"December\",\"Dec\"]]"
+    },
+    "SearchField": {
+      "search": "Search",
+      "placeholder": "Search"
+    },
+    "Pagination": {
+      "next": "Next",
+      "previous": "Previous"
+    },
+    "NoResults": {
+      "title": "No results",
+      "subtitle": "Make a new research"
+    },
+    "SingleResearch": {
+      "type": "Type",
+      "search": "Search",
+      "go": "See the results"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "title": "LaBoite - Sondages",
+  "loading": "Chargement",
+  "polls": "Sondages",
+  "back": "Retour",
+  "menu": "Menu",
+  "links": {
+    "home": "Gestion",
+    "polls": "Sondages",
+    "new_poll": "Créer",
+    "new_poll_1": "Créer - Informations",
+    "new_poll_2": "Créer - Dates",
+    "new_poll_3": "Créer - Heures",
+    "legal": "Mentions légales",
+    "accessibility": "Accessibilité",
+    "gcu": "Conditions générales d'utilisation",
+    "personalData": "Données personnelles"
+  },
+  "pages": {
+    "home": {
+        "title": "Gestion de mes sondages",
+        "new_poll": "Créer un sondage"
+    },
+    "login": {
+      "title": "Vous n'êtes pas connectés",
+      "signin": "Se connecter"
+    },
+    "new_poll": {
+      "next": "Suivant",
+      "previous": "Précédent",
+      "cancel": "Annuler"
+    },
+    "new_poll_1": {
+      "title": "Nouveau sondage: Informations",
+      "title_input": "Titre du sondage",
+      "group_input": "Groupes sondés",
+      "public_input": "Sondage public"
+    },
+    "new_poll_2": {
+      "title": "Nouveau sondage: Dates",
+      "selected_dates": "Dates sélectionnées",
+      "no_selected_dates": "Aucune date sélectionnée"
+    }
+  },
+  "components": {
+    "Time": {
+      "dateFormat": "#{l} #{j} #{F} #{Y}",
+      "daysOfWeek": "[[\"Dimanche\",\"Dim\"],[\"Lundi\",\"Lun\"],[\"Mardi\",\"Mar\"],[\"Mercredi\",\"Mer\"],[\"Jeudi\",\"Jeu\"],[\"Vendredi\",\"Ven\"],[\"Samedi\",\"Sam\"]]",
+      "monthsOfYear": "[[\"Janvier\",\"Jan\"],[\"Février\",\"Fév\"],[\"Mars\",\"Mar\"],[\"Avril\",\"Avr\"],[\"Mai\",\"Mai\"],[\"Juin\",\"Juin\"],[\"Juillet\",\"Juil\"],[\"Août\",\"Aoû\"],[\"Septembre\",\"Sep\"],[\"Octobre\",\"Oct\"],[\"Novembre\",\"Nov\"],[\"Décembre\",\"Déc\"]]"
+    },
+    "SearchField": {
+      "search": "Rechercher",
+      "placeholder": "Rechercher"
+    },
+    "Pagination": {
+      "next": "Suivante",
+      "previous": "Précédente"
+    },
+    "NoResults": {
+      "title": "Aucun résultats",
+      "subtitle": "Reformulez votre recherche"
+    },
+    "TagsFilters": {
+      "filter": "Filtrer la recherche par tag",
+      "reset": "Effacer",
+      "open": "Filtrer par tag",
+      "close": "Fermer"
+    },
+    "SingleResearch": {
+      "type": "Type",
+      "search": "Recherche",
+      "go": "Voir les résultats"
+    }
+  }
+}
