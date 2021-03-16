@@ -1,6 +1,6 @@
 <script>
-  export let label;
-  export let checked;
+  export let label = "";
+  export let checked = false;
 </script>
 
 <label class="checkbox checkbox-container">

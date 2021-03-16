@@ -40,12 +40,12 @@
         {#each items as { path, text }}
           <a
             rel="prefetch"
-            class:is-active={$router.path === path}
+            class:is-active={$router.path.indexOf(path) === 0}
             class="navbar-item"
             href={path}
           >
             {$_(text)}
-            {#if $router.path === path}
+            {#if $router.path.indexOf(path) === 0}
               <div transition:fade class="indicator" />
             {/if}
           </a>

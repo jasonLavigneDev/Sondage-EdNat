@@ -11,7 +11,7 @@ export const EMPTY_NEW_POLL = {
     dates: [],
     title: "",
     groups: [],
-    times: []
+    times: {}
 }
 
 export const language = syncable("language", "");

@@ -11,7 +11,7 @@ export const items = [
   },
   {
     text: "links.new_poll",
-    path: ROUTES.NEW_POLL_1,
+    path: ROUTES.NEW_POLL_ROOT,
   },
 ];
 

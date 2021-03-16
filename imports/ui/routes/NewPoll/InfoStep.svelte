@@ -25,15 +25,6 @@
     const { checked } = e.detail;
     $newPollStore.public = checked;
   };
-
-  // fake data
-  const complexItems = [
-    { value: "chocolate", label: "Chocolate", group: "Sweet" },
-    { value: "pizza", label: "Pizza", group: "Savory" },
-    { value: "cake", label: "Cake", group: "Sweet" },
-    { value: "chips", label: "Chips", group: "Savory" },
-    { value: "ice-cream", label: "Ice Cream", group: "Sweet" },
-  ];
 </script>
 
 <svelte:head>
@@ -42,30 +33,35 @@
 
 <section class="box-transparent">
   <div class="container">
-    <h1 class="title is-3">{$_("pages.new_poll_1.title")}</h1>
-    <div class="columns is-multiline">
-      <div class="column is-half">
-        <div class="field">
-          <label class="label">{$_("pages.new_poll_1.title_input")}</label>
-          <div class="control">
-            <input
-              class="input"
-              type="text"
-              bind:value={$newPollStore.title}
-              placeholder={$_("pages.new_poll_1.title_input")}
-            />
+    <h1 class="title is-3">
+      {$_("pages.new_poll_1.title")}
+    </h1>
+
+    <div class="box">
+      <div class="columns is-multiline">
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">{$_("pages.new_poll_1.title_input")}</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                bind:value={$newPollStore.title}
+                placeholder={$_("pages.new_poll_1.title_input")}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="column is-half">
-        <div class="field">
-          <label class="label">{$_("pages.new_poll_1.group_input")}</label>
-          <div class="control">
-            <div class="select is-fullwidth">
-              <select placeholder={$_("pages.new_poll_1.group_input")}>
-                <option>Select dropdown</option>
-                <option>With options</option>
-              </select>
+        <div class="column is-half">
+          <div class="field">
+            <label class="label">{$_("pages.new_poll_1.group_input")}</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select placeholder={$_("pages.new_poll_1.group_input")}>
+                  <option>Select dropdown</option>
+                  <option>With options</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -80,7 +76,9 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="columns is-multiline">
       <div class="column is-full">
         <Divider />
       </div>

@@ -41,6 +41,12 @@
       "title": "New Poll: Dates",
       "selected_dates": "Selected dates",
       "no_selected_dates": "No dates selected"
+    },
+    "new_poll_3": {
+      "title": "New Poll: Hours",
+      "selected_dates": "Selected dates",
+      "timeslot": "Timeslot",
+      "new_slot": "Add"
     }
   },
   "components": {

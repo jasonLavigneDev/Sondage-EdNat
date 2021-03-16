@@ -40,6 +40,12 @@
       "title": "Nouveau sondage: Dates",
       "selected_dates": "Dates sélectionnées",
       "no_selected_dates": "Aucune date sélectionnée"
+    },
+    "new_poll_3": {
+      "title": "Nouveau sondage: Heures",
+      "selected_dates": "Dates sélectionnées",
+      "timeslot": "Horaire",
+      "new_slot": "Ajouter"
     }
   },
   "components": {
