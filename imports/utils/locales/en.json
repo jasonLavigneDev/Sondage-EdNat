@@ -35,7 +35,9 @@
       "title": "New Poll: Informations",
       "title_input": "Poll's title",
       "group_input": "Groups polled",
-      "public_input": "Public poll"
+      "public_input": "Public poll",
+      "group_loading": "Loading groups",
+      "group_select": "Add a group"
     },
     "new_poll_2": {
       "title": "New Poll: Dates",

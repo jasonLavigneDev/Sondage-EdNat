@@ -3,6 +3,7 @@ import App from '/imports/ui/App.svelte';
 // collections
 import '/imports/api/polls/polls';
 import '/imports/api/users/users';
+import '/imports/api/groups/groups';
 
 // methods
 import '/imports/api/polls/methods';

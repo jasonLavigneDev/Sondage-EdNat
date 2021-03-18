@@ -1,6 +1,9 @@
 <script>
   import { _ } from "svelte-i18n";
+  import { Meteor } from "meteor/meteor";
+  import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import { ROUTES } from "/imports/utils/enums";
+  import Groups from "/imports/api/groups/groups";
 
   // components
   import BigLink from "/imports/ui/components/common/BigLink.svelte";
@@ -11,19 +14,26 @@
   } from "/imports/utils/functions/stores";
   import Checkbox from "../../components/common/Checkbox.svelte";
   export let meta;
+  let selectedGroups, groups;
 
   const resetNewPoll = () => {
     newPollStore.set(EMPTY_NEW_POLL);
   };
 
+  $: groups = useTracker(() => Groups.find({}, { sort: { name: -1 } }).fetch());
+  $: selectedGroups = useTracker(() =>
+    Groups.find(
+      { _id: { $in: $newPollStore.groups } },
+      { sort: { name: -1 } }
+    ).fetch()
+  );
+
   const handleSelect = (event) => {
-    console.log("selected item", event.detail);
-    $newPollStore.groups = event.detail;
+    $newPollStore.groups = [...$newPollStore.groups, event.target.value];
   };
 
-  const handleChangePublic = (e) => {
-    const { checked } = e.detail;
-    $newPollStore.public = checked;
+  const handleRemoveGroup = (groupId) => {
+    $newPollStore.groups = $newPollStore.groups.filter((g) => g !== groupId);
   };
 </script>
 
@@ -55,15 +65,39 @@
         <div class="column is-half">
           <div class="field">
             <label class="label">{$_("pages.new_poll_1.group_input")}</label>
-            <div class="control">
-              <div class="select is-fullwidth">
-                <select placeholder={$_("pages.new_poll_1.group_input")}>
-                  <option>Select dropdown</option>
-                  <option>With options</option>
-                </select>
+
+            {#await Meteor.subscribe("groups.memberOf")}
+              {$_("pages.new_poll_1.group_loading")}
+            {:then}
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select
+                    on:change={handleSelect}
+                    placeholder={$_("pages.new_poll_1.group_input")}
+                    value={null}
+                  >
+                    <option value={null}>
+                      {$_("pages.new_poll_1.group_select")}
+                    </option>
+                    {#each $groups as group}
+                      <option value={group._id}>
+                        {group.name}
+                      </option>
+                    {/each}
+                  </select>
+                </div>
               </div>
-            </div>
+            {/await}
           </div>
+          {#each $selectedGroups as group}
+            <span class="tag is-primary">
+              {group.name}
+              <button
+                on:click={() => handleRemoveGroup(group._id)}
+                class="delete is-small"
+              />
+            </span>
+          {/each}
         </div>
       </div>
       <div class="column is-half">
