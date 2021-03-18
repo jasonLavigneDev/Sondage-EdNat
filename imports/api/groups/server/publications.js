@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import Groups from '../groups';
 
 Meteor.publish("groups.memberOf", function(){
-  console.log(this.userId)
   return Groups.find({ 
     $or: [
       { members: { $in: [this.userId] } },

@@ -7,36 +7,44 @@
   import BigLink from "/imports/ui/components/common/BigLink.svelte";
   import Divider from "/imports/ui/components/common/Divider.svelte";
   import { newPollStore } from "/imports/utils/functions/stores";
-  import { onMount } from "svelte";
-  import App from "../../App.svelte";
+  import InputTimePicker from "./components/InputTimePicker.svelte";
   export let meta;
   let timecolumns = 1;
   const FORMAT_KEY_DATE = "#{j}-#{m}-#{Y}";
 
   $: $newPollStore.dates.forEach((date) => {
     if ($newPollStore.times[formatDate(date, FORMAT_KEY_DATE)]) {
-      let dateSlotsSize = Object.keys(
-        $newPollStore.times[formatDate(date, FORMAT_KEY_DATE)]
-      ).length;
+      let dateSlotsSize =
+        $newPollStore.times[formatDate(date, FORMAT_KEY_DATE)].length;
       if (dateSlotsSize > timecolumns) {
         timecolumns = dateSlotsSize;
       }
     }
   });
 
-  onMount(() => {
-    $newPollStore.dates.forEach((date) => {
-      $newPollStore.times[formatDate(date, FORMAT_KEY_DATE)] = {};
-    });
-  });
-
   const addTimeSlot = (date) => {
+    if (!$newPollStore.times[formatDate(date, FORMAT_KEY_DATE)]) {
+      $newPollStore.times[formatDate(date, FORMAT_KEY_DATE)] = [];
+    }
     const slotNumber = Object.keys(
       $newPollStore.times[formatDate(date, FORMAT_KEY_DATE)]
     ).length;
-    $newPollStore.times[formatDate(date, FORMAT_KEY_DATE)][
-      `slot${slotNumber + 1}`
-    ] = "";
+    if (!$newPollStore.times[formatDate(date, FORMAT_KEY_DATE)]) {
+      $newPollStore.times[formatDate(date, FORMAT_KEY_DATE)] = ["00:00"];
+    } else {
+      $newPollStore.times[formatDate(date, FORMAT_KEY_DATE)][slotNumber] =
+        "00:00";
+    }
+  };
+
+  const removeSlot = (date, index) => {
+    const newSlots = [];
+    $newPollStore.times[date].forEach((t, i) => {
+      if (index !== i) {
+        newSlots.push(t);
+      }
+    });
+    $newPollStore.times[date] = newSlots;
   };
 </script>
 
@@ -64,17 +72,25 @@
                 {formatDate(date, $_("components.Time.dateFormat"))}
               </th>
               {#if $newPollStore.times[formatDate(date, FORMAT_KEY_DATE)]}
-                {#each Object.keys($newPollStore.times[formatDate(date, FORMAT_KEY_DATE)]) as column, i}
+                {#each $newPollStore.times[formatDate(date, FORMAT_KEY_DATE)] as column, i}
                   <td>
-                    <input
-                      class="input"
-                      bind:value={$newPollStore.times[
-                        formatDate(date, FORMAT_KEY_DATE)
-                      ][column]}
-                      placeholder={`${$_("pages.new_poll_3.timeslot")} ${
-                        i + 1
-                      }`}
-                    />
+                    <div class="single-time">
+                      <InputTimePicker
+                        {date}
+                        formatedDate={formatDate(date, FORMAT_KEY_DATE)}
+                        key={i}
+                        value={$newPollStore.times[
+                          formatDate(date, FORMAT_KEY_DATE)
+                        ][i]}
+                      />
+                      <span
+                        class="icon is-small"
+                        on:click={() =>
+                          removeSlot(formatDate(date, FORMAT_KEY_DATE), i)}
+                      >
+                        <i class="fas fa-trash" />
+                      </span>
+                    </div>
                   </td>
                 {/each}
               {/if}
@@ -115,5 +131,18 @@
   .is-right {
     display: flex;
     justify-content: flex-end;
+  }
+  .single-time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon {
+    margin-right: 8px;
+    margin-left: 8px;
+    cursor: pointer;
+  }
+  .fa-trash {
+    color: red;
   }
 </style>

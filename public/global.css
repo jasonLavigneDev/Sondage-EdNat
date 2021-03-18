@@ -43,3 +43,6 @@ p,
 .box-transparent {
   padding: 20px !important;
 }
+._tp-button._tp-now {
+  display: none !important;
+}

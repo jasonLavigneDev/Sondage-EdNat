@@ -25,6 +25,7 @@
     "simpl-schema": "^1.10.2",
     "svelte": "^3.31.2",
     "svelte-i18n": "^3.3.6",
+    "svelte-time-picker": "^1.0.6",
     "timeUtils": "^2.0.0",
     "tinro": "^0.6.0"
   },

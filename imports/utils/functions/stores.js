@@ -8,10 +8,10 @@ const INITIAL_GLOBAL_STATE = {
 }
 
 export const EMPTY_NEW_POLL = {
-    dates: [],
-    title: "",
+    dates: [new Date()],
+    title: "eee",
     groups: [],
-    times: {}
+    times: []
 }
 
 export const language = syncable("language", "");

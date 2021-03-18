@@ -2186,6 +2186,11 @@ svelte-i18n@^3.3.6:
     sade "^1.7.4"
     tiny-glob "^0.2.6"
 
+svelte-time-picker@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/svelte-time-picker/-/svelte-time-picker-1.0.6.tgz#6c57b4ddccf1f2d6efcafe3b63b9c58bd39ec35f"
+  integrity sha512-hiPxf9XTktCbFxgfbRytM5od+VwDSMnih6UKhg1onSPIQA+J92yM/9i45dPlYWA5ihvxAA1sfU84gZ2HpEH9sQ==
+
 svelte@^3.31.2:
   version "3.35.0"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.35.0.tgz#e0d0ba60c4852181c2b4fd851194be6fda493e65"
