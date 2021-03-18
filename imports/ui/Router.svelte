@@ -18,6 +18,7 @@
   } from "/imports/utils/functions/stores";
   import InfoStep from "./routes/NewPoll/InfoStep.svelte";
   import TimeStep from "./routes/NewPoll/TimeStep.svelte";
+  import ValidationStep from "./routes/NewPoll/ValidationStep.svelte";
 
   router.subscribe((_) => window.scrollTo(0, 0));
 </script>
@@ -47,6 +48,14 @@
       </Route>
     {:else}
       <Route path="/3" redirect={ROUTES.NEW_POLL_1} />
+    {/if}
+
+    {#if $newPollStore.dates.length}
+      <Route path="/4" let:meta>
+        <ValidationStep {meta} />
+      </Route>
+    {:else}
+      <Route path="/4" redirect={ROUTES.NEW_POLL_1} />
     {/if}
 
     <Route path="*" redirect={ROUTES.NEW_POLL_1} />

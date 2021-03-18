@@ -8,7 +8,7 @@
   export let dates;
 
   const removeDate = (date) => {
-    dates = dates.filter((d) => d !== date);
+    dates = dates.filter((d) => d.date !== date.date);
   };
 </script>
 
@@ -20,7 +20,7 @@
       <tbody>
         {#each dates as date}
           <tr>
-            <th>{formatDate(date, $_("components.Time.dateFormat"))}</th>
+            <th>{formatDate(date.date, $_("components.Time.dateFormat"))}</th>
             <td>
               <button
                 on:click={() => removeDate(date)}

@@ -29,7 +29,10 @@
     "new_poll": {
       "next": "Next",
       "previous": "previous",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "validate": "Validate",
+      "yes": "Yes",
+      "no": "No"
     },
     "new_poll_1": {
       "title": "New Poll: Informations",
@@ -37,7 +40,8 @@
       "group_input": "Groups polled",
       "public_input": "Public poll",
       "group_loading": "Loading groups",
-      "group_select": "Add a group"
+      "group_select": "Add a group",
+      "description_input": "Description"
     },
     "new_poll_2": {
       "title": "New Poll: Dates",
@@ -48,7 +52,14 @@
       "title": "New Poll: Hours",
       "selected_dates": "Selected dates",
       "timeslot": "Timeslot",
-      "new_slot": "Add"
+      "new_slot": "Add",
+      "duration": "Duration of the event",
+      "hour": "Hours",
+      "allDay_input": "All day"
+    },
+    "new_poll_4": {
+      "title": "New Poll: Validation"
+
     }
   },
   "components": {
@@ -56,6 +67,10 @@
       "dateFormat": "#{l}, #{F} #{j}, #{Y}",
       "daysOfWeek": "[[\"Sunday\",\"Sun\"],[\"Monday\",\"Mon\"],[\"Tuesday\",\"Tue\"],[\"Wednesday\",\"Wed\"],[\"Thursday\",\"Thu\"],[\"Friday\",\"Fri\"],[\"Saturday\",\"Sat\"]]",
       "monthsOfYear": "[[\"January\",\"Jan\"],[\"February\",\"Feb\"],[\"March\",\"Mar\"],[\"April\",\"Apr\"],[\"May\",\"May\"],[\"June\",\"Jun\"],[\"July\",\"Jul\"],[\"August\",\"Aug\"],[\"September\",\"Sep\"],[\"October\",\"Oct\"],[\"November\",\"Nov\"],[\"December\",\"Dec\"]]"
+    },
+    "InputTimePicker": {
+      "from": "From",
+      "to": "to"
     },
     "SearchField": {
       "search": "Search",

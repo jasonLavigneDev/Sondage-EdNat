@@ -28,7 +28,10 @@
     "new_poll": {
       "next": "Suivant",
       "previous": "Précédent",
-      "cancel": "Annuler"
+      "cancel": "Annuler",
+      "validate": "Valider",
+      "yes": "Oui",
+      "no": "Non"
     },
     "new_poll_1": {
       "title": "Nouveau sondage: Informations",
@@ -36,7 +39,8 @@
       "group_input": "Groupes sondés",
       "public_input": "Sondage public",
       "group_loading": "Chargement des groupes",
-      "group_select": "Ajouter un groupe"
+      "group_select": "Ajouter un groupe",
+      "description_input": "Description"
     },
     "new_poll_2": {
       "title": "Nouveau sondage: Dates",
@@ -47,7 +51,13 @@
       "title": "Nouveau sondage: Heures",
       "selected_dates": "Dates sélectionnées",
       "timeslot": "Horaire",
-      "new_slot": "Ajouter"
+      "new_slot": "Ajouter",
+      "duration": "Durée de l'évènement",
+      "hour": "Heures",
+      "allDay_input": "Toute la journée"
+    },
+    "new_poll_4": {
+      "title": "Nouveau sondage: Validation"
     }
   },
   "components": {
@@ -55,6 +65,10 @@
       "dateFormat": "#{l} #{j} #{F} #{Y}",
       "daysOfWeek": "[[\"Dimanche\",\"Dim\"],[\"Lundi\",\"Lun\"],[\"Mardi\",\"Mar\"],[\"Mercredi\",\"Mer\"],[\"Jeudi\",\"Jeu\"],[\"Vendredi\",\"Ven\"],[\"Samedi\",\"Sam\"]]",
       "monthsOfYear": "[[\"Janvier\",\"Jan\"],[\"Février\",\"Fév\"],[\"Mars\",\"Mar\"],[\"Avril\",\"Avr\"],[\"Mai\",\"Mai\"],[\"Juin\",\"Juin\"],[\"Juillet\",\"Juil\"],[\"Août\",\"Aoû\"],[\"Septembre\",\"Sep\"],[\"Octobre\",\"Oct\"],[\"Novembre\",\"Nov\"],[\"Décembre\",\"Déc\"]]"
+    },
+    "InputTimePicker": {
+      "from": "De",
+      "to": "à"
     },
     "SearchField": {
       "search": "Rechercher",

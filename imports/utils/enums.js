@@ -6,6 +6,7 @@ export const ROUTES = {
     NEW_POLL_1: "/new-poll/1",
     NEW_POLL_2: "/new-poll/2",
     NEW_POLL_3: "/new-poll/3",
+    NEW_POLL_4: "/new-poll/4",
     POLL: "/polls/:_id",
     POLLS: "/polls",
 }

@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from "svelte";
+
   import { _ } from "svelte-i18n";
 
   import TimePicker from "svelte-time-picker";
@@ -9,6 +11,28 @@
   export let formatedDate;
   export let value;
   export let key;
+  export let duration;
+  let currentValue = new Date(
+    date.getYear(),
+    date.getMonth(),
+    date.getDate(),
+    value ? value.split(":")[0] : "00",
+    value ? value.split(":")[1] : "00"
+  );
+  let endTime = formatDate(
+    new Date(
+      currentValue.getYear(),
+      currentValue.getMonth(),
+      currentValue.getDate(),
+      value
+        ? value.split(":")[0] + Number(duration.split(":")[0])
+        : Number(duration.split(":")[0]),
+      value
+        ? value.split(":")[1] + Number(duration.split(":")[1])
+        : Number(duration.split(":")[1])
+    ),
+    FORMAT_KEY_DATE
+  );
   const FORMAT_KEY_DATE = "#{H}:#{i}";
 
   let open = false;
@@ -17,10 +41,14 @@
   };
   const handleChange = (e) => {
     const newDate = e.detail;
-    $newPollStore.times[formatedDate][key] = formatDate(
-      newDate,
-      FORMAT_KEY_DATE
-    );
+    $newPollStore.dates.forEach((day, i) => {
+      if (day.date === date) {
+        $newPollStore.dates[i].slots[key] = formatDate(
+          newDate,
+          FORMAT_KEY_DATE
+        );
+      }
+    });
   };
   const options = {
     bgColor: "#011caa",
@@ -31,17 +59,28 @@
     buttonCancel: $_("pages.new_poll.cancel"),
     buttonClassName: "button is-light",
   };
-  const currentValue = new Date(
-    date.getYear(),
-    date.getMonth(),
-    date.getDate(),
-    value.split(":")[0],
-    value.split(":")[1]
+
+  $: endTime = formatDate(
+    new Date(
+      currentValue.getYear(),
+      currentValue.getMonth(),
+      currentValue.getDate(),
+      value
+        ? Number(value.split(":")[0]) + Number(duration.split(":")[0])
+        : Number(duration.split(":")[0]),
+      value
+        ? Number(value.split(":")[1]) + Number(duration.split(":")[1])
+        : Number(duration.split(":")[1])
+    ),
+    FORMAT_KEY_DATE
   );
 </script>
 
 <button class="button is-light is-fullwidth" on:click={toggleModal}
-  >{value}</button
+  >{$_("components.InputTimePicker.from")}
+  {value}
+  {$_("components.InputTimePicker.to")}
+  {endTime}</button
 >
 
 <div class="modal" class:is-active={open}>

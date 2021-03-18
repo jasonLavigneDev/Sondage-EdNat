@@ -1,17 +1,17 @@
 <script>
   import { _ } from "svelte-i18n";
-  import Month from './Month.svelte';
-  import NavBar from './NavBar.svelte';
-  import { getMonths, isDateSelected } from './lib/helpers';
-  import { formatDate, internationalize } from 'timeUtils';
-  import { keyCodes, keyCodesArray } from './lib/keyCodes';
-  import { onMount, createEventDispatcher } from 'svelte';
+  import Month from "./Month.svelte";
+  import NavBar from "./NavBar.svelte";
+  import { getMonths, isDateSelected } from "./lib/helpers";
+  import { formatDate, internationalize } from "timeUtils";
+  import { keyCodes, keyCodesArray } from "./lib/keyCodes";
+  import { onMount, createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
   const today = new Date();
   const oneYear = 1000 * 60 * 60 * 24 * 365;
 
-  export let format = '#{m}/#{d}/#{Y}';
+  export let format = "#{m}/#{d}/#{Y}";
   export let start = new Date(Date.now() - oneYear);
   export let end = new Date(Date.now() + oneYear);
   export let selected = today;
@@ -19,19 +19,22 @@
   export let trigger = null;
   export let selectableCallback = null;
   export let weekStart = 0;
-  export let style = '';
+  export let style = "";
 
-  let daysOfWeek = JSON.parse($_('components.Time.daysOfWeek'));
-  let monthsOfYear = JSON.parse($_('components.Time.monthsOfYear'))
-  $: daysOfWeek = JSON.parse($_('components.Time.daysOfWeek'));
-  $: monthsOfYear = JSON.parse($_('components.Time.monthsOfYear'));
+  let daysOfWeek = JSON.parse($_("components.Time.daysOfWeek"));
+  let monthsOfYear = JSON.parse($_("components.Time.monthsOfYear"));
+  $: daysOfWeek = JSON.parse($_("components.Time.daysOfWeek"));
+  $: monthsOfYear = JSON.parse($_("components.Time.monthsOfYear"));
 
   $: internationalize({ daysOfWeek, monthsOfYear });
-  let sortedDaysOfWeek = weekStart === 0 ? daysOfWeek : (() => {
-    let dow = daysOfWeek.slice();
-    dow.push(dow.shift());
-    return dow;
-  })();
+  let sortedDaysOfWeek =
+    weekStart === 0
+      ? daysOfWeek
+      : (() => {
+          let dow = daysOfWeek.slice();
+          dow.push(dow.shift());
+          return dow;
+        })();
 
   let highlighted = [];
   let shouldShakeDate = false;
@@ -63,16 +66,18 @@
   $: visibleMonth = months[monthIndex];
 
   $: visibleMonthId = year + month / 100;
-  $: lastVisibleDate = visibleMonth.weeks[visibleMonth.weeks.length - 1].days[6].date;
+  $: lastVisibleDate =
+    visibleMonth.weeks[visibleMonth.weeks.length - 1].days[6].date;
   $: firstVisibleDate = visibleMonth.weeks[0].days[0].date;
   $: canIncrementMonth = monthIndex < months.length - 1;
   $: canDecrementMonth = monthIndex > 0;
 
   export let formattedSelected;
   $: {
-    formattedSelected = typeof format === 'function'
-      ? selected.map(format) 
-      : selected.map(s => formatDate(s, format));
+    formattedSelected =
+      typeof format === "function"
+        ? selected.map(format)
+        : selected.map((s) => formatDate(s.date, format));
   }
 
   onMount(() => {
@@ -100,7 +105,9 @@
   }
 
   const getDay = (m, d, y) => {
-    let theMonth = months.find(aMonth => aMonth.month === m && aMonth.year === y);
+    let theMonth = months.find(
+      (aMonth) => aMonth.month === m && aMonth.year === y
+    );
     if (!theMonth) return null;
     // eslint-disable-next-line
     for (let i = 0; i < theMonth.weeks.length; ++i) {
@@ -131,28 +138,20 @@
     }
   }
 
-  function shakeDate(date) {
-    clearTimeout(shakeHighlightTimeout);
-    shouldShakeDate = date;
-    shakeHighlightTimeout = setTimeout(() => {
-      shouldShakeDate = false;
-    }, 700);
-  }
-
   function assignValueToTrigger(formatted) {
     assignmentHandler(formatted);
   }
 
   function registerSelection(chosen) {
     // eslint-disable-next-line
-    if(isDateSelected(chosen, selected)){
-      selected = selected.filter(s => s !== chosen)
+    if (isDateSelected(chosen, selected)) {
+      selected = selected.filter((s) => s.date !== chosen);
     } else {
-      selected = [...selected, chosen]
+      selected = [...selected, { date: chosen, slots: [] }];
     }
     dateChosen = true;
     assignValueToTrigger(formattedSelected);
-    return dispatch('dateSelected', { date: selected });
+    return dispatch("dateSelected", { date: selected });
   }
 
   function handleKeyPress(evt) {
@@ -187,11 +186,7 @@
 </script>
 
 <div class="box">
-  <div
-    class="datepicker"
-    class:open="{isOpen}"
-    class:closing="{isClosing}"
-  >
+  <div class="datepicker" class:open={isOpen} class:closing={isClosing}>
     <div class="calendar">
       <NavBar
         {month}
@@ -201,12 +196,12 @@
         {start}
         {end}
         {monthsOfYear}
-        on:monthSelected={e => changeMonth(e.detail)}
-        on:incrementMonth={e => incrementMonth(e.detail)}
+        on:monthSelected={(e) => changeMonth(e.detail)}
+        on:incrementMonth={(e) => incrementMonth(e.detail)}
       />
       <div class="legend">
         {#each sortedDaysOfWeek as day}
-        <span>{day[1]}</span>
+          <span>{day[1]}</span>
         {/each}
       </div>
       <Month
@@ -215,7 +210,7 @@
         {highlighted}
         {shouldShakeDate}
         id={visibleMonthId}
-        on:dateSelected={e => registerSelection(e.detail)}
+        on:dateSelected={(e) => registerSelection(e.detail)}
       />
     </div>
   </div>

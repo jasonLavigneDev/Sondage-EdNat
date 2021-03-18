@@ -61,6 +61,19 @@
               />
             </div>
           </div>
+          <div class="field">
+            <label class="label"
+              >{$_("pages.new_poll_1.description_input")}</label
+            >
+            <div class="control">
+              <textarea
+                class="textarea"
+                rows="5"
+                bind:value={$newPollStore.description}
+                placeholder={$_("pages.new_poll_1.description_input")}
+              />
+            </div>
+          </div>
         </div>
         <div class="column is-half">
           <div class="field">
@@ -89,15 +102,17 @@
               </div>
             {/await}
           </div>
-          {#each $selectedGroups as group}
-            <span class="tag is-primary">
-              {group.name}
-              <button
-                on:click={() => handleRemoveGroup(group._id)}
-                class="delete is-small"
-              />
-            </span>
-          {/each}
+          <div class="tags">
+            {#each $selectedGroups as group}
+              <span class="tag is-medium is-primary">
+                {group.name}
+                <button
+                  on:click={() => handleRemoveGroup(group._id)}
+                  class="delete is-small"
+                />
+              </span>
+            {/each}
+          </div>
         </div>
       </div>
       <div class="column is-half">

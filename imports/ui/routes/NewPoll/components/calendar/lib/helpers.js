@@ -48,6 +48,6 @@ export function getMonths(start, end, selectableCallback = null, weekStart = 0) 
   return months;
 }
 
-export const isDateSelected = (a, array = []) => array.length ? array.find(b => a.getDate() === b.getDate()
-&& a.getMonth() === b.getMonth()
-&& a.getFullYear() === b.getFullYear()) : false ;
+export const isDateSelected = (a, array = []) => array.length ? array.find(b => a.getDate() === b.date.getDate()
+&& a.getMonth() === b.date.getMonth()
+&& a.getFullYear() === b.date.getFullYear()) : false ;
