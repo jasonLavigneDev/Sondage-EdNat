@@ -42,7 +42,7 @@ export const language = syncable("language", "");
 export const mobile = writable(false)
 export const currentUser = useTracker(() => Meteor.user())
 export const loggingIn = useTracker(() => Meteor.loggingIn())
-export const newPollStore = writable(FAKE_POLL)
+export const newPollStore = writable(EMPTY_NEW_POLL)
 
 const store = writable(INITIAL_GLOBAL_STATE);
 

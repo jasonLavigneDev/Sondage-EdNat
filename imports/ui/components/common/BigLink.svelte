@@ -10,19 +10,31 @@
   const onClick = () => (action ? action() : null);
 </script>
 
-<a
-  class:is-fullwidth={$state.mobile}
-  class:disabled
-  class={`button ${color}`}
-  rel="prefetch"
-  href={disabled ? "" : link}
-  on:click={disabled ? null : onClick}
->
-  {text}</a
->
+{#if action && !link}
+  <button
+    class:is-fullwidth={$state.mobile}
+    class:disabled
+    class={`button ${color}`}
+    on:click={disabled ? null : onClick}
+  >
+    {text}</button
+  >
+{:else}
+  <a
+    class:is-fullwidth={$state.mobile}
+    class:disabled
+    class={`button ${color}`}
+    rel="prefetch"
+    href={disabled ? "" : link}
+    on:click={disabled ? null : onClick}
+  >
+    {text}</a
+  >
+{/if}
 
 <style>
-  a {
+  a,
+  button {
     font-size: 16px;
     transition: all 0.2s ease-in-out;
     box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),

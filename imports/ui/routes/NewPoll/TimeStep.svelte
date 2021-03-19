@@ -11,7 +11,6 @@
   import Checkbox from "../../components/common/Checkbox.svelte";
   export let meta;
   let timecolumns = 1;
-  const FORMAT_KEY_DATE = "#{j}-#{m}-#{Y}";
   const DURATIONS = [
     "00:30",
     "01:00",
@@ -25,7 +24,7 @@
 
   $: $newPollStore.dates.forEach((date) => {
     if (date.slots) {
-      let dateSlotsSize = date.length;
+      let dateSlotsSize = date.slots.length;
       if (dateSlotsSize > timecolumns) {
         timecolumns = dateSlotsSize;
       }
@@ -141,7 +140,6 @@
                           <InputTimePicker
                             date={day.date}
                             duration={$newPollStore.duration}
-                            formatedDate={formatDate(day.date, FORMAT_KEY_DATE)}
                             key={i}
                             value={slot}
                           />
@@ -189,7 +187,9 @@
       </div>
       <div class="column is-half-desktop is-full-mobile is-right">
         <BigLink
-          disabled={!$newPollStore.times}
+          disabled={!(
+            $newPollStore.dates[0] && $newPollStore.dates[0].slots.length
+          )}
           link={ROUTES.NEW_POLL_4}
           text={$_("pages.new_poll.next")}
         />

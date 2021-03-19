@@ -57,7 +57,9 @@
       "allDay_input": "Toute la journée"
     },
     "new_poll_4": {
-      "title": "Nouveau sondage: Validation"
+      "title": "Nouveau sondage: Validation",
+      "proposed_times": "Dates proposées",
+      "poll_created": "Sondage créé avec succès"
     }
   },
   "components": {

@@ -8,9 +8,9 @@
   import { newPollStore } from "/imports/utils/functions/stores";
 
   export let date;
-  export let formatedDate;
+  export let disabled = false;
   export let value;
-  export let key;
+  export let key = 0;
   export let duration;
   let currentValue = new Date(
     date.getYear(),
@@ -37,6 +37,7 @@
 
   let open = false;
   const toggleModal = () => {
+    if (disabled) return;
     open = !open;
   };
   const handleChange = (e) => {
@@ -76,7 +77,7 @@
   );
 </script>
 
-<button class="button is-light is-fullwidth" on:click={toggleModal}
+<button class="button is-light" on:click={toggleModal}
   >{$_("components.InputTimePicker.from")}
   {value}
   {$_("components.InputTimePicker.to")}

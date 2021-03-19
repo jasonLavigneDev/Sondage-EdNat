@@ -1,11 +1,13 @@
 <script>
   import { _ } from "svelte-i18n";
+  import { SvelteToast } from "@zerodevx/svelte-toast";
 
   import "/imports/utils/locales/index";
   import Router from "/imports/ui/Router.svelte";
   import Nav from "/imports/ui/components/navigation/Nav.svelte";
   import Footer from "/imports/ui/components/navigation/Footer.svelte";
   import { globalState } from "/imports/utils/functions/stores";
+  import { toast_options } from "/imports/utils/enums";
 
   let width;
   const { setState } = globalState();
@@ -21,7 +23,7 @@
 <svelte:head>
   <title>{$_("title")}</title>
 </svelte:head>
-
+<SvelteToast options={toast_options} />
 <Nav />
 
 <main>

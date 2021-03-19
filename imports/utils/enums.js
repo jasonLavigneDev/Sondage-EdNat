@@ -10,3 +10,34 @@ export const ROUTES = {
     POLL: "/polls/:_id",
     POLLS: "/polls",
 }
+
+
+export const toast_options = {
+    duration: 4000, // duration of progress bar tween
+    dismissable: true, // allow dismiss with close button
+    initial: 1, // initial progress bar value
+    progress: 0, // current progress
+    reversed: false, // insert new toast to bottom of stack
+    intro: { x: 256 }, // toast intro fly animation settings
+    theme: {
+        '--toastBackground': 'green',
+        '--toastColor': 'white',
+      }
+  };
+
+export const toasts = {
+    success: {
+        ...toast_options,
+        theme: {
+            '--toastBackground': 'green',
+            '--toastColor': 'white',
+          }
+    },
+    error: {
+        ...options,
+        theme: {
+            '--toastBackground': 'red',
+            '--toastColor': 'white',
+          }
+    }
+}

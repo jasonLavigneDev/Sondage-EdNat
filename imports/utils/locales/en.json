@@ -58,7 +58,9 @@
       "allDay_input": "All day"
     },
     "new_poll_4": {
-      "title": "New Poll: Validation"
+      "title": "New Poll: Validation",
+      "proposed_times": "Proposed dates",
+      "poll_created": "Poll successfully created"
 
     }
   },
