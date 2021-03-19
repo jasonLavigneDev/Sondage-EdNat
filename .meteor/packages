@@ -30,3 +30,4 @@ mdg:validated-method
 #server-render
 mexar:mdt
 ddp-rate-limiter
+tmeasday:publish-counts

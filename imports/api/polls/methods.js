@@ -36,6 +36,26 @@ export const createPoll = new ValidatedMethod({
         }
       return Polls.remove({ _id: pollId });
     },
+
+  });
+  
+  export const toggleActivePoll = new ValidatedMethod({
+    name: 'polls.toggleActivePoll',
+    validate: new SimpleSchema({
+      pollId: String,
+    }).validator({ clean: true }),
+  
+    run({ pollId }) {
+      // check if logged in
+      if (!this.userId) {
+          throw new Meteor.Error('api.polls.methods.create.notLoggedIn', 'You must be logged in.');
+        }
+        const poll = Polls.findOne(pollId)
+        if(this.userId !== poll.userId){
+          throw new Meteor.Error('api.polls.methods.remove.notAllowed', 'You are not allowed to do this.');
+        }
+      return Polls.update({ _id: pollId }, { $set: { active: !poll.active } });
+    },
   });
 
 

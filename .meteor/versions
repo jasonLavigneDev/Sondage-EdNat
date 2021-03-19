@@ -88,6 +88,7 @@ static-html@1.2.2
 svelte:compiler@3.31.2
 templating-tools@1.1.2
 tmeasday:check-npm-versions@0.3.2
+tmeasday:publish-counts@0.8.0
 tracker@1.2.0
 typescript@4.1.2
 underscore@1.0.10

@@ -16,10 +16,25 @@
     "gcu": "Conditions générales d'utilisation",
     "personalData": "Données personnelles"
   },
+  "polls_datas": {
+    "true": "Oui",
+    "false": "Non"
+  },
   "pages": {
     "home": {
         "title": "Gestion de mes sondages",
-        "new_poll": "Créer un sondage"
+        "new_poll": "Créer un sondage",
+        "groups_label": "Groupes",
+        "title_label": "Titre",
+        "public_label": "Public",
+        "duration_label": "Durée",
+        "dates_label": "Dates",
+        "votes_label": "Votes",
+        "deactivate_tooltip": "Désactiver",
+        "activate_tooltip": "Activer",
+        "results_tooltip": "Resultats",
+        "edit_tooltip": "Éditer",
+        "link_tooltip": "Copier le lien"
     },
     "login": {
       "title": "Vous n'êtes pas connectés",

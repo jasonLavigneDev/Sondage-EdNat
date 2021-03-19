@@ -34,7 +34,7 @@ export const toasts = {
           }
     },
     error: {
-        ...options,
+        ...toast_options,
         theme: {
             '--toastBackground': 'red',
             '--toastColor': 'white',

@@ -24,12 +24,12 @@ const SingleDateSchema = new SimpleSchema(
           type: Date,
           label: "Date",
         },
-        polls: {
+        slots: {
           type: Array,
           label: "Time Slots",
           optional: true
         },
-        "polls.$": {
+        "slots.$": {
           type: String,
         }
     }
@@ -53,6 +53,11 @@ Polls.schema = new SimpleSchema(
     description: { 
         type: String, 
         label: "Description",
+        optional: true
+    },
+    duration: { 
+        type: String, 
+        label: "Duration",
         optional: true
     },
     public: {

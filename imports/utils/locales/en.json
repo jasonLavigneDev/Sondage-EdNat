@@ -17,10 +17,25 @@
     "gcu": "Term of use",
     "personalData": "Personnal data"
   },
+  "polls_datas": {
+    "true": "Yes",
+    "false": "No"
+  },
   "pages": {
     "home": {
       "title": "My polls",
-      "new_poll": "Create a poll"
+      "new_poll": "Create a poll",
+      "groups_label": "Groups",
+      "title_label": "Title",
+      "public_label": "Public",
+      "duration_label": "Duration",
+      "dates_label": "Dates",
+      "votes_label": "Votes",
+      "deactivate_tooltip": "Deactivate",
+      "activate_tooltip": "Activate",
+      "results_tooltip": "Results",
+      "edit_tooltip": "Edit",
+      "link_tooltip": "Copy link"
     },
     "login": {
       "title": "You are not logged in",
