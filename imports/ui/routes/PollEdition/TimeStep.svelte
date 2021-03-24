@@ -71,12 +71,22 @@
 </script>
 
 <svelte:head>
-  <title>{$_("title")} | {$_("links.new_poll_3")}</title>
+  <title
+    >{$_("title")} | {$_(
+      meta.params._id ? "links.edit_poll_3" : "links.new_poll_3"
+    )}</title
+  >
 </svelte:head>
 
 <section class="box-transparent">
   <div class="container">
-    <h1 class="title is-3">{$_("pages.new_poll_3.title")}</h1>
+    <h1 class="title is-3">
+      {$_(
+        meta.params._id
+          ? "pages.new_poll_3.title_edit"
+          : "pages.new_poll_3.title"
+      )}
+    </h1>
     <div class="box">
       <div class="columns is-multiline">
         <div class="column is-full">
@@ -180,7 +190,9 @@
       </div>
       <div class="column is-half-desktop is-full-mobile">
         <BigLink
-          link={ROUTES.NEW_POLL_2}
+          link={meta.params._id
+            ? ROUTES.EDIT_POLL(meta.params._id, 2)
+            : ROUTES.NEW_POLL_2}
           text={$_("pages.new_poll.previous")}
           color="is-secondary"
         />
@@ -190,7 +202,9 @@
           disabled={!(
             $newPollStore.dates[0] && $newPollStore.dates[0].slots.length
           )}
-          link={ROUTES.NEW_POLL_4}
+          link={meta.params._id
+            ? ROUTES.EDIT_POLL(meta.params._id, 4)
+            : ROUTES.NEW_POLL_4}
           text={$_("pages.new_poll.next")}
         />
       </div>

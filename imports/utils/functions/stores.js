@@ -15,34 +15,12 @@ export const EMPTY_NEW_POLL = {
     public: false,
     allDay: false,
 }
-export const FAKE_POLL = {
-    dates: [
-        {
-            date: new Date("Thu Mar 18 2021 00:00:00 GMT+0100 (heure normale d’Europe centrale)"),
-            slots: ["21:45", "19:30"]
-        },
-        {
-            date: new Date("Fri Mar 19 2021 00:00:00 GMT+0100 (heure normale d’Europe centrale)"),
-            slots: ["21:45"]
-        },
-        {
-            date: new Date("Sat Mar 20 2021 00:00:00 GMT+0100 (heure normale d’Europe centrale)"),
-            slots: ["21:35", "20:30"]
-        },
-    ],
-    title: "La réunion folle",
-    description: "Une réunion qui va nous permettre de tout comprendre à la vie.",
-    groups: ["kJ6h2mBsxq9JJ9WGS"],
-    public: false,
-    allDay: false,
-    duration: "01:00",
-}
 
 export const language = syncable("language", "");
 export const mobile = writable(false)
 export const currentUser = useTracker(() => Meteor.user())
 export const loggingIn = useTracker(() => Meteor.loggingIn())
-export const newPollStore = writable(FAKE_POLL)
+export const newPollStore = writable(EMPTY_NEW_POLL)
 
 const store = writable(INITIAL_GLOBAL_STATE);
 

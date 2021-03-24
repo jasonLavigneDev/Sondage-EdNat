@@ -5,6 +5,7 @@ import '/imports/api/groups/groups';
 
 // methods
 import '/imports/api/polls/methods';
+import '/imports/api/polls/server/methods';
 
 // publications
 import '/imports/api/polls/server/publications';

@@ -12,12 +12,19 @@
     "new_poll_1": "Create - Informations",
     "new_poll_2": "Create - Dates",
     "new_poll_3": "Create - Hours",
+    "new_poll_4": "Create - Validation",
+    "edit_poll": "Edit",
+    "edit_poll_1": "Edit - Informations",
+    "edit_poll_2": "Edit - Dates",
+    "edit_poll_3": "Edit - Hours",
+    "edit_poll_4": "Edit - Validation",
     "legal": "Legal",
     "accessibility": "Accessibility",
     "gcu": "Term of use",
     "personalData": "Personnal data"
   },
   "polls_datas": {
+    "allDay": "All day",
     "true": "Yes",
     "false": "No"
   },
@@ -35,7 +42,8 @@
       "activate_tooltip": "Activate",
       "results_tooltip": "Results",
       "edit_tooltip": "Edit",
-      "link_tooltip": "Copy link"
+      "link_tooltip": "Copy link",
+      "delete_tooltip": "Delete"
     },
     "login": {
       "title": "You are not logged in",
@@ -46,11 +54,13 @@
       "previous": "previous",
       "cancel": "Cancel",
       "validate": "Validate",
+      "poll_not_found": "Poll not found",
       "yes": "Yes",
       "no": "No"
     },
     "new_poll_1": {
       "title": "New Poll: Informations",
+      "title_edit": "Edit Poll: Informations",
       "title_input": "Poll's title",
       "group_input": "Groups polled",
       "public_input": "Public poll",
@@ -60,11 +70,13 @@
     },
     "new_poll_2": {
       "title": "New Poll: Dates",
+      "title_edit": "Edit Poll: Dates",
       "selected_dates": "Selected dates",
       "no_selected_dates": "No dates selected"
     },
     "new_poll_3": {
       "title": "New Poll: Hours",
+      "title_edit": "Edit Poll: Hours",
       "selected_dates": "Selected dates",
       "timeslot": "Timeslot",
       "new_slot": "Add",
@@ -74,6 +86,7 @@
     },
     "new_poll_4": {
       "title": "New Poll: Validation",
+      "title_edit": "Edit Poll: Validation",
       "proposed_times": "Proposed dates",
       "poll_created": "Poll successfully created"
 

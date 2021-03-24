@@ -39,7 +39,6 @@
       {#if $currentUser}
         {#each items as { path, text }}
           <a
-            rel="prefetch"
             class:is-active={$router.path.indexOf(path) === 0}
             class="navbar-item"
             href={path}

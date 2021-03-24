@@ -11,12 +11,19 @@
     "new_poll_1": "Créer - Informations",
     "new_poll_2": "Créer - Dates",
     "new_poll_3": "Créer - Heures",
+    "new_poll_4": "Créer - Validation",
+    "edit_poll": "Créer",
+    "edit_poll_1": "Créer - Informations",
+    "edit_poll_2": "Créer - Dates",
+    "edit_poll_3": "Créer - Heures",
+    "edit_poll_4": "Créer - Validation",
     "legal": "Mentions légales",
     "accessibility": "Accessibilité",
     "gcu": "Conditions générales d'utilisation",
     "personalData": "Données personnelles"
   },
   "polls_datas": {
+    "allDay": "Toute la journée",
     "true": "Oui",
     "false": "Non"
   },
@@ -32,9 +39,10 @@
         "votes_label": "Votes",
         "deactivate_tooltip": "Désactiver",
         "activate_tooltip": "Activer",
-        "results_tooltip": "Resultats",
+        "results_tooltip": "Résultats",
         "edit_tooltip": "Éditer",
-        "link_tooltip": "Copier le lien"
+        "link_tooltip": "Copier le lien",
+        "delete_tooltip": "Supprimer"
     },
     "login": {
       "title": "Vous n'êtes pas connectés",
@@ -45,11 +53,13 @@
       "previous": "Précédent",
       "cancel": "Annuler",
       "validate": "Valider",
+      "poll_not_found": "Sondage non trouvé",
       "yes": "Oui",
       "no": "Non"
     },
     "new_poll_1": {
       "title": "Nouveau sondage: Informations",
+      "title_edit": "Édition du sondage: Informations",
       "title_input": "Titre du sondage",
       "group_input": "Groupes sondés",
       "public_input": "Sondage public",
@@ -59,11 +69,13 @@
     },
     "new_poll_2": {
       "title": "Nouveau sondage: Dates",
+      "title_edit": "Édition du sondage: Dates",
       "selected_dates": "Dates sélectionnées",
       "no_selected_dates": "Aucune date sélectionnée"
     },
     "new_poll_3": {
       "title": "Nouveau sondage: Heures",
+      "title_edit": "Édition du sondage: Heures",
       "selected_dates": "Dates sélectionnées",
       "timeslot": "Horaire",
       "new_slot": "Ajouter",
@@ -73,6 +85,7 @@
     },
     "new_poll_4": {
       "title": "Nouveau sondage: Validation",
+      "title_edit": "Édition du sondage: Validation",
       "proposed_times": "Dates proposées",
       "poll_created": "Sondage créé avec succès"
     }

@@ -2,28 +2,54 @@
   import { _ } from "svelte-i18n";
   import { Meteor } from "meteor/meteor";
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
-  import { ROUTES } from "/imports/utils/enums";
+  import { onMount } from "svelte";
+  import { router } from "tinro";
+  import { toast } from "@zerodevx/svelte-toast";
+
+  import { ROUTES, toasts } from "/imports/utils/enums";
   import Groups from "/imports/api/groups/groups";
 
   // components
   import BigLink from "/imports/ui/components/common/BigLink.svelte";
   import Divider from "/imports/ui/components/common/Divider.svelte";
+  import Loader from "/imports/ui/components/common/Loader.svelte";
   import {
     newPollStore,
     EMPTY_NEW_POLL,
   } from "/imports/utils/functions/stores";
   import Checkbox from "../../components/common/Checkbox.svelte";
-  export let meta;
-  let selectedGroups, groups;
 
-  const resetNewPoll = () => {
+  export let meta;
+  let selectedGroups, groups, loading;
+
+  const resetPollEdition = () => {
     newPollStore.set(EMPTY_NEW_POLL);
   };
+
+  onMount(() => {
+    if (meta.params._id) {
+      loading = true;
+      Meteor.call(
+        "polls.getSinglePoll",
+        { pollId: meta.params._id },
+        (e, r) => {
+          loading = false;
+          console.log(e, r);
+          if (r) {
+            newPollStore.set(r);
+          } else {
+            toast.push($_("pages.new_poll.poll_not_found"), toasts.error);
+            router.goto(ROUTES.ADMIN);
+          }
+        }
+      );
+    }
+  });
 
   $: groups = useTracker(() => Groups.find({}, { sort: { name: -1 } }).fetch());
   $: selectedGroups = useTracker(() =>
     Groups.find(
-      { _id: { $in: $newPollStore.groups } },
+      { _id: { $in: $newPollStore ? $newPollStore.groups : [] } },
       { sort: { name: -1 } }
     ).fetch()
   );
@@ -38,14 +64,25 @@
 </script>
 
 <svelte:head>
-  <title>{$_("title")} | {$_("links.new_poll_1")}</title>
+  <title
+    >{$_("title")} | {$_(
+      meta.params._id ? "links.edit_poll_1" : "links.new_poll_1"
+    )}</title
+  >
 </svelte:head>
 
 <section class="box-transparent">
   <div class="container">
     <h1 class="title is-3">
-      {$_("pages.new_poll_1.title")}
+      {$_(
+        meta.params._id
+          ? "pages.new_poll_1.title_edit"
+          : "pages.new_poll_1.title"
+      )}
     </h1>
+    {#if loading}
+      <Loader />
+    {/if}
 
     <div class="box">
       <div class="columns is-multiline">
@@ -136,13 +173,15 @@
           link={ROUTES.ADMIN}
           text={$_("pages.new_poll.cancel")}
           color="is-secondary"
-          action={resetNewPoll}
+          action={resetPollEdition}
         />
       </div>
       <div class="column is-half-desktop is-full-mobile is-right">
         <BigLink
           disabled={!$newPollStore.title}
-          link={ROUTES.NEW_POLL_2}
+          link={meta.params._id
+            ? ROUTES.EDIT_POLL(meta.params._id, 2)
+            : ROUTES.NEW_POLL_2}
           text={$_("pages.new_poll.next")}
         />
       </div>

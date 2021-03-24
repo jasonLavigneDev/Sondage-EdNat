@@ -4,7 +4,7 @@
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import { ROUTES, toasts } from "/imports/utils/enums";
   import Groups from "/imports/api/groups/groups";
-  import { createPoll } from "/imports/api/polls/methods";
+  import { createPoll, udaptePoll } from "/imports/api/polls/methods";
   import { toast } from "@zerodevx/svelte-toast";
 
   // components
@@ -17,6 +17,7 @@
   import { formatDate } from "timeUtils";
   import InputTimePicker from "./components/InputTimePicker.svelte";
   import { router } from "tinro";
+
   export let meta;
   let selectedGroups;
   let newPoll = {};
@@ -29,30 +30,47 @@
     ).fetch()
   );
 
-  const createNewPoll = () => {
-    createPoll.call({ data: $newPollStore }, (error, result) => {
-      console.log(error, result);
-      if (error) {
-        toast.push(error.reason, toasts.error);
-      } else {
-        toast.push($_("pages.new_poll_4.poll_created"));
-        router.goto(ROUTES.ADMIN);
-        newPollStore.set(EMPTY_NEW_POLL);
+  const validatePollEdition = () => {
+    const method = meta.params._id ? udaptePoll : createPoll;
+    method.call(
+      { data: $newPollStore, pollId: meta.params._id },
+      (error, result) => {
+        console.log(error, result);
+        if (error) {
+          toast.push(error.reason, toasts.error);
+        } else {
+          toast.push(
+            $_(
+              meta.params._id
+                ? "pages.new_poll_4.poll_modified"
+                : "pages.new_poll_4.poll_created"
+            )
+          );
+          router.goto(ROUTES.ADMIN);
+          newPollStore.set(EMPTY_NEW_POLL);
+        }
       }
-    });
+    );
   };
 </script>
 
 <svelte:head>
-  <title>{$_("title")} | {$_("links.new_poll_4")}</title>
+  <title
+    >{$_("title")} | {$_(
+      meta.params._id ? "links.edit_poll_4" : "links.new_poll_4"
+    )}</title
+  >
 </svelte:head>
 
 <section class="box-transparent">
   <div class="container">
     <h1 class="title is-3">
-      {$_("pages.new_poll_4.title")}
+      {$_(
+        meta.params._id
+          ? "pages.new_poll_4.title_edit"
+          : "pages.new_poll_4.title"
+      )}
     </h1>
-
     <div class="box">
       <div class="columns is-multiline is-centered">
         <div class="column is-half">
@@ -172,7 +190,9 @@
         </div>
         <div class="column is-half-desktop is-full-mobile">
           <BigLink
-            link={ROUTES.NEW_POLL_3}
+            link={meta.params._id
+              ? ROUTES.EDIT_POLL(meta.params._id, 3)
+              : ROUTES.NEW_POLL_3}
             text={$_("pages.new_poll.previous")}
             color="is-secondary"
           />
@@ -180,7 +200,7 @@
         <div class="column is-half-desktop is-full-mobile is-right">
           <BigLink
             disabled={!$newPollStore.dates}
-            action={createNewPoll}
+            action={validatePollEdition}
             text={$_("pages.new_poll.validate")}
           />
         </div>

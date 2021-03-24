@@ -7,7 +7,7 @@
 
   // pages
   import Home from "/imports/ui/routes/Home/Home.svelte";
-  import DateStep from "/imports/ui/routes/NewPoll/DateStep.svelte";
+  import DateStep from "/imports/ui/routes/PollEdition/DateStep.svelte";
   import Login from "/imports/ui/routes/Login.svelte";
   import Poll from "/imports/ui/routes/Poll.svelte";
 
@@ -16,9 +16,9 @@
     loggingIn,
     newPollStore,
   } from "/imports/utils/functions/stores";
-  import InfoStep from "./routes/NewPoll/InfoStep.svelte";
-  import TimeStep from "./routes/NewPoll/TimeStep.svelte";
-  import ValidationStep from "./routes/NewPoll/ValidationStep.svelte";
+  import InfoStep from "./routes/PollEdition/InfoStep.svelte";
+  import TimeStep from "./routes/PollEdition/TimeStep.svelte";
+  import ValidationStep from "./routes/PollEdition/ValidationStep.svelte";
 
   router.subscribe((_) => window.scrollTo(0, 0));
 </script>
@@ -29,6 +29,8 @@
   <Route path={ROUTES.ADMIN} let:meta>
     <Home {meta} />
   </Route>
+
+  <!-- Poll creation -->
   <Route path={ROUTES.NEW_POLL}>
     <Route path="/1" let:meta>
       <InfoStep {meta} />
@@ -59,6 +61,39 @@
     {/if}
 
     <Route path="*" redirect={ROUTES.NEW_POLL_1} />
+  </Route>
+
+  <!-- Poll edition -->
+  <Route path={ROUTES.EDIT_POLL_ROOT}>
+    <Route path="/1" let:meta>
+      <InfoStep {meta} />
+    </Route>
+
+    {#if $newPollStore.title}
+      <Route path="/2" let:meta>
+        <DateStep {meta} />
+      </Route>
+    {:else}
+      <Route path="/2" redirect={ROUTES.ADMIN} />
+    {/if}
+
+    {#if $newPollStore.dates.length}
+      <Route path="/3" let:meta>
+        <TimeStep {meta} />
+      </Route>
+    {:else}
+      <Route path="/3" redirect={ROUTES.ADMIN} />
+    {/if}
+
+    {#if $newPollStore.dates.length}
+      <Route path="/4" let:meta>
+        <ValidationStep {meta} />
+      </Route>
+    {:else}
+      <Route path="/4" redirect={ROUTES.ADMIN} />
+    {/if}
+
+    <Route path="*" redirect={ROUTES.ADMIN} />
   </Route>
 
   <Route path={ROUTES.POLLS} let:meta>

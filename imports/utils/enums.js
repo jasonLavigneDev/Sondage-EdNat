@@ -7,6 +7,8 @@ export const ROUTES = {
     NEW_POLL_2: "/new-poll/2",
     NEW_POLL_3: "/new-poll/3",
     NEW_POLL_4: "/new-poll/4",
+    EDIT_POLL_ROOT: "/poll/edit/:_id/*",
+    EDIT_POLL: (id, page = 1) => `/poll/edit/${id}/${page}`,
     POLL: "/polls/:_id",
     POLLS: "/polls",
 }
