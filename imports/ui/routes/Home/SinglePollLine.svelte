@@ -48,7 +48,7 @@
       <button
         class="button is-small is-light"
         disabled={poll.active}
-        use:tippy={tooltip($_("pages.home.results_tooltip"))}
+        use:tippy={tooltip($_("pages.home.edit_tooltip"))}
       >
         <i class="fas fa-pen" />
       </button>

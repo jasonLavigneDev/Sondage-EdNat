@@ -88,7 +88,8 @@
       "title": "New Poll: Validation",
       "title_edit": "Edit Poll: Validation",
       "proposed_times": "Proposed dates",
-      "poll_created": "Poll successfully created"
+      "poll_created": "Poll successfully created",
+      "poll_modified": "Poll successfully modified"
 
     }
   },

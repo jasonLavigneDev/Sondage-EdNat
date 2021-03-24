@@ -72,7 +72,7 @@
       )}
     </h1>
     <div class="box">
-      <div class="columns is-multiline is-centered">
+      <div class="columns is-multiline">
         <div class="column is-half">
           <div class="field">
             <label class="label title is-4">

@@ -87,7 +87,8 @@
       "title": "Nouveau sondage: Validation",
       "title_edit": "Édition du sondage: Validation",
       "proposed_times": "Dates proposées",
-      "poll_created": "Sondage créé avec succès"
+      "poll_created": "Sondage créé avec succès",
+      "poll_modified": "Sondage modifié avec succès"
     }
   },
   "components": {
