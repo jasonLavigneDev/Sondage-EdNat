@@ -125,62 +125,64 @@
           </div>
         </div>
         <div class="column is-full">
-          <table class="table is-striped is-fullwidth is-bordered">
-            {#if !$newPollStore.allDay}
-              <thead>
-                <tr>
-                  <th />
-                  {#each new Array(timecolumns) as column, i}
-                    <th>{`${$_("pages.new_poll_3.timeslot")} ${i + 1}`}</th>
-                  {/each}
-                </tr>
-              </thead>
-            {/if}
-
-            <tbody>
-              {#each $newPollStore.dates as day}
-                <tr>
-                  <th>
-                    {formatDate(day.date, $_("components.Time.dateFormat"))}
-                  </th>
-                  {#if !$newPollStore.allDay && day.slots}
-                    {#each day.slots as slot, i}
-                      <td>
-                        <div class="single-time">
-                          <InputTimePicker
-                            date={day.date}
-                            duration={$newPollStore.duration}
-                            key={i}
-                            value={slot}
-                          />
-                          <span
-                            class="icon is-small"
-                            on:click={() => applyEverywhere(slot, i)}
-                          >
-                            <i class="fas fa-sort" />
-                          </span>
-                          <span
-                            class="icon is-small"
-                            on:click={() => removeSlot(day.date, i)}
-                          >
-                            <i class="fas fa-trash" />
-                          </span>
-                        </div>
-                      </td>
+          <div class="table-container">
+            <table class="table is-striped is-fullwidth is-bordered">
+              {#if !$newPollStore.allDay}
+                <thead>
+                  <tr>
+                    <th />
+                    {#each new Array(timecolumns) as column, i}
+                      <th>{`${$_("pages.new_poll_3.timeslot")} ${i + 1}`}</th>
                     {/each}
-                  {/if}
-                  {#if !$newPollStore.allDay}
-                    <td>
-                      <BigLink
-                        action={() => addTimeSlot(day.date)}
-                        text={$_("pages.new_poll_3.new_slot")}
-                      />
-                    </td>
-                  {/if}
-                </tr>
-              {/each}
-            </tbody>
-          </table>
+                  </tr>
+                </thead>
+              {/if}
+
+              <tbody>
+                {#each $newPollStore.dates as day}
+                  <tr>
+                    <th>
+                      {formatDate(day.date, $_("components.Time.dateFormat"))}
+                    </th>
+                    {#if !$newPollStore.allDay && day.slots}
+                      {#each day.slots as slot, i}
+                        <td>
+                          <div class="single-time">
+                            <InputTimePicker
+                              date={day.date}
+                              duration={$newPollStore.duration}
+                              key={i}
+                              value={slot}
+                            />
+                            <span
+                              class="icon is-small"
+                              on:click={() => applyEverywhere(slot, i)}
+                            >
+                              <i class="fas fa-sort" />
+                            </span>
+                            <span
+                              class="icon is-small"
+                              on:click={() => removeSlot(day.date, i)}
+                            >
+                              <i class="fas fa-trash" />
+                            </span>
+                          </div>
+                        </td>
+                      {/each}
+                    {/if}
+                    {#if !$newPollStore.allDay}
+                      <td>
+                        <BigLink
+                          action={() => addTimeSlot(day.date)}
+                          text={$_("pages.new_poll_3.new_slot")}
+                        />
+                      </td>
+                    {/if}
+                  </tr>
+                {/each}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -191,8 +193,8 @@
       <div class="column is-half-desktop is-full-mobile">
         <BigLink
           link={meta.params._id
-            ? ROUTES.EDIT_POLL(meta.params._id, 2)
-            : ROUTES.NEW_POLL_2}
+            ? ROUTES.EDIT_POLL_RM(meta.params._id, 2)
+            : ROUTES.NEW_POLL_RM(2)}
           text={$_("pages.new_poll.previous")}
           color="is-secondary"
         />
@@ -203,8 +205,8 @@
             $newPollStore.dates[0] && $newPollStore.dates[0].slots.length
           )}
           link={meta.params._id
-            ? ROUTES.EDIT_POLL(meta.params._id, 4)
-            : ROUTES.NEW_POLL_4}
+            ? ROUTES.EDIT_POLL_RM(meta.params._id, 4)
+            : ROUTES.NEW_POLL_RM(4)}
           text={$_("pages.new_poll.next")}
         />
       </div>

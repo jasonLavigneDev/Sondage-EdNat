@@ -17,55 +17,64 @@
 
 <tr>
   <th>
-    {#if poll.active}
+    <div class="buttons">
+      {#if poll.active}
+        <button
+          class="button is-small is-success"
+          value={poll._id}
+          on:click={togglePoll}
+          use:tippy={tooltip($_("pages.home.deactivate_tooltip"))}
+        >
+          <i class="fas fa-eye" />
+        </button>
+      {:else}
+        <button
+          class="button is-small is-warning"
+          value={poll._id}
+          on:click={togglePoll}
+          use:tippy={tooltip($_("pages.home.activate_tooltip"))}
+        >
+          <i class="fas fa-eye-slash" />
+        </button>
+      {/if}
+
       <button
+        class="button is-small is-primary"
+        use:tippy={tooltip($_("pages.home.results_tooltip"))}
+      >
+        <i class="fas fa-list" />
+      </button>
+
+      <a href={!poll.active ? ROUTES.EDIT_POLL_RM(poll._id) : ROUTES.ADMIN}>
+        <button
+          class="button is-small is-light"
+          disabled={poll.active}
+          use:tippy={tooltip($_("pages.home.edit_tooltip"))}
+        >
+          <i class="fas fa-pen" />
+        </button>
+      </a>
+
+      <button
+        class="button is-small is-info"
+        use:tippy={tooltip($_("pages.home.link_tooltip"))}
+      >
+        <i class="far fa-copy" />
+      </button>
+      <a
+        href={ROUTES.ANSWER_POLL_RM(poll._id)}
         class="button is-small is-success"
-        value={poll._id}
-        on:click={togglePoll}
-        use:tippy={tooltip($_("pages.home.deactivate_tooltip"))}
+        use:tippy={tooltip($_("pages.home.open_tooltip"))}
       >
-        <i class="fas fa-eye" />
-      </button>
-    {:else}
+        <i class="fas fa-external-link-alt" />
+      </a>
       <button
-        class="button is-small is-warning"
-        value={poll._id}
-        on:click={togglePoll}
-        use:tippy={tooltip($_("pages.home.activate_tooltip"))}
+        class="button is-small is-danger"
+        use:tippy={tooltip($_("pages.home.delete_tooltip"))}
       >
-        <i class="fas fa-eye-slash" />
+        <i class="fas fa-trash" />
       </button>
-    {/if}
-
-    <button
-      class="button is-small is-primary"
-      use:tippy={tooltip($_("pages.home.results_tooltip"))}
-    >
-      <i class="fas fa-list" />
-    </button>
-
-    <a href={!poll.active ? ROUTES.EDIT_POLL(poll._id) : ROUTES.ADMIN}>
-      <button
-        class="button is-small is-light"
-        disabled={poll.active}
-        use:tippy={tooltip($_("pages.home.edit_tooltip"))}
-      >
-        <i class="fas fa-pen" />
-      </button>
-    </a>
-
-    <button
-      class="button is-small is-info"
-      use:tippy={tooltip($_("pages.home.link_tooltip"))}
-    >
-      <i class="far fa-copy" />
-    </button>
-    <button
-      class="button is-small is-danger"
-      use:tippy={tooltip($_("pages.home.delete_tooltip"))}
-    >
-      <i class="fas fa-trash" />
-    </button>
+    </div>
   </th>
   <td>
     {poll.title}

@@ -1,12 +1,14 @@
 <script>
   export let label = "";
   export let checked = false;
+  export let center = false;
+  export let action = () => null;
 </script>
 
 <label class="checkbox checkbox-container">
   {label}
-  <input type="checkbox" bind:checked />
-  <span class="checkmark" />
+  <input type="checkbox" bind:checked on:change={action} />
+  <span class="checkmark" class:center />
 </label>
 
 <style>
@@ -41,6 +43,10 @@
     height: 25px;
     width: 25px;
     background-color: #eee;
+  }
+  .checkmark.center {
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   /* On mouse-over, add a grey background color */

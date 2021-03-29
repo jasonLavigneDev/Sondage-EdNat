@@ -33,7 +33,13 @@
   const validatePollEdition = () => {
     const method = meta.params._id ? udaptePoll : createPoll;
     method.call(
-      { data: $newPollStore, pollId: meta.params._id },
+      {
+        data: {
+          ...$newPollStore,
+          dates: $newPollStore.dates.sort((a, b) => a.date - b.date),
+        },
+        pollId: meta.params._id,
+      },
       (error, result) => {
         console.log(error, result);
         if (error) {
@@ -191,8 +197,8 @@
         <div class="column is-half-desktop is-full-mobile">
           <BigLink
             link={meta.params._id
-              ? ROUTES.EDIT_POLL(meta.params._id, 3)
-              : ROUTES.NEW_POLL_3}
+              ? ROUTES.EDIT_POLL_RM(meta.params._id, 3)
+              : ROUTES.NEW_POLL_RM(3)}
             text={$_("pages.new_poll.previous")}
             color="is-secondary"
           />

@@ -42,10 +42,11 @@
         "results_tooltip": "Résultats",
         "edit_tooltip": "Éditer",
         "link_tooltip": "Copier le lien",
-        "delete_tooltip": "Supprimer"
+        "delete_tooltip": "Supprimer",
+        "open_tooltip": "Ouvrir"
     },
     "login": {
-      "title": "Vous n'êtes pas connectés",
+      "title": "Vous n'êtes pas connecté",
       "signin": "Se connecter"
     },
     "new_poll": {
@@ -89,11 +90,18 @@
       "proposed_times": "Dates proposées",
       "poll_created": "Sondage créé avec succès",
       "poll_modified": "Sondage modifié avec succès"
+    }, 
+    "answer": {
+      "email": "Votre adresse email"
     }
   },
   "components": {
     "Time": {
       "dateFormat": "#{l} #{j} #{F} #{Y}",
+      "dateDayPollFormat": "#{l}",
+      "dateDatePollFormat": "#{j}",
+      "dateMonthPollFormat": "#{F}",
+      "dateYearPollFormat": "#{Y}",
       "daysOfWeek": "[[\"Dimanche\",\"Dim\"],[\"Lundi\",\"Lun\"],[\"Mardi\",\"Mar\"],[\"Mercredi\",\"Mer\"],[\"Jeudi\",\"Jeu\"],[\"Vendredi\",\"Ven\"],[\"Samedi\",\"Sam\"]]",
       "monthsOfYear": "[[\"Janvier\",\"Jan\"],[\"Février\",\"Fév\"],[\"Mars\",\"Mar\"],[\"Avril\",\"Avr\"],[\"Mai\",\"Mai\"],[\"Juin\",\"Juin\"],[\"Juillet\",\"Juil\"],[\"Août\",\"Aoû\"],[\"Septembre\",\"Sep\"],[\"Octobre\",\"Oct\"],[\"Novembre\",\"Nov\"],[\"Décembre\",\"Déc\"]]"
     },

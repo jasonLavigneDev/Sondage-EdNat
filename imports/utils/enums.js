@@ -1,18 +1,17 @@
 export const ROUTES = {
     ADMIN: "/admin",
     LOGIN: "/login",
-    NEW_POLL: "/new-poll/*",
-    NEW_POLL_ROOT: "/new-poll",
-    NEW_POLL_1: "/new-poll/1",
-    NEW_POLL_2: "/new-poll/2",
-    NEW_POLL_3: "/new-poll/3",
-    NEW_POLL_4: "/new-poll/4",
+    POLL: "/poll/*",
+    NEW_POLL: "/new/*",
+    NEW_POLL_ROOT: "/poll/new",
+    NEW_POLL_RM: (page = 1) => `/poll/new/${page}`,
+    EDIT_POLL: "/edit/:_id/*",
     EDIT_POLL_ROOT: "/poll/edit/:_id/*",
-    EDIT_POLL: (id, page = 1) => `/poll/edit/${id}/${page}`,
-    POLL: "/polls/:_id",
+    EDIT_POLL_RM: (id, page = 1) => `/poll/edit/${id}/${page}`,
+    ANSWER_POLL: "/answer/:_id",
+    ANSWER_POLL_RM: (id) => `/poll/answer/${id}`,
     POLLS: "/polls",
 }
-
 
 export const toast_options = {
     duration: 4000, // duration of progress bar tween

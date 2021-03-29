@@ -41,8 +41,8 @@
       <div class="column is-half-desktop is-full-mobile">
         <BigLink
           link={meta.params._id
-            ? ROUTES.EDIT_POLL(meta.params._id, 1)
-            : ROUTES.NEW_POLL_1}
+            ? ROUTES.EDIT_POLL_RM(meta.params._id, 1)
+            : ROUTES.NEW_POLL_RM(1)}
           text={$_("pages.new_poll.previous")}
           color="is-secondary"
         />
@@ -51,8 +51,8 @@
         <BigLink
           disabled={!$newPollStore.dates.length}
           link={meta.params._id
-            ? ROUTES.EDIT_POLL(meta.params._id, 3)
-            : ROUTES.NEW_POLL_3}
+            ? ROUTES.EDIT_POLL_RM(meta.params._id, 3)
+            : ROUTES.NEW_POLL_RM(3)}
           text={$_("pages.new_poll.next")}
         />
       </div>

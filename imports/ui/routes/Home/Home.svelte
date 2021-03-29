@@ -34,26 +34,28 @@
       </div>
       <div class="column is-full">
         <div class="box">
-          <table
-            class="table table is-striped is-hoverable is-fullwidth is-bordered"
-          >
-            <thead>
-              <tr>
-                <th>Actions</th>
-                <th>{$_("pages.home.title_label")}</th>
-                <th>{$_("pages.home.groups_label")}</th>
-                <th>{$_("pages.home.public_label")}</th>
-                <th>{$_("pages.home.duration_label")}</th>
-                <th>{$_("pages.home.dates_label")}</th>
-                <th>{$_("pages.home.votes_label")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {#each $polls as poll}
-                <SinglePollLine {poll} />
-              {/each}
-            </tbody>
-          </table>
+          <div class="table-container">
+            <table
+              class="table table is-striped is-hoverable is-fullwidth is-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>Actions</th>
+                  <th>{$_("pages.home.title_label")}</th>
+                  <th>{$_("pages.home.groups_label")}</th>
+                  <th>{$_("pages.home.public_label")}</th>
+                  <th>{$_("pages.home.duration_label")}</th>
+                  <th>{$_("pages.home.dates_label")}</th>
+                  <th>{$_("pages.home.votes_label")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {#each $polls as poll}
+                  <SinglePollLine {poll} />
+                {/each}
+              </tbody>
+            </table>
+          </div>
           <Pagination bind:page total={$total} bind:limit />
         </div>
       </div>

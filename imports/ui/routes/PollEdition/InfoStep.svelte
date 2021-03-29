@@ -34,7 +34,6 @@
         { pollId: meta.params._id },
         (e, r) => {
           loading = false;
-          console.log(e, r);
           if (r) {
             newPollStore.set(r);
           } else {
@@ -180,8 +179,8 @@
         <BigLink
           disabled={!$newPollStore.title}
           link={meta.params._id
-            ? ROUTES.EDIT_POLL(meta.params._id, 2)
-            : ROUTES.NEW_POLL_2}
+            ? ROUTES.EDIT_POLL_RM(meta.params._id, 2)
+            : ROUTES.NEW_POLL_RM(2)}
           text={$_("pages.new_poll.next")}
         />
       </div>
