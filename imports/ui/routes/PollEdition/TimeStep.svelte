@@ -201,9 +201,9 @@
       </div>
       <div class="column is-half-desktop is-full-mobile is-right">
         <BigLink
-          disabled={!(
-            $newPollStore.dates[0] && $newPollStore.dates[0].slots.length
-          )}
+          disabled={$newPollStore.allDay
+            ? false
+            : !($newPollStore.dates[0] && $newPollStore.dates[0].slots.length)}
           link={meta.params._id
             ? ROUTES.EDIT_POLL_RM(meta.params._id, 4)
             : ROUTES.NEW_POLL_RM(4)}

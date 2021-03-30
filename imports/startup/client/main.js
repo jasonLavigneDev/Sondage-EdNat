@@ -4,6 +4,7 @@ import App from '/imports/ui/App.svelte';
 import '/imports/api/polls/polls';
 import '/imports/api/users/users';
 import '/imports/api/groups/groups';
+import '/imports/api/polls_answers/polls_answers';
 
 // methods
 import '/imports/api/polls/methods';

@@ -93,7 +93,11 @@
       "poll_modified": "Poll successfully modified"
     }, 
     "answer": {
-      "email": "Your email address"
+      "email": "Your email address",
+      "duration": "Event's duration",
+      "description": "Description",
+      "participants": "Participants",
+      "allDay": "All day"
     }
   },
   "components": {
@@ -101,8 +105,7 @@
       "dateFormat": "#{l}, #{F} #{j}, #{Y}",
       "dateDayPollFormat": "#{l}",
       "dateDatePollFormat": "#{j}",
-      "dateMonthPollFormat": "#{F}",
-      "dateYearPollFormat": "#{Y}",
+      "dateMonthPollFormat": "#{F} #{Y}",
       "daysOfWeek": "[[\"Sunday\",\"Sun\"],[\"Monday\",\"Mon\"],[\"Tuesday\",\"Tue\"],[\"Wednesday\",\"Wed\"],[\"Thursday\",\"Thu\"],[\"Friday\",\"Fri\"],[\"Saturday\",\"Sat\"]]",
       "monthsOfYear": "[[\"January\",\"Jan\"],[\"February\",\"Feb\"],[\"March\",\"Mar\"],[\"April\",\"Apr\"],[\"May\",\"May\"],[\"June\",\"Jun\"],[\"July\",\"Jul\"],[\"August\",\"Aug\"],[\"September\",\"Sep\"],[\"October\",\"Oct\"],[\"November\",\"Nov\"],[\"December\",\"Dec\"]]"
     },

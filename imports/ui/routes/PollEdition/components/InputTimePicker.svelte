@@ -12,6 +12,8 @@
   export let value;
   export let key = 0;
   export let duration;
+  const FORMAT_KEY_DATE = "#{H}:#{i}";
+
   let currentValue = new Date(
     date.getYear(),
     date.getMonth(),
@@ -33,7 +35,6 @@
     ),
     FORMAT_KEY_DATE
   );
-  const FORMAT_KEY_DATE = "#{H}:#{i}";
 
   let open = false;
   const toggleModal = () => {

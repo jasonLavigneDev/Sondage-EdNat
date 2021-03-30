@@ -8,11 +8,11 @@
   // pages
   import Home from "/imports/ui/routes/Home/Home.svelte";
   import Login from "/imports/ui/routes/Login.svelte";
-  import Poll from "/imports/ui/routes/Poll.svelte";
+  import Polls from "/imports/ui/routes/Polls.svelte";
 
   import { currentUser, loggingIn } from "/imports/utils/functions/stores";
   import PollStepsRoutes from "./routes/PollEdition/PollStepsRoutes.svelte";
-  import AnswerPoll from "./routes/AnswerPoll.svelte";
+  import Poll from "./routes/Poll.svelte";
 
   router.subscribe((_) => window.scrollTo(0, 0));
 </script>
@@ -25,7 +25,7 @@
   </Route>
 
   <Route path={ROUTES.POLLS} let:meta>
-    <Poll {meta} />
+    <Polls {meta} />
   </Route>
 
   <Route path={ROUTES.LOGIN} redirect={ROUTES.POLLS} />
@@ -55,7 +55,7 @@
   {/if}
 
   <Route path={ROUTES.ANSWER_POLL} let:meta>
-    <AnswerPoll {meta} />
+    <Poll {meta} />
   </Route>
 
   <Route path="*" redirect={ROUTES.LOGIN} />

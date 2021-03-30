@@ -2,13 +2,14 @@
   export let label = "";
   export let checked = false;
   export let center = false;
+  export let disabled = false;
   export let action = () => null;
 </script>
 
 <label class="checkbox checkbox-container">
   {label}
-  <input type="checkbox" bind:checked on:change={action} />
-  <span class="checkmark" class:center />
+  <input type="checkbox" {disabled} bind:checked on:change={action} />
+  <span class="checkmark" class:disabled class:center />
 </label>
 
 <style>
@@ -26,6 +27,9 @@
     user-select: none;
   }
 
+  .disabled {
+    opacity: 0.7;
+  }
   /* Hide the browser's default checkbox */
   .checkbox-container input {
     position: absolute;

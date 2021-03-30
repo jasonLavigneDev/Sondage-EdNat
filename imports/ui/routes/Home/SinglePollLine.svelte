@@ -2,9 +2,11 @@
   import { _ } from "svelte-i18n";
   import tippy from "sveltejs-tippy";
   import { toggleActivePoll } from "/imports/api/polls/methods";
+  import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import { ROUTES } from "/imports/utils/enums";
 
   export let poll;
+  let votes;
 
   const tooltip = (content) => ({
     content,
@@ -13,6 +15,10 @@
   const togglePoll = () => {
     toggleActivePoll.call({ pollId: poll._id });
   };
+  $: votes = useTracker(() => {
+    Meteor.subscribe("polls_answers.getCount", { pollId: poll._id });
+    return Counts.get(`polls_answers.get-${poll._id}`);
+  });
 </script>
 
 <tr>
@@ -38,13 +44,6 @@
         </button>
       {/if}
 
-      <button
-        class="button is-small is-primary"
-        use:tippy={tooltip($_("pages.home.results_tooltip"))}
-      >
-        <i class="fas fa-list" />
-      </button>
-
       <a href={!poll.active ? ROUTES.EDIT_POLL_RM(poll._id) : ROUTES.ADMIN}>
         <button
           class="button is-small is-light"
@@ -63,7 +62,7 @@
       </button>
       <a
         href={ROUTES.ANSWER_POLL_RM(poll._id)}
-        class="button is-small is-success"
+        class="button is-small is-primary"
         use:tippy={tooltip($_("pages.home.open_tooltip"))}
       >
         <i class="fas fa-external-link-alt" />
@@ -91,5 +90,5 @@
   <td>
     {poll.dates.reduce((acc, v) => acc + v.slots.length, 0)}
   </td>
-  <td> 0 </td>
+  <td> {$votes} </td>
 </tr>

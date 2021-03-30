@@ -41,7 +41,6 @@
         pollId: meta.params._id,
       },
       (error, result) => {
-        console.log(error, result);
         if (error) {
           toast.push(error.reason, toasts.error);
         } else {

@@ -5,6 +5,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
 import Polls from '../polls';
 import Groups from '/imports/api/groups/groups'
+import PollsAnswers from '../../polls_answers/polls_answers';
 
 export const getSinglePoll = new ValidatedMethod({
   name: 'polls.getSinglePoll',
@@ -35,7 +36,17 @@ export const getSinglePollToAnswer = new ValidatedMethod({
     if(!isInAGroup && !poll.public) {
       return null
     }
-    return poll
+    return {
+      poll,
+      answers: PollsAnswers.find({
+        pollId,
+        $or: [
+          { userId: { $ne: this.userId } },
+          { userId: null }
+        ]
+      }).fetch(),
+      answer: this.userId ? PollsAnswers.findOne({  pollId, userId: this.userId }) : null
+    }
   },
 });
 
