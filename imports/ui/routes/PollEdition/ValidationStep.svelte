@@ -42,7 +42,7 @@
       },
       (error, result) => {
         if (error) {
-          toast.push(error.reason, toasts.error);
+          toast.push($_(error.reason), toasts.error);
         } else {
           toast.push(
             $_(

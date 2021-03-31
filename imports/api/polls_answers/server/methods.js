@@ -17,8 +17,8 @@ export const createPollAnswers = new ValidatedMethod({
 
       const poll = Polls.findOne({ _id: data.pollId })
 
-      if(PollsAnswers.findOne({ pollId: data.pollId, email: data.email })) {
-        throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'You are not allowed to do this.');
+      if(PollsAnswers.findOne({ pollId: data.pollId, email: data.email }) && !this.userId) {
+        throw new Meteor.Error('api.polls_answers.methods.create.emailAlreadyVoted', 'api.errors.emailAlreadyVoted');
       }
 
       if(!poll.public && this.userId) {
@@ -36,12 +36,12 @@ export const createPollAnswers = new ValidatedMethod({
         if(isInAGroup && poll.active) {
           return PollsAnswers.update({ pollId: data.pollId, email: data.email }, { $set: { ...data } }, { upsert: true });
         } else {
-          throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'You are not allowed to do this.');
+          throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', "api.errors.notAllowed");
         }
       } else if((poll.public || this.userId) && poll.active){
         return PollsAnswers.update({ pollId: data.pollId, email: data.email }, { $set: { ...data } }, { upsert: true });
       } else {
-        throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'You are not allowed to do this.');
+        throw new Meteor.Error('api.polls_answers.methods.create.notActivePoll', "api.errors.pollNotActive");
       }
     },
   });

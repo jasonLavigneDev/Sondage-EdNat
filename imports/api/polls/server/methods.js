@@ -34,7 +34,7 @@ export const getSinglePollToAnswer = new ValidatedMethod({
       ] 
     }, { fields: { _id: 1 }})
     if(!isInAGroup && !poll.public) {
-      return null
+      throw new Meteor.Error('api.polls.methods.get.notPublic', "api.errors.notApublicPoll");
     }
     return {
       poll,

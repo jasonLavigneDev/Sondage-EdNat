@@ -4,6 +4,15 @@
   "polls": "Sondages",
   "back": "Retour",
   "menu": "Menu",
+  "api": {
+    "errors": {
+      "notLoggedIn": "Vous devez être connecté",
+      "notAllowed": "Vous n'êtes pas autorisé a faire ceci",
+      "notApublicPoll": "Ce sondage n'est pas public, vous devez être connecté",
+      "emailAlreadyVoted": "Cet email est déjà enregistré avec un vote",
+      "pollNotActive": "Ce sondage n'est pas actif, vous ne pouvez pas voter"
+    }
+  },
   "links": {
     "home": "Gestion",
     "polls": "Sondages",
@@ -99,7 +108,8 @@
       "duration": "Durée de l'évènement",
       "description": "Description",
       "participants": "Participants",
-      "allDay": "Toute la journée"
+      "allDay": "Toute la journée",
+      "poll_answered": "Sondage répondu avec succès"
     }
   },
   "components": {

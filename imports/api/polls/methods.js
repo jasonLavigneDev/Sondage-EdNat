@@ -15,13 +15,13 @@ export const udaptePoll = new ValidatedMethod({
   run({ data, pollId }) {
     // check if logged in
     if (!this.userId) {
-        throw new Meteor.Error('api.polls.methods.update.notLoggedIn', 'You must be logged in.');
+        throw new Meteor.Error('api.polls.methods.update.notLoggedIn', "api.errors.notLoggedIn");
       }
 
     if(this.userId !== data.userId){
-      throw new Meteor.Error('api.polls.methods.update.notAllowed', 'You are not allowed to do this.');
+      throw new Meteor.Error('api.polls.methods.update.notAllowed', "api.errors.notAllowed");
     } else if(data.active){
-      throw new Meteor.Error('api.polls.methods.update.notActive', 'You are not allowed to do this.');
+      throw new Meteor.Error('api.polls.methods.update.notActive', "api.errors.notAllowed");
     }
 
     return Polls.update({ _id: pollId }, { $set: { ...data } });
@@ -37,7 +37,7 @@ export const createPoll = new ValidatedMethod({
     run({ data }) {
       // check if logged in
       if (!this.userId) {
-          throw new Meteor.Error('api.polls.methods.create.notLoggedIn', 'You must be logged in.');
+          throw new Meteor.Error('api.polls.methods.create.notLoggedIn', "api.errors.notLoggedIn");
         }
       return Polls.insert(data);
     },
@@ -51,13 +51,13 @@ export const createPoll = new ValidatedMethod({
     run({ pollId }) {
       // check if logged in
       if (!this.userId) {
-        throw new Meteor.Error('api.polls.methods.create.notLoggedIn', 'You must be logged in.');
+        throw new Meteor.Error('api.polls.methods.remove.notLoggedIn', "api.errors.notLoggedIn");
       }
       const poll = Polls.findOne(pollId)
       if(this.userId !== poll.userId){
-        throw new Meteor.Error('api.polls.methods.remove.notAllowed', 'You are not allowed to do this.');
+        throw new Meteor.Error('api.polls.methods.remove.notAllowed', "api.errors.notAllowed");
       } else if(poll.active){
-        throw new Meteor.Error('api.polls.methods.update.notActive', 'You are not allowed to do this.');
+        throw new Meteor.Error('api.polls.methods.remove.notAllowed', "api.errors.notAllowed");
       }
       return Polls.remove({ _id: pollId });
     },
@@ -73,11 +73,11 @@ export const createPoll = new ValidatedMethod({
     run({ pollId }) {
       // check if logged in
       if (!this.userId) {
-          throw new Meteor.Error('api.polls.methods.create.notLoggedIn', 'You must be logged in.');
+          throw new Meteor.Error('api.polls.methods.create.notLoggedIn', "api.errors.notLoggedIn");
         }
         const poll = Polls.findOne(pollId)
         if(this.userId !== poll.userId){
-          throw new Meteor.Error('api.polls.methods.remove.notAllowed', 'You are not allowed to do this.');
+          throw new Meteor.Error('api.polls.methods.remove.notAllowed', "api.errors.notAllowed");
         }
       return Polls.update({ _id: pollId }, { $set: { active: !poll.active } });
     },

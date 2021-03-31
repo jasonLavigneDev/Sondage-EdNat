@@ -90,7 +90,7 @@
       loading = false;
       console.log(error, result);
       if (error) {
-        toast.push(error.reason, toasts.error);
+        toast.push($_(error.reason), toasts.error);
       } else {
         toast.push($_("pages.answer.poll_answered"));
       }

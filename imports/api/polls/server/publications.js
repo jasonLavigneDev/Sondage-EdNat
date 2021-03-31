@@ -30,7 +30,6 @@ Meteor.publish("polls.member", function({ page, limit }) {
         { groups: { $in: groups.map(({ _id }) => _id) }},
         { _id: { $in: answers.map(({ pollId }) => pollId) }}
     ]}
-    console.log(JSON.stringify(query, 2))
     const options = { 
         limit, 
         skip: (page - 1) * limit ,

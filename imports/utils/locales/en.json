@@ -4,7 +4,15 @@
   "polls": "Polls",
   "back": "Back",
   "menu": "Menu",
-  "save_research": "Save search",
+  "api": {
+    "errors": {
+      "notLoggedIn": "You must be logged in",
+      "notAllowed": "You are not allowed to do this",
+      "notApublicPoll": "This poll is not public, you must be logged",
+      "emailAlreadyVoted": "This email is already registered with a vote",
+      "pollNotActive": "Poll is not active, you cannot vote."
+    }
+  },
   "links": {
     "home": "Administration",
     "polls": "Polls",
@@ -100,7 +108,8 @@
       "duration": "Event's duration",
       "description": "Description",
       "participants": "Participants",
-      "allDay": "All day"
+      "allDay": "All day",
+      "poll_answered": "Poll answered successfully"
     }
   },
   "components": {
