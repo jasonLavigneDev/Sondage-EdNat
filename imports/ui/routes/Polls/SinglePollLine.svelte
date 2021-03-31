@@ -1,7 +1,6 @@
 <script>
   import { _ } from "svelte-i18n";
   import tippy from "sveltejs-tippy";
-  import { toggleActivePoll } from "/imports/api/polls/methods";
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import { ROUTES } from "/imports/utils/enums";
   import copy from "copy-to-clipboard";
@@ -14,9 +13,6 @@
     content,
     placement: "bottom",
   });
-  const togglePoll = () => {
-    toggleActivePoll.call({ pollId: poll._id });
-  };
   $: votes = useTracker(() => {
     Meteor.subscribe("polls_answers.getCount", { pollId: poll._id });
     return Counts.get(`polls_answers.get-${poll._id}`);
@@ -33,36 +29,6 @@
 <tr>
   <th>
     <div class="buttons">
-      {#if poll.active}
-        <button
-          class="button is-small is-success"
-          value={poll._id}
-          on:click={togglePoll}
-          use:tippy={tooltip($_("pages.home.deactivate_tooltip"))}
-        >
-          <i class="fas fa-eye" />
-        </button>
-      {:else}
-        <button
-          class="button is-small is-warning"
-          value={poll._id}
-          on:click={togglePoll}
-          use:tippy={tooltip($_("pages.home.activate_tooltip"))}
-        >
-          <i class="fas fa-eye-slash" />
-        </button>
-      {/if}
-
-      <a href={!poll.active ? ROUTES.EDIT_POLL_RM(poll._id) : ROUTES.ADMIN}>
-        <button
-          class="button is-small is-light"
-          disabled={!(poll.active && $votes === 0)}
-          use:tippy={tooltip($_("pages.home.edit_tooltip"))}
-        >
-          <i class="fas fa-pen" />
-        </button>
-      </a>
-
       <button
         class="button is-small is-info"
         use:tippy={tooltip($_("pages.home.link_tooltip"))}
@@ -77,12 +43,6 @@
       >
         <i class="fas fa-external-link-alt" />
       </a>
-      <button
-        class="button is-small is-danger"
-        use:tippy={tooltip($_("pages.home.delete_tooltip"))}
-      >
-        <i class="fas fa-trash" />
-      </button>
     </div>
   </th>
   <td>

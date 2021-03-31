@@ -8,7 +8,7 @@
   // pages
   import Home from "/imports/ui/routes/Home/Home.svelte";
   import Login from "/imports/ui/routes/Login.svelte";
-  import Polls from "/imports/ui/routes/Polls.svelte";
+  import Polls from "/imports/ui/routes/Polls/Polls.svelte";
 
   import { currentUser, loggingIn } from "/imports/utils/functions/stores";
   import PollStepsRoutes from "./routes/PollEdition/PollStepsRoutes.svelte";

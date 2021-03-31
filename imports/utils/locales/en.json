@@ -46,6 +46,9 @@
       "delete_tooltip": "Delete",
       "open_tooltip": "Open"
     },
+    "polls": {
+        "title": "Your participations"
+    },
     "login": {
       "title": "You are not logged in",
       "signin": "Signin"
@@ -101,6 +104,9 @@
     }
   },
   "components": {
+    "SinglePollLine": {
+      "copied": "URL copied to clipboard"
+    },
     "Time": {
       "dateFormat": "#{l}, #{F} #{j}, #{Y}",
       "dateDayPollFormat": "#{l}",

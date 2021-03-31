@@ -4,7 +4,8 @@
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import Polls from "/imports/api/polls/polls";
 
-  import Pagination from "../../components/common/Pagination.svelte";
+  import { ROUTES } from "/imports/utils/enums";
+  import Pagination from "/imports/ui/components/common/Pagination.svelte";
   import SinglePollLine from "./SinglePollLine.svelte";
 
   export let meta;
@@ -14,22 +15,22 @@
   let limit = 10;
 
   $: polls = useTracker(() => {
-    Meteor.subscribe("polls.owner", { page, limit });
+    Meteor.subscribe("polls.member", { page, limit });
     return Polls.find({}, { sort: { createdAt: -1 } }).fetch();
   });
 
-  $: total = useTracker(() => Counts.get("polls.owner.total"));
+  $: total = useTracker(() => Counts.get("polls.member.total"));
 </script>
 
 <svelte:head>
-  <title>{$_("title")} | {$_("links.home")}</title>
+  <title>{$_("title")} | {$_("links.polls")}</title>
 </svelte:head>
 
 <section class="box-transparent">
   <div class="container">
     <div class="columns is-multiline">
       <div class="column is-full">
-        <h1 class="title is-3">{$_("pages.home.title")}</h1>
+        <h1 class="title is-3">{$_("pages.polls.title")}</h1>
       </div>
       <div class="column is-full">
         <div class="box">
