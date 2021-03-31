@@ -6,9 +6,11 @@
   import { ROUTES } from "/imports/utils/enums";
   import copy from "copy-to-clipboard";
   import { toast } from "@zerodevx/svelte-toast";
+  import Modal from "../../components/common/Modal.svelte";
 
   export let poll;
   let votes;
+  let removePollModal = false;
 
   const tooltip = (content) => ({
     content,
@@ -17,6 +19,7 @@
   const togglePoll = () => {
     toggleActivePoll.call({ pollId: poll._id });
   };
+  const toggleModal = () => (removePollModal = !removePollModal);
   $: votes = useTracker(() => {
     Meteor.subscribe("polls_answers.getCount", { pollId: poll._id });
     return Counts.get(`polls_answers.get-${poll._id}`);
@@ -53,10 +56,14 @@
         </button>
       {/if}
 
-      <a href={!poll.active ? ROUTES.EDIT_POLL_RM(poll._id) : ROUTES.ADMIN}>
+      <a
+        href={!poll.active && $votes === 0
+          ? ROUTES.EDIT_POLL_RM(poll._id)
+          : ROUTES.ADMIN}
+      >
         <button
           class="button is-small is-light"
-          disabled={!(poll.active && $votes === 0)}
+          disabled={poll.active || $votes !== 0}
           use:tippy={tooltip($_("pages.home.edit_tooltip"))}
         >
           <i class="fas fa-pen" />
@@ -79,6 +86,8 @@
       </a>
       <button
         class="button is-small is-danger"
+        on:click={toggleModal}
+        disabled={poll.active}
         use:tippy={tooltip($_("pages.home.delete_tooltip"))}
       >
         <i class="fas fa-trash" />
@@ -102,3 +111,16 @@
   </td>
   <td> {$votes} </td>
 </tr>
+
+<Modal
+  toggle={toggleModal}
+  active={removePollModal}
+  title={$_("pages.home.remove_title")}
+  validButton={$_("pages.home.remove_valid")}
+  validClass="is-danger"
+  cancelButton={$_("pages.home.remove_cancel")}
+  cancelClass="is-white"
+>
+  <p>{$_("pages.home.remove_text")}</p>
+  <p><b>{poll.title}</b></p>
+</Modal>

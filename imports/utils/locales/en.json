@@ -52,10 +52,15 @@
       "edit_tooltip": "Edit",
       "link_tooltip": "Copy link",
       "delete_tooltip": "Delete",
-      "open_tooltip": "Open"
+      "open_tooltip": "Open",
+      "remove_title": "Delete poll",
+      "remove_valid": "Delete",
+      "remove_cancel": "Cancel",
+      "remove_text": "You are about to delete this poll and all the answers associated, this action cannot be reversed."
+  
     },
     "polls": {
-        "title": "Your participations"
+        "title": "My participations"
     },
     "login": {
       "title": "You are not logged in",

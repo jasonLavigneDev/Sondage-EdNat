@@ -35,13 +35,18 @@
         (e, r) => {
           loading = false;
           if (r) {
-            newPollStore.set(r);
+            newPollStore.set({
+              _id: meta.params._id,
+              ...r,
+            });
           } else {
             toast.push($_("pages.new_poll.poll_not_found"), toasts.error);
             router.goto(ROUTES.ADMIN);
           }
         }
       );
+    } else if ($newPollStore._id) {
+      newPollStore.set(EMPTY_NEW_POLL);
     }
   });
 

@@ -33,6 +33,9 @@ export const getSinglePollToAnswer = new ValidatedMethod({
         { members: { $in: [this.userId] } },
       ] 
     }, { fields: { _id: 1 }})
+    if(!poll.active && this.userId !== poll.userId) {
+      throw new Meteor.Error('api.polls.methods.get.notActive', "api.errors.pollNotActive");
+    }
     if(!isInAGroup && !poll.public) {
       throw new Meteor.Error('api.polls.methods.get.notPublic', "api.errors.notApublicPoll");
     }

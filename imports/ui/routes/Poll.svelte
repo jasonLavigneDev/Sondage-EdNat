@@ -49,7 +49,7 @@
             }
             answers = r.answers;
           } else {
-            toast.push($_("pages.new_poll.poll_not_found"), toasts.error);
+            toast.push($_(e.reason), toasts.error);
             router.goto(ROUTES.ADMIN);
           }
         }
@@ -63,8 +63,8 @@
   $: if ($currentUser && !answer.email) {
     answer = {
       ...answer,
-      email: Meteor.user().emails[0].address,
-      userId: Meteor.userId(),
+      email: $currentUser.services.keycloak.email,
+      userId: $currentUser._id,
     };
   }
 
@@ -85,10 +85,8 @@
 
   const sendAnswer = () => {
     loading = true;
-    console.log(answer);
     Meteor.call("polls_answers.create", { data: answer }, (error, result) => {
       loading = false;
-      console.log(error, result);
       if (error) {
         toast.push($_(error.reason), toasts.error);
       } else {
@@ -142,9 +140,9 @@
           <div class="column is-full">
             <Divider />
           </div>
-          <div class="column is-one-third">
-            <div class="field">
-              <label class="label">{$_("pages.answer.email")}</label>
+          <div class="column is-half">
+            <label class="label">{$_("pages.answer.email")}</label>
+            <div class="field" class:has-addons={!Meteor.userId()}>
               <div class="control">
                 <input
                   class="input"
@@ -154,6 +152,15 @@
                   placeholder={$_("pages.answer.email")}
                 />
               </div>
+
+              {#if !Meteor.userId()}
+                <div class="control">
+                  <BigLink
+                    action={Meteor.loginWithKeycloak}
+                    text={$_("pages.login.signin")}
+                  />
+                </div>
+              {/if}
             </div>
           </div>
           <div class="column is-full">

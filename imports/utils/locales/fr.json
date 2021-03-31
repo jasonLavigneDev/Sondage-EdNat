@@ -8,7 +8,7 @@
     "errors": {
       "notLoggedIn": "Vous devez être connecté",
       "notAllowed": "Vous n'êtes pas autorisé a faire ceci",
-      "notApublicPoll": "Ce sondage n'est pas public, vous devez être connecté",
+      "notApublicPoll": "Ce sondage privé, vous devez être connecté",
       "emailAlreadyVoted": "Cet email est déjà enregistré avec un vote",
       "pollNotActive": "Ce sondage n'est pas actif, vous ne pouvez pas voter"
     }
@@ -52,10 +52,14 @@
         "edit_tooltip": "Éditer",
         "link_tooltip": "Copier le lien",
         "delete_tooltip": "Supprimer",
-        "open_tooltip": "Ouvrir"
+        "open_tooltip": "Ouvrir",
+        "remove_title": "Supprimer un sondage",
+        "remove_valid": "Supprimer",
+        "remove_cancel": "Annuler",
+        "remove_text": "Vous êtes sur le point de supprimer ce sondage et toutes les réponses associées, cette action est irréversible."
     },
     "polls": {
-        "title": "Vos participations"
+        "title": "Mes participations"
     },
     "login": {
       "title": "Vous n'êtes pas connecté",

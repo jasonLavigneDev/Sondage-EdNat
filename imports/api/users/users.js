@@ -5,16 +5,11 @@ Meteor.users.publicFields = {
   firstName: 1,
   lastName: 1,
   structure: 1,
-  // don't publish emails and put a public email field in Mezig ?
   emails: 1,
-  articlesCount: 1,
-  avatar: 1,
+  username: 1,
+  service: 1
 };
 
-Meteor.users.selfFields = {
-  ...Meteor.users.publicFields,
-  username: 1,
-};
 
 Meteor.users.deny({
   insert() {
