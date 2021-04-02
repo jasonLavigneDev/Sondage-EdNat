@@ -1,10 +1,10 @@
 import assert from "assert";
-import "../imports/api/tasks.tests.js";
+import "../imports/api/polls/server/polls.tests.js";
 
-describe("simple-todos-svelte", function () {
+describe("sondage", function () {
   it("package.json has correct name", async function () {
     const { name } = await import("../package.json");
-    assert.strictEqual(name, "simple-todos-svelte");
+    assert.strictEqual(name, "sondage");
   });
 
   if (Meteor.isClient) {
