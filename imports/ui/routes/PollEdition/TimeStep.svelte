@@ -9,6 +9,7 @@
   import { newPollStore } from "/imports/utils/functions/stores";
   import InputTimePicker from "./components/InputTimePicker.svelte";
   import Checkbox from "../../components/common/Checkbox.svelte";
+  import StepBar from "../../components/common/StepBar.svelte";
   export let meta;
   let timecolumns = 1;
   const DURATIONS = [
@@ -87,6 +88,7 @@
           : "pages.new_poll_3.title"
       )}
     </h1>
+    <StepBar active={3} pollId={meta.params._id} />
     <div class="box">
       <div class="columns is-multiline">
         <div class="column is-full">

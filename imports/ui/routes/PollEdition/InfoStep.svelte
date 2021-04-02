@@ -18,6 +18,7 @@
     EMPTY_NEW_POLL,
   } from "/imports/utils/functions/stores";
   import Checkbox from "../../components/common/Checkbox.svelte";
+  import StepBar from "../../components/common/StepBar.svelte";
 
   export let meta;
   let selectedGroups, groups, loading;
@@ -84,6 +85,7 @@
           : "pages.new_poll_1.title"
       )}
     </h1>
+    <StepBar active={1} pollId={meta.params._id} />
     {#if loading}
       <Loader />
     {/if}

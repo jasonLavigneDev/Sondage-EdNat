@@ -17,6 +17,7 @@
   import { formatDate } from "timeUtils";
   import InputTimePicker from "./components/InputTimePicker.svelte";
   import { router } from "tinro";
+  import StepBar from "../../components/common/StepBar.svelte";
 
   export let meta;
   let selectedGroups;
@@ -76,6 +77,7 @@
           : "pages.new_poll_4.title"
       )}
     </h1>
+    <StepBar active={4} pollId={meta.params._id} />
     <div class="box">
       <div class="columns is-multiline">
         <div class="column is-half">

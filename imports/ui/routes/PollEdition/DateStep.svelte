@@ -8,6 +8,7 @@
   import BigLink from "/imports/ui/components/common/BigLink.svelte";
   import Divider from "/imports/ui/components/common/Divider.svelte";
   import { newPollStore } from "/imports/utils/functions/stores";
+  import StepBar from "../../components/common/StepBar.svelte";
   export let meta;
 </script>
 
@@ -28,6 +29,7 @@
           : "pages.new_poll_2.title"
       )}
     </h1>
+    <StepBar active={2} pollId={meta.params._id} />
     <div class="columns is-multiline is-mobile">
       <div class="column is-half-desktop is-full-mobile">
         <Datepicker start={new Date()} bind:selected={$newPollStore.dates} />
