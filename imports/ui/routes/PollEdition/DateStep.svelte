@@ -30,7 +30,7 @@
     </h1>
     <div class="columns is-multiline is-mobile">
       <div class="column is-half-desktop is-full-mobile">
-        <Datepicker bind:selected={$newPollStore.dates} />
+        <Datepicker start={new Date()} bind:selected={$newPollStore.dates} />
       </div>
       <div class="column is-half-desktop is-full-mobile">
         <SelectedDatesTable bind:dates={$newPollStore.dates} />

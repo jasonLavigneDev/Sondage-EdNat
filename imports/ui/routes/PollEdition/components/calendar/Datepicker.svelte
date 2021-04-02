@@ -143,15 +143,17 @@
   }
 
   function registerSelection(chosen) {
-    // eslint-disable-next-line
-    if (isDateSelected(chosen, selected)) {
-      selected = selected.filter((s) => s.date !== chosen);
-    } else {
-      selected = [...selected, { date: chosen, slots: [] }];
+    if (chosen > start && chosen < end) {
+      // eslint-disable-next-line
+      if (isDateSelected(chosen, selected)) {
+        selected = selected.filter((s) => s.date !== chosen);
+      } else {
+        selected = [...selected, { date: chosen, slots: [] }];
+      }
+      dateChosen = true;
+      assignValueToTrigger(formattedSelected);
+      return dispatch("dateSelected", { date: selected });
     }
-    dateChosen = true;
-    assignValueToTrigger(formattedSelected);
-    return dispatch("dateSelected", { date: selected });
   }
 
   function handleKeyPress(evt) {

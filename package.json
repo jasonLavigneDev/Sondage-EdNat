@@ -2,7 +2,7 @@
   "name": "simple-todos-svelte",
   "private": true,
   "scripts": {
-    "start": "meteor run --settings ../config/settings.development.json",
+    "start": "meteor run --settings ./config/settings.development.json",
     "start-dev": "npm-run-all --parallel css-watch start",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
