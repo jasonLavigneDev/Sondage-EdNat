@@ -1,8 +1,11 @@
 <!-- Transition.svelte -->
 <script>
-  import { fade } from "svelte/transition";
+  import { router } from "tinro";
+  import { blur } from "svelte/transition";
 </script>
 
-<div in:fade={{ duration: 300 }}>
-  <slot />
-</div>
+{#key $router.path}
+  <div in:blur={{ duration: 400 }}>
+    <slot />
+  </div>
+{/key}
