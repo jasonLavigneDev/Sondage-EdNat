@@ -15,6 +15,7 @@
   import Checkbox from "../components/common/Checkbox.svelte";
 
   export let meta;
+  let selectedGroups;
   let poll = {};
   let loading = false;
   let answers = [];
@@ -34,6 +35,7 @@
           loading = false;
           if (r) {
             poll = r.poll;
+            selectedGroups = r.selectedGroups;
             if (r.answer) {
               answer = r.answer;
             } else {
@@ -63,7 +65,9 @@
   $: if ($currentUser && !answer.email) {
     answer = {
       ...answer,
-      email: $currentUser.services.keycloak.email,
+      email: $currentUser.services.keycloak
+        ? $currentUser.services.keycloak.email
+        : $currentUser.emails[0].address,
       userId: $currentUser._id,
     };
   }
@@ -137,6 +141,22 @@
               </div>
             </div>
           </div>
+
+          <div class="column is-half">
+            <div class="field">
+              <label class="label title is-4"
+                >{$_("pages.new_poll_1.group_input")}</label
+              >
+              <div class="tags">
+                {#each selectedGroups as group}
+                  <span class="tag is-medium is-primary">
+                    {group.name}
+                  </span>
+                {/each}
+              </div>
+            </div>
+          </div>
+
           <div class="column is-full">
             <Divider />
           </div>
