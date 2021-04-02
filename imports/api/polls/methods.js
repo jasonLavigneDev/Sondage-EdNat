@@ -23,6 +23,10 @@ export const udaptePoll = new ValidatedMethod({
     } else if(data.active){
       throw new Meteor.Error('api.polls.methods.update.notActive', "api.errors.notAllowed");
     }
+    if(Meteor.isServer && data.groups.length) {
+      const { sendnotif } = require('../notifications/server/notifSender')
+      sendnotif({ groups: data.groups, title: data.title })
+    }
 
     return Polls.update({ _id: pollId }, { $set: { ...data } });
   },
@@ -37,8 +41,12 @@ export const createPoll = new ValidatedMethod({
     run({ data }) {
       // check if logged in
       if (!this.userId) {
-          throw new Meteor.Error('api.polls.methods.create.notLoggedIn', "api.errors.notLoggedIn");
-        }
+        throw new Meteor.Error('api.polls.methods.create.notLoggedIn', "api.errors.notLoggedIn");
+      }
+      if(Meteor.isServer && data.groups.length) {
+        const { sendnotif } = require('../notifications/server/notifSender')
+        sendnotif({ groups: data.groups, title: data.title })
+      }
       return Polls.insert(data);
     },
   });

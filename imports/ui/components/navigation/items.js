@@ -18,18 +18,18 @@ export const items = [
 export const footer = [
   {
     text: "links.legal",
-    path: `${Meteor.settings.public.laboite_host}/legal/legalnotice`,
+    path: `${Meteor.settings.public.laboiteHost}/legal/legalnotice`,
   },
   {
     text: "links.accessibility",
-    path: `${Meteor.settings.public.laboite_host}/legal/accessibility`,
+    path: `${Meteor.settings.public.laboiteHost}/legal/accessibility`,
   },
   {
     text: "links.gcu",
-    path: `${Meteor.settings.public.laboite_host}/legal/conditions`,
+    path: `${Meteor.settings.public.laboiteHost}/legal/conditions`,
   },
   {
     text: "links.personalData",
-    path: `${Meteor.settings.public.laboite_host}/legal/personal-data`,
+    path: `${Meteor.settings.public.laboiteHost}/legal/personal-data`,
   },
 ];
