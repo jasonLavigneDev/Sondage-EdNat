@@ -1,4 +1,6 @@
 <script>
+  import { _ } from "svelte-i18n";
+
   import { router } from "tinro";
   import { ROUTES } from "/imports/utils/enums";
 
@@ -6,10 +8,10 @@
   export let pollId;
 
   const steps = [
-    { name: "Infos", url: 1 },
-    { name: "Dates", url: 2 },
-    { name: "Heures", url: 3 },
-    { name: "Validation", url: 4 },
+    { name: "components.StepBar.infos", url: 1 },
+    { name: "components.StepBar.dates", url: 2 },
+    { name: "components.StepBar.times", url: 3 },
+    { name: "components.StepBar.validation", url: 4 },
   ];
   const goToStep = (url) => {
     if (pollId) {
@@ -26,7 +28,7 @@
       on:click={() => goToStep(step.url)}
       class:is-active={active == step.url}
     >
-      {step.name}
+      {$_(step.name)}
     </li>
   {/each}
 </ul>

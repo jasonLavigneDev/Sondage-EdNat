@@ -121,6 +121,12 @@
     "SinglePollLine": {
       "copied": "URL copied to clipboard"
     },
+    "StepBar": {
+      "infos": "Info",
+      "dates": "Dates",
+      "times": "Hours",
+      "validation": "Validation"
+    },
     "Time": {
       "dateFormat": "#{l}, #{F} #{j}, #{Y}",
       "dateDayPollFormat": "#{l}",
