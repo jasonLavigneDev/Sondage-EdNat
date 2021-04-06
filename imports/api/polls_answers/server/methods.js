@@ -40,6 +40,9 @@ export const createPollAnswers = new ValidatedMethod({
         }
       } else if((poll.public || this.userId) && poll.active){
         return PollsAnswers.update({ pollId: data.pollId, email: data.email }, { $set: { ...data } }, { upsert: true });
+      } else if(!poll.public && !this.userId) {
+        throw new Meteor.Error('api.polls_answers.methods.create.notPublic', "api.errors.pollNotActive");
+        
       } else {
         throw new Meteor.Error('api.polls_answers.methods.create.notActivePoll', "api.errors.pollNotActive");
       }

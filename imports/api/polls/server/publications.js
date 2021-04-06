@@ -10,7 +10,7 @@ Meteor.publish("polls.owner", function({ page, limit }){
         skip: (page - 1) * limit ,
         sort: { createdAt: -1 },
     }
-    Counts.publish(this, 'polls.owner.total', Polls.find(query, options));
+    Counts.publish(this, 'polls.owner.total', Polls.find(query, options), { noReady: true });
     return Polls.find(query, options)
 })
 
@@ -35,6 +35,6 @@ Meteor.publish("polls.member", function({ page, limit }) {
         skip: (page - 1) * limit ,
         sort: { createdAt: -1 },
     }
-    Counts.publish(this, 'polls.member.total', Polls.find(query, options));
+    Counts.publish(this, 'polls.member.total', Polls.find(query, options), { noReady: true });
     return Polls.find(query, options)
 })

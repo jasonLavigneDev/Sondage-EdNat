@@ -1,21 +1,5 @@
-import assert from "assert";
+import "./global"
 import "../imports/api/polls/server/polls.tests.js";
+import "../imports/api/polls_answers/server/polls_answers.tests.js";
+import "./utils"
 
-describe("sondage", function () {
-  it("package.json has correct name", async function () {
-    const { name } = await import("../package.json");
-    assert.strictEqual(name, "sondage");
-  });
-
-  if (Meteor.isClient) {
-    it("client is not server", function () {
-      assert.strictEqual(Meteor.isServer, false);
-    });
-  }
-
-  if (Meteor.isServer) {
-    it("server is not client", function () {
-      assert.strictEqual(Meteor.isClient, false);
-    });
-  }
-});

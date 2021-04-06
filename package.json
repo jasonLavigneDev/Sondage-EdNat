@@ -4,8 +4,8 @@
   "scripts": {
     "start": "meteor run --settings ./config/settings.development.json",
     "start-dev": "npm-run-all --parallel css-watch start",
-    "test": "meteor test --once --exclude-archs 'web.browser.legacy, web.cordova' --driver-package meteortesting:mocha --allow-superuser",
-    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "test": "meteor test --once --exclude-archs 'web.browser.legacy, web.cordova' --driver-package meteortesting:mocha --allow-superuser --settings ./config/settings.development.json",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha --settings ./config/settings.development.json",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
     "css-build": "node-sass --omit-source-map-url imports/utils/theme/index.scss imports/utils/theme/index.css",
     "css-watch": "yarn css-build --watch"

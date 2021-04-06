@@ -4,7 +4,7 @@
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import { ROUTES, toasts } from "/imports/utils/enums";
   import Groups from "/imports/api/groups/groups";
-  import { createPoll, udaptePoll } from "/imports/api/polls/methods";
+  import { createPoll, updatePoll } from "/imports/api/polls/methods";
   import { toast } from "@zerodevx/svelte-toast";
 
   // components
@@ -32,7 +32,7 @@
   );
 
   const validatePollEdition = () => {
-    const method = meta.params._id ? udaptePoll : createPoll;
+    const method = meta.params._id ? updatePoll : createPoll;
     method.call(
       {
         data: {
