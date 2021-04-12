@@ -1,7 +1,7 @@
 <script>
   import { _ } from "svelte-i18n";
   import tippy from "sveltejs-tippy";
-  import { toggleActivePoll } from "/imports/api/polls/methods";
+  import { toggleActivePoll, removePolls } from "/imports/api/polls/methods";
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import { ROUTES } from "/imports/utils/enums";
   import copy from "copy-to-clipboard";
