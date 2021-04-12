@@ -2,6 +2,7 @@
   import { fade, fly } from "svelte/transition";
 
   export let toggle = () => null;
+  export let action = () => null;
   export let active = false;
   export let title = "title";
   export let validButton = "Save";
@@ -28,7 +29,7 @@
         <button class={`button ${cancelClass}`} on:click={toggle}
           >{cancelButton}</button
         >
-        <button class={`button ${validClass}`} on:click={toggle}
+        <button class={`button ${validClass}`} on:click={action}
           >{validButton}</button
         >
       </footer>

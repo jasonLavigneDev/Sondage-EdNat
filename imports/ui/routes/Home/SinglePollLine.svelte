@@ -24,6 +24,9 @@
     Meteor.subscribe("polls_answers.getCount", { pollId: poll._id });
     return Counts.get(`polls_answers.get-${poll._id}`);
   });
+  const removePoll = () => {
+    removePolls.call({ pollId: poll._id });
+  };
   const copyToClipboard = () => {
     const url = `${Meteor.absoluteUrl()}${ROUTES.ANSWER_POLL_RM(
       poll._id
@@ -115,6 +118,7 @@
 <Modal
   toggle={toggleModal}
   active={removePollModal}
+  action={removePoll}
   title={$_("pages.home.remove_title")}
   validButton={$_("pages.home.remove_valid")}
   validClass="is-danger"
