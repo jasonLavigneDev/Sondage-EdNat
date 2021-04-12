@@ -1,17 +1,16 @@
 <script>
   import { _ } from "svelte-i18n";
+  import moment from "moment";
   import Month from "./Month.svelte";
   import NavBar from "./NavBar.svelte";
   import { getMonths, isDateSelected } from "./lib/helpers";
-  import { formatDate, internationalize } from "timeUtils";
-  import { keyCodes, keyCodesArray } from "./lib/keyCodes";
   import { onMount, createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
   const today = new Date();
   const oneYear = 1000 * 60 * 60 * 24 * 365;
 
-  export let format = "#{m}/#{d}/#{Y}";
+  export let format = "	L";
   export let start = new Date(Date.now() - oneYear);
   export let end = new Date(Date.now() + oneYear);
   export let selected = today;
@@ -26,16 +25,6 @@
   $: daysOfWeek = JSON.parse($_("components.Time.daysOfWeek"));
   $: monthsOfYear = JSON.parse($_("components.Time.monthsOfYear"));
 
-  $: internationalize({ daysOfWeek, monthsOfYear });
-  let sortedDaysOfWeek =
-    weekStart === 0
-      ? daysOfWeek
-      : (() => {
-          let dow = daysOfWeek.slice();
-          dow.push(dow.shift());
-          return dow;
-        })();
-
   let highlighted = [];
   let shouldShakeDate = false;
   let shakeHighlightTimeout;
@@ -44,7 +33,15 @@
 
   let isOpen = true;
   let isClosing = false;
-
+  let sortedDaysOfWeek;
+  $: sortedDaysOfWeek =
+    weekStart === 0
+      ? daysOfWeek
+      : (() => {
+          let dow = daysOfWeek.slice();
+          dow.push(dow.shift());
+          return dow;
+        })();
   today.setHours(0, 0, 0, 0);
 
   function assignmentHandler(formatted) {
@@ -66,9 +63,6 @@
   $: visibleMonth = months[monthIndex];
 
   $: visibleMonthId = year + month / 100;
-  $: lastVisibleDate =
-    visibleMonth.weeks[visibleMonth.weeks.length - 1].days[6].date;
-  $: firstVisibleDate = visibleMonth.weeks[0].days[0].date;
   $: canIncrementMonth = monthIndex < months.length - 1;
   $: canDecrementMonth = monthIndex > 0;
 
@@ -77,7 +71,7 @@
     formattedSelected =
       typeof format === "function"
         ? selected.map(format)
-        : selected.map((s) => formatDate(s.date, format));
+        : selected.map((s) => moment(s.date).format(format));
   }
 
   onMount(() => {
@@ -100,44 +94,6 @@
     highlighted = new Date(year, month, day);
   }
 
-  function getDefaultHighlighted() {
-    return new Date(selected);
-  }
-
-  const getDay = (m, d, y) => {
-    let theMonth = months.find(
-      (aMonth) => aMonth.month === m && aMonth.year === y
-    );
-    if (!theMonth) return null;
-    // eslint-disable-next-line
-    for (let i = 0; i < theMonth.weeks.length; ++i) {
-      // eslint-disable-next-line
-      for (let j = 0; j < theMonth.weeks[i].days.length; ++j) {
-        let aDay = theMonth.weeks[i].days[j];
-        if (aDay.month === m && aDay.day === d && aDay.year === y) return aDay;
-      }
-    }
-    return null;
-  };
-
-  function incrementDayHighlighted(amount) {
-    let proposedDate = new Date(highlighted);
-    proposedDate.setDate(highlighted.getDate() + amount);
-    let correspondingDayObj = getDay(
-      proposedDate.getMonth(),
-      proposedDate.getDate(),
-      proposedDate.getFullYear()
-    );
-    if (!correspondingDayObj || !correspondingDayObj.isInRange) return;
-    highlighted = proposedDate;
-    if (amount > 0 && highlighted > lastVisibleDate) {
-      incrementMonth(1, highlighted.getDate());
-    }
-    if (amount < 0 && highlighted < firstVisibleDate) {
-      incrementMonth(-1, highlighted.getDate());
-    }
-  }
-
   function assignValueToTrigger(formatted) {
     assignmentHandler(formatted);
   }
@@ -153,36 +109,6 @@
       dateChosen = true;
       assignValueToTrigger(formattedSelected);
       return dispatch("dateSelected", { date: selected });
-    }
-  }
-
-  function handleKeyPress(evt) {
-    if (keyCodesArray.indexOf(evt.keyCode) === -1) return;
-    evt.preventDefault();
-    switch (evt.keyCode) {
-      case keyCodes.left:
-        incrementDayHighlighted(-1);
-        break;
-      case keyCodes.up:
-        incrementDayHighlighted(-7);
-        break;
-      case keyCodes.right:
-        incrementDayHighlighted(1);
-        break;
-      case keyCodes.down:
-        incrementDayHighlighted(7);
-        break;
-      case keyCodes.pgup:
-        incrementMonth(-1);
-        break;
-      case keyCodes.pgdown:
-        incrementMonth(1);
-        break;
-      case keyCodes.enter:
-        registerSelection(highlighted);
-        break;
-      default:
-        break;
     }
   }
 </script>

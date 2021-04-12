@@ -1,6 +1,6 @@
 <script>
-  import { date, _ } from "svelte-i18n";
-  import { formatDate } from "timeUtils";
+  import { _ } from "svelte-i18n";
+  import moment from "moment";
   import { ROUTES } from "/imports/utils/enums";
 
   // components
@@ -10,18 +10,10 @@
   import InputTimePicker from "./components/InputTimePicker.svelte";
   import Checkbox from "../../components/common/Checkbox.svelte";
   import StepBar from "../../components/common/StepBar.svelte";
+  import { DURATIONS } from "../../../utils/enums";
+
   export let meta;
   let timecolumns = 1;
-  const DURATIONS = [
-    "00:30",
-    "01:00",
-    "01:30",
-    "02:00",
-    "02:30",
-    "03:00",
-    "03:30",
-    "04:00",
-  ];
 
   $: $newPollStore.dates.forEach((date) => {
     if (date.slots) {
@@ -144,7 +136,9 @@
                 {#each $newPollStore.dates as day}
                   <tr>
                     <th>
-                      {formatDate(day.date, $_("components.Time.dateFormat"))}
+                      {moment(day.date).format(
+                        $_("components.Time.dateFormat")
+                      )}
                     </th>
                     {#if !$newPollStore.allDay && day.slots}
                       {#each day.slots as slot, i}
@@ -152,9 +146,8 @@
                           <div class="single-time">
                             <InputTimePicker
                               date={day.date}
-                              duration={$newPollStore.duration}
                               key={i}
-                              value={slot}
+                              bind:value={slot}
                             />
                             <span
                               class="icon is-small"

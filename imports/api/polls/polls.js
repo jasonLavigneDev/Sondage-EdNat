@@ -1,6 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { Tracker } from 'meteor/tracker';
+import { POLLS_TYPES } from "/imports/utils/enums"
 
 const Polls = new Mongo.Collection('polls');
 
@@ -74,6 +75,12 @@ Polls.schema = new SimpleSchema(
       type: Boolean,
       label: "Active",
       defaultValue: false
+    },
+    type: {
+      type: String,
+      label: "Type",
+      allowedValues: Object.keys(POLLS_TYPES).map(k => POLLS_TYPES[k]),
+      defaultValue: "poll"
     },
     groups: {
       type: Array,

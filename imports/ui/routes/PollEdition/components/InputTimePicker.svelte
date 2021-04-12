@@ -1,41 +1,25 @@
 <script>
-  import { onMount } from "svelte";
-
   import { _ } from "svelte-i18n";
+  import moment from "moment";
 
   import TimePicker from "svelte-time-picker";
-  import { formatDate } from "timeUtils";
   import { newPollStore } from "/imports/utils/functions/stores";
+  import { DURATIONS_TIME } from "../../../../utils/enums";
 
   export let date;
   export let disabled = false;
   export let value;
-  export let key = 0;
-  export let duration;
-  const FORMAT_KEY_DATE = "#{H}:#{i}";
-
+  const FORMAT_KEY_DATE = "HH:mm";
   let currentValue = new Date(
-    date.getYear(),
-    date.getMonth(),
-    date.getDate(),
-    value ? value.split(":")[0] : "00",
-    value ? value.split(":")[1] : "00"
+    moment(date)
+      .set("hour", value ? value.split(":")[0] : "00")
+      .set("minute", value ? value.split(":")[1] : "00")
+      .set("millisecond", 0)
   );
-  let endTime = formatDate(
-    new Date(
-      currentValue.getYear(),
-      currentValue.getMonth(),
-      currentValue.getDate(),
-      value
-        ? value.split(":")[0] + Number(duration.split(":")[0])
-        : Number(duration.split(":")[0]),
-      value
-        ? value.split(":")[1] + Number(duration.split(":")[1])
-        : Number(duration.split(":")[1])
-    ),
-    FORMAT_KEY_DATE
-  );
-
+  let endTime;
+  $: endTime = moment(currentValue)
+    .add(DURATIONS_TIME[$newPollStore.duration], "minutes")
+    .format(FORMAT_KEY_DATE);
   let open = false;
   const toggleModal = () => {
     if (disabled) return;
@@ -43,14 +27,7 @@
   };
   const handleChange = (e) => {
     const newDate = e.detail;
-    $newPollStore.dates.forEach((day, i) => {
-      if (day.date === date) {
-        $newPollStore.dates[i].slots[key] = formatDate(
-          newDate,
-          FORMAT_KEY_DATE
-        );
-      }
-    });
+    value = moment(newDate).format(FORMAT_KEY_DATE);
   };
   const options = {
     bgColor: "#011caa",
@@ -61,21 +38,6 @@
     buttonCancel: $_("pages.new_poll.cancel"),
     buttonClassName: "button is-light",
   };
-
-  $: endTime = formatDate(
-    new Date(
-      currentValue.getYear(),
-      currentValue.getMonth(),
-      currentValue.getDate(),
-      value
-        ? Number(value.split(":")[0]) + Number(duration.split(":")[0])
-        : Number(duration.split(":")[0]),
-      value
-        ? Number(value.split(":")[1]) + Number(duration.split(":")[1])
-        : Number(duration.split(":")[1])
-    ),
-    FORMAT_KEY_DATE
-  );
 </script>
 
 <button class="button is-light" on:click={toggleModal}

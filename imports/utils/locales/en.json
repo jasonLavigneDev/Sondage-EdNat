@@ -4,6 +4,11 @@
   "polls": "Polls",
   "back": "Back",
   "menu": "Menu",
+  "today": "Today",
+  "types": {
+    "POLL": "Poll",
+    "MEETING": "Meeting"
+  },
   "api": {
     "errors": {
       "notLoggedIn": "You must be logged in",
@@ -78,18 +83,25 @@
     "new_poll_1": {
       "title": "New Poll: Informations",
       "title_edit": "Edit Poll: Informations",
+      "title_meeting": "New Meeting: Informations",
+      "title_meeting_edit": "Edit Meeting: Informations",
       "title_input": "Poll's title",
       "group_input": "Groups polled",
       "public_input": "Public poll",
       "group_loading": "Loading groups",
       "group_select": "Add a group",
+      "type_input": "Poll type",
       "description_input": "Description"
     },
     "new_poll_2": {
       "title": "New Poll: Dates",
       "title_edit": "Edit Poll: Dates",
+      "title_meeting": "New Meeting: Dates",
+      "title_meeting_edit": "Edit Meeting: Dates",
       "selected_dates": "Selected dates",
-      "no_selected_dates": "No dates selected"
+      "no_selected_dates": "No dates selected",
+      "selected_time_slots": "Select your time slots",
+      "duration": "Duration of the meeting"
     },
     "new_poll_3": {
       "title": "New Poll: Hours",
@@ -128,10 +140,10 @@
       "validation": "Validation"
     },
     "Time": {
-      "dateFormat": "#{l}, #{F} #{j}, #{Y}",
-      "dateDayPollFormat": "#{l}",
-      "dateDatePollFormat": "#{j}",
-      "dateMonthPollFormat": "#{F} #{Y}",
+      "dateFormat": "ddd, MMM Do YYYY",
+      "dateDayPollFormat": "dddd",
+      "dateDatePollFormat": "Do",
+      "dateMonthPollFormat": "MMMM YYYY",
       "daysOfWeek": "[[\"Sunday\",\"Sun\"],[\"Monday\",\"Mon\"],[\"Tuesday\",\"Tue\"],[\"Wednesday\",\"Wed\"],[\"Thursday\",\"Thu\"],[\"Friday\",\"Fri\"],[\"Saturday\",\"Sat\"]]",
       "monthsOfYear": "[[\"January\",\"Jan\"],[\"February\",\"Feb\"],[\"March\",\"Mar\"],[\"April\",\"Apr\"],[\"May\",\"May\"],[\"June\",\"Jun\"],[\"July\",\"Jul\"],[\"August\",\"Aug\"],[\"September\",\"Sep\"],[\"October\",\"Oct\"],[\"November\",\"Nov\"],[\"December\",\"Dec\"]]"
     },

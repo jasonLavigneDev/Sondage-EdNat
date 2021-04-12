@@ -17,7 +17,7 @@ a {
   font-weight: normal;
   font-style: normal;
 }
-*:not(i):not(.material-icons) {
+*:not(i):not(.material-icons):not(.fc-icon) {
   font-family: "WorkSansRegular" !important;
 }
 .hidden {
@@ -45,4 +45,12 @@ p,
 }
 ._tp-button._tp-now {
   display: none !important;
+}
+
+.fc-button-primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+.fc-timegrid-slot {
+  cursor: pointer;
 }

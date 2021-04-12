@@ -2,15 +2,25 @@
   import { _ } from "svelte-i18n";
 
   import { router } from "tinro";
+  import { newPollStore } from "../../../utils/functions/stores";
   import { ROUTES } from "/imports/utils/enums";
+  import { POLLS_TYPES } from "/imports/utils/enums";
 
   export let active;
   export let pollId;
 
-  const steps = [
+  let steps;
+
+  $: steps = [
     { name: "components.StepBar.infos", url: 1 },
     { name: "components.StepBar.dates", url: 2 },
-    { name: "components.StepBar.times", url: 3 },
+    {
+      name:
+        $newPollStore.type === POLLS_TYPES.POLL
+          ? "components.StepBar.times"
+          : "components.StepBar.validation",
+      url: 3,
+    },
     { name: "components.StepBar.validation", url: 4 },
   ];
   const goToStep = (url) => {
@@ -23,13 +33,15 @@
 </script>
 
 <ul class="list-unstyled multi-steps">
-  {#each steps as step}
-    <li
-      on:click={() => goToStep(step.url)}
-      class:is-active={active == step.url}
-    >
-      {$_(step.name)}
-    </li>
+  {#each steps as step, i}
+    {#if $newPollStore.type === POLLS_TYPES.POLL || i < 3}
+      <li
+        on:click={() => goToStep(step.url)}
+        class:is-active={active == step.url}
+      >
+        {$_(step.name)}
+      </li>
+    {/if}
   {/each}
 </ul>
 

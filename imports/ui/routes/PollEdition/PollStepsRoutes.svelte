@@ -6,6 +6,8 @@
   import TimeStep from "./TimeStep.svelte";
   import ValidationStep from "./ValidationStep.svelte";
   import { newPollStore } from "/imports/utils/functions/stores";
+  import { POLLS_TYPES } from "/imports/utils/enums";
+  import CalendarStep from "./CalendarStep.svelte";
 
   export let redirect;
   export let meta;
@@ -17,7 +19,11 @@
 
 {#if $newPollStore.title}
   <Route path="/2">
-    <DateStep {meta} />
+    {#if $newPollStore.type === POLLS_TYPES.POLL}
+      <DateStep {meta} />
+    {:else}
+      <CalendarStep {meta} />
+    {/if}
   </Route>
 {:else}
   <Route path="/2" {redirect} />
@@ -25,13 +31,17 @@
 
 {#if $newPollStore.dates.length}
   <Route path="/3">
-    <TimeStep {meta} />
+    {#if $newPollStore.type === POLLS_TYPES.POLL}
+      <TimeStep {meta} />
+    {:else}
+      <ValidationStep {meta} />
+    {/if}
   </Route>
 {:else}
   <Route path="/3" {redirect} />
 {/if}
 
-{#if $newPollStore.dates.length}
+{#if $newPollStore.dates.length && $newPollStore.type === POLLS_TYPES.POLL}
   <Route path="/4">
     <ValidationStep {meta} />
   </Route>

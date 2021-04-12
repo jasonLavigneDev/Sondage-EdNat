@@ -1,6 +1,7 @@
 import { writable, derived } from "svelte/store";
 import { syncable } from "./localStorageStore";
 import { useTracker } from 'meteor/rdb:svelte-meteor-data';
+import { POLLS_TYPES } from "/imports/utils/enums"
 
 // Application state management
 const INITIAL_GLOBAL_STATE = {
@@ -9,11 +10,19 @@ const INITIAL_GLOBAL_STATE = {
 
 export const EMPTY_NEW_POLL = {
     dates: [],
-    title: "",
+    title: "yo",
     groups: [],
-    times: {},
+    times: [
+        {
+            date: new Date(),
+            slots: []
+        }
+    ],
+    meetingSlots: [],
+    duration: "00:30",
     public: false,
     allDay: false,
+    type: POLLS_TYPES.MEETING
 }
 
 export const language = syncable("language", "");

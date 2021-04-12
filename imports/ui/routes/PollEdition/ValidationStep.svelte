@@ -14,7 +14,7 @@
     newPollStore,
     EMPTY_NEW_POLL,
   } from "/imports/utils/functions/stores";
-  import { formatDate } from "timeUtils";
+  import moment from "moment";
   import InputTimePicker from "./components/InputTimePicker.svelte";
   import { router } from "tinro";
   import StepBar from "../../components/common/StepBar.svelte";
@@ -170,7 +170,7 @@
           <div class="column is-one-quarter">
             <div class="block">
               <div class="title is-6">
-                {formatDate(day.date, $_("components.Time.dateFormat"))}
+                {moment(day.date).format($_("components.Time.dateFormat"))}
               </div>
               <div class="buttons">
                 {#if $newPollStore.allDay}

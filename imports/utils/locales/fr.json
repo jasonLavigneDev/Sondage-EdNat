@@ -4,6 +4,11 @@
   "polls": "Sondages",
   "back": "Retour",
   "menu": "Menu",
+  "today": "Aujourd'hui",
+  "types": {
+    "POLL": "Sondage",
+    "MEETING": "Prise de rendez-vous"
+  },
   "api": {
     "errors": {
       "notLoggedIn": "Vous devez être connecté",
@@ -77,18 +82,25 @@
     "new_poll_1": {
       "title": "Nouveau sondage: Informations",
       "title_edit": "Édition du sondage: Informations",
+      "title_meeting_edit": "Édition du Rendez-vous: Informations",
+      "title_meeting": "Nouveau Rendez-vous: Informations",
       "title_input": "Titre du sondage",
       "group_input": "Groupes sondés",
       "public_input": "Sondage public",
       "group_loading": "Chargement des groupes",
       "group_select": "Ajouter un groupe",
+      "type_input": "Type de sondage",
       "description_input": "Description"
     },
     "new_poll_2": {
       "title": "Nouveau sondage: Dates",
       "title_edit": "Édition du sondage: Dates",
+      "title_meeting_edit": "Édition du Rendez-vous: Dates",
+      "title_meeting": "Nouveau Rendez-vous: Dates",
       "selected_dates": "Dates sélectionnées",
-      "no_selected_dates": "Aucune date sélectionnée"
+      "no_selected_dates": "Aucune date sélectionnée",
+      "selected_time_slots": "Sélectionnez vos tranches horaires",
+      "duration": "Durée du rendez-vous"
     },
     "new_poll_3": {
       "title": "Nouveau sondage: Heures",
@@ -127,10 +139,10 @@
       "validation": "Validation"
     },
     "Time": {
-      "dateFormat": "#{l} #{j} #{F} #{Y}",
-      "dateDayPollFormat": "#{l}",
-      "dateDatePollFormat": "#{j}",
-      "dateMonthPollFormat": "#{F} #{Y}",
+      "dateFormat": "ddd Do MMMM YYYY",
+      "dateDayPollFormat": "dddd",
+      "dateDatePollFormat": "Do",
+      "dateMonthPollFormat": "MMMM YYYY",
       "daysOfWeek": "[[\"Dimanche\",\"Dim\"],[\"Lundi\",\"Lun\"],[\"Mardi\",\"Mar\"],[\"Mercredi\",\"Mer\"],[\"Jeudi\",\"Jeu\"],[\"Vendredi\",\"Ven\"],[\"Samedi\",\"Sam\"]]",
       "monthsOfYear": "[[\"Janvier\",\"Jan\"],[\"Février\",\"Fév\"],[\"Mars\",\"Mar\"],[\"Avril\",\"Avr\"],[\"Mai\",\"Mai\"],[\"Juin\",\"Juin\"],[\"Juillet\",\"Juil\"],[\"Août\",\"Aoû\"],[\"Septembre\",\"Sep\"],[\"Octobre\",\"Oct\"],[\"Novembre\",\"Nov\"],[\"Décembre\",\"Déc\"]]"
     },

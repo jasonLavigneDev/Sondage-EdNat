@@ -1,15 +1,17 @@
 <script>
-  import { formatDate } from "timeUtils";
+  import moment from "moment";
   import { _ } from "svelte-i18n";
 
   import Divider from "/imports/ui/components/common/Divider.svelte";
   import NoResults from "/imports/ui/components/common/NoResults.svelte";
 
-  export let dates;
+  export let dates = null;
+  export let meetingSlots = false;
 
   const removeDate = (date) => {
     dates = dates.filter((d) => d.date !== date.date);
   };
+  $: console.log(dates);
 </script>
 
 <div class="box">
@@ -20,7 +22,16 @@
       <tbody>
         {#each dates as date}
           <tr>
-            <th>{formatDate(date.date, $_("components.Time.dateFormat"))}</th>
+            <th>
+              {#if meetingSlots}
+                {moment(date.start).format($_("components.Time.dateFormat"))} /
+                {moment(date.start).format("HH:mm")}
+                -
+                {moment(date.end).format("HH:mm")}
+              {:else}
+                {moment(date.date).format($_("components.Time.dateFormat"))}
+              {/if}
+            </th>
             <td>
               <button
                 on:click={() => removeDate(date)}

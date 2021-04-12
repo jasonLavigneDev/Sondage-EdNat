@@ -19,6 +19,8 @@
   } from "/imports/utils/functions/stores";
   import Checkbox from "../../components/common/Checkbox.svelte";
   import StepBar from "../../components/common/StepBar.svelte";
+  import Radios from "../../components/common/Radios.svelte";
+  import { POLLS_TYPES } from "/imports/utils/enums";
 
   export let meta;
   let selectedGroups, groups, loading;
@@ -79,12 +81,17 @@
 <section class="box-transparent">
   <div class="container">
     <h1 class="title is-3">
-      {$_(
-        meta.params._id
-          ? "pages.new_poll_1.title_edit"
-          : "pages.new_poll_1.title"
-      )}
+      {#if $newPollStore.type === POLLS_TYPES.POLL && meta.params._id}
+        {$_("pages.new_poll_1.title_meeting_edit")}
+      {:else if $newPollStore.type === POLLS_TYPES.POLL}
+        {$_("pages.new_poll_1.title_meeting")}
+      {:else if meta.params._id}
+        {$_("pages.new_poll_1.title_edit")}
+      {:else}
+        {$_("pages.new_poll_1.title")}
+      {/if}
     </h1>
+
     <StepBar active={1} pollId={meta.params._id} />
     {#if loading}
       <Loader />
@@ -155,6 +162,16 @@
                 />
               </span>
             {/each}
+          </div>
+          <div class="field">
+            <label class="label">{$_("pages.new_poll_1.type_input")}</label>
+            <Radios
+              options={Object.keys(POLLS_TYPES).map((k) => ({
+                label: $_(`types.${POLLS_TYPES[k]}`),
+                value: POLLS_TYPES[k],
+              }))}
+              bind:value={$newPollStore.type}
+            />
           </div>
         </div>
       </div>
