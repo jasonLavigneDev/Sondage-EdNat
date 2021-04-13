@@ -10,19 +10,14 @@ const INITIAL_GLOBAL_STATE = {
 
 export const EMPTY_NEW_POLL = {
     dates: [],
-    title: "yo",
+    title: "",
     groups: [],
-    times: [
-        {
-            date: new Date(),
-            slots: []
-        }
-    ],
+    times: [],
     meetingSlots: [],
     duration: "00:30",
     public: false,
     allDay: false,
-    type: POLLS_TYPES.MEETING
+    type: POLLS_TYPES.POLL
 }
 
 export const language = syncable("language", "");

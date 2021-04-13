@@ -19,6 +19,8 @@ export const createPollAnswers = new ValidatedMethod({
 
       if(PollsAnswers.findOne({ pollId: data.pollId, email: data.email }) && !this.userId) {
         throw new Meteor.Error('api.polls_answers.methods.create.emailAlreadyVoted', 'api.errors.emailAlreadyVoted');
+      } else if(PollsAnswers.findOne({ pollId: data.pollId, meetingSlot: data.meetingSlot })) {
+        throw new Meteor.Error('api.polls_answers.methods.create.slotAlreadyTaken', 'api.errors.slotAlreadyTaken');
       }
 
       if(!poll.public && this.userId) {
@@ -33,8 +35,10 @@ export const createPollAnswers = new ValidatedMethod({
         { 
           fields: { _id: 1 }
         })
-        if(isInAGroup && poll.active) {
+        if(isInAGroup && poll.active || this.userId === poll.userId && poll.active) {
           return PollsAnswers.update({ pollId: data.pollId, email: data.email }, { $set: { ...data } }, { upsert: true });
+        } else if(!poll.active) {
+          throw new Meteor.Error('api.polls_answers.methods.create.notActivePoll', "api.errors.notAllowed");
         } else {
           throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', "api.errors.notAllowed");
         }

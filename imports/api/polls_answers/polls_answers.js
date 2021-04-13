@@ -64,6 +64,7 @@ PollsAnswers.schema = new SimpleSchema(
     meetingSlot: {
       type: Date,
       label: "Meeting date slot",
+      optional: true
     },
     choices: {
       type: Array,

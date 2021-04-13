@@ -14,7 +14,9 @@
   let events;
 
   const selectSlot = ({ event }) => {
-    toggleChoice(event.start);
+    if (!answers.find((a) => moment(a.meetingSlot).isSame(event.start))) {
+      toggleChoice(event.start);
+    }
   };
 
   $: events = poll.meetingSlots.map(({ start, end }) => {

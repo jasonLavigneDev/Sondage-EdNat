@@ -101,6 +101,9 @@
     {poll.title}
   </td>
   <td>
+    {$_(`types.${poll.type}_table`)}
+  </td>
+  <td>
     {poll.groups.length}
   </td>
   <td>

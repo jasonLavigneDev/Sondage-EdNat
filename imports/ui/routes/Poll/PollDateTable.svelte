@@ -1,5 +1,6 @@
 <script>
   import DateDisplay from "../../components/common/DateDisplay.svelte";
+  import Checkbox from "../../components/common/Checkbox.svelte";
   import { _ } from "svelte-i18n";
 
   export let answers = [];

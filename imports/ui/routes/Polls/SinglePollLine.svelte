@@ -5,6 +5,7 @@
   import { ROUTES } from "/imports/utils/enums";
   import copy from "copy-to-clipboard";
   import { toast } from "@zerodevx/svelte-toast";
+  import { POLLS_TYPES } from "../../../utils/enums";
 
   export let poll;
   let votes;
@@ -47,6 +48,9 @@
   </th>
   <td>
     {poll.title}
+  </td>
+  <td>
+    {$_(`types.${poll.type || POLLS_TYPES.POLL}_table`)}
   </td>
   <td>
     {poll.groups.length}

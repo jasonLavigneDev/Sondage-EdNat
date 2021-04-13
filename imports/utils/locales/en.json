@@ -7,7 +7,9 @@
   "today": "Today",
   "types": {
     "POLL": "Poll",
-    "MEETING": "Meeting"
+    "POLL_table": "Poll",
+    "MEETING": "Meeting",
+    "MEETING_table": "Meeting"
   },
   "api": {
     "errors": {
@@ -46,6 +48,7 @@
       "title": "My polls",
       "new_poll": "Create a poll",
       "groups_label": "Groups",
+      "type_label": "Type",
       "title_label": "Title",
       "public_label": "Public",
       "duration_label": "Duration",

@@ -42,6 +42,7 @@
                 <tr>
                   <th>Actions</th>
                   <th>{$_("pages.home.title_label")}</th>
+                  <th>{$_("pages.home.type_label")}</th>
                   <th>{$_("pages.home.groups_label")}</th>
                   <th>{$_("pages.home.public_label")}</th>
                   <th>{$_("pages.home.duration_label")}</th>

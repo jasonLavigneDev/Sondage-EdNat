@@ -7,7 +7,9 @@
   "today": "Aujourd'hui",
   "types": {
     "POLL": "Sondage",
-    "MEETING": "Prise de rendez-vous"
+    "POLL_table": "Sondage",
+    "MEETING": "Prise de rendez-vous",
+    "MEETING_table": "RDV"
   },
   "api": {
     "errors": {
@@ -46,6 +48,7 @@
         "title": "Gestion de mes sondages",
         "new_poll": "Créer un sondage",
         "groups_label": "Groupes",
+        "type_label": "Type",
         "title_label": "Titre",
         "public_label": "Public",
         "duration_label": "Durée",

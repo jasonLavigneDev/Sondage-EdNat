@@ -11,11 +11,9 @@
   import BigLink from "/imports/ui/components/common/BigLink.svelte";
   import Divider from "/imports/ui/components/common/Divider.svelte";
   import Loader from "/imports/ui/components/common/Loader.svelte";
-  import DateDisplay from "../../components/common/DateDisplay.svelte";
-  import Checkbox from "../../components/common/Checkbox.svelte";
+  import CalendarPoll from "./CalendarPoll.svelte";
   import PollDateTable from "./PollDateTable.svelte";
   import { POLLS_TYPES } from "../../../utils/enums";
-  import CalendarPoll from "../Polls/CalendarPoll.svelte";
 
   export let meta;
   let selectedGroups;
@@ -105,6 +103,7 @@
     loading = true;
     Meteor.call("polls_answers.create", { data: answer }, (error, result) => {
       loading = false;
+      console.log(error);
       if (error) {
         toast.push($_(error.reason), toasts.error);
       } else {
