@@ -7,6 +7,7 @@
   import copy from "copy-to-clipboard";
   import { toast } from "@zerodevx/svelte-toast";
   import Modal from "../../components/common/Modal.svelte";
+  import { toasts } from "../../../utils/enums";
 
   export let poll;
   let votes;
@@ -25,7 +26,12 @@
     return Counts.get(`polls_answers.get-${poll._id}`);
   });
   const removePoll = () => {
-    removePolls.call({ pollId: poll._id });
+    removePolls.call({ pollId: poll._id }, (e, r) => {
+      if (e) {
+        toast.push($_(e.reason), toasts.error);
+      }
+      removePollModal = false;
+    });
   };
   const copyToClipboard = () => {
     const url = `${Meteor.absoluteUrl()}${ROUTES.ANSWER_POLL_RM(
