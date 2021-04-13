@@ -58,7 +58,7 @@ export const createPoll = new ValidatedMethod({
           throw new Meteor.Error('api.polls.methods.toggle.notAllowed', "api.errors.notAllowed");
         }      
 
-        if(Meteor.isServer && poll.groups.length && !Meteor.isTest) {
+        if(Meteor.isServer && poll.groups.length && !Meteor.isTest && !poll.active) {
           const { sendnotif } = require('../notifications/server/notifSender')
           sendnotif({ groups: poll.groups, title: poll.title })
         }

@@ -2,7 +2,9 @@
   import { _ } from "svelte-i18n";
   import { fade, fly } from "svelte/transition";
   import LanguageSwitcher from "../common/LanguageSwitcher.svelte";
+  import Divider from "/imports/ui/components/common/Divider.svelte";
   import { items } from "./items";
+  import { currentUser } from "../../../utils/functions/stores";
 
   export let toggle, pathname;
 </script>
@@ -19,7 +21,6 @@
           {#each items as { path, text }}
             <li>
               <a
-                rel="prefetch"
                 class:is-active={pathname === path}
                 class="navbar-item"
                 on:click={toggle}
@@ -32,6 +33,16 @@
               </a>
             </li>
           {/each}
+          {#if $currentUser}
+            <li>
+              <Divider />
+            </li>
+            <li>
+              <a class="navbar-item" on:click={() => Meteor.logout()}>
+                {$currentUser.services.keycloak.email}
+              </a>
+            </li>
+          {/if}
           <br />
           <li>
             <LanguageSwitcher mobile={true} />

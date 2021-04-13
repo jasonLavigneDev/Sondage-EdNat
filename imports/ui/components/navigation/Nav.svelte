@@ -52,6 +52,11 @@
       {/if}
     </div>
     <div class="navbar-end">
+      {#if $currentUser}
+        <a class="navbar-item" on:click={() => Meteor.logout()}>
+          {$currentUser.services.keycloak.email}
+        </a>
+      {/if}
       <LanguageSwitcher />
     </div>
   </div>

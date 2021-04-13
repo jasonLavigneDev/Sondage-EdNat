@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import SimpleSchema from 'simpl-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { POLLS_TYPES } from "/imports/utils/enums";
 
 import PollsAnswers from '../polls_answers';
 import Groups from '/imports/api/groups/groups';
@@ -19,7 +20,7 @@ export const createPollAnswers = new ValidatedMethod({
 
       if(PollsAnswers.findOne({ pollId: data.pollId, email: data.email }) && !this.userId) {
         throw new Meteor.Error('api.polls_answers.methods.create.emailAlreadyVoted', 'api.errors.emailAlreadyVoted');
-      } else if(PollsAnswers.findOne({ pollId: data.pollId, meetingSlot: data.meetingSlot })) {
+      } else if(PollsAnswers.findOne({ pollId: data.pollId, meetingSlot: data.meetingSlot, type: POLLS_TYPES.MEETING })) {
         throw new Meteor.Error('api.polls_answers.methods.create.slotAlreadyTaken', 'api.errors.slotAlreadyTaken');
       }
 

@@ -177,7 +177,7 @@
           </div>
           <div class="column is-half">
             <label class="label">{$_("pages.answer.email")}</label>
-            <div class="field" class:has-addons={!Meteor.userId()}>
+            <div class="field">
               <div class="control">
                 <input
                   class="input"
@@ -187,16 +187,18 @@
                   placeholder={$_("pages.answer.email")}
                 />
               </div>
-
-              {#if !Meteor.userId()}
-                <div class="control">
-                  <BigLink
-                    action={Meteor.loginWithKeycloak}
-                    text={$_("pages.login.signin")}
-                  />
-                </div>
-              {/if}
             </div>
+          </div>
+          <div class="column is-half">
+            {#if !Meteor.userId()}
+              <label class="label">{$_("pages.answer.login_with_lb")}</label>
+              <div class="control">
+                <BigLink
+                  action={Meteor.loginWithKeycloak}
+                  text={$_("pages.login.signin")}
+                />
+              </div>
+            {/if}
           </div>
           <div class="column is-full">
             {#if poll.type === POLLS_TYPES.POLL}

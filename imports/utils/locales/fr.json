@@ -128,7 +128,8 @@
       "description": "Description",
       "participants": "Participants",
       "allDay": "Toute la journée",
-      "poll_answered": "Sondage répondu avec succès"
+      "poll_answered": "Sondage répondu avec succès",
+      "login_with_lb": "Vous avez un compte dans LaBoite"
     }
   },
   "components": {

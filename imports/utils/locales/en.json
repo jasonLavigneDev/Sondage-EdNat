@@ -129,7 +129,8 @@
       "description": "Description",
       "participants": "Participants",
       "allDay": "All day",
-      "poll_answered": "Poll answered successfully"
+      "poll_answered": "Poll answered successfully",
+      "login_with_lb": "You have an account in LaBoite"
     }
   },
   "components": {
