@@ -5,6 +5,7 @@
   import Divider from "/imports/ui/components/common/Divider.svelte";
   import { items } from "./items";
   import { currentUser } from "../../../utils/functions/stores";
+  import { ROUTES } from "../../../utils/enums";
 
   export let toggle, pathname;
 </script>
@@ -38,7 +39,11 @@
               <Divider />
             </li>
             <li>
-              <a class="navbar-item" on:click={() => Meteor.logout()}>
+              <a
+                href={ROUTES.LOGOUT}
+                class="navbar-item"
+                on:click={() => Meteor.logout()}
+              >
                 {$currentUser.services.keycloak.email}
               </a>
             </li>

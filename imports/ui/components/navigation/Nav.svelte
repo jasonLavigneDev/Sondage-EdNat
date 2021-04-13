@@ -7,6 +7,7 @@
   import MobileMenu from "./MobileMenu.svelte";
   import { currentUser } from "/imports/utils/functions/stores";
   import LanguageSwitcher from "/imports/ui/components/common/LanguageSwitcher.svelte";
+  import { ROUTES } from "../../../utils/enums";
 
   let mobileMenu = false;
 
@@ -53,7 +54,11 @@
     </div>
     <div class="navbar-end">
       {#if $currentUser}
-        <a class="navbar-item" on:click={() => Meteor.logout()}>
+        <a
+          href={ROUTES.LOGOUT}
+          class="navbar-item"
+          on:click={() => Meteor.logout()}
+        >
           {$currentUser.services.keycloak.email}
         </a>
       {/if}

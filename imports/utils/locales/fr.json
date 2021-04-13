@@ -69,6 +69,11 @@
     "polls": {
         "title": "Mes participations"
     },
+    "logout": {
+      "title": "Vous avez été déconnecté",
+      "title2": "Vous avez été reconnecté",
+      "go_home": "Retourner à l'accueil"
+    },
     "login": {
       "title": "Vous n'êtes pas connecté",
       "signin": "Se connecter"

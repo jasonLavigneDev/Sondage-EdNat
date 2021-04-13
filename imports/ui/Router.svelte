@@ -14,6 +14,7 @@
   import PollStepsRoutes from "./routes/PollEdition/PollStepsRoutes.svelte";
   import Poll from "./routes/Poll/Poll.svelte";
   import Transition from "./components/common/Transition.svelte";
+  import Logout from "./routes/Logout.svelte";
 
   router.subscribe((_) => window.scrollTo(0, 0));
 </script>
@@ -61,5 +62,8 @@
     </Route>
 
     <Route path="*" redirect={ROUTES.LOGIN} />
+  </Route>
+  <Route path={ROUTES.LOGOUT} let:meta>
+    <Logout {meta} />
   </Route>
 </Transition>

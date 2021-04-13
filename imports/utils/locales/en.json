@@ -74,6 +74,11 @@
       "title": "You are not logged in",
       "signin": "Signin"
     },
+    "logout": {
+      "title": "You have been logged out",
+      "title2": "You have been logged in again",
+      "go_home": "Go back home"
+    },
     "new_poll": {
       "next": "Next",
       "previous": "previous",

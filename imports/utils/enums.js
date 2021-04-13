@@ -11,6 +11,7 @@ export const ROUTES = {
     ANSWER_POLL: "/answer/:_id",
     ANSWER_POLL_RM: (id) => `/poll/answer/${id}`,
     POLLS: "/polls",
+    LOGOUT: "/logout"
 }
 
 export const toast_options = {
