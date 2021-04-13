@@ -17,10 +17,6 @@ export const createPoll = new ValidatedMethod({
       if (!this.userId) {
         throw new Meteor.Error('api.polls.methods.create.notLoggedIn', "api.errors.notLoggedIn");
       }
-      if(Meteor.isServer && data.groups.length && !Meteor.isTest) {
-        const { sendnotif } = require('../notifications/server/notifSender')
-        sendnotif({ groups: data.groups, title: data.title })
-      }
       return Polls.insert(data);
     },
   });
@@ -60,6 +56,12 @@ export const createPoll = new ValidatedMethod({
         const poll = Polls.findOne(pollId)
         if(this.userId !== poll.userId){
           throw new Meteor.Error('api.polls.methods.toggle.notAllowed', "api.errors.notAllowed");
+        }      
+
+        if(Meteor.isServer && data.groups.length && !Meteor.isTest) {
+          const { sendnotif } = require('../notifications/server/notifSender')
+          const poll = Polls.findOne(pollId)
+          sendnotif({ groups: poll.groups, title: poll.title })
         }
       return Polls.update({ _id: pollId }, { $set: { active: !poll.active } });
     },

@@ -6,7 +6,6 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import Polls from '../polls';
 import Groups from '/imports/api/groups/groups'
 import PollsAnswers from '../../polls_answers/polls_answers';
-import { sendnotif } from '../../notifications/server/notifSender';
 
 export const getSinglePoll = new ValidatedMethod({
   name: 'polls.getSinglePoll',
@@ -73,9 +72,6 @@ export const updatePoll = new ValidatedMethod({
       throw new Meteor.Error('api.polls.methods.update.notAllowed', "api.errors.notAllowed");
     } else if(poll.active){
       throw new Meteor.Error('api.polls.methods.update.active', "api.errors.notAllowed");
-    }
-    if(data.groups.length && !Meteor.isTest) {
-      sendnotif({ groups: data.groups, title: data.title })
     }
 
     return Polls.update({ _id: pollId }, { $set: { ...data } });
