@@ -15,7 +15,11 @@
 
   const selectSlot = ({ event }) => {
     if (!answers.find((a) => moment(a.meetingSlot).isSame(event.start))) {
-      toggleChoice(event.start);
+      if (moment(answer.meetingSlot).isSame(event.start)) {
+        toggleChoice(null);
+      } else {
+        toggleChoice(event.start);
+      }
     }
   };
 

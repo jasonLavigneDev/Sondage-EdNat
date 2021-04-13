@@ -59,7 +59,7 @@
             )
           );
           router.goto(ROUTES.ADMIN);
-          newPollStore.set(EMPTY_NEW_POLL);
+          newPollStore.set({ ...EMPTY_NEW_POLL });
         }
       }
     );

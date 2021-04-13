@@ -26,7 +26,7 @@
   let selectedGroups, groups, loading;
 
   const resetPollEdition = () => {
-    newPollStore.set(EMPTY_NEW_POLL);
+    newPollStore.set({ ...EMPTY_NEW_POLL });
   };
 
   onMount(() => {
@@ -49,7 +49,7 @@
         }
       );
     } else if ($newPollStore._id) {
-      newPollStore.set(EMPTY_NEW_POLL);
+      newPollStore.set({ ...EMPTY_NEW_POLL });
     }
   });
 
