@@ -32,8 +32,21 @@ const SingleDateSchema = new SimpleSchema(
         },
         "slots.$": {
           type: String,
-        }
+        },
     }
+)
+
+const SingleMeetingSlotSchema = new SimpleSchema(
+  {
+    start: {
+      type: Date,
+      label: "Start time",
+    },
+    end: {
+      type: Date,
+      label: "End time",
+    },
+  }
 )
 
 Polls.schema = new SimpleSchema(
@@ -98,6 +111,14 @@ Polls.schema = new SimpleSchema(
     },
     "dates.$": {
       type: SingleDateSchema,
+    },
+    meetingSlots: {
+      type: Array,
+      label: "Meeting Time Slots",
+      optional: true
+    },
+    "meetingSlots.$": {
+      type: SingleMeetingSlotSchema,
     },
     createdAt: {
       type: Date,

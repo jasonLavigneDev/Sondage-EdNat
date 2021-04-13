@@ -6,6 +6,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import Polls from '../polls';
 import Groups from '/imports/api/groups/groups'
 import PollsAnswers from '../../polls_answers/polls_answers';
+import { sendnotif } from '../../notifications/server/notifSender';
 
 export const getSinglePoll = new ValidatedMethod({
   name: 'polls.getSinglePoll',
@@ -36,7 +37,7 @@ export const getSinglePollToAnswer = new ValidatedMethod({
     if(!poll.active && this.userId !== poll.userId) {
       throw new Meteor.Error('api.polls.methods.get.notActive', "api.errors.pollNotActive");
     }
-    if(!isInAGroup && !poll.public) {
+    if(!isInAGroup && !poll.public && this.userId !== poll.userId) {
       throw new Meteor.Error('api.polls.methods.get.notPublic', "api.errors.notApublicPoll");
     }
     return {
@@ -51,6 +52,33 @@ export const getSinglePollToAnswer = new ValidatedMethod({
       selectedGroups: Groups.find({ _id: { $in: poll.groups } }).fetch(),
       answer: this.userId ? PollsAnswers.findOne({  pollId, userId: this.userId }) : null
     }
+  },
+});
+
+
+export const updatePoll = new ValidatedMethod({
+  name: 'polls.update',
+  validate: new SimpleSchema({
+    data: Polls.schema.omit('createdAt', 'updatedAt'),
+    pollId: String
+  }).validator({ clean: true }),
+
+  run({ data, pollId }) {
+    // check if logged in
+    if (!this.userId) {
+        throw new Meteor.Error('api.polls.methods.update.notLoggedIn', "api.errors.notLoggedIn");
+      }
+    const poll = Polls.findOne(pollId) || {}
+    if(this.userId !== poll.userId){
+      throw new Meteor.Error('api.polls.methods.update.notAllowed', "api.errors.notAllowed");
+    } else if(poll.active){
+      throw new Meteor.Error('api.polls.methods.update.active', "api.errors.notAllowed");
+    }
+    if(data.groups.length && !Meteor.isTest) {
+      sendnotif({ groups: data.groups, title: data.title })
+    }
+
+    return Polls.update({ _id: pollId }, { $set: { ...data } });
   },
 });
 

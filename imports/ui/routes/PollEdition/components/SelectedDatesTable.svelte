@@ -11,7 +11,6 @@
   const removeDate = (date) => {
     dates = dates.filter((d) => d.date !== date.date);
   };
-  $: console.log(dates);
 </script>
 
 <div class="box">

@@ -61,6 +61,10 @@ PollsAnswers.schema = new SimpleSchema(
       regEx: SimpleSchema.RegEx.Id,
       label: "Poll ID",
     },
+    meetingSlot: {
+      type: Date,
+      label: "Meeting date slot",
+    },
     choices: {
       type: Array,
       label: "Dates",

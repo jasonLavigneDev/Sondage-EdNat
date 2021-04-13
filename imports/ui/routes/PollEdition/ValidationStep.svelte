@@ -4,7 +4,6 @@
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import { ROUTES, toasts } from "/imports/utils/enums";
   import Groups from "/imports/api/groups/groups";
-  import { createPoll, updatePoll } from "/imports/api/polls/methods";
   import { toast } from "@zerodevx/svelte-toast";
 
   // components
@@ -18,11 +17,10 @@
   import InputTimePicker from "./components/InputTimePicker.svelte";
   import { router } from "tinro";
   import StepBar from "../../components/common/StepBar.svelte";
+  import { POLLS_TYPES } from "../../../utils/enums";
 
   export let meta;
   let selectedGroups;
-  let newPoll = {};
-  const FORMAT_KEY_DATE = "#{j}-#{m}-#{Y}";
 
   $: selectedGroups = useTracker(() =>
     Groups.find(
@@ -32,17 +30,25 @@
   );
 
   const validatePollEdition = () => {
-    const method = meta.params._id ? updatePoll : createPoll;
-    method.call(
+    Meteor.call(
+      meta.params._id ? "polls.update" : "polls.create",
       {
         data: {
           ...$newPollStore,
-          dates: $newPollStore.dates.sort((a, b) => a.date - b.date),
+          dates:
+            $newPollStore.type === POLLS_TYPES.POLL
+              ? $newPollStore.dates.sort((a, b) => a.date - b.date)
+              : [],
+          meetingSlots:
+            $newPollStore.type === POLLS_TYPES.MEETING
+              ? $newPollStore.meetingSlots.sort((a, b) => a.start - b.start)
+              : [],
         },
         pollId: meta.params._id,
       },
       (error, result) => {
         if (error) {
+          console.log(error);
           toast.push($_(error.reason), toasts.error);
         } else {
           toast.push(
@@ -165,30 +171,44 @@
         <div class="column is-full">
           <div class="title is-4">{$_("pages.new_poll_4.proposed_times")}</div>
         </div>
-
-        {#each $newPollStore.dates as day}
-          <div class="column is-one-quarter">
-            <div class="block">
-              <div class="title is-6">
-                {moment(day.date).format($_("components.Time.dateFormat"))}
-              </div>
-              <div class="buttons">
-                {#if $newPollStore.allDay}
-                  {$_("pages.new_poll_3.allDay_input")}
-                {:else}
-                  {#each day.slots as slot}
-                    <InputTimePicker
-                      date={day.date}
-                      duration={$newPollStore.duration}
-                      value={slot}
-                      disabled={true}
-                    />
-                  {/each}
-                {/if}
+        {#if $newPollStore.type === POLLS_TYPES.MEETING}
+          {#each $newPollStore.meetingSlots as day}
+            <div class="column is-one-quarter">
+              <div class="block">
+                <div class="title is-6">
+                  {moment(day.start).format($_("components.Time.dateFormat"))}
+                </div>
+                {moment(day.start).format("HH:mm")}
+                -
+                {moment(day.end).format("HH:mm")}
               </div>
             </div>
-          </div>
-        {/each}
+          {/each}
+        {:else}
+          {#each $newPollStore.dates as day}
+            <div class="column is-one-quarter">
+              <div class="block">
+                <div class="title is-6">
+                  {moment(day.date).format($_("components.Time.dateFormat"))}
+                </div>
+                <div class="buttons">
+                  {#if $newPollStore.allDay}
+                    {$_("pages.new_poll_3.allDay_input")}
+                  {:else}
+                    {#each day.slots as slot}
+                      <InputTimePicker
+                        date={day.date}
+                        duration={$newPollStore.duration}
+                        value={slot}
+                        disabled={true}
+                      />
+                    {/each}
+                  {/if}
+                </div>
+              </div>
+            </div>
+          {/each}
+        {/if}
       </div>
 
       <div class="columns is-multiline">

@@ -54,3 +54,10 @@ p,
 .fc-timegrid-slot {
   cursor: pointer;
 }
+.fc-slot-current {
+  background-color: var(--primary) !important;
+}
+.fc-slot-taken {
+  background-color: #aaaaff !important;
+  border-color: #aaaaff !important;
+}

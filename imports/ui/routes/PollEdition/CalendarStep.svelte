@@ -53,9 +53,6 @@
       ...$newPollStore.meetingSlots,
       ...newTimesSlots,
     ];
-    console.log(
-      timeSlotsGen(start, end, DURATIONS_TIME[$newPollStore.duration])
-    );
   };
   const resetSlots = () => {
     $newPollStore.meetingSlots = [];
@@ -185,7 +182,7 @@
       </div>
       <div class="column is-half-desktop is-full-mobile is-right">
         <BigLink
-          disabled={!$newPollStore.dates.length}
+          disabled={!$newPollStore.meetingSlots.length}
           link={meta.params._id
             ? ROUTES.EDIT_POLL_RM(meta.params._id, 3)
             : ROUTES.NEW_POLL_RM(3)}

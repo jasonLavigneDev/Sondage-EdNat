@@ -5,32 +5,6 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
 import Polls from './polls';
 
-export const updatePoll = new ValidatedMethod({
-  name: 'polls.update',
-  validate: new SimpleSchema({
-    data: Polls.schema.omit('createdAt', 'updatedAt'),
-    pollId: String
-  }).validator({ clean: true }),
-
-  run({ data, pollId }) {
-    // check if logged in
-    if (!this.userId) {
-        throw new Meteor.Error('api.polls.methods.update.notLoggedIn', "api.errors.notLoggedIn");
-      }
-    const poll = Polls.findOne(pollId)
-    if(this.userId !== poll.userId){
-      throw new Meteor.Error('api.polls.methods.update.notAllowed', "api.errors.notAllowed");
-    } else if(poll.active){
-      throw new Meteor.Error('api.polls.methods.update.active', "api.errors.notAllowed");
-    }
-    if(Meteor.isServer && data.groups.length && !Meteor.isTest) {
-      const { sendnotif } = require('../notifications/server/notifSender')
-      sendnotif({ groups: data.groups, title: data.title })
-    }
-
-    return Polls.update({ _id: pollId }, { $set: { ...data } });
-  },
-});
 
 export const createPoll = new ValidatedMethod({
     name: 'polls.create',

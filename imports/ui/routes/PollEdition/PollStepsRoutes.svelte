@@ -29,7 +29,7 @@
   <Route path="/2" {redirect} />
 {/if}
 
-{#if $newPollStore.dates.length}
+{#if $newPollStore.dates.length || $newPollStore.meetingSlots.length}
   <Route path="/3">
     {#if $newPollStore.type === POLLS_TYPES.POLL}
       <TimeStep {meta} />
