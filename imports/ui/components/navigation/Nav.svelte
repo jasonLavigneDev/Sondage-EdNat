@@ -60,6 +60,9 @@
           on:click={() => Meteor.logout()}
         >
           {$currentUser.services.keycloak.email}
+          <span class="icon is-large">
+            <i class="fas fa-sign-out-alt" />
+          </span>
         </a>
       {/if}
       <LanguageSwitcher />
