@@ -1,17 +1,16 @@
 {
     "public": {
       "enableKeycloak": true,
-      "keycloakUrl": "https://sso.mim-libre.fr/auth",
-      "keycloakRealm": "mim",
-      "laboiteHost": "http://localhost:4000"
+      "keycloakUrl": "",
+      "keycloakRealm": "",
+      "laboiteHost": ""
     },
     "keycloak": {
       "pubkey": "",
-      "client": "grp"
+      "client": ""
     },
     "private": {
-      "fillWithFakeData": false,
-      "laboiteApiKey": "quelle belle clé"
+      "laboiteApiKey": ""
     }
   }
   
