@@ -41,7 +41,8 @@
   "polls_datas": {
     "allDay": "Toute la journée",
     "true": "Oui",
-    "false": "Non"
+    "false": "Non",
+    "noAnswer": "Pas de réponse"
   },
   "pages": {
     "home": {
@@ -54,6 +55,7 @@
         "duration_label": "Durée",
         "dates_label": "Dates",
         "votes_label": "Votes",
+        "meetingSlot_label": "Date choisie",
         "deactivate_tooltip": "Désactiver",
         "activate_tooltip": "Activer",
         "results_tooltip": "Résultats",
