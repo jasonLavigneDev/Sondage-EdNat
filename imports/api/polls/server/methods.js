@@ -33,13 +33,7 @@ export const getSinglePollToAnswer = new ValidatedMethod({
         { members: { $in: [this.userId] } },
       ] 
     }, { fields: { _id: 1 }})
-    if(!poll.active && this.userId !== poll.userId) {
-      throw new Meteor.Error('api.polls.methods.get.notActive', "api.errors.pollNotActive");
-    }
-    if(!isInAGroup && !poll.public && this.userId !== poll.userId) {
-      throw new Meteor.Error('api.polls.methods.get.notPublic', "api.errors.notApublicPoll");
-    }
-    return {
+    const data = {
       poll,
       answers: PollsAnswers.find({
         pollId,
@@ -51,6 +45,13 @@ export const getSinglePollToAnswer = new ValidatedMethod({
       selectedGroups: Groups.find({ _id: { $in: poll.groups } }).fetch(),
       answer: this.userId ? PollsAnswers.findOne({  pollId, userId: this.userId }) : null
     }
+    if(!poll.active && this.userId !== poll.userId) {
+      throw new Meteor.Error('api.polls.methods.get.notActive', "api.errors.pollNotActive");
+    }
+    if(!poll.public && !this.userId || !isInAGroup && !poll.public && this.userId !== poll.userId) {
+      throw new Meteor.Error('api.polls.methods.get.notPublic', "api.errors.notApublicPoll");
+    }
+    return data
   },
 });
 

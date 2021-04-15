@@ -14,12 +14,14 @@
   import CalendarPoll from "./CalendarPoll.svelte";
   import PollDateTable from "./PollDateTable.svelte";
   import { POLLS_TYPES } from "../../../utils/enums";
+  import Login from "../Login.svelte";
 
   export let meta;
   let selectedGroups;
   let poll = {};
   let loading = false;
   let answers = [];
+  let askToConnect = false;
   let answer = {
     email: "",
     meetingSlot: null,
@@ -53,8 +55,13 @@
             }
             answers = r.answers;
           } else {
+            console.log(e);
             toast.push($_(e.reason), toasts.error);
-            router.goto(ROUTES.ADMIN);
+            if (e.reason === "api.errors.notApublicPoll" && !Meteor.userId()) {
+              askToConnect = true;
+            } else {
+              router.goto(ROUTES.ADMIN);
+            }
           }
         }
       );
@@ -120,7 +127,11 @@
 <section class="box-transparent">
   <div class="container">
     <h1 class="title is-3">
-      {poll.title ? poll.title : $_("loading")}
+      {poll.title
+        ? poll.title
+        : askToConnect
+        ? $_("pages.answer.askToConnect")
+        : $_("loading")}
       {#if !poll.active}
         <span class="icon is-small">
           <i class="fas fa-lock" />
@@ -217,6 +228,8 @@
           </div>
         </div>
       </div>
+    {:else if askToConnect}
+      <Login />
     {/if}
   </div>
 </section>

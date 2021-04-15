@@ -137,7 +137,8 @@
       "participants": "Participants",
       "allDay": "All day",
       "poll_answered": "Poll answered successfully",
-      "login_with_lb": "You have an account in LaBoite"
+      "login_with_lb": "You have an account in LaBoite",
+      "askToConnect": "Login to see this page"
     }
   },
   "components": {

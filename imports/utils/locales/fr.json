@@ -15,7 +15,7 @@
     "errors": {
       "notLoggedIn": "Vous devez être connecté",
       "notAllowed": "Vous n'êtes pas autorisé a faire ceci",
-      "notApublicPoll": "Ce sondage privé, vous devez être connecté",
+      "notApublicPoll": "Ce sondage est privé, vous devez être connecté",
       "emailAlreadyVoted": "Cet email est déjà enregistré avec un vote",
       "pollNotActive": "Ce sondage n'est pas actif, vous ne pouvez pas voter"
     }
@@ -136,7 +136,8 @@
       "participants": "Participants",
       "allDay": "Toute la journée",
       "poll_answered": "Sondage répondu avec succès",
-      "login_with_lb": "Vous avez un compte dans LaBoite"
+      "login_with_lb": "Vous avez un compte dans LaBoite",
+      "askToConnect": "Connectez-vous pour voir cette page"
     }
   },
   "components": {
