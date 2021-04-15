@@ -22,7 +22,7 @@
   },
   "links": {
     "home": "Administration",
-    "polls": "Polls",
+    "polls": "Participations",
     "new_poll": "Create",
     "new_poll_1": "Create - Informations",
     "new_poll_2": "Create - Dates",
@@ -142,8 +142,16 @@
     }
   },
   "components": {
+    "MeetingAnswersList": {
+      "title": "Answers list"
+    },
     "SinglePollLine": {
       "copied": "URL copied to clipboard"
+    },
+    "SinglePollAnswerLine": {
+      "validate": "Validate",
+      "validated": "Meeting confirmed",
+      "validate_tooltip": "Validate the meeting and send an email"
     },
     "StepBar": {
       "infos": "Info",

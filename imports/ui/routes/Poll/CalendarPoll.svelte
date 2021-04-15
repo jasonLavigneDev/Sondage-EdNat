@@ -2,19 +2,26 @@
   import { _, locale } from "svelte-i18n";
   import FullCalendar from "svelte-fullcalendar";
   import moment from "moment";
+  import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import allLocales from "@fullcalendar/core/locales-all";
   import interactionPlugin from "@fullcalendar/interaction"; // for selectable
   import timeGridPlugin from "@fullcalendar/timegrid";
+  import PollsAnswers from "../../../api/polls_answers/polls_answers";
 
-  export let answers = [];
   export let answer = {};
   export let poll = {};
   export let toggleChoice = () => null;
+  let answers;
   let options;
   let events;
 
+  $: answers = useTracker(() => {
+    Meteor.subscribe("polls_answers.onePoll", { pollId: poll._id });
+    return PollsAnswers.find({ pollId: poll._id }).fetch();
+  });
+
   const selectSlot = ({ event }) => {
-    if (!answers.find((a) => moment(a.meetingSlot).isSame(event.start))) {
+    if (!$answers.find((a) => moment(a.meetingSlot).isSame(event.start))) {
       if (moment(answer.meetingSlot).isSame(event.start)) {
         toggleChoice(null);
       } else {
@@ -24,7 +31,7 @@
   };
 
   $: events = poll.meetingSlots.map(({ start, end }) => {
-    const answerToSlot = answers.find((a) =>
+    const answerToSlot = $answers.find((a) =>
       moment(a.meetingSlot).isSame(start)
     );
     if (moment(answer.meetingSlot).isSame(start)) {

@@ -22,7 +22,7 @@
   },
   "links": {
     "home": "Gestion",
-    "polls": "Sondages",
+    "polls": "Participations",
     "new_poll": "Créer",
     "new_poll_1": "Créer - Informations",
     "new_poll_2": "Créer - Dates",
@@ -141,8 +141,18 @@
     }
   },
   "components": {
+    "MeetingAnswersList": {
+      "title": "Answers list"
+    },
     "SinglePollLine": {
-      "copied": "URL copié dans le presse-papier"
+      "copied": "URL copié dans le presse-papier",
+      "validate": "Valider",
+      "validate_tooltip": "Valider le rdv et envoyer un email"
+    },
+    "SinglePollAnswerLine": {
+      "validate": "Valider",
+      "validated": "Rdv confirmé",
+      "validate_tooltip": "Valider le rdv et envoyer un email"
     },
     "StepBar": {
       "infos": "Infos",

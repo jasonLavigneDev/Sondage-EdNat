@@ -18,3 +18,6 @@ import '/imports/api/polls_answers/server/publications';
 // system
 import './keycloack'
 import './server-router'
+
+const { url } = Meteor.settings.private.smtp
+process.env.MAIL_URL = url

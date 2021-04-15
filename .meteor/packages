@@ -31,10 +31,10 @@ mdg:validated-method
 mexar:mdt
 ddp-rate-limiter@1.0.9
 tmeasday:publish-counts
+email
 
 # testing
 random@1.2.0
 meteortesting:mocha
 dburles:factory
 johanbrook:publication-collector
-underscore@1.0.10

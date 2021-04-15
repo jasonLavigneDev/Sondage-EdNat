@@ -35,13 +35,6 @@ export const getSinglePollToAnswer = new ValidatedMethod({
     }, { fields: { _id: 1 }})
     const data = {
       poll,
-      answers: PollsAnswers.find({
-        pollId,
-        $or: [
-          { userId: { $ne: this.userId } },
-          { userId: null }
-        ]
-      }).fetch(),
       selectedGroups: Groups.find({ _id: { $in: poll.groups } }).fetch(),
       answer: this.userId ? PollsAnswers.findOne({  pollId, userId: this.userId }) : null
     }

@@ -7,3 +7,7 @@ Meteor.publish('polls_answers.getCount', function({ pollId }){
 Meteor.publish('polls_answers.getCurrentUser', function({ pollId }){
     return PollsAnswers.find({ pollId, userId: this.userId });
 })
+Meteor.publish('polls_answers.onePoll', function({ pollId }){
+    Counts.publish(this, 'polls_answers.onePoll', PollsAnswers.find({pollId}), { noReady: true });
+    return PollsAnswers.find({ pollId, userId: { $ne: this.userId } });
+})

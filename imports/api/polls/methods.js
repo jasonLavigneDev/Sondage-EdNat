@@ -4,6 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
 import Polls from './polls';
+import PollsAnswers from '../polls_answers/polls_answers';
 
 
 export const createPoll = new ValidatedMethod({
@@ -37,7 +38,8 @@ export const createPoll = new ValidatedMethod({
       } else if(poll.active){
         throw new Meteor.Error('api.polls.methods.remove.active', "api.errors.notAllowed");
       }
-      return Polls.remove({ _id: pollId });
+      Polls.remove({ _id: pollId });
+      return PollsAnswers.remove({ pollId });
     },
 
   });

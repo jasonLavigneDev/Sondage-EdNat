@@ -1,12 +1,18 @@
 <script>
   import DateDisplay from "../../components/common/DateDisplay.svelte";
   import Checkbox from "../../components/common/Checkbox.svelte";
+  import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import { _ } from "svelte-i18n";
+  import PollsAnswers from "../../../api/polls_answers/polls_answers";
 
-  export let answers = [];
   export let answer = {};
   export let poll = {};
   export let toggleChoice = () => null;
+  let answers;
+  $: answers = useTracker(() => {
+    Meteor.subscribe("polls_answers.onePoll", { pollId: poll._id });
+    return PollsAnswers.find({ pollId: poll._id }).fetch();
+  });
 </script>
 
 <div class="table-container">
@@ -34,7 +40,7 @@
       <tr>
         <td>
           <b>
-            {answers.length}
+            {answer._id ? [...$answers, answer].length : $answers.length}
             {$_("pages.answer.participants")}
           </b>
         </td>
@@ -42,14 +48,14 @@
           {#if !poll.allDay && day.slots}
             {#each day.slots as slot, i}
               <td class="total_vote">
-                {[...answers, answer].filter((a) => {
+                {[...$answers, answer].filter((a) => {
                   return a.choices[index].slots.find((s) => s === slot);
                 }).length}
               </td>
             {/each}
           {:else}
             <td class="total_vote">
-              {[...answers, answer].filter((a) => {
+              {[...$answers, answer].filter((a) => {
                 return a.choices[index].present;
               }).length}
             </td>
@@ -83,7 +89,7 @@
           {/if}
         {/each}
       </tr>
-      {#each answers as single_answer}
+      {#each $answers as single_answer}
         <tr>
           <td>
             {single_answer.email}

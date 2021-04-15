@@ -47,9 +47,11 @@ PollsAnswers.schema = new SimpleSchema(
       regEx: SimpleSchema.RegEx.Id,
       label: "Owner",
       optional: true,
-      autoValue: function() {
+      autoValue() {
+        if (this.isInsert || this.isUpsert) {
           return this.userId
-      }
+        }
+      },
     },
     email: {
       type: String,
@@ -74,6 +76,11 @@ PollsAnswers.schema = new SimpleSchema(
     "choices.$": {
       type: SingleDateSchema,
     },
+    confirmed: {
+      type: Boolean,
+      label: "Confirmed answer",
+      defaultValue: false
+    },
     createdAt: {
       type: Date,
       label: "Created date",
@@ -81,8 +88,8 @@ PollsAnswers.schema = new SimpleSchema(
         if (this.isInsert || this.isUpsert) {
           return new Date();
         }
-        return null;
       },
+      optional: true
     },
     updatedAt: {
       type: Date,

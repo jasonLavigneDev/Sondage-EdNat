@@ -10,7 +10,12 @@
       "client": ""
     },
     "private": {
-      "laboiteApiKey": ""
+      "laboiteApiKey": "",
+      "smtp": {
+        "url": "smtps://",
+        "fromEmail": "",
+        "toEmail": ""
+      }
     }
   }
   

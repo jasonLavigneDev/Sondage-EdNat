@@ -15,12 +15,12 @@
   import PollDateTable from "./PollDateTable.svelte";
   import { POLLS_TYPES } from "../../../utils/enums";
   import Login from "../Login.svelte";
+  import MeetingAnswersList from "./MeetingAnswersList.svelte";
 
   export let meta;
   let selectedGroups;
   let poll = {};
   let loading = false;
-  let answers = [];
   let askToConnect = false;
   let answer = {
     email: "",
@@ -53,9 +53,7 @@
                 })),
               };
             }
-            answers = r.answers;
           } else {
-            console.log(e);
             toast.push($_(e.reason), toasts.error);
             if (e.reason === "api.errors.notApublicPoll" && !Meteor.userId()) {
               askToConnect = true;
@@ -110,7 +108,6 @@
     loading = true;
     Meteor.call("polls_answers.create", { data: answer }, (error, result) => {
       loading = false;
-      console.log(error);
       if (error) {
         toast.push($_(error.reason), toasts.error);
       } else {
@@ -213,9 +210,9 @@
           </div>
           <div class="column is-full">
             {#if poll.type === POLLS_TYPES.POLL}
-              <PollDateTable {toggleChoice} {answer} {answers} {poll} />
+              <PollDateTable {toggleChoice} {answer} {poll} />
             {:else}
-              <CalendarPoll {toggleChoice} {answer} {answers} {poll} />
+              <CalendarPoll {toggleChoice} {answer} {poll} />
             {/if}
           </div>
           <div class="column is-half-desktop is-full-mobile" />
@@ -228,6 +225,13 @@
           </div>
         </div>
       </div>
+      {#if Meteor.userId() === poll.userId}
+        {#if poll.type === POLLS_TYPES.POLL}
+          nothing yet to manage the answers
+        {:else}
+          <MeetingAnswersList pollId={poll._id} />
+        {/if}
+      {/if}
     {:else if askToConnect}
       <Login />
     {/if}

@@ -54,7 +54,34 @@ export const createPollAnswers = new ValidatedMethod({
     },
   });
 
-  if(Meteor.isServer) {
+  export const validateMeetingPollAnswer = new ValidatedMethod({
+    name: 'polls_answers.meeting.validate',
+    validate: new SimpleSchema({
+      answerId: String,
+    }).validator({ clean: true }),
+  
+    run({ answerId }) {
+
+      const answer = PollsAnswers.findOne({ _id: answerId })
+      const poll = Polls.findOne({ _id: answer.pollId })
+
+      if(answer.validate) {
+        throw new Meteor.Error('api.polls_answers.methods.validate.emailAlreadyValidated', 'api.errors.emailAlreadyValidated');
+      } else if(poll.userId !== this.userId) {
+        throw new Meteor.Error('api.polls_answers.methods.validate.notAllowed', 'api.errors.notAllowed');
+      }
+      
+      Email.send({ 
+        to: answer.email,
+        from: Meteor.settings.private.fromEmail,
+        subject: "Sondage - test",
+        inReplyTo: Meteor.settings.private.toEmail,
+        text: `votre rdv avec ${Meteor.users.findOne(poll.userId).services.keycloak.email} a été confirmé pour ${answer.meetingSlot}` 
+      });
+
+      return PollsAnswers.update({ _id: answerId }, { $set: { confirmed: true } })
+    },
+  });
 
     const methodsKeys = [
       'polls_answers.create'
@@ -71,5 +98,3 @@ export const createPollAnswers = new ValidatedMethod({
       1,
       300
     );
-
-  }
