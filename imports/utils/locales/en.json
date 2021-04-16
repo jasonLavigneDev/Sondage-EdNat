@@ -89,7 +89,8 @@
       "validate": "Save",
       "poll_not_found": "Poll not found",
       "yes": "Yes",
-      "no": "No"
+      "no": "No",
+      "back":"Back"
     },
     "new_poll_1": {
       "title": "New Poll: Informations",

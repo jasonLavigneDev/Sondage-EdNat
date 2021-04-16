@@ -217,11 +217,15 @@
           </div>
           <div class="column is-half-desktop is-full-mobile" />
           <div class="column is-half-desktop is-full-mobile is-right">
-            <BigLink
-              disabled={!answer.email || loading}
-              action={sendAnswer}
-              text={$_("pages.new_poll.validate")}
-            />
+            {#if Meteor.userId() === poll.userId && poll.type !== POLLS_TYPES.POLL}
+              <BigLink link={ROUTES.ADMIN} text={$_("pages.new_poll.back")} />
+            {:else}
+              <BigLink
+                disabled={!answer.email || loading}
+                action={sendAnswer}
+                text={$_("pages.new_poll.validate")}
+              />
+            {/if}
           </div>
         </div>
       </div>

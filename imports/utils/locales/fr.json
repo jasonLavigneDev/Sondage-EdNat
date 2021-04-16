@@ -88,7 +88,8 @@
       "validate": "Enregistrer",
       "poll_not_found": "Sondage non trouvé",
       "yes": "Oui",
-      "no": "Non"
+      "no": "Non",
+      "back": "Retour"
     },
     "new_poll_1": {
       "title": "Nouveau sondage: Informations",
