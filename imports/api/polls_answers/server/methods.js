@@ -21,8 +21,10 @@ export const createPollAnswers = new ValidatedMethod({
 
       if(PollsAnswers.findOne({ pollId: data.pollId, email: data.email }) && !this.userId) {
         throw new Meteor.Error('api.polls_answers.methods.create.emailAlreadyVoted', 'api.errors.emailAlreadyVoted');
-      } else if(PollsAnswers.findOne({ pollId: data.pollId, meetingSlot: data.meetingSlot, type: POLLS_TYPES.MEETING })) {
+      } else if(PollsAnswers.findOne({ pollId: data.pollId, meetingSlot: data.meetingSlot })) {
         throw new Meteor.Error('api.polls_answers.methods.create.slotAlreadyTaken', 'api.errors.slotAlreadyTaken');
+      } else if(poll.type === POLLS_TYPES.MEETING && poll.userId === this.userId){
+        throw new Meteor.Error('api.polls_answers.methods.create.youCantHaveAMeetingWithYourself', 'api.errors.youCantHaveAMeetingWithYourself');
       }
 
       if(!poll.public && this.userId) {
