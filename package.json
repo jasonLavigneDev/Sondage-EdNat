@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "start": "meteor run --settings ./config/settings.development.json",
-    "start-dev-parallel": "MONGO_URL='mongodb://127.0.0.1:3001/meteor' npm-run-all --parallel css-watch start",
-    "start-dev": "npm-run-all --parallel css-watch start",
+    "start-dev": "MONGO_URL='mongodb://127.0.0.1:3001/meteor' npm-run-all --parallel css-watch start",
+    "start-dev-css": "npm-run-all --parallel css-watch start",
     "test": "meteor test --once --exclude-archs 'web.browser.legacy, web.cordova' --driver-package meteortesting:mocha --allow-superuser --settings ./config/settings.development.json",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha --settings ./config/settings.development.json",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
