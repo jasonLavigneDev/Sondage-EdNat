@@ -19,5 +19,10 @@ import '/imports/api/polls_answers/server/publications';
 import './keycloack'
 import './server-router'
 
+// libraries
+import moment from 'moment'
+
+moment.locale('fr')
+
 const { url } = Meteor.settings.private.smtp
 process.env.MAIL_URL = url

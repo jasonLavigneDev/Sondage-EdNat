@@ -66,8 +66,8 @@ export const createPollAnswers = new ValidatedMethod({
       const answer = PollsAnswers.findOne({ _id: answerId })
       const poll = Polls.findOne({ _id: answer.pollId })
 
-      if(answer.validate) {
-        throw new Meteor.Error('api.polls_answers.methods.validate.emailAlreadyValidated', 'api.errors.emailAlreadyValidated');
+      if(answer.confirmed) {
+        throw new Meteor.Error('api.polls_answers.methods.validate.answerAlreadyValidated', 'api.errors.answerAlreadyValidated');
       } else if(poll.userId !== this.userId) {
         throw new Meteor.Error('api.polls_answers.methods.validate.notAllowed', 'api.errors.notAllowed');
       }

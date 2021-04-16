@@ -9,8 +9,6 @@ import Polls from '../../polls/polls';
 import { DURATIONS_TIME, ROUTES } from '../../../utils/enums';
 import { meeting_template } from './email_template';
 
-
-
 export const sendEmail = new ValidatedMethod({
     name: 'events.sendEmail',
     validate: new SimpleSchema({
@@ -27,7 +25,6 @@ export const sendEmail = new ValidatedMethod({
             description: poll.description,
             url: ROUTES.ANSWER_POLL_RM(poll._id)
         });
-        moment.locale('fr')
         const html = meeting_template({
             sender: Meteor.users.findOne(poll.userId).services.keycloak.email,
             date: moment(answer.meetingSlot).format('LLL')
@@ -41,6 +38,5 @@ export const sendEmail = new ValidatedMethod({
             inReplyTo: Meteor.settings.private.smtp.toEmail,
             html
         });
-    
     },
   });
