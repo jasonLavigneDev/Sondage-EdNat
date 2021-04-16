@@ -27,17 +27,18 @@ export const sendEmail = new ValidatedMethod({
             description: poll.description,
             url: ROUTES.ANSWER_POLL_RM(poll._id)
         });
+        moment.locale('fr')
         const html = meeting_template({
             sender: Meteor.users.findOne(poll.userId).services.keycloak.email,
-            date: answer.meetingSlot
+            date: moment(answer.meetingSlot).format('LLL')
         })
 
         Email.send({ 
             to: answer.email,
-            from: Meteor.settings.private.fromEmail,
-            subject: "Sondage - test",
+            from: Meteor.settings.private.smtp.fromEmail,
+            subject: `Sondage - Votre rdv du ${moment(answer.meetingSlot).format("L")}`,
             icalEvent: cal.toString(),
-            inReplyTo: Meteor.settings.private.toEmail,
+            inReplyTo: Meteor.settings.private.smtp.toEmail,
             html
         });
     
