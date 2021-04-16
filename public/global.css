@@ -60,4 +60,11 @@ p,
 .fc-slot-taken {
   background-color: #aaaaff !important;
   border-color: #aaaaff !important;
+  cursor: not-allowed;
+}
+
+.fc-slot-confirmed {
+  background-color: #48c774 !important;
+  border-color: #48c774 !important;
+  cursor: not-allowed;
 }

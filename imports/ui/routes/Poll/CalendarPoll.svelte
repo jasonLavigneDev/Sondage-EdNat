@@ -46,7 +46,9 @@
         start,
         end,
         title: answerToSlot.email,
-        className: "fc-slot-taken",
+        className: answerToSlot.confirmed
+          ? "fc-slot-confirmed"
+          : "fc-slot-taken",
       };
     } else {
       return {

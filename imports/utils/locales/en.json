@@ -151,7 +151,8 @@
     "SinglePollAnswerLine": {
       "validate": "Validate",
       "validated": "Meeting confirmed",
-      "validate_tooltip": "Validate the meeting and send an email"
+      "validate_tooltip": "Validate the meeting and send an email",
+      "validated_tooltip": "The meeting has been added to your calendar"
     },
     "StepBar": {
       "infos": "Info",

@@ -145,14 +145,13 @@
       "title": "Answers list"
     },
     "SinglePollLine": {
-      "copied": "URL copié dans le presse-papier",
-      "validate": "Valider",
-      "validate_tooltip": "Valider le rdv et envoyer un email"
+      "copied": "URL copié dans le presse-papier"
     },
     "SinglePollAnswerLine": {
       "validate": "Valider",
       "validated": "Rdv confirmé",
-      "validate_tooltip": "Valider le rdv et envoyer un email"
+      "validate_tooltip": "Valider le rdv et envoyer un email",
+      "validated_tooltip": "Le rdv a été ajouté à votre agenda"
     },
     "StepBar": {
       "infos": "Infos",

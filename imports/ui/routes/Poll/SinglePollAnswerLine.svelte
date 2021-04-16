@@ -39,7 +39,9 @@
         class:is-primary={!answer.confirmed}
         on:click={validateMeeting}
         use:tippy={tooltip(
-          $_("components.SinglePollAnswerLine.validate_tooltip")
+          answer.confirmed
+            ? $_("components.SinglePollAnswerLine.validated_tooltip")
+            : $_("components.SinglePollAnswerLine.validate_tooltip")
         )}
       >
         <span class="icon">

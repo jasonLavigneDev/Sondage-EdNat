@@ -225,7 +225,7 @@
           </div>
         </div>
       </div>
-      {#if Meteor.userId() === poll.userId}
+      {#if $currentUser._id === poll.userId}
         {#if poll.type === POLLS_TYPES.POLL}
           nothing yet to manage the answers
         {:else}
