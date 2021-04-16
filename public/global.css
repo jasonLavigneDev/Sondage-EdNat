@@ -51,11 +51,16 @@ p,
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
 }
-.fc-timegrid-slot {
+.fc-timegrid-slot,
+.fc-list-event {
   cursor: pointer;
 }
 .fc-slot-current {
   background-color: var(--primary) !important;
+  color: white;
+}
+.fc-slot-current:hover {
+  color: var(--primary) !important;
 }
 .fc-slot-taken {
   background-color: #aaaaff !important;

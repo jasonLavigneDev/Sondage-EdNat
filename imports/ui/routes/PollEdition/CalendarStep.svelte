@@ -74,6 +74,11 @@
     firstDay: 1,
     allDaySlot: false,
     nowIndicator: true,
+    initialDate:
+      $newPollStore.meetingSlots &&
+      $newPollStore.meetingSlots.sort((a, b) =>
+        moment(a.start).isBefore(b.start)
+      )[0].start,
     dayHeaderFormat: {
       weekday: "short",
       month: "numeric",

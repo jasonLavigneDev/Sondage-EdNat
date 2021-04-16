@@ -6,6 +6,7 @@
   import allLocales from "@fullcalendar/core/locales-all";
   import interactionPlugin from "@fullcalendar/interaction"; // for selectable
   import timeGridPlugin from "@fullcalendar/timegrid";
+  import listView from "@fullcalendar/list";
   import PollsAnswers from "../../../api/polls_answers/polls_answers";
 
   export let answer = {};
@@ -60,10 +61,13 @@
 
   $: options = {
     initialView: "timeGridWeek",
-    plugins: [timeGridPlugin, interactionPlugin],
+    plugins: [timeGridPlugin, interactionPlugin, listView],
     firstDay: 1,
     allDaySlot: false,
     nowIndicator: true,
+    initialDate: poll.meetingSlots.sort((a, b) =>
+      moment(a.start).isBefore(b.start)
+    )[0].start,
     dayHeaderFormat: {
       weekday: "short",
       month: "numeric",
@@ -72,6 +76,11 @@
     },
     buttonText: {
       today: $_("today"),
+      listWeek: $_("pages.answer.listWeek"),
+      timeGridWeek: $_("pages.answer.timeGridWeek"),
+    },
+    headerToolbar: {
+      left: "listWeek,timeGridWeek",
     },
     locale: $locale,
     timeZone: "local",

@@ -7,6 +7,7 @@ import { POLLS_TYPES } from "/imports/utils/enums";
 import PollsAnswers from '../polls_answers';
 import Groups from '/imports/api/groups/groups';
 import Polls from '/imports/api/polls/polls';
+import { sendEmail } from '../../events/server/methods';
 
 export const createPollAnswers = new ValidatedMethod({
     name: 'polls_answers.create',
@@ -71,20 +72,15 @@ export const createPollAnswers = new ValidatedMethod({
         throw new Meteor.Error('api.polls_answers.methods.validate.notAllowed', 'api.errors.notAllowed');
       }
       
-      Email.send({ 
-        to: answer.email,
-        from: Meteor.settings.private.fromEmail,
-        subject: "Sondage - test",
-        inReplyTo: Meteor.settings.private.toEmail,
-        text: `votre rdv avec ${Meteor.users.findOne(poll.userId).services.keycloak.email} a été confirmé pour ${answer.meetingSlot}` 
-      });
+      sendEmail.call({ poll, answer })
 
       return PollsAnswers.update({ _id: answerId }, { $set: { confirmed: true } })
     },
   });
 
     const methodsKeys = [
-      'polls_answers.create'
+      'polls_answers.create',
+      'polls_answers.meeting.validate'
     ]
     DDPRateLimiter.addRule(
       {

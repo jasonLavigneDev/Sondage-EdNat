@@ -2,7 +2,6 @@
   import { _ } from "svelte-i18n";
   import moment from "moment";
   import tippy from "sveltejs-tippy";
-  import { ROUTES } from "/imports/utils/enums";
   import { toast } from "@zerodevx/svelte-toast";
   import { toasts } from "../../../utils/enums";
 

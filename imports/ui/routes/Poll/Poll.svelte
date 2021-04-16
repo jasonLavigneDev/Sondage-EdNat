@@ -225,15 +225,13 @@
           </div>
         </div>
       </div>
-      {#if $currentUser._id === poll.userId}
+      {#if Meteor.userId() === poll.userId}
         {#if poll.type === POLLS_TYPES.POLL}
           nothing yet to manage the answers
         {:else}
           <MeetingAnswersList pollId={poll._id} />
         {/if}
       {/if}
-    {:else if askToConnect}
-      <Login />
     {/if}
   </div>
 </section>
