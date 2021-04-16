@@ -1,8 +1,10 @@
 <script>
+  import { Meteor } from 'meteor/meteor'
   import DateDisplay from "../../components/common/DateDisplay.svelte";
   import Checkbox from "../../components/common/Checkbox.svelte";
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
   import { _ } from "svelte-i18n";
+  import tippy from "sveltejs-tippy";
   import PollsAnswers from "../../../api/polls_answers/polls_answers";
 
   export let answer = {};
@@ -35,6 +37,28 @@
         {/each}
       </tr>
     </thead>
+    {#if Meteor.userId() === poll.userId}
+      <tfoot>
+        <tr>
+          <th />
+          {#each poll.dates as day}
+            <th>
+              <button
+                class="button is-fullwidth"
+                class:is-primary={true}
+                class:is-success={false}
+                use:tippy={{
+                  content: $_("pages.answer.confirm_date_tooltip"),
+                  placement: "bottom",
+                }}
+              >
+                {$_("pages.answer.confirm_date")}
+              </button>
+            </th>
+          {/each}
+        </tr>
+      </tfoot>
+    {/if}
 
     <tbody>
       <tr>

@@ -225,12 +225,8 @@
           </div>
         </div>
       </div>
-      {#if Meteor.userId() === poll.userId}
-        {#if poll.type === POLLS_TYPES.POLL}
-          nothing yet to manage the answers
-        {:else}
-          <MeetingAnswersList pollId={poll._id} />
-        {/if}
+      {#if Meteor.userId() === poll.userId && poll.type !== POLLS_TYPES.POLL}
+        <MeetingAnswersList pollId={poll._id} />
       {/if}
     {/if}
   </div>

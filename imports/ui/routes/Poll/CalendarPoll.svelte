@@ -22,6 +22,9 @@
   });
 
   const selectSlot = ({ event }) => {
+    if (Meteor.userId() === poll.userId) {
+      return;
+    }
     if (!$answers.find((a) => moment(a.meetingSlot).isSame(event.start))) {
       if (moment(answer.meetingSlot).isSame(event.start)) {
         toggleChoice(null);
@@ -80,7 +83,7 @@
       timeGridWeek: $_("pages.answer.timeGridWeek"),
     },
     headerToolbar: {
-      left: "listWeek,timeGridWeek",
+      left: "listWeek timeGridWeek",
     },
     locale: $locale,
     timeZone: "local",
