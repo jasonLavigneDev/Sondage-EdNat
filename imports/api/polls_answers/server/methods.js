@@ -7,7 +7,7 @@ import { POLLS_TYPES } from "/imports/utils/enums";
 import PollsAnswers from '../polls_answers';
 import Groups from '/imports/api/groups/groups';
 import Polls from '/imports/api/polls/polls';
-import { sendEmail } from '../../events/server/methods';
+import { createEventAgendaMeeting, sendEmail } from '../../events/server/methods';
 
 export const createPollAnswers = new ValidatedMethod({
     name: 'polls_answers.create',
@@ -75,6 +75,7 @@ export const createPollAnswers = new ValidatedMethod({
       }
       
       sendEmail.call({ poll, answer })
+      createEventAgendaMeeting.call({ poll, answer })
 
       return PollsAnswers.update({ _id: answerId }, { $set: { confirmed: true } })
     },

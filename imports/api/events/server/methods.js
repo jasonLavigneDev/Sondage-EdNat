@@ -8,6 +8,7 @@ import PollsAnswers from '../../polls_answers/polls_answers';
 import Polls from '../../polls/polls';
 import { DURATIONS_TIME, ROUTES } from '../../../utils/enums';
 import { meeting_template } from './email_template';
+import EventsAgenda from '../events';
 
 export const sendEmail = new ValidatedMethod({
     name: 'events.sendEmail',
@@ -40,3 +41,29 @@ export const sendEmail = new ValidatedMethod({
         });
     },
   });
+  export const createEventAgendaMeeting = new ValidatedMethod({
+      name: 'events.createMeeting',
+      validate: new SimpleSchema({
+        answer: PollsAnswers.schema,
+        poll: Polls.schema
+      }).validator({ clean: true }),
+    
+      run({ poll, answer }) {
+          const participantUser = Accounts.findUserByEmail(answer.email)
+          EventsAgenda.insert({
+            title: poll.title,
+            location: "",
+            start: moment(answer.meetingSlot).format(),
+            end: moment(answer.meetingSlot).add(DURATIONS_TIME[poll.duration], 'minute').format(),
+            allDay: poll.allDay,
+            participants: participantUser ? [{
+                id: participantUser._id,
+                email: answer.email,
+            }] : [],
+            guests: participantUser ? [] : [answer.email],
+            description: poll.description,
+            groups: [],
+            authorId: this.userId,
+          });
+      },
+    });

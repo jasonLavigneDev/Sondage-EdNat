@@ -8,6 +8,10 @@ Meteor.publish('polls_answers.getCurrentUser', function({ pollId }){
     return PollsAnswers.find({ pollId, userId: this.userId });
 })
 Meteor.publish('polls_answers.onePoll', function({ pollId }){
-    Counts.publish(this, 'polls_answers.onePoll', PollsAnswers.find({pollId}), { noReady: true });
-    return PollsAnswers.find({ pollId, userId: { $ne: this.userId } });
+    const query = { pollId }
+    if(this.userId){
+        query.userId = { $ne: this.userId } 
+    }
+    Counts.publish(this, 'polls_answers.onePoll', PollsAnswers.find(query), { noReady: true });
+    return PollsAnswers.find(query);
 })
