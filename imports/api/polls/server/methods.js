@@ -1,11 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import SimpleSchema from 'simpl-schema';
+import moment from 'moment'
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
 import Polls from '../polls';
 import Groups from '/imports/api/groups/groups'
 import PollsAnswers from '../../polls_answers/polls_answers';
+import { sendEmail, createEventAgenda } from '../../events/server/methods';
 
 export const getSinglePoll = new ValidatedMethod({
   name: 'polls.getSinglePoll',
@@ -61,14 +63,62 @@ export const updatePoll = new ValidatedMethod({
     if (!this.userId) {
         throw new Meteor.Error('api.polls.methods.update.notLoggedIn', "api.errors.notLoggedIn");
       }
+
     const poll = Polls.findOne(pollId) || {}
     if(this.userId !== poll.userId){
       throw new Meteor.Error('api.polls.methods.update.notAllowed', "api.errors.notAllowed");
-    } else if(poll.active){
+    } else if(poll.active || poll.completed){
       throw new Meteor.Error('api.polls.methods.update.active', "api.errors.notAllowed");
     }
 
     return Polls.update({ _id: pollId }, { $set: { ...data } });
+  },
+});
+
+export const validatePollAnswer = new ValidatedMethod({
+  name: 'polls.validate',
+  validate: new SimpleSchema({
+    pollId: String,
+    date: Date,
+  }).validator({ clean: true }),
+
+  run({ pollId, date }) {
+
+    const poll = Polls.findOne({ _id: pollId })
+
+    if(poll.userId !== this.userId) {
+      throw new Meteor.Error('api.polls_answers.methods.validate.notAllowed', 'api.errors.notAllowed');
+    } else if(poll.completed) {
+      throw new Meteor.Error('api.polls_answers.methods.validate.notAllowed', 'api.errors.notAllowed');
+    }
+    if(poll.public){
+      const answers = PollsAnswers.find({ userId: null, pollId }).fetch()
+      answers.forEach(answer => 
+        sendEmail.call({ 
+          poll, 
+          answer: {
+            ...answer,
+            meetingSlot:date
+          } 
+        })
+      )
+    }
+
+    if(poll.groups.length) {
+      createEventAgenda.call({ poll, date })
+      if(!Meteor.isTest) {
+        const { sendnotif } = require('../../notifications/server/notifSender')
+
+        sendnotif({ 
+          groups: poll.groups, 
+          title: "Nouvel évenement", 
+          content: `la date ${moment(date).format('LL')} a été retenue pour "${poll.title}"`,
+          pollId: poll._id,
+          internalLink : "/events"
+        })
+      }
+    }
+    return Polls.update({ _id: pollId }, { $set: { completed: true, choosenDate: date, active: false } })
   },
 });
 
@@ -78,7 +128,8 @@ const methodsKeys = [
   'polls.remove',
   'polls.getSinglePoll',
   'polls.update',
-  'polls.getSinglePollToAnswer'
+  'polls.getSinglePollToAnswer',
+  'polls.validate'
 ]
 DDPRateLimiter.addRule(
   {

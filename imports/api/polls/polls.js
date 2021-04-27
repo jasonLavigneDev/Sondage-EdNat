@@ -89,6 +89,16 @@ Polls.schema = new SimpleSchema(
       label: "Active",
       defaultValue: false
     },
+    completed: {
+      type: Boolean,
+      label: "Completed",
+      defaultValue: false
+    },
+    choosenDate: {
+      type: Date,
+      label: "Choosen Date",
+      optional: true
+    },
     type: {
       type: String,
       label: "Type",

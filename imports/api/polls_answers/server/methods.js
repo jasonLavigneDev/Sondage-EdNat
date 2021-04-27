@@ -25,6 +25,8 @@ export const createPollAnswers = new ValidatedMethod({
         throw new Meteor.Error('api.polls_answers.methods.create.slotAlreadyTaken', 'api.errors.slotAlreadyTaken');
       } else if(poll.type === POLLS_TYPES.MEETING && poll.userId === this.userId){
         throw new Meteor.Error('api.polls_answers.methods.create.youCantHaveAMeetingWithYourself', 'api.errors.youCantHaveAMeetingWithYourself');
+      } else if(poll.completed) {
+        throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'api.errors.notAllowed');
       }
 
       if(!poll.public && this.userId) {
