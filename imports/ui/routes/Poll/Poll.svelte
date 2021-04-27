@@ -29,7 +29,7 @@
     choices: [],
   };
 
-  onMount(() => {
+  const grabData = () => {
     if (meta.params._id) {
       loading = true;
       Meteor.call(
@@ -67,7 +67,9 @@
       toast.push($_("pages.new_poll.poll_not_found"), toasts.error);
       router.goto(ROUTES.ADMIN);
     }
-  });
+  };
+
+  onMount(grabData);
 
   $: if ($currentUser && !answer.email) {
     answer = {
@@ -210,7 +212,7 @@
           </div>
           <div class="column is-full">
             {#if poll.type === POLLS_TYPES.POLL}
-              <PollDateTable {toggleChoice} {answer} {poll} />
+              <PollDateTable {toggleChoice} {answer} {poll} {grabData} />
             {:else}
               <CalendarPoll {toggleChoice} {answer} {poll} />
             {/if}

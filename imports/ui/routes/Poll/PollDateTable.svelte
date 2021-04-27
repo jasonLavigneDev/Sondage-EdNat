@@ -1,20 +1,35 @@
 <script>
-  import { Meteor } from 'meteor/meteor'
+  import { Meteor } from "meteor/meteor";
   import DateDisplay from "../../components/common/DateDisplay.svelte";
   import Checkbox from "../../components/common/Checkbox.svelte";
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
+  import { toast } from "@zerodevx/svelte-toast";
   import { _ } from "svelte-i18n";
   import tippy from "sveltejs-tippy";
   import PollsAnswers from "../../../api/polls_answers/polls_answers";
+  import moment from "moment";
+  import { toasts } from "../../../utils/enums";
 
   export let answer = {};
   export let poll = {};
+  export let loading = false;
   export let toggleChoice = () => null;
+  export let grabData = () => null;
   let answers;
   $: answers = useTracker(() => {
     Meteor.subscribe("polls_answers.onePoll", { pollId: poll._id });
     return PollsAnswers.find({ pollId: poll._id }).fetch();
   });
+  const confirmDate = (date) => {
+    loading = true;
+    Meteor.call("polls.validate", { pollId: poll._id, date }, (e, r) => {
+      loading = false;
+      grabData();
+      if (e) {
+        toast.push($_(e.reason), toasts.error);
+      }
+    });
+  };
 </script>
 
 <div class="table-container">
@@ -42,19 +57,43 @@
         <tr>
           <th />
           {#each poll.dates as day}
-            <th>
-              <button
-                class="button is-fullwidth"
-                class:is-primary={true}
-                class:is-success={false}
-                use:tippy={{
-                  content: $_("pages.answer.confirm_date_tooltip"),
-                  placement: "bottom",
-                }}
-              >
-                {$_("pages.answer.confirm_date")}
-              </button>
-            </th>
+            {#each day.slots as time}
+              <th>
+                {#if !poll.completed || moment(day.date)
+                    .hour(time.split(":")[0])
+                    .minute(time.split(":")[1])
+                    .isSame(poll.choosenDate)}
+                  <button
+                    class="button is-fullwidth"
+                    class:is-loading={loading}
+                    class:is-primary={!poll.completed}
+                    class:is-success={moment(day.date)
+                      .hour(time.split(":")[0])
+                      .minute(time.split(":")[1])
+                      .isSame(poll.choosenDate)}
+                    use:tippy={{
+                      content: $_("pages.answer.confirm_date_tooltip"),
+                      placement: "bottom",
+                    }}
+                    on:click={() =>
+                      poll.completed
+                        ? null
+                        : confirmDate(
+                            moment(day.date)
+                              .hour(time.split(":")[0])
+                              .minute(time.split(":")[1])
+                              .format()
+                          )}
+                  >
+                    {#if !poll.completed}
+                      {$_("pages.answer.confirm_date")}
+                    {:else}
+                      {$_("pages.answer.choosen_date")}
+                    {/if}
+                  </button>
+                {/if}
+              </th>
+            {/each}
           {/each}
         </tr>
       </tfoot>

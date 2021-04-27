@@ -6,7 +6,8 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import ical from 'ical-generator'
 import PollsAnswers from '../../polls_answers/polls_answers';
 import Polls from '../../polls/polls';
-import { DURATIONS_TIME, ROUTES } from '../../../utils/enums';
+import Groups from '../../groups/groups';
+import { DURATIONS_TIME, POLLS_TYPES, ROUTES } from '../../../utils/enums';
 import { meeting_template } from './email_template';
 import EventsAgenda from '../events';
 
@@ -26,7 +27,9 @@ export const sendEmail = new ValidatedMethod({
             description: poll.description,
             url: ROUTES.ANSWER_POLL_RM(poll._id)
         });
-        const html = meeting_template({
+        const template = poll.type === POLLS_TYPES.POLL ? event_template : meeting_template
+        const html = template({
+            title: poll.title,
             sender: Meteor.users.findOne(poll.userId).services.keycloak.email,
             date: moment(answer.meetingSlot).format('LLL')
         })
@@ -67,3 +70,31 @@ export const sendEmail = new ValidatedMethod({
           });
       },
     });
+    export const createEventAgenda = new ValidatedMethod({
+        name: 'events.create',
+        validate: new SimpleSchema({
+          date: Date,
+          poll: Polls.schema
+        }).validator({ clean: true }),
+      
+        run({ poll, date }) {
+          let answers = []
+          if(poll.public){
+            answers = PollsAnswers.find({ userId: null, pollId }).fetch()
+          }
+          EventsAgenda.insert({
+            title: poll.title,
+            location: "",
+            start: moment(date).format(),
+            end: moment(date).add(DURATIONS_TIME[poll.duration], 'minute').format(),
+            allDay: poll.allDay,
+            participants: [],
+            guests: answers.map(({ email }) => email),
+            description: poll.description,
+            groups: Groups.find({ _id: { $in: poll.groups }})
+            .fetch()
+            .map(({ _id, name }) => ({ id: _id, name })),
+            authorId: this.userId,
+          });
+        },
+      });

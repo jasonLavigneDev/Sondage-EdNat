@@ -144,7 +144,8 @@
       "confirm_date_tooltip": "Confirm this date and notify everyone",
       "poll_answered": "Poll answered successfully",
       "login_with_lb": "You have an account in LaBoite",
-      "askToConnect": "Login to see this page"
+      "askToConnect": "Login to see this page",
+      "choosen_date": "Choosen date"
     }
   },
   "components": {

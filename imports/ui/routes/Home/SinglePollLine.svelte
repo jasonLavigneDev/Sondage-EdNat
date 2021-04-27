@@ -47,16 +47,21 @@
     <div class="buttons">
       {#if poll.active}
         <button
-          class="button is-small is-success"
+          class="button is-small is-primary"
           value={poll._id}
           on:click={togglePoll}
           use:tippy={tooltip($_("pages.home.deactivate_tooltip"))}
         >
           <i class="fas fa-eye" />
         </button>
+      {:else if poll.completed}
+        <button class="button is-small is-success" disabled>
+          <i class="fas fa-check" />
+        </button>
       {:else}
         <button
           class="button is-small is-warning"
+          disabled={poll.completed}
           value={poll._id}
           on:click={togglePoll}
           use:tippy={tooltip($_("pages.home.activate_tooltip"))}

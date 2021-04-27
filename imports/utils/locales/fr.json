@@ -143,7 +143,8 @@
       "confirm_date": "Choisir cette date",
       "confirm_date_tooltip": "Confirmer cette date et notifier tout le monde",
       "login_with_lb": "Vous avez un compte dans LaBoite",
-      "askToConnect": "Connectez-vous pour voir cette page"
+      "askToConnect": "Connectez-vous pour voir cette page",
+      "choosen_date": "Date choisie"
     }
   },
   "components": {

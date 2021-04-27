@@ -7,8 +7,9 @@
   export let slot = "";
   export let duration = "";
   const FORMAT_KEY_DATE = "HH:mm";
-  let currentValue = new Date(date);
-  let endTime = moment(currentValue)
+  let endTime = moment(date)
+    .hour(slot.split(":")[0])
+    .minute(slot.split(":")[1])
     .add(DURATIONS_TIME[duration], "minutes")
     .format(FORMAT_KEY_DATE);
 </script>

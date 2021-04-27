@@ -56,13 +56,18 @@ export const createPoll = new ValidatedMethod({
           throw new Meteor.Error('api.polls.methods.toggle.notLoggedIn', "api.errors.notLoggedIn");
         }
         const poll = Polls.findOne(pollId)
-        if(this.userId !== poll.userId){
+        if(this.userId !== poll.userId || poll.completed){
           throw new Meteor.Error('api.polls.methods.toggle.notAllowed', "api.errors.notAllowed");
         }      
 
         if(Meteor.isServer && poll.groups.length && !Meteor.isTest && !poll.active) {
           const { sendnotif } = require('../notifications/server/notifSender')
-          sendnotif({ groups: poll.groups, title: poll.title })
+          sendnotif({ 
+            groups: poll.groups, 
+            title: "Nouveau sondage", 
+            content: `Le sondage ${poll.title} a été créé pour votre groupe`,
+            pollId: poll._id 
+          })
         }
       return Polls.update({ _id: pollId }, { $set: { active: !poll.active } });
     },
