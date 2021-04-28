@@ -1,0 +1,205 @@
+{
+  "title": "LaBoite - Sondages",
+  "loading": "Chargement",
+  "polls": "Sondages",
+  "back": "Retour",
+  "menu": "Menu",
+  "today": "Aujourd'hui",
+  "types": {
+    "POLL": "Sondage",
+    "POLL_table": "Sondage",
+    "MEETING": "Prise de rendez-vous",
+    "MEETING_table": "RDV"
+  },
+  "api": {
+    "errors": {
+      "notLoggedIn": "Vous devez être connecté",
+      "answerAlreadyValidated": "Cette réponse à déjà été confirmée",
+      "notAllowed": "Vous n'êtes pas autorisé a faire ceci",
+      "notApublicPoll": "Ce sondage est privé, vous devez être connecté",
+      "emailAlreadyVoted": "Cet email est déjà enregistré avec un vote",
+      "pollNotActive": "Ce sondage n'est pas actif, vous ne pouvez pas voter"
+    }
+  },
+  "links": {
+    "home": "Gestion",
+    "polls": "Participations",
+    "new_poll": "Créer",
+    "new_poll_1": "Créer - Informations",
+    "new_poll_2": "Créer - Dates",
+    "new_poll_3": "Créer - Heures",
+    "new_poll_4": "Créer - Validation",
+    "edit_poll": "Créer",
+    "edit_poll_1": "Créer - Informations",
+    "edit_poll_2": "Créer - Dates",
+    "edit_poll_3": "Créer - Heures",
+    "edit_poll_4": "Créer - Validation",
+    "legal": "Mentions légales",
+    "accessibility": "Accessibilité",
+    "gcu": "Conditions générales d'utilisation",
+    "personalData": "Données personnelles"
+  },
+  "polls_datas": {
+    "allDay": "Toute la journée",
+    "true": "Oui",
+    "false": "Non",
+    "noAnswer": "Pas de réponse"
+  },
+  "pages": {
+    "home": {
+        "title": "Gestion de mes sondages",
+        "new_poll": "Créer un sondage",
+        "groups_label": "Groupes",
+        "type_label": "Type",
+        "title_label": "Titre",
+        "public_label": "Public",
+        "duration_label": "Durée",
+        "dates_label": "Dates",
+        "votes_label": "Votes",
+        "meetingSlot_label": "Date choisie",
+        "deactivate_tooltip": "Désactiver",
+        "activate_tooltip": "Activer",
+        "results_tooltip": "Résultats",
+        "edit_tooltip": "Éditer",
+        "link_tooltip": "Copier le lien",
+        "delete_tooltip": "Supprimer",
+        "open_tooltip": "Ouvrir",
+        "remove_title": "Supprimer un sondage",
+        "remove_valid": "Supprimer",
+        "remove_cancel": "Annuler",
+        "remove_text": "Vous êtes sur le point de supprimer ce sondage et toutes les réponses associées, cette action est irréversible."
+    },
+    "polls": {
+        "title": "Mes participations"
+    },
+    "logout": {
+      "title": "Vous avez été déconnecté",
+      "title2": "Vous avez été reconnecté",
+      "go_home": "Retourner à l'accueil"
+    },
+    "login": {
+      "title": "Vous n'êtes pas connecté",
+      "signin": "Se connecter"
+    },
+    "new_poll": {
+      "next": "Suivant",
+      "previous": "Précédent",
+      "cancel": "Annuler",
+      "validate": "Enregistrer",
+      "poll_not_found": "Sondage non trouvé",
+      "yes": "Oui",
+      "no": "Non",
+      "back": "Retour"
+    },
+    "new_poll_1": {
+      "title": "Nouveau sondage: Informations",
+      "title_edit": "Édition du sondage: Informations",
+      "title_meeting_edit": "Édition du Rendez-vous: Informations",
+      "title_meeting": "Nouveau Rendez-vous: Informations",
+      "title_input": "Titre du sondage",
+      "group_input": "Groupes sondés",
+      "public_input": "Sondage public",
+      "group_loading": "Chargement des groupes",
+      "group_select": "Ajouter un groupe",
+      "type_input": "Type de sondage",
+      "description_input": "Description"
+    },
+    "new_poll_2": {
+      "title": "Nouveau sondage: Dates",
+      "title_edit": "Édition du sondage: Dates",
+      "title_meeting_edit": "Édition du Rendez-vous: Dates",
+      "title_meeting": "Nouveau Rendez-vous: Dates",
+      "selected_dates": "Dates sélectionnées",
+      "no_selected_dates": "Aucune date sélectionnée",
+      "selected_time_slots": "Sélectionnez vos tranches horaires",
+      "duration": "Durée du rendez-vous"
+    },
+    "new_poll_3": {
+      "title": "Nouveau sondage: Heures",
+      "title_edit": "Édition du sondage: Heures",
+      "selected_dates": "Dates sélectionnées",
+      "timeslot": "Horaire",
+      "new_slot": "Ajouter",
+      "duration": "Durée de l'évènement",
+      "hour": "Heures",
+      "allDay_input": "Toute la journée"
+    },
+    "new_poll_4": {
+      "title": "Nouveau sondage: Validation",
+      "title_edit": "Édition du sondage: Validation",
+      "proposed_times": "Dates proposées",
+      "poll_created": "Sondage créé avec succès",
+      "poll_modified": "Sondage modifié avec succès"
+    }, 
+    "answer": {
+      "email": "Votre adresse email",
+      "duration": "Durée de l'évènement",
+      "description": "Description",
+      "participants": "Participants",
+      "allDay": "Toute la journée",
+      "listWeek": "Liste",
+      "timeGridWeek": "Calendrier",
+      "poll_answered": "Sondage répondu avec succès",
+      "confirm_date": "Choisir cette date",
+      "confirm_date_tooltip": "Confirmer cette date et notifier tout le monde",
+      "login_with_lb": "Vous avez un compte dans LaBoite",
+      "askToConnect": "Connectez-vous pour voir cette page",
+      "choosen_date": "Date choisie"
+    }
+  },
+  "components": {
+    "MeetingAnswersList": {
+      "title": "Answers list"
+    },
+    "SinglePollLine": {
+      "copied": "URL copié dans le presse-papier"
+    },
+    "SinglePollAnswerLine": {
+      "validate": "Valider",
+      "validated": "Rdv confirmé",
+      "validate_tooltip": "Valider le rdv et envoyer un email",
+      "validated_tooltip": "Le rdv a été ajouté à votre agenda"
+    },
+    "StepBar": {
+      "infos": "Infos",
+      "dates": "Dates",
+      "times": "Heures",
+      "validation": "Validation"
+    },
+    "Time": {
+      "dateFormat": "ddd Do MMMM YYYY",
+      "dateDayPollFormat": "dddd",
+      "dateDatePollFormat": "Do",
+      "dateMonthPollFormat": "MMMM YYYY",
+      "daysOfWeek": "[[\"Dimanche\",\"Dim\"],[\"Lundi\",\"Lun\"],[\"Mardi\",\"Mar\"],[\"Mercredi\",\"Mer\"],[\"Jeudi\",\"Jeu\"],[\"Vendredi\",\"Ven\"],[\"Samedi\",\"Sam\"]]",
+      "monthsOfYear": "[[\"Janvier\",\"Jan\"],[\"Février\",\"Fév\"],[\"Mars\",\"Mar\"],[\"Avril\",\"Avr\"],[\"Mai\",\"Mai\"],[\"Juin\",\"Juin\"],[\"Juillet\",\"Juil\"],[\"Août\",\"Aoû\"],[\"Septembre\",\"Sep\"],[\"Octobre\",\"Oct\"],[\"Novembre\",\"Nov\"],[\"Décembre\",\"Déc\"]]"
+    },
+    "InputTimePicker": {
+      "from": "De",
+      "to": "à"
+    },
+    "SearchField": {
+      "search": "Rechercher",
+      "placeholder": "Rechercher"
+    },
+    "Pagination": {
+      "next": "Suivante",
+      "previous": "Précédente"
+    },
+    "NoResults": {
+      "title": "Aucun résultats",
+      "subtitle": "Reformulez votre recherche"
+    },
+    "TagsFilters": {
+      "filter": "Filtrer la recherche par tag",
+      "reset": "Effacer",
+      "open": "Filtrer par tag",
+      "close": "Fermer"
+    },
+    "SingleResearch": {
+      "type": "Type",
+      "search": "Recherche",
+      "go": "Voir les résultats"
+    }
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "title": "LaBoite - Polls",
+  "loading": "Loading",
+  "polls": "Polls",
+  "back": "Back",
+  "menu": "Menu",
+  "today": "Today",
+  "types": {
+    "POLL": "Poll",
+    "POLL_table": "Poll",
+    "MEETING": "Meeting",
+    "MEETING_table": "Meeting"
+  },
+  "api": {
+    "errors": {
+      "notLoggedIn": "You must be logged in",
+      "notAllowed": "You are not allowed to do this",
+      "answerAlreadyValidated": "This answer has already been confirmed",
+      "notApublicPoll": "This poll is not public, you must be logged",
+      "emailAlreadyVoted": "This email is already registered with a vote",
+      "pollNotActive": "Poll is not active, you cannot vote."
+    }
+  },
+  "links": {
+    "home": "Administration",
+    "polls": "Participations",
+    "new_poll": "Create",
+    "new_poll_1": "Create - Informations",
+    "new_poll_2": "Create - Dates",
+    "new_poll_3": "Create - Hours",
+    "new_poll_4": "Create - Validation",
+    "edit_poll": "Edit",
+    "edit_poll_1": "Edit - Informations",
+    "edit_poll_2": "Edit - Dates",
+    "edit_poll_3": "Edit - Hours",
+    "edit_poll_4": "Edit - Validation",
+    "legal": "Legal",
+    "accessibility": "Accessibility",
+    "gcu": "Term of use",
+    "personalData": "Personnal data"
+  },
+  "polls_datas": {
+    "allDay": "All day",
+    "true": "Yes",
+    "false": "No",
+    "noAnswer": "No answer"
+  },
+  "pages": {
+    "home": {
+      "title": "My polls",
+      "new_poll": "Create a poll",
+      "groups_label": "Groups",
+      "type_label": "Type",
+      "title_label": "Title",
+      "public_label": "Public",
+      "duration_label": "Duration",
+      "dates_label": "Dates",
+      "votes_label": "Votes",
+      "meetingSlot_label": "Chosen date",
+      "deactivate_tooltip": "Deactivate",
+      "activate_tooltip": "Activate",
+      "results_tooltip": "Results",
+      "edit_tooltip": "Edit",
+      "link_tooltip": "Copy link",
+      "delete_tooltip": "Delete",
+      "open_tooltip": "Open",
+      "remove_title": "Delete poll",
+      "remove_valid": "Delete",
+      "remove_cancel": "Cancel",
+      "remove_text": "You are about to delete this poll and all the answers associated, this action cannot be reversed."
+  
+    },
+    "polls": {
+        "title": "My participations"
+    },
+    "login": {
+      "title": "You are not logged in",
+      "signin": "Signin"
+    },
+    "logout": {
+      "title": "You have been logged out",
+      "title2": "You have been logged in again",
+      "go_home": "Go back home"
+    },
+    "new_poll": {
+      "next": "Next",
+      "previous": "previous",
+      "cancel": "Cancel",
+      "validate": "Save",
+      "poll_not_found": "Poll not found",
+      "yes": "Yes",
+      "no": "No",
+      "back":"Back"
+    },
+    "new_poll_1": {
+      "title": "New Poll: Informations",
+      "title_edit": "Edit Poll: Informations",
+      "title_meeting": "New Meeting: Informations",
+      "title_meeting_edit": "Edit Meeting: Informations",
+      "title_input": "Poll's title",
+      "group_input": "Groups polled",
+      "public_input": "Public poll",
+      "group_loading": "Loading groups",
+      "group_select": "Add a group",
+      "type_input": "Poll type",
+      "description_input": "Description"
+    },
+    "new_poll_2": {
+      "title": "New Poll: Dates",
+      "title_edit": "Edit Poll: Dates",
+      "title_meeting": "New Meeting: Dates",
+      "title_meeting_edit": "Edit Meeting: Dates",
+      "selected_dates": "Selected dates",
+      "no_selected_dates": "No dates selected",
+      "selected_time_slots": "Select your time slots",
+      "duration": "Duration of the meeting"
+    },
+    "new_poll_3": {
+      "title": "New Poll: Hours",
+      "title_edit": "Edit Poll: Hours",
+      "selected_dates": "Selected dates",
+      "timeslot": "Timeslot",
+      "new_slot": "Add",
+      "duration": "Duration of the event",
+      "hour": "Hours",
+      "allDay_input": "All day"
+    },
+    "new_poll_4": {
+      "title": "New Poll: Validation",
+      "title_edit": "Edit Poll: Validation",
+      "proposed_times": "Proposed dates",
+      "poll_created": "Poll successfully created",
+      "poll_modified": "Poll successfully modified"
+    }, 
+    "answer": {
+      "email": "Your email address",
+      "duration": "Event's duration",
+      "description": "Description",
+      "participants": "Participants",
+      "allDay": "All day",
+      "listWeek": "List",
+      "timeGridWeek": "Calendar",
+      "confirm_date": "Choose this date",
+      "confirm_date_tooltip": "Confirm this date and notify everyone",
+      "poll_answered": "Poll answered successfully",
+      "login_with_lb": "You have an account in LaBoite",
+      "askToConnect": "Login to see this page",
+      "choosen_date": "Choosen date"
+    }
+  },
+  "components": {
+    "MeetingAnswersList": {
+      "title": "Answers list"
+    },
+    "SinglePollLine": {
+      "copied": "URL copied to clipboard"
+    },
+    "SinglePollAnswerLine": {
+      "validate": "Validate",
+      "validated": "Meeting confirmed",
+      "validate_tooltip": "Validate the meeting and send an email",
+      "validated_tooltip": "The meeting has been added to your calendar"
+    },
+    "StepBar": {
+      "infos": "Info",
+      "dates": "Dates",
+      "times": "Hours",
+      "validation": "Validation"
+    },
+    "Time": {
+      "dateFormat": "ddd, MMM Do YYYY",
+      "dateDayPollFormat": "dddd",
+      "dateDatePollFormat": "Do",
+      "dateMonthPollFormat": "MMMM YYYY",
+      "daysOfWeek": "[[\"Sunday\",\"Sun\"],[\"Monday\",\"Mon\"],[\"Tuesday\",\"Tue\"],[\"Wednesday\",\"Wed\"],[\"Thursday\",\"Thu\"],[\"Friday\",\"Fri\"],[\"Saturday\",\"Sat\"]]",
+      "monthsOfYear": "[[\"January\",\"Jan\"],[\"February\",\"Feb\"],[\"March\",\"Mar\"],[\"April\",\"Apr\"],[\"May\",\"May\"],[\"June\",\"Jun\"],[\"July\",\"Jul\"],[\"August\",\"Aug\"],[\"September\",\"Sep\"],[\"October\",\"Oct\"],[\"November\",\"Nov\"],[\"December\",\"Dec\"]]"
+    },
+    "InputTimePicker": {
+      "from": "From",
+      "to": "to"
+    },
+    "SearchField": {
+      "search": "Search",
+      "placeholder": "Search"
+    },
+    "Pagination": {
+      "next": "Next",
+      "previous": "Previous"
+    },
+    "NoResults": {
+      "title": "No results",
+      "subtitle": "Make a new research"
+    },
+    "SingleResearch": {
+      "type": "Type",
+      "search": "Search",
+      "go": "See the results"
+    }
+  }
+}

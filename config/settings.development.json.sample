@@ -1,0 +1,21 @@
+{
+    "public": {
+      "enableKeycloak": true,
+      "keycloakUrl": "",
+      "keycloakRealm": "",
+      "laboiteHost": ""
+    },
+    "keycloak": {
+      "pubkey": "",
+      "client": ""
+    },
+    "private": {
+      "laboiteApiKey": "",
+      "smtp": {
+        "url": "smtps://",
+        "fromEmail": "",
+        "toEmail": ""
+      }
+    }
+  }
+  
