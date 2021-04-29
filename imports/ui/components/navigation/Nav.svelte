@@ -8,6 +8,7 @@
   import { currentUser } from "/imports/utils/functions/stores";
   import LanguageSwitcher from "/imports/ui/components/common/LanguageSwitcher.svelte";
   import { ROUTES } from "../../../utils/enums";
+  import UserAvatar from "../common/UserAvatar.svelte";
 
   let mobileMenu = false;
 
@@ -19,7 +20,12 @@
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="/" rel="prefetch">
-      <img src="/apps-logo-sansfond.svg" alt="LaBoite - Blog" height="40" />
+      <img
+        src="/apps-logo-sansfond.svg"
+        alt="LaBoite - Blog"
+        class="logo"
+        height="40"
+      />
     </a>
 
     <div
@@ -56,10 +62,11 @@
       {#if $currentUser}
         <a
           href={ROUTES.LOGOUT}
-          class="navbar-item"
+          class="navbar-item avatar"
           on:click={() => Meteor.logout()}
         >
-          {$currentUser.services.keycloak.email}
+          {$currentUser.firstName}
+          <UserAvatar />
           <span class="icon is-large">
             <i class="fas fa-sign-out-alt" />
           </span>
@@ -77,6 +84,11 @@
 <style>
   .navbar {
     box-shadow: var(--box-shadow);
+    max-height: 48px;
+  }
+  .avatar {
+    text-transform: none !important;
+    color: var(--primary);
   }
   .navbar-start {
     margin-left: auto;
