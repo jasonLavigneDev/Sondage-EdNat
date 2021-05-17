@@ -17,83 +17,82 @@ PollsAnswers.deny({
   },
 });
 
-
-const SingleDateSchema = new SimpleSchema(
-    {
-        date: {
-          type: Date,
-          label: "Date",
-        },
-        slots: {
-          type: Array,
-          label: "Time Slots",
-          optional: true
-        },
-        "slots.$": {
-          type: String,
-        },
-        present: {
-          type: Boolean,
-          label: "Full day presence",
-          optional: true
-        }
-    }
-)
+const SingleDateSchema = new SimpleSchema({
+  date: {
+    type: Date,
+    label: 'Date',
+  },
+  slots: {
+    type: Array,
+    label: 'Time Slots',
+    optional: true,
+  },
+  'slots.$': {
+    type: String,
+  },
+  present: {
+    type: Boolean,
+    label: 'Full day presence',
+    optional: true,
+  },
+});
 
 PollsAnswers.schema = new SimpleSchema(
   {
     userId: {
       type: String,
       regEx: SimpleSchema.RegEx.Id,
-      label: "Owner",
+      label: 'Owner',
       optional: true,
       autoValue() {
         if (this.isInsert || this.isUpsert) {
-          return this.userId
+          return this.userId;
         }
+        return this.value;
       },
     },
     email: {
       type: String,
       regEx: SimpleSchema.RegEx.Email,
-      label: "Owner Email"
+      label: 'Owner Email',
     },
     pollId: {
       type: String,
       regEx: SimpleSchema.RegEx.Id,
-      label: "Poll ID",
+      label: 'Poll ID',
     },
     meetingSlot: {
       type: Date,
-      label: "Meeting date slot",
-      optional: true
+      label: 'Meeting date slot',
+      optional: true,
     },
     choices: {
       type: Array,
-      label: "Dates",
-      defaultValue: []
+      label: 'Dates',
+      defaultValue: [],
     },
-    "choices.$": {
+    'choices.$': {
       type: SingleDateSchema,
     },
     confirmed: {
       type: Boolean,
-      label: "Confirmed answer",
-      defaultValue: false
+      label: 'Confirmed answer',
+      defaultValue: false,
     },
     createdAt: {
       type: Date,
-      label: "Created date",
+      label: 'Created date',
       autoValue() {
         if (this.isInsert || this.isUpsert) {
           return new Date();
         }
+        return this.value;
       },
-      optional: true
+      optional: true,
     },
     updatedAt: {
       type: Date,
-      label: "Updated date",
+      label: 'Updated date',
       autoValue() {
         return new Date();
       },
@@ -107,7 +106,7 @@ PollsAnswers.publicFields = {
   createdAt: 1,
   updatedAt: 1,
   description: 1,
-  dates: 1
+  dates: 1,
 };
 
 PollsAnswers.attachSchema(PollsAnswers.schema);

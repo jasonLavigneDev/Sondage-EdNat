@@ -1,4 +1,4 @@
-export const meeting_template = ({ sender, date }) => `
+export const meetingTemplate = ({ sender, date }) => `
     <h4>Votre rendez vous a été confirmé</h4>
     <br/>
     <div>
@@ -9,9 +9,9 @@ export const meeting_template = ({ sender, date }) => `
         Vous pouvez l'ajouter à votre agenda en ouvrant la pièce jointe.
     </div>
     <br/>
-`
+`;
 
-export const event_template = ({ title, date }) => `
+export const eventTemplate = ({ title, date }) => `
 <h4>Votre évenement a été confirmé</h4>
 <br/>
 <div>
@@ -22,4 +22,4 @@ export const event_template = ({ title, date }) => `
     Vous pouvez l'ajouter à votre agenda en ouvrant la pièce jointe.
 </div>
 <br/>
-`
+`;

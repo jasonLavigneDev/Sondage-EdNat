@@ -6,10 +6,8 @@ Meteor.users.publicFields = {
   lastName: 1,
   structure: 1,
   emails: 1,
-  username: 1,
-  service: 1
+  service: 1,
 };
-
 
 Meteor.users.deny({
   insert() {

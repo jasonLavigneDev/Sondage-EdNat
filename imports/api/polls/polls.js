@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { Tracker } from 'meteor/tracker';
-import { POLLS_TYPES } from "/imports/utils/enums"
+import { POLLS_TYPES } from '../../utils/enums';
 
 const Polls = new Mongo.Collection('polls');
 
@@ -18,121 +18,116 @@ Polls.deny({
   },
 });
 
+const SingleDateSchema = new SimpleSchema({
+  date: {
+    type: Date,
+    label: 'Date',
+  },
+  slots: {
+    type: Array,
+    label: 'Time Slots',
+    optional: true,
+  },
+  'slots.$': {
+    type: String,
+  },
+});
 
-const SingleDateSchema = new SimpleSchema(
-    {
-        date: {
-          type: Date,
-          label: "Date",
-        },
-        slots: {
-          type: Array,
-          label: "Time Slots",
-          optional: true
-        },
-        "slots.$": {
-          type: String,
-        },
-    }
-)
-
-const SingleMeetingSlotSchema = new SimpleSchema(
-  {
-    start: {
-      type: Date,
-      label: "Start time",
-    },
-    end: {
-      type: Date,
-      label: "End time",
-    },
-  }
-)
+const SingleMeetingSlotSchema = new SimpleSchema({
+  start: {
+    type: Date,
+    label: 'Start time',
+  },
+  end: {
+    type: Date,
+    label: 'End time',
+  },
+});
 
 Polls.schema = new SimpleSchema(
   {
     title: {
       type: String,
       min: 1,
-      label: "Title",
+      label: 'Title',
     },
     userId: {
       type: String,
       regEx: SimpleSchema.RegEx.Id,
-      label: "Owner",
-      autoValue: function() {
-          return Meteor.userId()
-      }
+      label: 'Owner',
+      autoValue() {
+        return Meteor.userId();
+      },
     },
-    description: { 
-        type: String, 
-        label: "Description",
-        optional: true
+    description: {
+      type: String,
+      label: 'Description',
+      optional: true,
     },
-    duration: { 
-        type: String, 
-        label: "Duration",
-        optional: true
+    duration: {
+      type: String,
+      label: 'Duration',
+      optional: true,
     },
     public: {
       type: Boolean,
-      label: "Public",
-      defaultValue: false
+      label: 'Public',
+      defaultValue: false,
     },
     allDay: {
       type: Boolean,
-      label: "Event all day",
-      defaultValue: false
+      label: 'Event all day',
+      defaultValue: false,
     },
     active: {
       type: Boolean,
-      label: "Active",
-      defaultValue: false
+      label: 'Active',
+      defaultValue: false,
     },
     completed: {
       type: Boolean,
-      label: "Completed",
-      defaultValue: false
+      label: 'Completed',
+      defaultValue: false,
     },
     choosenDate: {
       type: Date,
-      label: "Choosen Date",
-      optional: true
+      label: 'Choosen Date',
+      optional: true,
     },
     type: {
       type: String,
-      label: "Type",
-      allowedValues: Object.keys(POLLS_TYPES).map(k => POLLS_TYPES[k]),
-      defaultValue: "poll"
+      label: 'Type',
+      allowedValues: Object.keys(POLLS_TYPES).map((k) => POLLS_TYPES[k]),
+      defaultValue: POLLS_TYPES.POLL,
     },
     groups: {
       type: Array,
-      label: "Groups polled",
-      defaultValue: []
+      label: 'Groups polled',
+      defaultValue: [],
     },
-    "groups.$": {
+    'groups.$': {
       type: String,
       regEx: SimpleSchema.RegEx.Id,
     },
     dates: {
       type: Array,
-      label: "Dates",
-      defaultValue: []
+      label: 'Dates',
+      defaultValue: [],
     },
-    "dates.$": {
+    'dates.$': {
       type: SingleDateSchema,
     },
     meetingSlots: {
       type: Array,
-      label: "Meeting Time Slots",
-      optional: true
+      label: 'Meeting Time Slots',
+      optional: true,
     },
-    "meetingSlots.$": {
+    'meetingSlots.$': {
       type: SingleMeetingSlotSchema,
     },
     createdAt: {
       type: Date,
-      label: "Created date",
+      label: 'Created date',
       autoValue() {
         if (this.isInsert) {
           return new Date();
@@ -142,7 +137,7 @@ Polls.schema = new SimpleSchema(
     },
     updatedAt: {
       type: Date,
-      label: "Updated date",
+      label: 'Updated date',
       autoValue() {
         return new Date();
       },
@@ -161,7 +156,7 @@ Polls.publicFields = {
   createdAt: 1,
   updatedAt: 1,
   description: 1,
-  dates: 1
+  dates: 1,
 };
 
 Polls.attachSchema(Polls.schema);
