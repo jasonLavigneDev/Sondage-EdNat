@@ -5,8 +5,6 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import Polls from './polls';
 import PollsAnswers from '../polls_answers/polls_answers';
 
-const { sendnotif } = require('../notifications/server/notifSender');
-
 export const createPoll = new ValidatedMethod({
   name: 'polls.create',
   validate: new SimpleSchema({
@@ -60,6 +58,9 @@ export const toggleActivePoll = new ValidatedMethod({
     }
 
     if (Meteor.isServer && poll.groups.length && !Meteor.isTest && !poll.active) {
+      // eslint-disable-next-line global-require
+      const sendnotif = require('../notifications/server/notifSender').default;
+
       sendnotif({
         groups: poll.groups,
         title: 'Nouveau sondage',

@@ -9,8 +9,6 @@ import Groups from '../../groups/groups';
 import PollsAnswers from '../../polls_answers/polls_answers';
 import { sendEmail, createEventAgenda } from '../../events/server/methods';
 
-const { sendnotif } = require('../../notifications/server/notifSender');
-
 export const getSinglePoll = new ValidatedMethod({
   name: 'polls.getSinglePoll',
   validate: new SimpleSchema({
@@ -111,6 +109,8 @@ export const validatePollAnswer = new ValidatedMethod({
     if (poll.groups.length) {
       createEventAgenda.call({ poll, date });
       if (!Meteor.isTest) {
+        // eslint-disable-next-line global-require
+        const sendnotif = require('../../notifications/server/notifSender').default;
         sendnotif({
           groups: poll.groups,
           title: 'Nouvel évenement',
