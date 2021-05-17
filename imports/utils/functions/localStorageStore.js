@@ -1,17 +1,18 @@
-import { writable } from "svelte/store";
+import { writable } from 'svelte/store';
 
-let prefix = "laboite-blog";
+let prefix = 'la_boite_sondage';
 
 const get = (key) => {
-  if (typeof window === "undefined" || !window.localStorage) return;
+  if (typeof window === 'undefined' || !window.localStorage) return null;
   const value = localStorage.getItem(key);
-  return value === undefined ? "" : JSON.parse(value);
+  return value === undefined ? value : JSON.parse(value);
 };
 
 const set = (key, value) => {
-  if (typeof window === "undefined" || !window.localStorage) return;
+  if (typeof window === 'undefined' || !window.localStorage) return null;
 
   localStorage.setItem(key, JSON.stringify(value));
+  return null;
 };
 
 const syncValue = (key, observable) => {

@@ -1,35 +1,35 @@
-import { ROUTES } from '/imports/utils/enums'
+import { ROUTES } from '../../../utils/enums';
 
 export const items = [
   {
-    text: "links.polls",
+    text: 'links.polls',
     path: ROUTES.POLLS,
   },
   {
-    text: "links.home",
+    text: 'links.home',
     path: ROUTES.ADMIN,
   },
   {
-    text: "links.new_poll",
+    text: 'links.new_poll',
     path: ROUTES.NEW_POLL_ROOT,
   },
 ];
 
 export const footer = [
   {
-    text: "links.legal",
+    text: 'links.legal',
     path: `${Meteor.settings.public.laboiteHost}/legal/legalnotice`,
   },
   {
-    text: "links.accessibility",
+    text: 'links.accessibility',
     path: `${Meteor.settings.public.laboiteHost}/legal/accessibility`,
   },
   {
-    text: "links.gcu",
+    text: 'links.gcu',
     path: `${Meteor.settings.public.laboiteHost}/legal/conditions`,
   },
   {
-    text: "links.personalData",
+    text: 'links.personalData',
     path: `${Meteor.settings.public.laboiteHost}/legal/personal-data`,
   },
 ];
