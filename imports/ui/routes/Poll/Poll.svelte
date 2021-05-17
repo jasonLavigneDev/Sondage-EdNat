@@ -147,7 +147,7 @@
           <div class="column is-full">
             <div class="field">
               <label class="label">{$_("pages.answer.description")}</label>
-              {poll.description}
+              {poll.description || ""}
             </div>
           </div>
           <div class="column is-half">
