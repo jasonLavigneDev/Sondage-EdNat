@@ -1,14 +1,11 @@
 <script>
-  import { Meteor } from "meteor/meteor";
+  import { Meteor } from 'meteor/meteor';
+
 </script>
 
 {#if Meteor.user().avatar}
   <figure class="image is-48x48 ">
-    <img
-      class="with-avatar is-rounded"
-      alt={Meteor.user().firstName}
-      src="https://bulma.io/images/placeholders/128x128.png"
-    />
+    <img class="with-avatar is-rounded" alt={Meteor.user().firstName} src={Meteor.user().avatar} />
   </figure>
 {:else}
   <div class="no-avatar">
@@ -44,4 +41,5 @@
     background-color: #bdbdbd;
     color: white;
   }
+
 </style>

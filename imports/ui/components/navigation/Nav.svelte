@@ -1,31 +1,27 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import { fade } from "svelte/transition";
-  import { router } from "tinro";
+  import { _ } from 'svelte-i18n';
+  import { fade } from 'svelte/transition';
+  import { router } from 'tinro';
 
-  import { items } from "./items";
-  import MobileMenu from "./MobileMenu.svelte";
-  import { currentUser } from "/imports/utils/functions/stores";
-  import LanguageSwitcher from "/imports/ui/components/common/LanguageSwitcher.svelte";
-  import { ROUTES } from "../../../utils/enums";
-  import UserAvatar from "../common/UserAvatar.svelte";
+  import { items } from './items';
+  import MobileMenu from './MobileMenu.svelte';
+  import { currentUser } from '/imports/utils/functions/stores';
+  import LanguageSwitcher from '/imports/ui/components/common/LanguageSwitcher.svelte';
+  import { ROUTES } from '../../../utils/enums';
+  import UserAvatar from '../common/UserAvatar.svelte';
 
   let mobileMenu = false;
 
   const toggleMobileMenu = () => {
     mobileMenu = !mobileMenu;
   };
+
 </script>
 
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="/" rel="prefetch">
-      <img
-        src="/apps-logo-sansfond.svg"
-        alt="LaBoite - Blog"
-        class="logo"
-        height="40"
-      />
+      <img src="/apps-logo-sansfond.svg" alt="LaBoite - Blog" class="logo" height="40" />
     </a>
 
     <div
@@ -45,11 +41,7 @@
     <div class="navbar-start">
       {#if $currentUser}
         {#each items as { path, text }}
-          <a
-            class:is-active={$router.path.indexOf(path) === 0}
-            class="navbar-item"
-            href={path}
-          >
+          <a class:is-active={$router.path.indexOf(path) === 0} class="navbar-item" href={path}>
             {$_(text)}
             {#if $router.path.indexOf(path) === 0}
               <div transition:fade class="indicator" />
@@ -60,13 +52,11 @@
     </div>
     <div class="navbar-end">
       {#if $currentUser}
-        <a
-          href={ROUTES.LOGOUT}
-          class="navbar-item avatar"
-          on:click={() => Meteor.logout()}
-        >
+        <div class="navbar-item avatar">
           {$currentUser.firstName}
           <UserAvatar />
+        </div>
+        <a href={ROUTES.LOGOUT} class="navbar-item avatar" on:click={() => Meteor.logout()}>
           <span class="icon is-large">
             <i class="fas fa-sign-out-alt" />
           </span>
@@ -112,4 +102,5 @@
     left: 0;
     right: 0;
   }
+
 </style>
