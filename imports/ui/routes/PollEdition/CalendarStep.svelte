@@ -15,6 +15,8 @@
   import StepBar from '../../components/common/StepBar.svelte';
   import timeSlotsGen from '../../../utils/functions/timeSlotsGen';
   import { DURATIONS, DURATIONS_TIME } from '../../../utils/enums';
+  import PackageJSON from '../../../../package.json';
+  let version = PackageJSON.version;
   export let meta;
 
   let options;
@@ -104,7 +106,7 @@
 </script>
 
 <svelte:head>
-  <title>{$_('title')} | {$_(meta.params._id ? 'links.edit_poll_2' : 'links.new_poll_2')}</title>
+  <title>{$_('title')} {version} | {$_(meta.params._id ? 'links.edit_poll_2' : 'links.new_poll_2')}</title>
 </svelte:head>
 
 <section class="box-transparent">

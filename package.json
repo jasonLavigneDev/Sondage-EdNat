@@ -1,9 +1,10 @@
 {
   "name": "sondage",
   "private": true,
+  "version": "1.0.0",
   "scripts": {
     "start": "meteor run --settings ./config/settings.development.json",
-    "start-dev": "MONGO_URL='mongodb://127.0.0.1:3001/meteor' npm-run-all --parallel css-watch start",
+    "start-dev": "MONGO_URL='mongodb://127.0.0.1:3001/meteor' meteor --port 3003 --exclude-archs 'web.browser.legacy, web.cordova' --settings config/settings.development.json",
     "start-dev-css": "npm-run-all --parallel css-watch start",
     "lint": "eslint . --ext js,jsx",
     "lintfix": "eslint --fix . --ext js,jsx",
