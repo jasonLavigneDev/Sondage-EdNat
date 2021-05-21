@@ -1,12 +1,15 @@
 {
   "name": "sondage",
   "private": true,
+  "version": "1.0.0",
   "scripts": {
     "start": "meteor run --settings ./config/settings.development.json",
-    "start-dev": "MONGO_URL='mongodb://127.0.0.1:3001/meteor' npm-run-all --parallel css-watch start",
+    "start-dev": "MONGO_URL='mongodb://127.0.0.1:3001/meteor' meteor --port 3003 --exclude-archs 'web.browser.legacy, web.cordova' --settings config/settings.development.json",
     "start-dev-css": "npm-run-all --parallel css-watch start",
-    "test": "meteor test --once --exclude-archs 'web.browser.legacy, web.cordova' --driver-package meteortesting:mocha --allow-superuser --settings ./config/settings.development.json",
-    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha --settings ./config/settings.development.json",
+    "lint": "eslint . --ext js,jsx",
+    "lintfix": "eslint --fix . --ext js,jsx",
+    "test": "meteor test --once --exclude-archs 'web.browser.legacy, web.cordova' --driver-package meteortesting:mocha --allow-superuser",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
     "css-build": "node-sass --omit-source-map-url imports/utils/theme/index.scss imports/utils/theme/index.css",
     "css-watch": "yarn css-build --watch"
@@ -38,6 +41,8 @@
     "svelte-i18n": "^3.3.6",
     "svelte-time-picker": "^1.0.6",
     "sveltejs-tippy": "^3.0.0",
+    "chai": "^4.3.4",
+    "faker": "^5.5.2",
     "tinro": "^0.6.0"
   },
   "meteor": {
@@ -47,9 +52,29 @@
     },
     "testModule": "tests/main.js"
   },
+  "eslintConfig": {
+    "extends": "@meteorjs/eslint-config-meteor"
+  },
   "devDependencies": {
-    "chai": "^4.3.4",
-    "faker": "^5.5.2",
+    "@meteorjs/eslint-config-meteor": "^1.0.5",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-i18n": "^2.0.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx": "^0.1.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-meteor": "^7.3.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-standard": "^4.1.0",
+    "prettier": "^2.2.1",
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "sinon": "^10.0.0"

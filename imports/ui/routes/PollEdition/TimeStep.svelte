@@ -1,16 +1,18 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import moment from "moment";
-  import { ROUTES } from "/imports/utils/enums";
+  import { _ } from 'svelte-i18n';
+  import moment from 'moment';
+  import { ROUTES } from '/imports/utils/enums';
 
   // components
-  import BigLink from "/imports/ui/components/common/BigLink.svelte";
-  import Divider from "/imports/ui/components/common/Divider.svelte";
-  import { newPollStore } from "/imports/utils/functions/stores";
-  import InputTimePicker from "./components/InputTimePicker.svelte";
-  import Checkbox from "../../components/common/Checkbox.svelte";
-  import StepBar from "../../components/common/StepBar.svelte";
-  import { DURATIONS } from "../../../utils/enums";
+  import BigLink from '/imports/ui/components/common/BigLink.svelte';
+  import Divider from '/imports/ui/components/common/Divider.svelte';
+  import { newPollStore } from '/imports/utils/functions/stores';
+  import InputTimePicker from './components/InputTimePicker.svelte';
+  import Checkbox from '../../components/common/Checkbox.svelte';
+  import StepBar from '../../components/common/StepBar.svelte';
+  import { DURATIONS } from '../../../utils/enums';
+  import PackageJSON from '../../../../package.json';
+  let version = PackageJSON.version;
 
   export let meta;
   let timecolumns = 1;
@@ -27,10 +29,7 @@
   const addTimeSlot = (date) => {
     $newPollStore.dates.forEach((day, i) => {
       if (day.date === date) {
-        $newPollStore.dates[i].slots = [
-          ...$newPollStore.dates[i].slots,
-          "00:00",
-        ];
+        $newPollStore.dates[i].slots = [...$newPollStore.dates[i].slots, '00:00'];
       }
     });
   };
@@ -61,36 +60,29 @@
       $newPollStore.dates[i].slots[index] = time;
     });
   };
+
 </script>
 
 <svelte:head>
-  <title
-    >{$_("title")} | {$_(
-      meta.params._id ? "links.edit_poll_3" : "links.new_poll_3"
-    )}</title
-  >
+  <title>{$_('title')} {version} | {$_(meta.params._id ? 'links.edit_poll_3' : 'links.new_poll_3')}</title>
 </svelte:head>
 
 <section class="box-transparent">
   <div class="container">
     <h1 class="title is-3">
-      {$_(
-        meta.params._id
-          ? "pages.new_poll_3.title_edit"
-          : "pages.new_poll_3.title"
-      )}
+      {$_(meta.params._id ? 'pages.new_poll_3.title_edit' : 'pages.new_poll_3.title')}
     </h1>
     <StepBar active={3} pollId={meta.params._id} />
     <div class="box">
       <div class="columns is-multiline">
         <div class="column is-full">
-          <label class="label">{$_("pages.new_poll_3.duration")}</label>
+          <label class="label">{$_('pages.new_poll_3.duration')}</label>
           <div class="field has-addons">
             <div class="control">
               <div class="select is-fullwidth">
                 <select
                   bind:value={$newPollStore.duration}
-                  placeholder={$_("pages.new_poll_3.duration")}
+                  placeholder={$_('pages.new_poll_3.duration')}
                   disabled={$newPollStore.allDay}
                 >
                   {#each DURATIONS as duration}
@@ -103,7 +95,7 @@
             </div>
             <div class="control">
               <div class="button is-light">
-                {$_("pages.new_poll_3.hour")}
+                {$_('pages.new_poll_3.hour')}
               </div>
             </div>
           </div>
@@ -111,10 +103,7 @@
         <div class="column is-full">
           <div class="field">
             <div class="control">
-              <Checkbox
-                bind:checked={$newPollStore.allDay}
-                label={$_("pages.new_poll_3.allDay_input")}
-              />
+              <Checkbox bind:checked={$newPollStore.allDay} label={$_('pages.new_poll_3.allDay_input')} />
             </div>
           </div>
         </div>
@@ -126,7 +115,7 @@
                   <tr>
                     <th />
                     {#each new Array(timecolumns) as column, i}
-                      <th>{`${$_("pages.new_poll_3.timeslot")} ${i + 1}`}</th>
+                      <th>{`${$_('pages.new_poll_3.timeslot')} ${i + 1}`}</th>
                     {/each}
                   </tr>
                 </thead>
@@ -136,29 +125,17 @@
                 {#each $newPollStore.dates as day}
                   <tr>
                     <th>
-                      {moment(day.date).format(
-                        $_("components.Time.dateFormat")
-                      )}
+                      {moment(day.date).format($_('components.Time.dateFormat'))}
                     </th>
                     {#if !$newPollStore.allDay && day.slots}
                       {#each day.slots as slot, i}
                         <td>
                           <div class="single-time">
-                            <InputTimePicker
-                              date={day.date}
-                              key={i}
-                              bind:value={slot}
-                            />
-                            <span
-                              class="icon is-small"
-                              on:click={() => applyEverywhere(slot, i)}
-                            >
+                            <InputTimePicker date={day.date} key={i} bind:value={slot} />
+                            <span class="icon is-small" on:click={() => applyEverywhere(slot, i)}>
                               <i class="fas fa-sort" />
                             </span>
-                            <span
-                              class="icon is-small"
-                              on:click={() => removeSlot(day.date, i)}
-                            >
+                            <span class="icon is-small" on:click={() => removeSlot(day.date, i)}>
                               <i class="fas fa-trash" />
                             </span>
                           </div>
@@ -167,10 +144,7 @@
                     {/if}
                     {#if !$newPollStore.allDay}
                       <td>
-                        <BigLink
-                          action={() => addTimeSlot(day.date)}
-                          text={$_("pages.new_poll_3.new_slot")}
-                        />
+                        <BigLink action={() => addTimeSlot(day.date)} text={$_('pages.new_poll_3.new_slot')} />
                       </td>
                     {/if}
                   </tr>
@@ -187,22 +161,16 @@
       </div>
       <div class="column is-half-desktop is-full-mobile">
         <BigLink
-          link={meta.params._id
-            ? ROUTES.EDIT_POLL_RM(meta.params._id, 2)
-            : ROUTES.NEW_POLL_RM(2)}
-          text={$_("pages.new_poll.previous")}
+          link={meta.params._id ? ROUTES.EDIT_POLL_RM(meta.params._id, 2) : ROUTES.NEW_POLL_RM(2)}
+          text={$_('pages.new_poll.previous')}
           color="is-secondary"
         />
       </div>
       <div class="column is-half-desktop is-full-mobile is-right">
         <BigLink
-          disabled={$newPollStore.allDay
-            ? false
-            : !($newPollStore.dates[0] && $newPollStore.dates[0].slots.length)}
-          link={meta.params._id
-            ? ROUTES.EDIT_POLL_RM(meta.params._id, 4)
-            : ROUTES.NEW_POLL_RM(4)}
-          text={$_("pages.new_poll.next")}
+          disabled={$newPollStore.allDay ? false : !($newPollStore.dates[0] && $newPollStore.dates[0].slots.length)}
+          link={meta.params._id ? ROUTES.EDIT_POLL_RM(meta.params._id, 4) : ROUTES.NEW_POLL_RM(4)}
+          text={$_('pages.new_poll.next')}
         />
       </div>
     </div>
@@ -227,4 +195,5 @@
   .fa-trash {
     color: red;
   }
+
 </style>
