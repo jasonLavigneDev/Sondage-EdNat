@@ -86,14 +86,17 @@ export const createEventAgenda = new ValidatedMethod({
       answers = PollsAnswers.find({ userId: null, pollId: poll._id }).fetch();
     }
     const groups = Groups.find({ _id: { $in: poll.groups } }).fetch();
-    const participants = groups.map(({_id, admins, animators, members }) => {
-      Meteor.users.find({ _id: { $in: [...admins, ...animators, ...members]}}).fetch().map(user => ({
-        _id: user._id,
-        email: users.emails[0].address,
-        groupId: _id,
-        status: 1,
-      }))
-    }) 
+    const participants = groups.map(({ _id, admins, animators, members }) =>
+      Meteor.users
+        .find({ _id: { $in: [...admins, ...animators, ...members] } })
+        .fetch()
+        .map((user) => ({
+          _id: user._id,
+          email: user.emails[0].address,
+          groupId: _id,
+          status: 1,
+        })),
+    );
     EventsAgenda.insert({
       title: poll.title,
       location: '',
@@ -103,9 +106,8 @@ export const createEventAgenda = new ValidatedMethod({
       participants,
       guests: answers.map(({ email }) => email),
       description: poll.description,
-      groups: groups
-        .map(({ _id, name }) => ({ _id, name })),
-        userId: this.userId,
+      groups: groups.map(({ _id, name }) => ({ _id, name })),
+      userId: this.userId,
     });
   },
 });
