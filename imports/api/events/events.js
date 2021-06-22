@@ -17,7 +17,7 @@ EventsAgenda.deny({
 });
 
 const settingsGroup = new SimpleSchema({
-  id: {
+  _id: {
     type: String,
     optional: false,
   },
@@ -28,7 +28,7 @@ const settingsGroup = new SimpleSchema({
 });
 
 const settingsParticipant = new SimpleSchema({
-  id: {
+  _id: {
     type: String,
     optional: false,
   },
@@ -42,7 +42,7 @@ const settingsParticipant = new SimpleSchema({
     defaultValue: 1,
     optional: false,
   },
-  idGroup: {
+  groupId: {
     type: String,
     optional: true,
   },
