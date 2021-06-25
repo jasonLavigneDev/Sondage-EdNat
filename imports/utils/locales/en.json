@@ -113,7 +113,8 @@
       "selected_dates": "Selected dates",
       "no_selected_dates": "No dates selected",
       "selected_time_slots": "Select your time slots",
-      "duration": "Duration of the meeting"
+      "duration": "Duration of the meeting",
+      "past_date": "This date has passed"
     },
     "new_poll_3": {
       "title": "New Poll: Hours",
