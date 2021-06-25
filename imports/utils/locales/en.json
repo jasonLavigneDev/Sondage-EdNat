@@ -18,7 +18,8 @@
       "answerAlreadyValidated": "This answer has already been confirmed",
       "notApublicPoll": "This poll is not public, you must be logged",
       "emailAlreadyVoted": "This email is already registered with a vote",
-      "pollNotActive": "Poll is not active, you cannot vote."
+      "pollNotActive": "Poll is not active, you cannot vote.",
+      "slotAlreadyTaken": "This slot is already reserved"
     }
   },
   "links": {
@@ -68,10 +69,9 @@
       "remove_valid": "Delete",
       "remove_cancel": "Cancel",
       "remove_text": "You are about to delete this poll and all the answers associated, this action cannot be reversed."
-  
     },
     "polls": {
-        "title": "My participations"
+      "title": "My participations"
     },
     "login": {
       "title": "You are not logged in",
@@ -90,7 +90,7 @@
       "poll_not_found": "Poll not found",
       "yes": "Yes",
       "no": "No",
-      "back":"Back"
+      "back": "Back"
     },
     "new_poll_1": {
       "title": "New Poll: Informations",
@@ -131,7 +131,7 @@
       "proposed_times": "Proposed dates",
       "poll_created": "Poll successfully created",
       "poll_modified": "Poll successfully modified"
-    }, 
+    },
     "answer": {
       "email": "Your email address",
       "duration": "Event's duration",

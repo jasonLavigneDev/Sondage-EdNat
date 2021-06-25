@@ -63,16 +63,20 @@ EventsAgenda.schema = new SimpleSchema(
       optional: true,
     },
     start: {
-      type: String,
+      type: Date,
       optional: false,
     },
     end: {
-      type: String,
+      type: Date,
       optional: false,
     },
     allDay: {
       type: Boolean,
       optional: false,
+    },
+    recurrent: {
+      type: Boolean,
+      defaultValue: false,
     },
     groups: {
       type: Array,
@@ -98,7 +102,7 @@ EventsAgenda.schema = new SimpleSchema(
       type: String,
       optional: true,
     },
-    authorId: {
+    userId: {
       type: String,
       optional: false,
     },
@@ -116,7 +120,7 @@ EventsAgenda.publicFields = {
   group: 1,
   participants: 1,
   guests: 1,
-  authorId: 1,
+  userId: 1,
 };
 
 EventsAgenda.attachSchema(EventsAgenda.schema);
