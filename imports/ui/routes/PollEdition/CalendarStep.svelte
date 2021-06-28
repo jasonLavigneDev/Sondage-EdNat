@@ -14,7 +14,8 @@
   import { newPollStore } from '/imports/utils/functions/stores';
   import StepBar from '../../components/common/StepBar.svelte';
   import timeSlotsGen from '../../../utils/functions/timeSlotsGen';
-  import { DURATIONS, DURATIONS_TIME } from '../../../utils/enums';
+  import { toast } from '@zerodevx/svelte-toast';
+  import { DURATIONS, DURATIONS_TIME, toasts } from '../../../utils/enums';
   import PackageJSON from '../../../../package.json';
   let version = PackageJSON.version;
   export let meta;
@@ -23,6 +24,7 @@
 
   const selectTimeSlot = ({ start, end }) => {
     if (start < new Date()) {
+      toast.push($_('pages.new_poll_2.past_date'), toasts.error);
       return null;
     }
     const generated = timeSlotsGen(start, end, DURATIONS_TIME[$newPollStore.duration]);
@@ -102,7 +104,6 @@
     // theme handling
     themeSystem: 'bootstrap',
   };
-
 </script>
 
 <svelte:head>
@@ -184,5 +185,4 @@
     display: flex;
     justify-content: flex-end;
   }
-
 </style>

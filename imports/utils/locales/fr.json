@@ -113,7 +113,8 @@
       "selected_dates": "Dates sélectionnées",
       "no_selected_dates": "Aucune date sélectionnée",
       "selected_time_slots": "Sélectionnez vos tranches horaires",
-      "duration": "Durée du rendez-vous"
+      "duration": "Durée du rendez-vous",
+      "past_date": "Cette date est déjà passée"
     },
     "new_poll_3": {
       "title": "Nouveau sondage: Heures",
