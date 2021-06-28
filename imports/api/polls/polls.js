@@ -46,6 +46,11 @@ const SingleMeetingSlotSchema = new SimpleSchema({
 
 Polls.schema = new SimpleSchema(
   {
+    _id: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+      optional: true,
+    },
     title: {
       type: String,
       min: 1,
