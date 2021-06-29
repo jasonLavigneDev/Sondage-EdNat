@@ -39,6 +39,11 @@ const SingleDateSchema = new SimpleSchema({
 
 PollsAnswers.schema = new SimpleSchema(
   {
+    _id: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+      optional: true,
+    },
     userId: {
       type: String,
       regEx: SimpleSchema.RegEx.Id,

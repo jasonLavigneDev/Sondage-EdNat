@@ -1,30 +1,26 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import moment from "moment";
-  import tippy from "sveltejs-tippy";
-  import { toast } from "@zerodevx/svelte-toast";
-  import { toasts } from "../../../utils/enums";
+  import { _ } from 'svelte-i18n';
+  import moment from 'moment';
+  import tippy from 'sveltejs-tippy';
+  import { toast } from '@zerodevx/svelte-toast';
+  import { toasts } from '../../../utils/enums';
 
   export let answer;
   let loading = false;
 
   const tooltip = (content) => ({
     content,
-    placement: "bottom",
+    placement: 'bottom',
   });
 
   const validateMeeting = () => {
     loading = true;
-    Meteor.call(
-      "polls_answers.meeting.validate",
-      { answerId: answer._id },
-      (e) => {
-        loading = false;
-        if (e) {
-          toast.push($_(e.reason), toasts.error);
-        }
+    Meteor.call('polls_answers.meeting.validate', { answerId: answer._id }, (e) => {
+      loading = false;
+      if (e) {
+        toast.push($_(e.reason), toasts.error);
       }
-    );
+    });
   };
 </script>
 
@@ -39,22 +35,18 @@
         on:click={validateMeeting}
         use:tippy={tooltip(
           answer.confirmed
-            ? $_("components.SinglePollAnswerLine.validated_tooltip")
-            : $_("components.SinglePollAnswerLine.validate_tooltip")
+            ? $_('components.SinglePollAnswerLine.validated_tooltip')
+            : $_('components.SinglePollAnswerLine.validate_tooltip'),
         )}
       >
         <span class="icon">
-          <i
-            class="fas"
-            class:fa-calendar-check={answer.confirmed}
-            class:fa-paper-plane={!answer.confirmed}
-          />
+          <i class="fas" class:fa-calendar-check={answer.confirmed} class:fa-paper-plane={!answer.confirmed} />
         </span>
         <span>
           {#if answer.confirmed}
-            {$_("components.SinglePollAnswerLine.validated")}
+            {$_('components.SinglePollAnswerLine.validated')}
           {:else}
-            {$_("components.SinglePollAnswerLine.validate")}
+            {$_('components.SinglePollAnswerLine.validate')}
           {/if}
         </span>
       </button>
@@ -64,6 +56,6 @@
     {answer.email}
   </td>
   <td>
-    {moment(answer.meetingSlot).format("LLL")}
+    {moment(answer.meetingSlot).format('LLL')}
   </td>
 </tr>

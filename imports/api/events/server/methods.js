@@ -24,15 +24,14 @@ export const sendEmail = new ValidatedMethod({
       end: moment(answer.meetingSlot).add(DURATIONS_TIME[poll.duration], 'minute'),
       summary: poll.title,
       description: poll.description,
-      url: ROUTES.ANSWER_POLL_RM(poll._id),
+      url: new URL(ROUTES.ANSWER_POLL_RM(poll._id), process.env.ROOT_URL).href,
     });
     const template = poll.type === POLLS_TYPES.POLL ? eventTemplate : meetingTemplate;
     const html = template({
       title: poll.title,
-      sender: Meteor.users.findOne(poll.userId).services.keycloak.email,
+      sender: Meteor.users.findOne(poll.userId).emails[0].address,
       date: moment(answer.meetingSlot).format('LLL'),
     });
-
     Email.send({
       to: answer.email,
       from: Meteor.settings.private.smtp.fromEmail,
