@@ -151,7 +151,7 @@
   },
   "components": {
     "MeetingAnswersList": {
-      "title": "Answers list"
+      "title": "Liste des réponses"
     },
     "SinglePollLine": {
       "copied": "URL copié dans le presse-papier"
