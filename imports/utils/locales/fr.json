@@ -18,7 +18,8 @@
       "notAllowed": "Vous n'êtes pas autorisé a faire ceci",
       "notApublicPoll": "Ce sondage est privé, vous devez être connecté",
       "emailAlreadyVoted": "Cet email est déjà enregistré avec un vote",
-      "pollNotActive": "Ce sondage n'est pas actif, vous ne pouvez pas voter"
+      "pollNotActive": "Ce sondage n'est pas actif, vous ne pouvez pas voter",
+      "slotAlreadyTaken": "Ce créneau est déjà pris"
     }
   },
   "links": {
@@ -47,30 +48,30 @@
   },
   "pages": {
     "home": {
-        "title": "Gestion de mes sondages",
-        "new_poll": "Créer un sondage",
-        "groups_label": "Groupes",
-        "type_label": "Type",
-        "title_label": "Titre",
-        "public_label": "Public",
-        "duration_label": "Durée",
-        "dates_label": "Dates",
-        "votes_label": "Votes",
-        "meetingSlot_label": "Date choisie",
-        "deactivate_tooltip": "Désactiver",
-        "activate_tooltip": "Activer",
-        "results_tooltip": "Résultats",
-        "edit_tooltip": "Éditer",
-        "link_tooltip": "Copier le lien",
-        "delete_tooltip": "Supprimer",
-        "open_tooltip": "Ouvrir",
-        "remove_title": "Supprimer un sondage",
-        "remove_valid": "Supprimer",
-        "remove_cancel": "Annuler",
-        "remove_text": "Vous êtes sur le point de supprimer ce sondage et toutes les réponses associées, cette action est irréversible."
+      "title": "Gestion de mes sondages",
+      "new_poll": "Créer un sondage",
+      "groups_label": "Groupes",
+      "type_label": "Type",
+      "title_label": "Titre",
+      "public_label": "Public",
+      "duration_label": "Durée",
+      "dates_label": "Dates",
+      "votes_label": "Votes",
+      "meetingSlot_label": "Date choisie",
+      "deactivate_tooltip": "Désactiver",
+      "activate_tooltip": "Activer",
+      "results_tooltip": "Résultats",
+      "edit_tooltip": "Éditer",
+      "link_tooltip": "Copier le lien",
+      "delete_tooltip": "Supprimer",
+      "open_tooltip": "Ouvrir",
+      "remove_title": "Supprimer un sondage",
+      "remove_valid": "Supprimer",
+      "remove_cancel": "Annuler",
+      "remove_text": "Vous êtes sur le point de supprimer ce sondage et toutes les réponses associées, cette action est irréversible."
     },
     "polls": {
-        "title": "Mes participations"
+      "title": "Mes participations"
     },
     "logout": {
       "title": "Vous avez été déconnecté",
@@ -112,7 +113,8 @@
       "selected_dates": "Dates sélectionnées",
       "no_selected_dates": "Aucune date sélectionnée",
       "selected_time_slots": "Sélectionnez vos tranches horaires",
-      "duration": "Durée du rendez-vous"
+      "duration": "Durée du rendez-vous",
+      "past_date": "Cette date est déjà passée"
     },
     "new_poll_3": {
       "title": "Nouveau sondage: Heures",
@@ -130,7 +132,7 @@
       "proposed_times": "Dates proposées",
       "poll_created": "Sondage créé avec succès",
       "poll_modified": "Sondage modifié avec succès"
-    }, 
+    },
     "answer": {
       "email": "Votre adresse email",
       "duration": "Durée de l'évènement",
@@ -149,7 +151,7 @@
   },
   "components": {
     "MeetingAnswersList": {
-      "title": "Answers list"
+      "title": "Liste des réponses"
     },
     "SinglePollLine": {
       "copied": "URL copié dans le presse-papier"

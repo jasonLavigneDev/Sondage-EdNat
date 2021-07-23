@@ -49,7 +49,11 @@ export const createPollAnswers = new ValidatedMethod({
         },
       );
       if ((isInAGroup && poll.active) || (this.userId === poll.userId && poll.active)) {
-        return PollsAnswers.update({ pollId: data.pollId, email: data.email }, { $set: { ...data } }, { upsert: true });
+        return PollsAnswers.update(
+          { pollId: data.pollId, email: data.email },
+          { $set: { ...data, confirmed: false } },
+          { upsert: true },
+        );
       }
       if (!poll.active) {
         throw new Meteor.Error('api.polls_answers.methods.create.notActivePoll', 'api.errors.notAllowed');
@@ -57,7 +61,11 @@ export const createPollAnswers = new ValidatedMethod({
         throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'api.errors.notAllowed');
       }
     } else if ((poll.public || this.userId) && poll.active) {
-      return PollsAnswers.update({ pollId: data.pollId, email: data.email }, { $set: { ...data } }, { upsert: true });
+      return PollsAnswers.update(
+        { pollId: data.pollId, email: data.email },
+        { $set: { ...data, confirmed: false } },
+        { upsert: true },
+      );
     } else if (!poll.public && !this.userId) {
       throw new Meteor.Error('api.polls_answers.methods.create.notPublic', 'api.errors.pollNotActive');
     } else {

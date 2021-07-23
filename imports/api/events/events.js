@@ -17,7 +17,7 @@ EventsAgenda.deny({
 });
 
 const settingsGroup = new SimpleSchema({
-  id: {
+  _id: {
     type: String,
     optional: false,
   },
@@ -28,7 +28,7 @@ const settingsGroup = new SimpleSchema({
 });
 
 const settingsParticipant = new SimpleSchema({
-  id: {
+  _id: {
     type: String,
     optional: false,
   },
@@ -42,7 +42,7 @@ const settingsParticipant = new SimpleSchema({
     defaultValue: 1,
     optional: false,
   },
-  idGroup: {
+  groupId: {
     type: String,
     optional: true,
   },
@@ -63,16 +63,20 @@ EventsAgenda.schema = new SimpleSchema(
       optional: true,
     },
     start: {
-      type: String,
+      type: Date,
       optional: false,
     },
     end: {
-      type: String,
+      type: Date,
       optional: false,
     },
     allDay: {
       type: Boolean,
       optional: false,
+    },
+    recurrent: {
+      type: Boolean,
+      defaultValue: false,
     },
     groups: {
       type: Array,
@@ -98,7 +102,7 @@ EventsAgenda.schema = new SimpleSchema(
       type: String,
       optional: true,
     },
-    authorId: {
+    userId: {
       type: String,
       optional: false,
     },
@@ -116,7 +120,7 @@ EventsAgenda.publicFields = {
   group: 1,
   participants: 1,
   guests: 1,
-  authorId: 1,
+  userId: 1,
 };
 
 EventsAgenda.attachSchema(EventsAgenda.schema);

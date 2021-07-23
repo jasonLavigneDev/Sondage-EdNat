@@ -24,15 +24,14 @@ export const sendEmail = new ValidatedMethod({
       end: moment(answer.meetingSlot).add(DURATIONS_TIME[poll.duration], 'minute'),
       summary: poll.title,
       description: poll.description,
-      url: ROUTES.ANSWER_POLL_RM(poll._id),
+      url: new URL(ROUTES.ANSWER_POLL_RM(poll._id), process.env.ROOT_URL).href,
     });
     const template = poll.type === POLLS_TYPES.POLL ? eventTemplate : meetingTemplate;
     const html = template({
       title: poll.title,
-      sender: Meteor.users.findOne(poll.userId).services.keycloak.email,
+      sender: Meteor.users.findOne(poll.userId).emails[0].address,
       date: moment(answer.meetingSlot).format('LLL'),
     });
-
     Email.send({
       to: answer.email,
       from: Meteor.settings.private.smtp.fromEmail,
@@ -61,7 +60,7 @@ export const createEventAgendaMeeting = new ValidatedMethod({
       participants: participantUser
         ? [
             {
-              id: participantUser._id,
+              _id: participantUser._id,
               email: answer.email,
             },
           ]
@@ -69,7 +68,7 @@ export const createEventAgendaMeeting = new ValidatedMethod({
       guests: participantUser ? [] : [answer.email],
       description: poll.description,
       groups: [],
-      authorId: this.userId,
+      userId: this.userId,
     });
   },
 });
@@ -85,19 +84,29 @@ export const createEventAgenda = new ValidatedMethod({
     if (poll.public) {
       answers = PollsAnswers.find({ userId: null, pollId: poll._id }).fetch();
     }
+    const groups = Groups.find({ _id: { $in: poll.groups } }).fetch();
+    const participants = groups.map(({ _id, admins, animators, members }) =>
+      Meteor.users
+        .find({ _id: { $in: [...admins, ...animators, ...members] } })
+        .fetch()
+        .map((user) => ({
+          _id: user._id,
+          email: user.emails[0].address,
+          groupId: _id,
+          status: 1,
+        })),
+    );
     EventsAgenda.insert({
       title: poll.title,
       location: '',
       start: moment(date).format(),
       end: moment(date).add(DURATIONS_TIME[poll.duration], 'minute').format(),
       allDay: poll.allDay,
-      participants: [],
+      participants,
       guests: answers.map(({ email }) => email),
       description: poll.description,
-      groups: Groups.find({ _id: { $in: poll.groups } })
-        .fetch()
-        .map(({ _id, name }) => ({ id: _id, name })),
-      authorId: this.userId,
+      groups: groups.map(({ _id, name }) => ({ _id, name })),
+      userId: this.userId,
     });
   },
 });
