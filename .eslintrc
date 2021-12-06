@@ -27,6 +27,7 @@
     "msg": false
   },
   "plugins": ["meteor", "import", "prettier", "i18n", "react", "jsx"],
+  "ignorePatterns": ["packages/**/*.js", "packages/**/*.jsx"],
   "rules": {
     "no-underscore-dangle": "off",
     "react/jsx-props-no-spreading": "off",
