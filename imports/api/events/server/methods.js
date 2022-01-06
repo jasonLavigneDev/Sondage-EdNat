@@ -102,7 +102,7 @@ export const createEventAgenda = new ValidatedMethod({
       start: moment(date).format(),
       end: moment(date).add(DURATIONS_TIME[poll.duration], 'minute').format(),
       allDay: poll.allDay,
-      participants,
+      participants: participants[0],
       guests: answers.map(({ email }) => email),
       description: poll.description,
       groups: groups.map(({ _id, name }) => ({ _id, name })),
