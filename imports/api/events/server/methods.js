@@ -85,17 +85,20 @@ export const createEventAgenda = new ValidatedMethod({
       answers = PollsAnswers.find({ userId: null, pollId: poll._id }).fetch();
     }
     const groups = Groups.find({ _id: { $in: poll.groups } }).fetch();
-    const participants = groups.map(({ _id, admins, animators, members }) =>
-      Meteor.users
-        .find({ _id: { $in: [...admins, ...animators, ...members] } })
-        .fetch()
-        .map((user) => ({
-          _id: user._id,
-          email: user.emails[0].address,
-          groupId: _id,
-          status: 1,
-        })),
-    ).flat(1);
+    const participants = groups
+      .map(({ _id, admins, animators, members }) =>
+        Meteor.users
+          .find({ _id: { $in: [...admins, ...animators, ...members] } })
+          .fetch()
+          .map((user) => ({
+            _id: user._id,
+            email: user.emails[0].address,
+            groupId: _id,
+            status: 1,
+          })),
+      )
+      .flat(1)
+      .filter((v, i, a) => a.findIndex((t) => t._id === v._id) === i); // remove duplicate participants based on _id prop
     EventsAgenda.insert({
       title: poll.title,
       location: '',
