@@ -95,14 +95,14 @@ export const createEventAgenda = new ValidatedMethod({
           groupId: _id,
           status: 1,
         })),
-    );
+    ).flat(1);
     EventsAgenda.insert({
       title: poll.title,
       location: '',
       start: moment(date).format(),
       end: moment(date).add(DURATIONS_TIME[poll.duration], 'minute').format(),
       allDay: poll.allDay,
-      participants: participants[0],
+      participants,
       guests: answers.map(({ email }) => email),
       description: poll.description,
       groups: groups.map(({ _id, name }) => ({ _id, name })),
