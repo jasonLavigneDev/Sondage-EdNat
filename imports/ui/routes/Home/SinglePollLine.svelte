@@ -124,7 +124,7 @@
     {poll.allDay ? $_(`polls_datas.allDay`) : poll.duration}
   </td>
   <td>
-    {poll.dates.reduce((acc, v) => acc + v.slots.length, 0)}
+    {poll.dates.reduce((acc, v) => acc + (poll.allDay ? 1 : v.slots.length), 0)}
   </td>
   <td> {$votes} </td>
 </tr>

@@ -56,45 +56,81 @@
       <tfoot>
         <tr>
           <th />
-          {#each poll.dates as day}
-            {#each day.slots as time}
-              <th>
-                {#if !poll.completed || moment(day.date)
-                    .hour(time.split(":")[0])
-                    .minute(time.split(":")[1])
-                    .isSame(poll.choosenDate)}
-                  <button
-                    class="button is-fullwidth"
-                    class:is-loading={loading}
-                    class:is-primary={!poll.completed}
-                    class:is-success={moment(day.date)
-                      .hour(time.split(":")[0])
-                      .minute(time.split(":")[1])
-                      .isSame(poll.choosenDate)}
-                    use:tippy={{
-                      content: $_("pages.answer.confirm_date_tooltip"),
-                      placement: "bottom",
-                    }}
-                    on:click={() =>
-                      poll.completed
-                        ? null
-                        : confirmDate(
-                            moment(day.date)
-                              .hour(time.split(":")[0])
-                              .minute(time.split(":")[1])
-                              .format()
-                          )}
-                  >
-                    {#if !poll.completed}
-                      {$_("pages.answer.confirm_date")}
-                    {:else}
-                      {$_("pages.answer.choosen_date")}
+          <!-- {#each poll.dates as day} -->
+            {#if !poll.allDay}
+              {#each poll.dates as day}
+                {#each day.slots as time}
+                  <th>
+                    {#if !poll.completed || moment(day.date)
+                        .hour(time.split(":")[0])
+                        .minute(time.split(":")[1])
+                        .isSame(poll.choosenDate)}
+                      <button
+                        class="button is-fullwidth"
+                        class:is-loading={loading}
+                        class:is-primary={!poll.completed}
+                        class:is-success={moment(day.date)
+                          .hour(time.split(":")[0])
+                          .minute(time.split(":")[1])
+                          .isSame(poll.choosenDate)}
+                        use:tippy={{
+                          content: $_("pages.answer.confirm_date_tooltip"),
+                          placement: "bottom",
+                        }}
+                        on:click={() =>
+                          poll.completed
+                            ? null
+                            : confirmDate(
+                                moment(day.date)
+                                  .hour(time.split(":")[0])
+                                  .minute(time.split(":")[1])
+                                  .format()
+                              )}
+                      >
+                        {#if !poll.completed}
+                          {$_("pages.answer.confirm_date")}
+                        {:else}
+                          {$_("pages.answer.choosen_date")}
+                        {/if}
+                      </button>
                     {/if}
-                  </button>
-                {/if}
-              </th>
-            {/each}
-          {/each}
+                  </th>
+                {/each}
+              {/each}
+          {:else}
+              {#each poll.dates as day}
+                <th>
+                  {#if !poll.completed || moment(day.date)
+                      .isSame(poll.choosenDate)}
+                    <button
+                      class="button is-fullwidth"
+                      class:is-loading={loading}
+                      class:is-primary={!poll.completed}
+                      class:is-success={moment(day.date)
+                        .isSame(poll.choosenDate)}
+                      use:tippy={{
+                        content: $_("pages.answer.confirm_date_tooltip"),
+                        placement: "bottom",
+                      }}
+                      on:click={() =>
+                        poll.completed
+                          ? null
+                          : confirmDate(
+                              moment(day.date)
+                                .format()
+                            )}
+                    >
+                      {#if !poll.completed}
+                        {$_("pages.answer.confirm_date")}
+                      {:else}
+                        {$_("pages.answer.choosen_date")}
+                      {/if}
+                    </button>
+                  {/if}
+                </th>
+              {/each}
+            {/if}
+          <!-- {/each} -->
         </tr>
       </tfoot>
     {/if}
