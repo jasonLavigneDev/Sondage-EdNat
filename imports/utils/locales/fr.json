@@ -131,7 +131,10 @@
       "title_edit": "Édition du sondage: Validation",
       "proposed_times": "Dates proposées",
       "poll_created": "Sondage créé avec succès",
-      "poll_modified": "Sondage modifié avec succès"
+      "poll_modified": "Sondage modifié avec succès",
+      "missingTitle": "Un titre est requis",
+      "missingDate": "Dates ou tranches horaires manquantes",
+      "creationError": "Erreur lors de la création du sondage"
     },
     "answer": {
       "email": "Votre adresse email",
@@ -144,6 +147,10 @@
       "poll_answered": "Sondage répondu avec succès",
       "confirm_date": "Choisir cette date",
       "confirm_date_tooltip": "Confirmer cette date et notifier tout le monde",
+      "modal_title": "Confirmer cette date",
+      "modal_valid": "Confirmer",
+      "modal_cancel": "Annuler",
+      "modal_text": "Vous êtes sur le point de valider la date de ce sondage, cette action est irréversible.",
       "login_with_lb": "Vous avez un compte dans LaBoite",
       "askToConnect": "Connectez-vous pour voir cette page",
       "choosen_date": "Date choisie"

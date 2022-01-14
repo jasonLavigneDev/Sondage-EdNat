@@ -202,7 +202,11 @@
             {#if Meteor.userId() === poll.userId && poll.type !== POLLS_TYPES.POLL}
               <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
             {:else}
-              <BigLink disabled={!answer.email || loading} action={sendAnswer} text={$_('pages.new_poll.validate')} />
+              {#if !poll.completed}
+                <BigLink disabled={!answer.email || loading} action={sendAnswer} text={$_('pages.new_poll.validate')} />
+              {:else}
+                <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
+              {/if}
             {/if}
           </div>
         </div>
