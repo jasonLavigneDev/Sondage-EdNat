@@ -131,7 +131,10 @@
       "title_edit": "Edit Poll: Validation",
       "proposed_times": "Proposed dates",
       "poll_created": "Poll successfully created",
-      "poll_modified": "Poll successfully modified"
+      "poll_modified": "Poll successfully modified",
+      "missingTitle": "Title is required",
+      "missingDate": "Some dates or time slots are missing",
+      "creationError": "Error encountered at poll creation"
     },
     "answer": {
       "email": "Your email address",
@@ -143,6 +146,10 @@
       "timeGridWeek": "Calendar",
       "confirm_date": "Choose this date",
       "confirm_date_tooltip": "Confirm this date and notify everyone",
+      "modal_title": "Choose this date",
+      "modal_valid": "Confirm",
+      "modal_cancel": "Cancel",
+      "modal_text": "You are about to choose a date for this poll, this action cannot be reversed.",
       "poll_answered": "Poll answered successfully",
       "login_with_lb": "You have an account in LaBoite",
       "askToConnect": "Login to see this page",
