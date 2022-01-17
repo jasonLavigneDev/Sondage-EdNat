@@ -72,6 +72,11 @@
 {/if}
 
 <style>
+  .navbar-menu {
+    width: 80%;
+    padding-left: 13%;
+    justify-items: center;
+  }
   .navbar {
     box-shadow: var(--box-shadow);
     max-height: 48px;

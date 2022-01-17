@@ -20,38 +20,59 @@
 
   export let meta;
   let selectedGroups;
+  let titleOk = false;
+  let dateOk = false;
 
   $: selectedGroups = useTracker(() =>
     Groups.find({ _id: { $in: $newPollStore.groups } }, { sort: { name: -1 } }).fetch(),
   );
 
-  const validatePollEdition = () => {
-    Meteor.call(
-      meta.params._id ? 'polls.update' : 'polls.create',
-      {
-        data: {
-          ...$newPollStore,
-          dates: $newPollStore.type === POLLS_TYPES.POLL ? $newPollStore.dates.sort((a, b) => a.date - b.date) : [],
-          meetingSlots:
-            $newPollStore.type === POLLS_TYPES.MEETING
-              ? $newPollStore.meetingSlots.sort((a, b) => a.start - b.start)
-              : [],
-        },
-        pollId: meta.params._id,
-      },
-      (error, result) => {
-        if (error) {
-          console.log(error);
-          toast.push($_(error.reason), toasts.error);
-        } else {
-          toast.push($_(meta.params._id ? 'pages.new_poll_4.poll_modified' : 'pages.new_poll_4.poll_created'));
-          router.goto(ROUTES.ADMIN);
-          newPollStore.set({ ...EMPTY_NEW_POLL });
-        }
-      },
-    );
-  };
+  // check that at least title and 1 date or meetingslots are defined
+  $: titleOk = !!$newPollStore.title;
+  dateOk =
+    $newPollStore.type === POLLS_TYPES.POLL
+      ? $newPollStore.dates.length <= 0
+        ? false
+        : $newPollStore.allDay
+        ? true
+        : $newPollStore.dates.filter((date) => date.slots.length === 0).length === 0
+      : $newPollStore.meetingSlots.length > 0;
 
+  const validatePollEdition = () => {
+    if (!titleOk) toast.push($_('pages.new_poll_4.missingTitle'), toasts.error);
+    if (!dateOk) toast.push($_('pages.new_poll_4.missingDate'), toasts.error);
+    if (titleOk && dateOk) {
+      Meteor.call(
+        meta.params._id ? 'polls.update' : 'polls.create',
+        {
+          data: {
+            ...$newPollStore,
+            dates: $newPollStore.type === POLLS_TYPES.POLL ? $newPollStore.dates.sort((a, b) => a.date - b.date) : [],
+            meetingSlots:
+              $newPollStore.type === POLLS_TYPES.MEETING
+                ? $newPollStore.meetingSlots.sort((a, b) => a.start - b.start)
+                : [],
+          },
+          pollId: meta.params._id,
+        },
+        (error) => {
+          if (error) {
+            if (error.details) {
+              messages = error.details.map((err) => err.message);
+              toast.push(messages.join('<br/>'), toasts.error);
+            } else {
+              console.log(error);
+              toast.push($_(error.message || error.reason || 'pages.new_poll_4.creationError'), toasts.error);
+            }
+          } else {
+            toast.push($_(meta.params._id ? 'pages.new_poll_4.poll_modified' : 'pages.new_poll_4.poll_created'));
+            router.goto(ROUTES.ADMIN);
+            newPollStore.set({ ...EMPTY_NEW_POLL });
+          }
+        },
+      );
+    }
+  };
 </script>
 
 <svelte:head>
@@ -188,7 +209,7 @@
           />
         </div>
         <div class="column is-half-desktop is-full-mobile is-right">
-          <BigLink disabled={!$newPollStore.dates} action={validatePollEdition} text={$_('pages.new_poll.validate')} />
+          <BigLink action={validatePollEdition} text={$_('pages.new_poll.validate')} />
         </div>
       </div>
     </div>
@@ -200,5 +221,4 @@
     display: flex;
     justify-content: flex-end;
   }
-
 </style>

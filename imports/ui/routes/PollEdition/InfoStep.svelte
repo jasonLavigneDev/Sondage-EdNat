@@ -95,6 +95,7 @@
               <input
                 class="input"
                 type="text"
+                autofocus
                 bind:value={$newPollStore.title}
                 placeholder={$_('pages.new_poll_1.title_input')}
               />

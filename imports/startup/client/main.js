@@ -5,7 +5,6 @@ import '../../api/polls/polls';
 import '../../api/users/users';
 import '../../api/groups/groups';
 import '../../api/polls_answers/polls_answers';
-
 // methods
 import '../../api/polls/methods';
 
