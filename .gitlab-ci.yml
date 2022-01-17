@@ -5,6 +5,9 @@ include:
   - project: EOLE/infra/ci-tools
     ref: stable
     file: /templates/Rules.yaml
+  - project: EOLE/infra/ci-tools
+    ref: stable
+    file: /templates/Runners/apps.education-docker.yaml
 
 variables:
   # `ci-tools` default branch is `stable`
@@ -20,8 +23,15 @@ stages:
   extends: .not-on-stable
   image: hub.eole.education/proxyhub/geoffreybooth/meteor-base:2.5
   cache:
+    key:
+      files:
+        # Generate new cache when one of the file changes
+        - package.json
+        - package-lock.json
     paths:
       - node_modules/
+    # Only use the cache created by `cache-dependencies` job
+    policy: pull
   variables:
     METEOR_ALLOW_SUPERUSER: "true"
 
@@ -32,11 +42,11 @@ stages:
 cache-dependencies:
   stage: deps
   extends: .meteor
+  cache:
+    # This job update dependencies
+    policy: pull-push
   script:
     - meteor npm ci
-  artifacts:
-    paths:
-      - node_modules/
 
 
 ###############################################################################
