@@ -17,7 +17,6 @@
   const checkDeviceSize = () => {
     setState({ mobile: width < 768 });
   };
-
 </script>
 
 <div bind:clientWidth={width} />
@@ -41,5 +40,4 @@
     min-height: calc(100vh - 64px);
     padding-bottom: 20px;
   }
-
 </style>

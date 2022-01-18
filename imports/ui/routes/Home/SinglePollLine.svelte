@@ -1,13 +1,12 @@
 <script>
   import { _ } from "svelte-i18n";
   import tippy from "sveltejs-tippy";
-  import { toggleActivePoll, removePolls } from "/imports/api/polls/methods";
+  import { toggleActivePoll, removePolls } from "../../../api/polls/methods";
   import { useTracker } from "meteor/rdb:svelte-meteor-data";
-  import { ROUTES } from "/imports/utils/enums";
+  import { ROUTES, POLLS_TYPES, toasts } from "../../../utils/enums";
   import copy from "copy-to-clipboard";
   import { toast } from "@zerodevx/svelte-toast";
   import Modal from "../../components/common/Modal.svelte";
-  import { toasts } from "../../../utils/enums";
 
   export let poll;
   let votes;
@@ -124,7 +123,11 @@
     {poll.allDay ? $_(`polls_datas.allDay`) : poll.duration}
   </td>
   <td>
-    {poll.dates.reduce((acc, v) => acc + v.slots.length, 0)}
+    {#if poll.type === POLLS_TYPES.POLL}
+      {poll.dates.reduce((acc, v) => acc + (poll.allDay ? 1 : v.slots.length), 0)}
+    {:else}
+      {poll.meetingSlots.length}
+    {/if}
   </td>
   <td> {$votes} </td>
 </tr>
