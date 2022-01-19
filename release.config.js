@@ -7,7 +7,7 @@ const branch = process.env.CI_COMMIT_REF_NAME;
 const gitAssets = [];
 
 // Configure your branches names
-const stableBranch = 'stable';
+const stableBranch = 'master';
 
 // Assign a branch name to produce a `testing` prerelease tag
 const testingBranch = undefined;
