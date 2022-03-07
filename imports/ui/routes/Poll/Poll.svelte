@@ -6,7 +6,7 @@
   import { toast } from '@zerodevx/svelte-toast';
 
   import { ROUTES, toasts } from '/imports/utils/enums';
-  import { currentUser } from '/imports/utils/functions/stores';
+  import { currentUser, loggingIn, accountsConfigured } from '/imports/utils/functions/stores';
   // components
   import BigLink from '/imports/ui/components/common/BigLink.svelte';
   import Divider from '/imports/ui/components/common/Divider.svelte';
@@ -14,7 +14,6 @@
   import CalendarPoll from './CalendarPoll.svelte';
   import PollDateTable from './PollDateTable.svelte';
   import { POLLS_TYPES } from '../../../utils/enums';
-  import Login from '../Login.svelte';
   import MeetingAnswersList from './MeetingAnswersList.svelte';
   import PackageJSON from '../../../../package.json';
   let version = PackageJSON.version;
@@ -67,6 +66,10 @@
     }
   };
 
+  $: if (meta.query.autologin && !$currentUser && !$loggingIn && $accountsConfigured === true) {
+    Meteor.loginWithKeycloak();
+  }
+
   onMount(grabData);
 
   $: if ($currentUser && !answer.email) {
@@ -105,7 +108,6 @@
       }
     });
   };
-
 </script>
 
 <svelte:head>
@@ -115,11 +117,20 @@
 <section class="box-transparent">
   <div class="container">
     <h1 class="title is-3">
-      {poll.title ? poll.title : askToConnect ? $_('pages.answer.askToConnect') : $_('loading')}
-      {#if !poll.active}
-        <span class="icon is-small">
-          <i class="fas fa-lock" />
-        </span>
+      {#if poll.title}
+        {poll.title}
+        {#if !poll.active}
+          <span class="icon is-small">
+            <i class="fas fa-lock" />
+          </span>
+        {/if}
+      {:else if askToConnect}
+        <label class="label">{$_('pages.answer.askToConnect')}</label>
+        <div class="control">
+          <BigLink action={Meteor.loginWithKeycloak} text={$_('pages.login.signin')} />
+        </div>
+      {:else}
+        {$_('loading')}
       {/if}
     </h1>
     {#if loading}
@@ -201,12 +212,10 @@
           <div class="column is-half-desktop is-full-mobile is-right">
             {#if Meteor.userId() === poll.userId && poll.type !== POLLS_TYPES.POLL}
               <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
+            {:else if !poll.completed}
+              <BigLink disabled={!answer.email || loading} action={sendAnswer} text={$_('pages.new_poll.validate')} />
             {:else}
-              {#if !poll.completed}
-                <BigLink disabled={!answer.email || loading} action={sendAnswer} text={$_('pages.new_poll.validate')} />
-              {:else}
-                <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
-              {/if}
+              <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
             {/if}
           </div>
         </div>
@@ -229,5 +238,4 @@
     font-size: 18px;
     color: var(--primary);
   }
-
 </style>

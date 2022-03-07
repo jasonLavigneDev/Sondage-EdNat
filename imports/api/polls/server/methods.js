@@ -44,11 +44,11 @@ export const getSinglePollToAnswer = new ValidatedMethod({
       selectedGroups: Groups.find({ _id: { $in: poll.groups } }).fetch(),
       answer: this.userId ? PollsAnswers.findOne({ pollId, userId: this.userId }) : null,
     };
-    if (!poll.active && this.userId !== poll.userId) {
-      throw new Meteor.Error('api.polls.methods.get.notActive', 'api.errors.pollNotActive');
-    }
     if ((!poll.public && !this.userId) || (!isInAGroup && !poll.public && this.userId !== poll.userId)) {
       throw new Meteor.Error('api.polls.methods.get.notPublic', 'api.errors.notApublicPoll');
+    }
+    if (!poll.active && this.userId !== poll.userId) {
+      throw new Meteor.Error('api.polls.methods.get.notActive', 'api.errors.pollNotActive');
     }
     return data;
   },
