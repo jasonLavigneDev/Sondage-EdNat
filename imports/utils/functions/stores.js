@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { writable } from 'svelte/store';
+import { Accounts } from 'meteor/accounts-base';
 import { useTracker } from 'meteor/rdb:svelte-meteor-data';
 import { syncable } from './localStorageStore';
 import { POLLS_TYPES } from '../enums';
@@ -42,6 +43,7 @@ export const language = syncable('language', '');
 export const mobile = writable(false);
 export const currentUser = useTracker(() => Meteor.user());
 export const loggingIn = useTracker(() => Meteor.loggingIn());
+export const accountsConfigured = useTracker(() => Accounts.loginServicesConfigured());
 export const newPollStore = writable({ ...EMPTY_NEW_POLL });
 
 const store = writable(INITIAL_GLOBAL_STATE);

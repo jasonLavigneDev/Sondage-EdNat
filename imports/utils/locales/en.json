@@ -16,7 +16,7 @@
       "notLoggedIn": "You must be logged in",
       "notAllowed": "You are not allowed to do this",
       "answerAlreadyValidated": "This answer has already been confirmed",
-      "notApublicPoll": "This poll is not public, you must be logged",
+      "notApublicPoll": "This poll is not public, access is not allowed",
       "emailAlreadyVoted": "This email is already registered with a vote",
       "pollNotActive": "Poll is not active, you cannot vote.",
       "slotAlreadyTaken": "This slot is already reserved"

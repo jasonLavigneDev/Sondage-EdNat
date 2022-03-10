@@ -16,7 +16,7 @@
       "notLoggedIn": "Vous devez être connecté",
       "answerAlreadyValidated": "Cette réponse à déjà été confirmée",
       "notAllowed": "Vous n'êtes pas autorisé a faire ceci",
-      "notApublicPoll": "Ce sondage est privé, vous devez être connecté",
+      "notApublicPoll": "Ce sondage est privé, vous n'y avez pas accès",
       "emailAlreadyVoted": "Cet email est déjà enregistré avec un vote",
       "pollNotActive": "Ce sondage n'est pas actif, vous ne pouvez pas voter",
       "slotAlreadyTaken": "Ce créneau est déjà pris"
@@ -79,7 +79,7 @@
       "go_home": "Retourner à l'accueil"
     },
     "login": {
-      "title": "Vous n'êtes pas connecté",
+      "title": "Connexion en cours ...",
       "signin": "Se connecter"
     },
     "new_poll": {

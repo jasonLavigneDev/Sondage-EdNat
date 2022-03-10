@@ -15,7 +15,7 @@ const sendnotif = ({ groups, title, pollId, content, internalLink }) => {
         title,
         link: internalLink
           ? `${Meteor.settings.public.laboiteHost}/groups/${group.slug}/events`
-          : `${Meteor.absoluteUrl()}${ROUTES.ANSWER_POLL_RM(pollId).replace('/', '')}`,
+          : `${Meteor.absoluteUrl()}${ROUTES.ANSWER_POLL_RM(pollId).replace('/', '')}?autologin`,
       });
     } catch (error) {
       // eslint-disable-next-line no-console
