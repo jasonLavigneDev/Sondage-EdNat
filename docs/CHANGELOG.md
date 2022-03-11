@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.1.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.0.3...release/1.1.0) (2022-03-11)
+
+
+### Features
+
+* **autologin:** work in progress for autologin feature ([48062fd](https://gitlab.mim-libre.fr/alphabet/sondage/commit/48062fd084a279d77c81a3f73ab96c15d9771f4b))
+
 ## [1.0.3](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.0.2...release/1.0.3) (2022-01-19)
 
 
