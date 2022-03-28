@@ -4,7 +4,6 @@
   import { useTracker } from 'meteor/rdb:svelte-meteor-data';
   import Polls from '/imports/api/polls/polls';
 
-  import { ROUTES } from '/imports/utils/enums';
   import Pagination from '/imports/ui/components/common/Pagination.svelte';
   import SinglePollLine from './SinglePollLine.svelte';
   import { POLLS_TYPES } from '../../../utils/enums';
@@ -12,24 +11,23 @@
   let version = PackageJSON.version;
 
   export let meta;
-  let page = 1;
+  let pagePolls = 1;
+  let pageMeetings = 1;
   let polls;
   let meetings;
-  let total;
-  let limit = 10;
+  let limit = 5;
 
   $: polls = useTracker(() => {
-    Meteor.subscribe('polls.member', { page, limit });
+    Meteor.subscribe('polls.member', { page: pagePolls, limit });
     return Polls.find({ type: POLLS_TYPES.POLL }, { sort: { createdAt: -1 } }).fetch();
   });
   $: meetings = useTracker(() => {
-    Meteor.subscribe('polls.meetings.member', { page, limit });
+    Meteor.subscribe('polls.meetings.member', { page: pageMeetings, limit });
     return Polls.find({ type: POLLS_TYPES.MEETING }, { sort: { createdAt: -1 } }).fetch();
   });
 
   $: totalPolls = useTracker(() => Counts.get('polls.member.total'));
   $: totalMeetings = useTracker(() => Counts.get('polls.member.meetings.total'));
-
 </script>
 
 <svelte:head>
@@ -64,7 +62,7 @@
               </tbody>
             </table>
           </div>
-          <Pagination bind:page total={$totalPolls} bind:limit />
+          <Pagination bind:page={pagePolls} total={$totalPolls} bind:limit />
         </div>
       </div>
 
@@ -90,7 +88,7 @@
               </tbody>
             </table>
           </div>
-          <Pagination bind:page total={$totalMeetings} bind:limit />
+          <Pagination bind:page={pageMeetings} total={$totalMeetings} bind:limit />
         </div>
       </div>
     </div>
