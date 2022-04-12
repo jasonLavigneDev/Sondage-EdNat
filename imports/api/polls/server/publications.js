@@ -12,7 +12,7 @@ Meteor.publish('polls.owner', function pollOwner({ page, limit }) {
     skip: (page - 1) * limit,
     sort: { createdAt: -1 },
   };
-  Counts.publish(this, 'polls.owner.total', Polls.find(query, options), { noReady: true });
+  Counts.publish(this, 'polls.owner.total', Polls.find(query), { noReady: true });
   return Polls.find(query, options);
 });
 
@@ -42,7 +42,7 @@ Meteor.publish('polls.member', function pollMember({ page, limit }) {
     skip: (page - 1) * limit,
     sort: { createdAt: -1 },
   };
-  Counts.publish(this, 'polls.member.total', Polls.find(query, options), { noReady: true });
+  Counts.publish(this, 'polls.member.total', Polls.find(query), { noReady: true });
   return Polls.find(query, options);
 });
 Meteor.publish('polls.meetings.member', function pollMeetingMember({ page, limit }) {
@@ -71,6 +71,6 @@ Meteor.publish('polls.meetings.member', function pollMeetingMember({ page, limit
     skip: (page - 1) * limit,
     sort: { createdAt: -1 },
   };
-  Counts.publish(this, 'polls.member.meetings.total', Polls.find(query, options), { noReady: true });
+  Counts.publish(this, 'polls.member.meetings.total', Polls.find(query), { noReady: true });
   return Polls.find(query, options);
 });
