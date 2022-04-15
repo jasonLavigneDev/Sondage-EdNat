@@ -154,6 +154,9 @@
       "login_with_lb": "You have an account in LaBoite",
       "askToConnect": "Login to see this page",
       "choosen_date": "Choosen date"
+    },
+    "maintenance": {
+      "title": "Site is currently under maintenance"
     }
   },
   "components": {
