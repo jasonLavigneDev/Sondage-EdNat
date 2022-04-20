@@ -4,7 +4,7 @@
 </script>
 
 {#if Meteor.user().avatar}
-  <figure class="image is-48x48 ">
+  <figure class="image">
     <img class="with-avatar is-rounded" alt={Meteor.user().firstName} src={Meteor.user().avatar} />
   </figure>
 {:else}
@@ -18,11 +18,13 @@
     display: flex;
     align-items: center;
     margin-left: 5px;
-    height: 40px;
-    width: 40px;
+    max-height: 48px;
+    max-width: 48px;
   }
   .with-avatar {
     background-color: transparent;
+    max-height: 40px;
+    max-width: 40px;
   }
   .no-avatar {
     margin-left: 5px;

@@ -2,6 +2,7 @@
   import { _ } from 'svelte-i18n';
   import { fade } from 'svelte/transition';
   import { router } from 'tinro';
+  import { Meteor } from 'meteor/meteor';
 
   import { items } from './items';
   import MobileMenu from './MobileMenu.svelte';
@@ -9,6 +10,7 @@
   import LanguageSwitcher from '/imports/ui/components/common/LanguageSwitcher.svelte';
   import { ROUTES } from '../../../utils/enums';
   import UserAvatar from '../common/UserAvatar.svelte';
+  import { globalState } from '/imports/utils/functions/stores';
 
   let mobileMenu = false;
 
@@ -16,14 +18,18 @@
     mobileMenu = !mobileMenu;
   };
 
+  const { state } = globalState();
+
+  const SMALL_LOGO = 'puce_eole.png';
+  const LONG_LOGO = 'Sondage.png';
+
 </script>
 
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/" rel="prefetch">
-      <img src="/apps-logo-sansfond.svg" alt="LaBoite - Blog" class="logo" height="40" />
+    <a href="/" rel="prefetch">
+      <img src={ $state.mobile ? SMALL_LOGO : LONG_LOGO} alt="LaBoite - Blog" class="image-app" height="40" />
     </a>
-
     <div
       role="button"
       class="navbar-burger"
@@ -79,7 +85,7 @@
   }
   .navbar {
     box-shadow: var(--box-shadow);
-    max-height: 48px;
+    max-height: 40px;
   }
   .avatar {
     text-transform: none !important;
@@ -106,6 +112,12 @@
     border-top-right-radius: 4px;
     left: 0;
     right: 0;
+  }
+  .image-app {
+    max-height: 40px;
+    height: 40px;
+    margin-top: 5px;
+    padding-left: 16px;
   }
 
 </style>
