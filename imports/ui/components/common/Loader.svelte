@@ -31,7 +31,7 @@
   ];
 </script>
 
-<style lang="scss">
+<style>
   .wrapper {
     width: 100%;
     display: flex;
@@ -76,7 +76,7 @@
     float: left;
     animation: sk-grid 1.5s infinite ease-in-out;
     animation-delay: var(--time);
-    background-image: url("/logo.png");
+    background-image: url("/puce_eole.png");
     background-repeat: no-repeat;
     background-attachment: inherit;
     background-position: var(--position);
