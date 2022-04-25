@@ -13,14 +13,14 @@
 
   let width;
   const { setState } = globalState();
-
+  
   const checkDeviceSize = () => {
     setState({ mobile: width < 768 });
   };
 </script>
 
 <div bind:clientWidth={width} />
-<svelte:window on:resize={checkDeviceSize} />
+<svelte:window id="test" on:resize={checkDeviceSize} />
 
 <svelte:head>
   <title>{$_('title')} {version}</title>
