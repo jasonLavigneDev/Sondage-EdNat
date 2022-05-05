@@ -1,5 +1,25 @@
 # Changelog
 
+# [1.2.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.1.0...release/1.2.0) (2022-05-05)
+
+
+### Bug Fixes
+
+* **audit:** update Dockerfile and CI ([b302cfc](https://gitlab.mim-libre.fr/alphabet/sondage/commit/b302cfc3f848dc4fff9078d7b5c5f2d44d1277c4))
+* **audit:** update meteor and libraries ([8a2b70e](https://gitlab.mim-libre.fr/alphabet/sondage/commit/8a2b70e5c0dea2b8f330d7ddae18d802938cf830))
+* **audit:** update to Meteor 2.7.1 ([81c15e5](https://gitlab.mim-libre.fr/alphabet/sondage/commit/81c15e53963cbe340cd2016e519004a9fb55d56d))
+* **polls:** total number of polls/meetings is not detected correctly ([ce5afc0](https://gitlab.mim-libre.fr/alphabet/sondage/commit/ce5afc0202adb4041dba20e1224a267ade753bfa))
+
+
+### Code Refactoring
+
+* **ui:** change spinner logo in loader file ([559fb4b](https://gitlab.mim-libre.fr/alphabet/sondage/commit/559fb4b5c4b10cbba805337e562f2697e7f2d043))
+
+
+### Features
+
+* **ui:** change logo and fit nav bar with new logo ([cb0104a](https://gitlab.mim-libre.fr/alphabet/sondage/commit/cb0104a7b739bc9fae9967b100435832cc539094))
+
 # [1.1.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.0.3...release/1.1.0) (2022-03-11)
 
 
