@@ -154,6 +154,9 @@
       "login_with_lb": "Vous avez un compte dans LaBoite",
       "askToConnect": "Connectez-vous pour voir cette page",
       "choosen_date": "Date choisie"
+    },
+    "maintenance": {
+      "title": "Le site est en cours de maintenance"
     }
   },
   "components": {
