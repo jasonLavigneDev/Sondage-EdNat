@@ -60,7 +60,6 @@
   const handleRemoveGroup = (groupId) => {
     $newPollStore.groups = $newPollStore.groups.filter((g) => g !== groupId);
   };
-
 </script>
 
 <svelte:head>
@@ -96,6 +95,7 @@
                 class="input"
                 type="text"
                 autofocus
+                maxlength="32"
                 bind:value={$newPollStore.title}
                 placeholder={$_('pages.new_poll_1.title_input')}
               />
@@ -193,5 +193,4 @@
     display: flex;
     justify-content: flex-end;
   }
-
 </style>
