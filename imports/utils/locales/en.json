@@ -4,6 +4,7 @@
   "polls": "Polls",
   "back": "Back",
   "menu": "Menu",
+  "logout": "Logout",
   "today": "Today",
   "types": {
     "POLL": "Poll",
