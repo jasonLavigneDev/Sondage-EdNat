@@ -76,13 +76,13 @@
             </span>
           </button>
           <ul id="menu">
-            <li class="itemList">
-              <a style="color:black" href={ROUTES.LOGOUT} on:click={() => Meteor.logout()}>
+            <li style="padding-top: 8%">
+              <a class="buttonList" href={ROUTES.LOGOUT} on:click={() => Meteor.logout()}>
                 {$_('logout')}
               </a>
             </li>
             <div class="divider" />
-            <li>
+            <li style="padding:8%">
               <p style="color: rgba(0,0,0,0.4);">{version}</p>
             </li>
           </ul>
@@ -98,7 +98,16 @@
 {/if}
 
 <style>
-  .itemList:hover {
+  .buttonList {
+    color:black;
+    padding: 8% 12%;
+    height: 100%; 
+    width: 100%; 
+    background: transparent; 
+    border: none
+  }
+
+  .buttonList:hover {
     background-color: #ffe0b2;
   }
   .navbar-menu {
@@ -155,7 +164,6 @@
     border-radius: 10px;
   }
   li {
-    padding-top: 8%;
     height: 50px;
   }
   .divider {
