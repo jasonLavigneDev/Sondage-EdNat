@@ -155,6 +155,7 @@
     border: none;
     background: none;
     color: black;
+    cursor: pointer;
   }
   #menu {
     display: none;
