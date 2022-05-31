@@ -187,7 +187,7 @@
                   class="input"
                   type="text"
                   disabled={Meteor.userId()}
-                  bind:value={answer.email}
+                  value={answer.email}
                   placeholder={$_('pages.answer.email')}
                 />
               </div>
