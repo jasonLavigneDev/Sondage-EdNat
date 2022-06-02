@@ -20,8 +20,8 @@
 
   const { state } = globalState();
 
-  const SMALL_LOGO = 'puce_eole.png';
-  const LONG_LOGO = 'Sondage.png';
+  const SMALL_LOGO = '/puce_eole.png';
+  const LONG_LOGO = '/Sondage.png';
 
 </script>
 
