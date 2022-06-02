@@ -28,7 +28,7 @@
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a href="/" rel="prefetch">
-      <img src={ $state.mobile ? SMALL_LOGO : LONG_LOGO} alt="LaBoite - Blog" class="image-app" height="40" />
+      <img src={ $state.mobile ? SMALL_LOGO : LONG_LOGO} alt="LaBoite - Sondage" class="image-app" height="40" />
     </a>
     <div
       role="button"
