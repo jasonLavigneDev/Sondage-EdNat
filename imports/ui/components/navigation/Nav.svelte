@@ -20,15 +20,15 @@
 
   const { state } = globalState();
 
-  const SMALL_LOGO = 'puce_eole.png';
-  const LONG_LOGO = 'Sondage.png';
+  const SMALL_LOGO = '/puce_eole.png';
+  const LONG_LOGO = '/Sondage.png';
 
 </script>
 
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a href="/" rel="prefetch">
-      <img src={ $state.mobile ? SMALL_LOGO : LONG_LOGO} alt="LaBoite - Blog" class="image-app" height="40" />
+      <img src={ $state.mobile ? SMALL_LOGO : LONG_LOGO} alt="LaBoite - Sondage" class="image-app" height="40" />
     </a>
     <div
       role="button"
