@@ -20,6 +20,9 @@
       "emailAlreadyVoted": "This email is already registered with a vote",
       "pollNotActive": "Poll is not active, you cannot vote.",
       "slotAlreadyTaken": "This slot is already reserved"
+    },
+    "tags": {
+      "titleValidation": "Choose a slot then validate your choice"
     }
   },
   "links": {
