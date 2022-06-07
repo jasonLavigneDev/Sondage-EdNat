@@ -160,7 +160,8 @@
       "modal_text": "Vous êtes sur le point de valider la date de ce sondage, cette action est irréversible.",
       "login_with_lb": "Vous avez un compte dans LaBoite",
       "askToConnect": "Connectez-vous pour voir cette page",
-      "choosen_date": "Date choisie"
+      "choosen_date": "Date choisie",
+      "unavailable": "Indisponible"
     },
     "maintenance": {
       "title": "Le site est en cours de maintenance"

@@ -225,7 +225,7 @@
             {#if poll.type === POLLS_TYPES.POLL}
               <PollDateTable {toggleChoice} {answer} {poll} {grabData} />
             {:else}
-              <CalendarPoll {toggleChoice} {answer} {poll} />
+              <CalendarPoll {toggleChoice} {answer} {poll} currentEmail={answer.email} />
             {/if}
           </div>
           <div class="column is-half-desktop is-full-mobile" />
