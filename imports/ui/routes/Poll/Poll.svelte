@@ -108,6 +108,16 @@
       }
     });
   };
+
+  function isValideMail(mail) {
+    var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    if (mail.match(regex))
+    {
+      return true;
+    }
+    return false;
+  }
 </script>
 
 <svelte:head>
@@ -185,9 +195,9 @@
               <div class="control">
                 <input
                   class="input"
-                  type="text"
+                  type="email"
                   disabled={Meteor.userId()}
-                  value={answer.email}
+                  bind:value={answer.email}
                   placeholder={$_('pages.answer.email')}
                 />
               </div>
@@ -213,7 +223,7 @@
             {#if Meteor.userId() === poll.userId && poll.type !== POLLS_TYPES.POLL}
               <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
             {:else if !poll.completed}
-              <BigLink disabled={!answer.email || loading} action={sendAnswer} text={$_('pages.new_poll.validate')} />
+              <BigLink disabled={!isValideMail(answer.email) || loading} action={sendAnswer} text={$_('pages.new_poll.validate')} />
             {:else}
               <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
             {/if}
