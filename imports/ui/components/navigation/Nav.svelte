@@ -100,7 +100,7 @@
 <style>
   .buttonList {
     color:black;
-    padding: 8% 12%;
+    padding: 8% 0%;
     height: 100%; 
     width: 100%; 
     background: transparent; 
