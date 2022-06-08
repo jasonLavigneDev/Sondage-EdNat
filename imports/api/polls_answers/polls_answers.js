@@ -61,6 +61,11 @@ PollsAnswers.schema = new SimpleSchema(
       regEx: SimpleSchema.RegEx.Email,
       label: 'Owner Email',
     },
+    name: {
+      type: String,
+      label: 'Owner Name',
+      defaultValue: '',
+    },
     pollId: {
       type: String,
       regEx: SimpleSchema.RegEx.Id,

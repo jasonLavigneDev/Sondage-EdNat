@@ -19,7 +19,7 @@
       <thead>
         <tr>
           <th>Actions</th>
-          <th>Email</th>
+          <th>{$_("name")}</th>
           <th>Date</th>
         </tr>
       </thead>

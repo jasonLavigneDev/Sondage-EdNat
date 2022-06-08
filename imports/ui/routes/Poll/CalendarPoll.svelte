@@ -42,14 +42,14 @@
       return {
         start,
         end,
-        title: answer.email,
+        title: answer.name,
         className: "fc-slot-current",
       };
     } else if (answerToSlot) {
       return {
         start,
         end,
-        title: answerToSlot.email,
+        title: answerToSlot.name,
         className: answerToSlot.confirmed
           ? "fc-slot-confirmed"
           : "fc-slot-taken",
