@@ -18,13 +18,11 @@
     display: flex;
     align-items: center;
     margin-left: 5px;
-    max-height: 48px;
-    max-width: 48px;
   }
   .with-avatar {
     background-color: transparent;
-    max-height: 40px;
-    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
   }
   .no-avatar {
     margin-left: 5px;
