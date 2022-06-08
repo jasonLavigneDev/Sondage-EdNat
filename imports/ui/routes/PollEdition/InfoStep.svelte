@@ -70,13 +70,13 @@
   <div class="container">
     <h1 class="title is-3">
       {#if $newPollStore.type === POLLS_TYPES.POLL && meta.params._id}
-        {$_('pages.new_poll_1.title_meeting_edit')}
-      {:else if $newPollStore.type === POLLS_TYPES.POLL}
-        {$_('pages.new_poll_1.title_meeting')}
-      {:else if meta.params._id}
         {$_('pages.new_poll_1.title_edit')}
-      {:else}
+      {:else if $newPollStore.type === POLLS_TYPES.POLL}
         {$_('pages.new_poll_1.title')}
+      {:else if meta.params._id}
+        {$_('pages.new_poll_1.title_meeting_edit')}
+      {:else}
+        {$_('pages.new_poll_1.title_meeting')}
       {/if}
     </h1>
 
