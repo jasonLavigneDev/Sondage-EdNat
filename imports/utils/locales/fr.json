@@ -21,6 +21,9 @@
       "emailAlreadyVoted": "Cet email est déjà enregistré avec un vote",
       "pollNotActive": "Ce sondage n'est pas actif, vous ne pouvez pas voter",
       "slotAlreadyTaken": "Ce créneau est déjà pris"
+    },
+    "tags": {
+      "titleValidation": "Choisir un créneau puis valider votre choix"
     }
   },
   "links": {

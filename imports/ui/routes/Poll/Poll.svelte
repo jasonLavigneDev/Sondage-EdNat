@@ -212,6 +212,7 @@
             {/if}
           </div>
           <div class="column is-full">
+            <h3 class="title is-3">{$_('api.tags.titleValidation')} :</h3>
             {#if poll.type === POLLS_TYPES.POLL}
               <PollDateTable {toggleChoice} {answer} {poll} {grabData} />
             {:else}
