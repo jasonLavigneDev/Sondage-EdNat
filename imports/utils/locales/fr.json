@@ -4,6 +4,7 @@
   "polls": "Sondages",
   "back": "Retour",
   "menu": "Menu",
+  "logout": "Se déconnecter",
   "today": "Aujourd'hui",
   "types": {
     "POLL": "Sondage",
