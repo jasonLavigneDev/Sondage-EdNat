@@ -6,6 +6,7 @@
   "menu": "Menu",
   "logout": "Logout",
   "today": "Today",
+  "name": "Name",
   "types": {
     "POLL": "Poll",
     "POLL_table": "Poll",
@@ -142,6 +143,8 @@
     },
     "answer": {
       "email": "Your email address",
+      "details": "Your details",
+      "name": "Your first and last name",
       "duration": "Event's duration",
       "description": "Description",
       "participants": "Participants",

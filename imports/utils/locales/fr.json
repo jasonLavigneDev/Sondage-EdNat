@@ -6,6 +6,7 @@
   "menu": "Menu",
   "logout": "Se déconnecter",
   "today": "Aujourd'hui",
+  "name": "Nom",
   "types": {
     "POLL": "Sondage",
     "POLL_table": "Sondage",
@@ -142,6 +143,8 @@
     },
     "answer": {
       "email": "Votre adresse email",
+      "details": "Vos coordonnées",
+      "name": "Votre prénom et nom",
       "duration": "Durée de l'évènement",
       "description": "Description",
       "participants": "Participants",
