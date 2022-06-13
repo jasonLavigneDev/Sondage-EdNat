@@ -11202,3 +11202,21 @@ a.has-text-danger-dark:focus {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem;
 }
+
+.fc-slot-unavailable {
+  background-color: #c74848;
+  color: #ffffff;
+}
+
+.fc-slot-unavailable:hover {
+  color: #000000;
+}
+
+.fc-slot-confirmed {
+  background-color: #48c78e;
+  color: #ffffff;
+}
+
+.fc-slot-confirmed:hover {
+  color: #000000;
+}
