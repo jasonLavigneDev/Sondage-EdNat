@@ -73,11 +73,13 @@
 
   onMount(grabData);
 
-  $: if ($currentUser && !answer.email && !answer.name) {
+  $: if ($currentUser && (!answer.email || !answer.name)) {
     answer = {
       ...answer,
       email: $currentUser.services.keycloak ? $currentUser.services.keycloak.email : $currentUser.emails[0].address,
-      name: $currentUser.services.keycloak ? $currentUser.services.keycloak.name : `${$currentUser.firstName} ${$currentUser.lastName}`,
+      name: $currentUser.services.keycloak
+        ? $currentUser.services.keycloak.name
+        : `${$currentUser.firstName} ${$currentUser.lastName}`,
       userId: $currentUser._id,
     };
   }
@@ -114,8 +116,7 @@
   function isValideMail(mail) {
     var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-    if (mail.match(regex))
-    {
+    if (mail.match(regex)) {
       return true;
     }
     return false;
@@ -225,7 +226,7 @@
             {#if poll.type === POLLS_TYPES.POLL}
               <PollDateTable {toggleChoice} {answer} {poll} {grabData} />
             {:else}
-              <CalendarPoll {toggleChoice} {answer} {poll} currentEmail={answer.email} />
+              <CalendarPoll {toggleChoice} {answer} {poll} currentAnswer={answer} />
             {/if}
           </div>
           <div class="column is-half-desktop is-full-mobile" />
@@ -233,7 +234,11 @@
             {#if Meteor.userId() === poll.userId && poll.type !== POLLS_TYPES.POLL}
               <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
             {:else if !poll.completed}
-              <BigLink disabled={!isValideMail(answer.email) || !answer.name || loading} action={sendAnswer} text={$_('pages.new_poll.validate')} />
+              <BigLink
+                disabled={!isValideMail(answer.email) || !answer.name || loading}
+                action={sendAnswer}
+                text={$_('pages.new_poll.validate')}
+              />
             {:else}
               <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
             {/if}
