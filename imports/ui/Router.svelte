@@ -1,6 +1,8 @@
 <script>
   import { Route, router } from 'tinro';
   import { useTracker } from 'meteor/rdb:svelte-meteor-data';
+  import { Accounts } from 'meteor/accounts-base';
+  import { onDestroy } from 'svelte';
   import { ROUTES } from '/imports/utils/enums';
   import AppSettings from '/imports/api/appsettings/appsettings';
 
@@ -18,6 +20,7 @@
   import Transition from './components/common/Transition.svelte';
   import Logout from './routes/Logout.svelte';
   import Maintenance from './routes/Maintenance.svelte';
+  import UserWarning from './components/common/UserWarning.svelte';
 
   router.subscribe((_) => window.scrollTo(0, 0));
 
@@ -27,11 +30,23 @@
     return AppSettings.findOne() || { maintenance: null, textMaintenance: '' };
   });
   $: loading = $loggingIn || $settings.maintence === null;
+  let userFailed = false;
+
+  // detect account creation failure (i.e: if logging in from keycloak)
+  const stopCallback = Accounts.onLoginFailure((details) => {
+    if (details.error.error === 'api.users.createUser') userFailed = true;
+  });
+
+  onDestroy(() => {
+    if (typeof stopCallback.stop == 'function') stopCallback.stop();
+  });
 </script>
 
 <Transition>
   {#if loading}
     <Loader />
+  {:else if userFailed === true}
+    <UserWarning />
   {:else}
     <Route>
       <Route path={ROUTES.LOGOUT} let:meta>

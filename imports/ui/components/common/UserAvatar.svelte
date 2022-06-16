@@ -7,7 +7,7 @@
   <figure class="image">
     <img class="with-avatar is-rounded" alt={Meteor.user().firstName} src={Meteor.user().avatar} />
   </figure>
-{:else}
+{:else if Meteor.user().firstName}
   <div class="no-avatar">
     {Meteor.user().firstName.substring(0, 1)}
   </div>
