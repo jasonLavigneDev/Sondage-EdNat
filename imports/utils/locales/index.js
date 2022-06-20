@@ -9,5 +9,5 @@ addMessages('fr', fr);
 
 init({
   fallbackLocale: 'fr',
-  initialLocale: getLocaleFromNavigator(),
+  initialLocale: localStorage.getItem('mezig.language') || getLocaleFromNavigator(),
 });

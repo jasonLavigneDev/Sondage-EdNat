@@ -2,7 +2,6 @@
 import { writable } from 'svelte/store';
 import { Accounts } from 'meteor/accounts-base';
 import { useTracker } from 'meteor/rdb:svelte-meteor-data';
-import { syncable } from './localStorageStore';
 import { POLLS_TYPES } from '../enums';
 
 // Application state management
@@ -39,7 +38,6 @@ const globalLogger = (p, n, v) => {
   }
 };
 
-export const language = syncable('language', '');
 export const mobile = writable(false);
 export const currentUser = useTracker(() => Meteor.user());
 export const loggingIn = useTracker(() => Meteor.loggingIn());
