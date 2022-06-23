@@ -18,5 +18,5 @@ Meteor.publish('polls_answers.onePoll', function pollAnswersOne({ pollId }) {
     query.userId = { $ne: this.userId };
   }
   Counts.publish(this, 'polls_answers.onePoll', PollsAnswers.find(query), { noReady: true });
-  return PollsAnswers.find(query, pollOwner ? {} : { fields: { email: 0 } });
+  return PollsAnswers.find(query, pollOwner ? {} : { fields: { email: 0, name: 0 } });
 });

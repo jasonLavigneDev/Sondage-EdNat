@@ -12,7 +12,7 @@
   export let answer = {};
   export let poll = {};
   export let toggleChoice = () => null;
-  export let currentEmail = '';
+  export let currentAnswer = '';
   let answers;
   let options;
   let events;
@@ -46,9 +46,9 @@
       return {
         start,
         end,
-        title: answer.name,
+        title: currentAnswer.name,
         className:
-          answerToSlot && answerToSlot.confirmed && answerToSlot.email === currentEmail
+          answerToSlot && answerToSlot.confirmed && answerToSlot.email === currentAnswer.email
             ? 'fc-slot-confirmed'
             : 'fc-slot-current',
       };
@@ -56,8 +56,10 @@
       return {
         start,
         end,
-        title: answerToSlot.name,
-        className: !canSeeEmail(currentEmail, answerToSlot.email)
+        title: canSeeEmail(currentAnswer.email, answerToSlot.email)
+          ? answerToSlot.name
+          : $_('pages.answer.unavailable'),
+        className: !canSeeEmail(currentAnswer.email, answerToSlot.email)
           ? 'fc-slot-unavailable'
           : answerToSlot.confirmed
           ? 'fc-slot-confirmed'
