@@ -4,7 +4,6 @@
   import "moment/locale/fr";
 
   import { locales, locale } from "svelte-i18n";
-  import { language } from "/imports/utils/functions/stores";
 
   export let mobile = false;
   let opened = false;
@@ -12,8 +11,8 @@
 
   const selectLocale = (l) => {
     locale.set(l);
-    language.set(l);
     moment.locale(l);
+    localStorage.setItem('mezig.language', l);
     toggle();
   };
 </script>
