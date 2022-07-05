@@ -45,13 +45,17 @@ ENV SCRIPTS_FOLDER /docker
 # Install OS runtime dependencies
 RUN apk --no-cache add \
 	bash \
-	ca-certificates
+	ca-certificates \
+        alpine-conf
 
 # Copy in entrypoint with the built and installed dependencies from the previous image
 COPY --from=1 $SCRIPTS_FOLDER $SCRIPTS_FOLDER/
 
 # Copy in app bundle with the built and installed dependencies from the previous image
 COPY --from=1 $APP_BUNDLE_FOLDER/bundle $APP_BUNDLE_FOLDER/bundle/
+
+RUN setup-timezone -z Europe/Paris
+RUN apk del alpine-conf
 
 # Start app
 ENTRYPOINT ["/docker/entrypoint.sh"]
