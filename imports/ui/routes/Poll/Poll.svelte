@@ -114,7 +114,7 @@
   };
 
   function isValideMail(mail) {
-    var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     if (mail.match(regex)) {
       return true;
