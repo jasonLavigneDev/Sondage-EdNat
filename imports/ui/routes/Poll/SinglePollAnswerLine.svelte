@@ -53,7 +53,7 @@
     </div>
   </th>
   <td>
-    {answer.email}
+    {answer.name}
   </td>
   <td>
     {moment(answer.meetingSlot).format('LLL')}

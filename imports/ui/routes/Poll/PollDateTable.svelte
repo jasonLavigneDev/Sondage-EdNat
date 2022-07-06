@@ -174,7 +174,7 @@
 
       <tr class="is-selected">
         <td>
-          {answer.email ? answer.email : $_("pages.answer.email")}
+          {answer.name ? answer.name : $_("pages.answer.name")}
         </td>
         {#each poll.dates as day, index}
           {#if !poll.allDay && day.slots}
@@ -201,7 +201,7 @@
       {#each $answers as single_answer}
         <tr>
           <td>
-            {single_answer.email}
+            {single_answer.name}
           </td>
           {#each poll.dates as day, index}
             {#if !poll.allDay && day.slots}

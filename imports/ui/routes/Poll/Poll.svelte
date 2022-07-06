@@ -25,6 +25,7 @@
   let askToConnect = false;
   let answer = {
     email: '',
+    name: '',
     meetingSlot: null,
     userId: Meteor.userId(),
     choices: [],
@@ -72,10 +73,13 @@
 
   onMount(grabData);
 
-  $: if ($currentUser && !answer.email) {
+  $: if ($currentUser && (!answer.email || !answer.name)) {
     answer = {
       ...answer,
       email: $currentUser.services.keycloak ? $currentUser.services.keycloak.email : $currentUser.emails[0].address,
+      name: $currentUser.services.keycloak
+        ? $currentUser.services.keycloak.name
+        : `${$currentUser.firstName} ${$currentUser.lastName}`,
       userId: $currentUser._id,
     };
   }
@@ -108,6 +112,15 @@
       }
     });
   };
+
+  function isValideMail(mail) {
+    var regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+    if (mail.match(regex)) {
+      return true;
+    }
+    return false;
+  }
 </script>
 
 <svelte:head>
@@ -180,15 +193,22 @@
             <Divider />
           </div>
           <div class="column is-half">
-            <label class="label">{$_('pages.answer.email')}</label>
+            <label class="label">{$_('pages.answer.details')}</label>
             <div class="field">
               <div class="control">
                 <input
                   class="input"
-                  type="text"
+                  type="email"
                   disabled={Meteor.userId()}
                   bind:value={answer.email}
                   placeholder={$_('pages.answer.email')}
+                />
+                <input
+                  class="input"
+                  type="text"
+                  disabled={Meteor.userId()}
+                  bind:value={answer.name}
+                  placeholder={$_('pages.answer.name')}
                 />
               </div>
             </div>
@@ -202,10 +222,11 @@
             {/if}
           </div>
           <div class="column is-full">
+            <h3 class="title is-3">{$_('api.tags.titleValidation')} :</h3>
             {#if poll.type === POLLS_TYPES.POLL}
               <PollDateTable {toggleChoice} {answer} {poll} {grabData} />
             {:else}
-              <CalendarPoll {toggleChoice} {answer} {poll} />
+              <CalendarPoll {toggleChoice} {answer} {poll} currentAnswer={answer} />
             {/if}
           </div>
           <div class="column is-half-desktop is-full-mobile" />
@@ -213,7 +234,11 @@
             {#if Meteor.userId() === poll.userId && poll.type !== POLLS_TYPES.POLL}
               <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
             {:else if !poll.completed}
-              <BigLink disabled={!answer.email || loading} action={sendAnswer} text={$_('pages.new_poll.validate')} />
+              <BigLink
+                disabled={!isValideMail(answer.email) || !answer.name || loading}
+                action={sendAnswer}
+                text={$_('pages.new_poll.validate')}
+              />
             {:else}
               <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
             {/if}
@@ -231,11 +256,5 @@
   .is-right {
     display: flex;
     justify-content: flex-end;
-  }
-  .total_vote {
-    text-align: center;
-    font-weight: bold;
-    font-size: 18px;
-    color: var(--primary);
   }
 </style>

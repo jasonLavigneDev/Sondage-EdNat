@@ -4,7 +4,9 @@
   "polls": "Polls",
   "back": "Back",
   "menu": "Menu",
+  "logout": "Logout",
   "today": "Today",
+  "name": "Name",
   "types": {
     "POLL": "Poll",
     "POLL_table": "Poll",
@@ -20,6 +22,9 @@
       "emailAlreadyVoted": "This email is already registered with a vote",
       "pollNotActive": "Poll is not active, you cannot vote.",
       "slotAlreadyTaken": "This slot is already reserved"
+    },
+    "tags": {
+      "titleValidation": "Choose a slot then validate your choice"
     }
   },
   "links": {
@@ -138,6 +143,8 @@
     },
     "answer": {
       "email": "Your email address",
+      "details": "Your details",
+      "name": "Your first and last name",
       "duration": "Event's duration",
       "description": "Description",
       "participants": "Participants",
@@ -153,7 +160,11 @@
       "poll_answered": "Poll answered successfully",
       "login_with_lb": "You have an account in LaBoite",
       "askToConnect": "Login to see this page",
-      "choosen_date": "Choosen date"
+      "choosen_date": "Choosen date",
+      "unavailable": "Indisponible"
+    },
+    "maintenance": {
+      "title": "Site is currently under maintenance"
     }
   },
   "components": {
@@ -203,6 +214,11 @@
       "type": "Type",
       "search": "Search",
       "go": "See the results"
+    },
+    "UserWarning": {
+      "loginLaboite": "login to LaBoite",
+      "loginMsg": "Your user ha no LaBoite account, please click on the button below to create it, then follow ",
+      "loginLink": "this link"
     }
   }
 }

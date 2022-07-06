@@ -11,6 +11,9 @@
   import { ROUTES } from '../../../utils/enums';
   import UserAvatar from '../common/UserAvatar.svelte';
   import { globalState } from '/imports/utils/functions/stores';
+  import PackageJSON from '../../../../package.json';
+
+  let version = PackageJSON.version;
 
   let mobileMenu = false;
 
@@ -20,15 +23,21 @@
 
   const { state } = globalState();
 
-  const SMALL_LOGO = 'puce_eole.png';
-  const LONG_LOGO = 'Sondage.png';
+  const SMALL_LOGO = '/puce_eole.png';
+  const LONG_LOGO = '/Sondage.png';
+
+   function handleMenu() {
+      if ( menu.style.display == 'block')
+        menu.style.display = 'none';
+      else menu.style.display = 'block';
+    }
 
 </script>
 
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a href="/" rel="prefetch">
-      <img src={ $state.mobile ? SMALL_LOGO : LONG_LOGO} alt="LaBoite - Blog" class="image-app" height="40" />
+      <img src={ $state.mobile ? SMALL_LOGO : LONG_LOGO} alt={$_('title')} class="image-app" height="40" />
     </a>
     <div
       role="button"
@@ -58,15 +67,26 @@
     </div>
     <div class="navbar-end">
       {#if $currentUser}
-        <div class="navbar-item avatar">
-          {$currentUser.firstName}
-          <UserAvatar />
-        </div>
-        <a href={ROUTES.LOGOUT} class="navbar-item avatar" on:click={() => Meteor.logout()}>
-          <span class="icon is-large">
-            <i class="fas fa-sign-out-alt" />
-          </span>
-        </a>
+      <ul>
+        <button class="navbar-item avatar buttonUser" on:click={handleMenu} >
+            {$currentUser.firstName}
+            <UserAvatar />
+            <span class="icon">
+              <i class="fas fa-angle-down" />
+            </span>
+          </button>
+          <ul id="menu">
+            <li style="padding-top: 8%">
+              <a class="buttonList" href={ROUTES.LOGOUT} on:click={() => Meteor.logout()}>
+                {$_('logout')}
+              </a>
+            </li>
+            <div class="divider" />
+            <li style="padding:8%">
+              <p style="color: rgba(0,0,0,0.4);">{version}</p>
+            </li>
+          </ul>
+          </ul>
       {/if}
       <LanguageSwitcher />
     </div>
@@ -78,6 +98,18 @@
 {/if}
 
 <style>
+  .buttonList {
+    color:black;
+    padding: 8% 0%;
+    height: 100%; 
+    width: 100%; 
+    background: transparent; 
+    border: none
+  }
+
+  .buttonList:hover {
+    background-color: #ffe0b2;
+  }
   .navbar-menu {
     width: 80%;
     padding-left: 13%;
@@ -118,6 +150,25 @@
     height: 40px;
     margin-top: 5px;
     padding-left: 16px;
+  }
+  .buttonUser {
+    border: none;
+    background: none;
+    color: black;
+    cursor: pointer;
+  }
+  #menu {
+    display: none;
+    text-align: center;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+  }
+  li {
+    height: 50px;
+  }
+  .divider {
+    border-bottom: 0.5px solid rgba(0,0,0,0.2);
   }
 
 </style>

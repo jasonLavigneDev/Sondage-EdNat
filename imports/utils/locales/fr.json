@@ -4,7 +4,9 @@
   "polls": "Sondages",
   "back": "Retour",
   "menu": "Menu",
+  "logout": "Se déconnecter",
   "today": "Aujourd'hui",
+  "name": "Nom",
   "types": {
     "POLL": "Sondage",
     "POLL_table": "Sondage",
@@ -20,6 +22,9 @@
       "emailAlreadyVoted": "Cet email est déjà enregistré avec un vote",
       "pollNotActive": "Ce sondage n'est pas actif, vous ne pouvez pas voter",
       "slotAlreadyTaken": "Ce créneau est déjà pris"
+    },
+    "tags": {
+      "titleValidation": "Choisir un créneau puis valider votre choix"
     }
   },
   "links": {
@@ -138,6 +143,8 @@
     },
     "answer": {
       "email": "Votre adresse email",
+      "details": "Vos coordonnées",
+      "name": "Votre prénom et nom",
       "duration": "Durée de l'évènement",
       "description": "Description",
       "participants": "Participants",
@@ -153,7 +160,11 @@
       "modal_text": "Vous êtes sur le point de valider la date de ce sondage, cette action est irréversible.",
       "login_with_lb": "Vous avez un compte dans LaBoite",
       "askToConnect": "Connectez-vous pour voir cette page",
-      "choosen_date": "Date choisie"
+      "choosen_date": "Date choisie",
+      "unavailable": "Indisponible"
+    },
+    "maintenance": {
+      "title": "Le site est en cours de maintenance"
     }
   },
   "components": {
@@ -209,6 +220,11 @@
       "type": "Type",
       "search": "Recherche",
       "go": "Voir les résultats"
+    },
+    "UserWarning": {
+      "loginLaboite": "connexion à LaBoite",
+      "loginMsg": "Votre utilisateur n'a pas de compte LaBoite, veuillez cliquer sur le bouton ci-dessous pour le créer, puis cliquez sur ",
+      "loginLink": "ce lien"
     }
   }
 }

@@ -7,7 +7,7 @@
   <figure class="image">
     <img class="with-avatar is-rounded" alt={Meteor.user().firstName} src={Meteor.user().avatar} />
   </figure>
-{:else}
+{:else if Meteor.user().firstName}
   <div class="no-avatar">
     {Meteor.user().firstName.substring(0, 1)}
   </div>
@@ -18,13 +18,11 @@
     display: flex;
     align-items: center;
     margin-left: 5px;
-    max-height: 48px;
-    max-width: 48px;
   }
   .with-avatar {
     background-color: transparent;
-    max-height: 40px;
-    max-width: 40px;
+    min-height: 40px;
+    min-width: 40px;
   }
   .no-avatar {
     margin-left: 5px;
