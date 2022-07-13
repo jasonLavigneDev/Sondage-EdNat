@@ -26,5 +26,5 @@ import moment from 'moment';
 
 moment.locale('fr');
 
-const { url } = Meteor.settings.private.smtp;
+const { url } = Meteor.settings.smtp;
 process.env.MAIL_URL = url;

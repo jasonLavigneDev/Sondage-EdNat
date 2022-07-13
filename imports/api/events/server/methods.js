@@ -34,10 +34,10 @@ export const sendEmail = new ValidatedMethod({
     });
     Email.send({
       to: answer.email,
-      from: Meteor.settings.private.smtp.fromEmail,
+      from: Meteor.settings.smtp.fromEmail,
       subject: `Sondage - Votre rdv du ${moment(answer.meetingSlot).format('L')}`,
       icalEvent: cal.toString(),
-      inReplyTo: Meteor.settings.private.smtp.toEmail,
+      inReplyTo: Meteor.settings.smtp.toEmail,
       html,
     });
   },
