@@ -2,6 +2,9 @@
   "name": "sondage",
   "private": true,
   "version": "1.3.0",
+  "license": "EUPL-1.2",
+  "description": "Online polls and meetings",
+  "author": "EOLE/PCLL <team@eole.education> - DINUM",
   "scripts": {
     "start": "MONGO_URL='mongodb://127.0.0.1:3001/meteor' meteor --port 3010 --exclude-archs 'web.browser.legacy, web.cordova' --settings config/settings.development.json",
     "start-local": "meteor run --settings ./config/settings.development.json",
