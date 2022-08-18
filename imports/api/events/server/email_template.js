@@ -11,11 +11,11 @@ export const meetingTemplate = ({ sender, date }) => `
     <br/>
 `;
 
-export const eventTemplate = ({ title, date }) => `
+export const eventTemplate = ({ sender, title, date }) => `
 <h4>Votre évenement a été confirmé</h4>
 <br/>
 <div>
-    Votre évenement "${title}" a été confirmé pour le ${date}
+    Votre évenement "${title}", organisé par ${sender}, a été confirmé pour le ${date}
 </div>
 <br/>
 <div>
