@@ -29,7 +29,7 @@ export const sendEmail = new ValidatedMethod({
     const template = poll.type === POLLS_TYPES.POLL ? eventTemplate : meetingTemplate;
     const html = template({
       title: poll.title,
-      sender: Meteor.users.findOne(poll.userId).emails[0].address,
+      sender: Meteor.users.findOne(poll.userId),
       date: moment(answer.meetingSlot).format('LLL'),
     });
     Email.send({
