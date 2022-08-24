@@ -1,3 +1,9 @@
+export const GetQueryParam = () => {
+  const params = new URL(document.location).searchParams;
+  const groupId = params.get('groupId');
+  return groupId;
+};
+
 export const ROUTES = {
   ADMIN: '/admin',
   LOGIN: '/login',
