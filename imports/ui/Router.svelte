@@ -71,13 +71,13 @@
         {/if}
         <Route path={ROUTES.POLL}>
           {#if $currentUser}
-            <Route path={ROUTES.NEW_POLL} let:meta>
-              <PollStepsRoutes redirect={ROUTES.NEW_POLL_RM()} {meta} />
-            </Route>
             <Route path={ROUTES.EDIT_POLL} let:meta>
               <PollStepsRoutes redirect={ROUTES.ADMIN} {meta} />
             </Route>
           {/if}
+          <Route path={ROUTES.NEW_POLL} let:meta>
+            <PollStepsRoutes redirect={ROUTES.NEW_POLL_RM()} {meta} />
+          </Route>
           <Route path={ROUTES.ANSWER_POLL} let:meta>
             <Poll {meta} />
           </Route>
