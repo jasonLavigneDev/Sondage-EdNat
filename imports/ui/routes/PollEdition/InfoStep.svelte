@@ -7,7 +7,7 @@
   //import { useQuery } from '/imports/api/utils/hook';
   import { toast } from '@zerodevx/svelte-toast';
 
-  import { ROUTES, toasts, GetQueryParam } from '/imports/utils/enums';
+  import { ROUTES, toasts } from '/imports/utils/enums';
   import Groups from '/imports/api/groups/groups';
 
   // components
@@ -47,8 +47,8 @@
     } else if ($newPollStore._id) {
       newPollStore.set({ ...EMPTY_NEW_POLL });
     }
-    let groupId = GetQueryParam();
-    if (groupId !== undefined && groupId !== '') {
+    const groupId = meta.query.groupId;
+    if (groupId) {
       if (!$newPollStore.groups.includes(groupId)) {
         $newPollStore.groups = [...$newPollStore.groups, groupId];
       }
