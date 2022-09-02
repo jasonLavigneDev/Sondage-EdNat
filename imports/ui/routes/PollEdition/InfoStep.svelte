@@ -4,6 +4,7 @@
   import { useTracker } from 'meteor/rdb:svelte-meteor-data';
   import { onMount } from 'svelte';
   import { router } from 'tinro';
+  //import { useQuery } from '/imports/api/utils/hook';
   import { toast } from '@zerodevx/svelte-toast';
 
   import { ROUTES, toasts } from '/imports/utils/enums';
@@ -45,6 +46,12 @@
       });
     } else if ($newPollStore._id) {
       newPollStore.set({ ...EMPTY_NEW_POLL });
+    }
+    const groupId = meta.query.groupId;
+    if (groupId) {
+      if (!$newPollStore.groups.includes(groupId)) {
+        $newPollStore.groups = [...$newPollStore.groups, groupId];
+      }
     }
   });
 

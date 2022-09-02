@@ -2,7 +2,8 @@ export const meetingTemplate = ({ sender, date }) => `
     <h4>Votre rendez vous a été confirmé</h4>
     <br/>
     <div>
-        Votre rendez-vous avec ${sender} a été confirmé pour le ${date}
+        Votre rendez-vous avec ${sender.firstName} ${sender.lastName} (${sender.emails[0].address}) 
+        a été confirmé pour le ${date}
     </div>
     <br/>
     <div>
@@ -11,11 +12,12 @@ export const meetingTemplate = ({ sender, date }) => `
     <br/>
 `;
 
-export const eventTemplate = ({ title, date }) => `
+export const eventTemplate = ({ sender, title, date }) => `
 <h4>Votre évenement a été confirmé</h4>
 <br/>
 <div>
-    Votre évenement "${title}" a été confirmé pour le ${date}
+    Votre évenement "${title}", organisé par ${sender.firstName} ${sender.lastName} (${sender.emails[0].address}), 
+    a été confirmé pour le ${date}
 </div>
 <br/>
 <div>
