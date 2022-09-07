@@ -1,3 +1,2 @@
-release.config.js
-release-rules.js
+.releaserc.js
 public/fonts/js/all.min.js
