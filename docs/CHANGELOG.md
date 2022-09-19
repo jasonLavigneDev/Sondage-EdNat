@@ -1,5 +1,45 @@
 # Changelog
 
+## [1.4.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.3.0...release/1.4.0) (2022-09-19)
+
+
+### Features
+
+* **autologin:** allow to log in and proceed on poll creation ([28c70f0](https://gitlab.mim-libre.fr/alphabet/sondage/commit/28c70f04b396a9792090ef46471971360cf14073))
+* **event:** add organize of event in mail template ([8ad8f8a](https://gitlab.mim-libre.fr/alphabet/sondage/commit/8ad8f8a434cf3825d5ac2caae7eaee967718f9f5))
+* **mail:** add firstname and lastname in mails template ([0725978](https://gitlab.mim-libre.fr/alphabet/sondage/commit/07259781a426e0e698ae9429ba1d6b9c4acc0a74))
+* **poll:** pre-complete info from laboite ([dea291b](https://gitlab.mim-libre.fr/alphabet/sondage/commit/dea291b733bb8cbf6d3bad3e8bc31985b82eef86))
+
+
+### Bug Fixes
+
+* **creation:** don't add null group at creation, simplify code ([7bafbe3](https://gitlab.mim-libre.fr/alphabet/sondage/commit/7bafbe35bf14cd137262acfc46083100b54c2b19))
+* **smtp:** change call to smtp settings ([4baa26b](https://gitlab.mim-libre.fr/alphabet/sondage/commit/4baa26bf8c333926ef0c9b78d22da34ed0165e6b))
+* **ui:** fix css import at first load and correct favicon ([b2ff775](https://gitlab.mim-libre.fr/alphabet/sondage/commit/b2ff775930d5fd9e24c944f3266f4928e91e21a8))
+
+
+### Build System
+
+* **meteor:** update meteor 2.7.3 and node version 14.19.3 ([9003ae7](https://gitlab.mim-libre.fr/alphabet/sondage/commit/9003ae7e15b5dbb42eb38e003f17b05f971bf476))
+* **npm:** change npm command run start-dev to start and port to 3010 ([7634593](https://gitlab.mim-libre.fr/alphabet/sondage/commit/763459370734bba009b6eb7145c646d2f111e8d6))
+
+
+### Documentation
+
+* **licence:** add licence in source code and package ([5959f25](https://gitlab.mim-libre.fr/alphabet/sondage/commit/5959f25f2a8a3c6452912de483924ab69bb5ba97))
+* **readme:** update and translate doc files ([0c466e3](https://gitlab.mim-libre.fr/alphabet/sondage/commit/0c466e3181d2318c22d1bffdd902fe4e0f09a36d))
+* **settings:** add readme and update settings sample ([07be2f5](https://gitlab.mim-libre.fr/alphabet/sondage/commit/07be2f527839ca24e8e1da179b355514cbc156dc))
+
+
+### Continuous Integration
+
+* **build-docker:** run for `testing` prerelease ([1f694ef](https://gitlab.mim-libre.fr/alphabet/sondage/commit/1f694ef795aeff0c336ad67d3225c1f25e1b2deb))
+* **commitlint:** use new standard job `.git:commitlint` ([03f7c53](https://gitlab.mim-libre.fr/alphabet/sondage/commit/03f7c53c6069f4a9bafd87c1399075c224c9df81))
+* **merge-to-dev:** use new standard jobs `.git:merge-to` ([c90b1a4](https://gitlab.mim-libre.fr/alphabet/sondage/commit/c90b1a4e6f808cf8f7dc78d8988651e55c88e9b5))
+* **meteor:** test before generating a new release ([28b3b5a](https://gitlab.mim-libre.fr/alphabet/sondage/commit/28b3b5a92021483755fbf2283680fc8ce4418911))
+* **semantic-release:** create `testing` prerelease ([996de70](https://gitlab.mim-libre.fr/alphabet/sondage/commit/996de703b1c91c351638aca8e86ee6b1ab6e68a8))
+* **tag docker:** tag `testing` prerelease image ([1f43f0a](https://gitlab.mim-libre.fr/alphabet/sondage/commit/1f43f0af09f15c4448ddc70e38d6352e3a1ceab8))
+
 # [1.3.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.2.0...release/1.3.0) (2022-07-06)
 
 
