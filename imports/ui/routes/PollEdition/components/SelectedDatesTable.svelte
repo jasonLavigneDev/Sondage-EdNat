@@ -17,7 +17,7 @@
   <h3 class="title is-5">{$_('pages.new_poll_2.selected_dates')}</h3>
   <Divider />
   {#if dates.length}
-    <table class="table is-striped is-fullwidth">
+    <table class="table is-striped is-fullwidth" style="margin-top: -3vh;">
       <tbody>
         {#each dates as date}
           <tr>
@@ -31,13 +31,13 @@
                 {moment(date.date).format($_('components.Time.dateFormat'))}
               {/if}
             </th>
-            <td>
-              <button on:click={() => removeDate(date)} class="button is-rounded is-primary is-small">
+            <th>
+              <button on:click={() => removeDate(date)} class="button is-rounded is-primary is-small mt-2">
                 <span class="icon is-small">
                   <i class="fas fa-trash" />
                 </span>
               </button>
-            </td>
+            </th>
           </tr>
         {/each}
       </tbody>
