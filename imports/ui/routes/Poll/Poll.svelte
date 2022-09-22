@@ -4,6 +4,7 @@
   import { onMount } from 'svelte';
   import { router } from 'tinro';
   import { toast } from '@zerodevx/svelte-toast';
+  import moment from 'moment';
 
   import { ROUTES, toasts } from '/imports/utils/enums';
   import { currentUser, loggingIn, accountsConfigured } from '/imports/utils/functions/stores';
@@ -16,6 +17,8 @@
   import { POLLS_TYPES } from '../../../utils/enums';
   import MeetingAnswersList from './MeetingAnswersList.svelte';
   import PackageJSON from '../../../../package.json';
+  import Modal from '../../components/common/Modal.svelte';
+
   let version = PackageJSON.version;
 
   export let meta;
@@ -29,6 +32,12 @@
     meetingSlot: null,
     userId: Meteor.userId(),
     choices: [],
+  };
+  let showModal = false;
+  const toggleShowModal = () => (showModal = !showModal);
+  const toggleRedirectModal = () => {
+    toggleShowModal();
+    router.goto(ROUTES.POLLS);
   };
 
   const grabData = () => {
@@ -108,6 +117,7 @@
       if (error) {
         toast.push($_(error.reason), toasts.error);
       } else {
+        poll.type === POLLS_TYPES.MEETING ? toggleShowModal() : null;
         toast.push($_('pages.answer.poll_answered'));
       }
     });
@@ -251,6 +261,19 @@
     {/if}
   </div>
 </section>
+
+<Modal
+  toggle={toggleShowModal}
+  active={showModal}
+  action={toggleRedirectModal}
+  title={$_('pages.answer.resume')}
+  validButton={$_('components.SinglePollAnswerLine.validate')}
+  validClass="is-success"
+  cancelClass="is-invisible"
+>
+  <p><b>{poll.title}</b></p>
+  <p>{$_('pages.answer.take_meeting')} {moment(answer.meetingSlot).format('LLL')}</p>
+</Modal>
 
 <style>
   .is-right {
