@@ -25,3 +25,22 @@ export const eventTemplate = ({ sender, title, date }) => `
 </div>
 <br/>
 `;
+
+export const adminMeetingTemplate = ({ sender, title, date, url, connected }) => `
+<h4>Un créneau a été sélectionné</h4>
+<br/>
+<div>
+    ${
+      connected
+        ? ` ${sender.firstName} ${sender.lastName} (${sender.emails[0].address})`
+        : ` ${sender.name} (${sender.email})`
+    }
+
+    a choisi le créneau du ${date} pour le rendez-vous ${title}
+</div>
+<br/>
+<div>
+    Vous pouvez valider le créneau avec le liens suivant ${url}
+</div>
+<br/>
+`;

@@ -7,7 +7,7 @@ import PollsAnswers from '../../polls_answers/polls_answers';
 import Polls from '../../polls/polls';
 import Groups from '../../groups/groups';
 import { DURATIONS_TIME, POLLS_TYPES, ROUTES } from '../../../utils/enums';
-import { meetingTemplate, eventTemplate } from './email_template';
+import { meetingTemplate, eventTemplate, adminMeetingTemplate } from './email_template';
 import { EventsAgenda } from '../events';
 
 export const sendEmail = new ValidatedMethod({
@@ -42,6 +42,33 @@ export const sendEmail = new ValidatedMethod({
     });
   },
 });
+export function sendEmailToCreator(poll, answer, userId) {
+  const template = adminMeetingTemplate;
+  const connected = userId !== null && userId !== undefined;
+  let answerer;
+  if (connected) {
+    answerer = Meteor.users.findOne(userId);
+  } else {
+    answerer = answer;
+  }
+
+  const admin = Meteor.users.findOne(poll.userId);
+  const html = template({
+    title: poll.title,
+    sender: answerer,
+    date: moment(answer.meetingSlot).format('LLL'),
+    url: `${Meteor.settings.public.services.sondagesUrl}/poll/answer/${poll._id} `,
+    connected,
+  });
+  console.log(html);
+  Email.send({
+    to: admin.emails[0].address,
+    from: Meteor.settings.smtp.fromEmail,
+    subject: `Rendez-vous - nouveau créneau sélectionné pour le rendez-vous ${poll.title}`,
+    inReplyTo: Meteor.settings.smtp.toEmail,
+    html,
+  });
+}
 export const createEventAgendaMeeting = new ValidatedMethod({
   name: 'events.createMeeting',
   validate: new SimpleSchema({
