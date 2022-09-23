@@ -269,7 +269,8 @@
   title={$_('pages.answer.resume')}
   validButton={$_('components.SinglePollAnswerLine.validate')}
   validClass="is-success"
-  cancelClass="is-invisible"
+  cancelClass="is-warning"
+  cancelButton={$_('pages.answer.modify')}
 >
   <p><b>{poll.title}</b></p>
   <p>{$_('pages.answer.take_meeting')} {moment(answer.meetingSlot).format('LLL')}</p>

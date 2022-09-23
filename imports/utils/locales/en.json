@@ -163,7 +163,8 @@
       "choosen_date": "Choosen date",
       "unavailable": "Indisponible",
       "resume": "Meeting resume",
-      "take_meeting": "Meeting made on "
+      "take_meeting": "Meeting made on ",
+      "modify": "Edit"
     },
     "maintenance": {
       "title": "Site is currently under maintenance"
