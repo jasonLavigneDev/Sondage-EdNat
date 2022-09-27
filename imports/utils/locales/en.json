@@ -161,7 +161,10 @@
       "login_with_lb": "You have an account in LaBoite",
       "askToConnect": "Login to see this page",
       "choosen_date": "Choosen date",
-      "unavailable": "Indisponible"
+      "unavailable": "Indisponible",
+      "resume": "Meeting resume",
+      "take_meeting": "Meeting made on ",
+      "modify": "Edit"
     },
     "maintenance": {
       "title": "Site is currently under maintenance"

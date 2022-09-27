@@ -161,7 +161,10 @@
       "login_with_lb": "Vous avez un compte dans LaBoite",
       "askToConnect": "Connectez-vous pour voir cette page",
       "choosen_date": "Date choisie",
-      "unavailable": "Indisponible"
+      "unavailable": "Indisponible",
+      "resume": "Résumé du rendez-vous",
+      "take_meeting": "Rendez-vous pris le ",
+      "modify": "Modifier"
     },
     "maintenance": {
       "title": "Le site est en cours de maintenance"
