@@ -37,9 +37,7 @@
   const toggleShowModal = () => (showModal = !showModal);
   const toggleRedirectModal = () => {
     toggleShowModal();
-    if (answer.userId) {
-      router.goto(ROUTES.POLLS);
-    }
+    router.goto(ROUTES.POLLS);
   };
 
   const grabData = () => {
