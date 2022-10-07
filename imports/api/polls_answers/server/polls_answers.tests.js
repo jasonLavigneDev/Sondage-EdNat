@@ -123,6 +123,14 @@ describe('polls_answers', function () {
             done();
           });
         });
+        it('does return all pollanswers include our own pollAnswer without pollOwner user ', function (done) {
+          const collector = new PublicationCollector({ userId: anotherUser._id });
+          collector.collect('polls_answers.onePoll', { pollId: pollTypePoll._id }, (collections) => {
+            assert.equal(collections.counts[0].count, 8);
+            assert.containsAllKeys(collections.polls_answers[0], ['name', 'email', 'userId']);
+            done();
+          });
+        });
       });
 
       describe('pollsAnswer type meeting', function () {
@@ -136,6 +144,14 @@ describe('polls_answers', function () {
         });
         it('does return all pollAnswers without specific fields without user account', function (done) {
           const collector = new PublicationCollector({});
+          collector.collect('polls_answers.onePoll', { pollId: meetingPoll._id }, (collections) => {
+            assert.equal(collections.counts[0].count, 4);
+            assert.doesNotHaveAnyKeys(collections.polls_answers[0], ['name', 'email']);
+            done();
+          });
+        });
+        it('does return all pollAnswers without specific fields without pollOwner user', function (done) {
+          const collector = new PublicationCollector({ userId: anotherUser._id });
           collector.collect('polls_answers.onePoll', { pollId: meetingPoll._id }, (collections) => {
             assert.equal(collections.counts[0].count, 4);
             assert.doesNotHaveAnyKeys(collections.polls_answers[0], ['name', 'email']);
