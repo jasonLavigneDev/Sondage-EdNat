@@ -14,7 +14,7 @@ Meteor.publish('groups.memberOf', function () {
     {
       limit: 100,
       sort: { name: -1 },
-      fields: { _id: 1, name: 1 },
+      fields: { _id: 1, name: 1, type: 1 },
     },
   );
 });

@@ -15,6 +15,7 @@
   import { router } from 'tinro';
   import StepBar from '../../components/common/StepBar.svelte';
   import { POLLS_TYPES } from '../../../utils/enums';
+  import getGroupName from '/imports/utils/functions/groups'
   import PackageJSON from '../../../../package.json';
   let version = PackageJSON.version;
 
@@ -115,7 +116,7 @@
               <div class="tags">
                 {#each $selectedGroups as group}
                   <span class="tag is-medium is-primary">
-                    {group.name}
+                    {getGroupName(group)}
                   </span>
                 {/each}
               </div>

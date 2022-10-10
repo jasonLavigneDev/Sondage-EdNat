@@ -19,6 +19,7 @@
   import StepBar from '../../components/common/StepBar.svelte';
   import Radios from '../../components/common/Radios.svelte';
   import { POLLS_TYPES } from '/imports/utils/enums';
+  import getGroupName from '/imports/utils/functions/groups'
   import PackageJSON from '../../../../package.json';
   let version = PackageJSON.version;
 
@@ -136,7 +137,7 @@
                     </option>
                     {#each $groups as group}
                       <option value={group._id}>
-                        {group.name}
+                        {getGroupName(group)}
                       </option>
                     {/each}
                   </select>
@@ -147,7 +148,7 @@
           <div class="tags">
             {#each $selectedGroups as group}
               <span class="tag is-medium is-primary">
-                {group.name}
+                {getGroupName(group)}
                 <button on:click={() => handleRemoveGroup(group._id)} class="delete is-small" />
               </span>
             {/each}
