@@ -62,7 +62,9 @@
   );
 
   const handleSelect = (event) => {
-    $newPollStore.groups = [...$newPollStore.groups, event.target.value];
+    if (event.target.value !== "null" && !$newPollStore.groups.includes(event.target.value)) {
+      $newPollStore.groups = [...$newPollStore.groups, event.target.value];
+    }
   };
 
   const handleRemoveGroup = (groupId) => {
