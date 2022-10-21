@@ -1,7 +1,7 @@
 {
   "name": "sondage",
   "private": true,
-  "version": "1.4.0",
+  "version": "1.5.0-testing.1",
   "license": "EUPL-1.2",
   "description": "Online polls and meetings",
   "author": "EOLE/PCLL <team@eole.education> - DINUM",
