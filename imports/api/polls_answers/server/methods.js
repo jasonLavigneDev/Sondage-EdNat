@@ -94,7 +94,7 @@ export const validateMeetingPollAnswer = new ValidatedMethod({
     }
 
     sendEmail.call({ poll, answer });
-    createEventAgendaMeeting.call({ poll, answer });
+    createEventAgendaMeeting._execute({ userId: this.userId }, { poll, answer });
 
     return PollsAnswers.update({ _id: answerId }, { $set: { confirmed: true } });
   },

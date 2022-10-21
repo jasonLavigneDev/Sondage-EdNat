@@ -17,7 +17,7 @@
 Procédure d'installation :
 
 ```
-git clone https://gitlab.mim-libre.fr/alphabet/laboite
+git clone https://gitlab.mim-libre.fr/alphabet/laboite.git
 cd laboite
 cp config/settings.development.json.sample config/settings.development.json
 cd app
@@ -72,7 +72,7 @@ http://localhost:3010
 
 #### Via l'interface utilisateur **localhost:3000**
 
-À partir de l'appliation `LaBoite` que vous accédez à partir du navigateur
+À partir de l'application `LaBoite` que vous accédez à partir du navigateur
 
 ```
 http://localhost:3000

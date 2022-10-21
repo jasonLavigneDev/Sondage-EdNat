@@ -60,9 +60,6 @@ Polls.schema = new SimpleSchema(
       type: String,
       regEx: SimpleSchema.RegEx.Id,
       label: 'Owner',
-      autoValue() {
-        return Meteor.userId();
-      },
     },
     description: {
       type: String,
