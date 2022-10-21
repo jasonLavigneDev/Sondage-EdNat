@@ -60,7 +60,6 @@ export function sendEmailToCreator(poll, answer, userId) {
     url: `${Meteor.settings.public.services.sondagesUrl}/poll/answer/${poll._id} `,
     connected,
   });
-  console.log(html);
   Email.send({
     to: admin.emails[0].address,
     from: Meteor.settings.smtp.fromEmail,

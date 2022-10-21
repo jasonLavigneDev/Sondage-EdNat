@@ -60,7 +60,7 @@ export const createPollAnswers = new ValidatedMethod({
         throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'api.errors.notAllowed');
       }
     } else if ((poll.public || this.userId) && poll.active) {
-      if (!Meteor.isTest) sendEmailToCreator(poll, data, this.userId); // FIX ME: it can't be ignore anymore
+      sendEmailToCreator(poll, data, this.userId);
       return PollsAnswers.update(
         { pollId: data.pollId, email: data.email },
         { $set: { ...data, confirmed: false } },
