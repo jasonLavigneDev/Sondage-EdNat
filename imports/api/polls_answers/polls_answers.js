@@ -49,12 +49,6 @@ PollsAnswers.schema = new SimpleSchema(
       regEx: SimpleSchema.RegEx.Id,
       label: 'Owner',
       optional: true,
-      autoValue() {
-        if (this.isInsert || this.isUpsert) {
-          return this.userId;
-        }
-        return this.value;
-      },
     },
     email: {
       type: String,

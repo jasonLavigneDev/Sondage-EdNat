@@ -107,7 +107,7 @@ export const validatePollAnswer = new ValidatedMethod({
     }
 
     if (poll.groups.length) {
-      createEventAgenda.call({ poll, date });
+      createEventAgenda._execute({ userId: this.userId }, { poll, date });
       if (!Meteor.isTest) {
         // eslint-disable-next-line global-require
         const sendnotif = require('../../notifications/server/notifSender').default;

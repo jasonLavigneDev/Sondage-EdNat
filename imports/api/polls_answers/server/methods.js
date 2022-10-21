@@ -7,7 +7,7 @@ import { POLLS_TYPES } from '../../../utils/enums';
 import PollsAnswers from '../polls_answers';
 import Groups from '../../groups/groups';
 import Polls from '../../polls/polls';
-import { createEventAgendaMeeting, sendEmail } from '../../events/server/methods';
+import { createEventAgendaMeeting, sendEmail, sendEmailToCreator } from '../../events/server/methods';
 
 export const createPollAnswers = new ValidatedMethod({
   name: 'polls_answers.create',
@@ -33,7 +33,6 @@ export const createPollAnswers = new ValidatedMethod({
     } else if (poll.completed) {
       throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'api.errors.notAllowed');
     }
-
     if (!poll.public && this.userId) {
       const isInAGroup = Groups.findOne(
         {
@@ -61,6 +60,7 @@ export const createPollAnswers = new ValidatedMethod({
         throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'api.errors.notAllowed');
       }
     } else if ((poll.public || this.userId) && poll.active) {
+      sendEmailToCreator(poll, data, this.userId);
       return PollsAnswers.update(
         { pollId: data.pollId, email: data.email },
         { $set: { ...data, confirmed: false } },
@@ -94,7 +94,7 @@ export const validateMeetingPollAnswer = new ValidatedMethod({
     }
 
     sendEmail.call({ poll, answer });
-    createEventAgendaMeeting.call({ poll, answer });
+    createEventAgendaMeeting._execute({ userId: this.userId }, { poll, answer });
 
     return PollsAnswers.update({ _id: answerId }, { $set: { confirmed: true } });
   },

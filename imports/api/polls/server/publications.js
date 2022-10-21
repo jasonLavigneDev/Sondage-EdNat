@@ -45,6 +45,7 @@ Meteor.publish('polls.member', function pollMember({ page, limit }) {
   Counts.publish(this, 'polls.member.total', Polls.find(query), { noReady: true });
   return Polls.find(query, options);
 });
+
 Meteor.publish('polls.meetings.member', function pollMeetingMember({ page, limit }) {
   const answers = PollsAnswers.find({ userId: this.userId }, { fields: { pollId: 1 } }).fetch();
   const groups = Groups.find(

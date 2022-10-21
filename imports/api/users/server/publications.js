@@ -6,7 +6,7 @@ Meteor.publish(null, function publishUserData() {
     return Meteor.users.find(
       { _id: this.userId },
       {
-        fields: Meteor.users.selfFields,
+        fields: Meteor.users.publicFields,
       },
     );
   }
