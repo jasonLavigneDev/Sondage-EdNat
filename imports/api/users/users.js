@@ -7,6 +7,7 @@ Meteor.users.publicFields = {
   structure: 1,
   emails: 1,
   'services.keycloak.email': 1,
+  'services.keycloak.name': 1,
 };
 
 Meteor.users.deny({
