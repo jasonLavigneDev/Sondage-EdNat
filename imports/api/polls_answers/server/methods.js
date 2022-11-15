@@ -50,7 +50,7 @@ export const createPollAnswers = new ValidatedMethod({
       if ((isInAGroup && poll.active) || (this.userId === poll.userId && poll.active)) {
         return PollsAnswers.update(
           { pollId: data.pollId, email: data.email },
-          { $set: { ...data, confirmed: false } },
+          { $set: { ...data, userId: this.userId, confirmed: false } },
           { upsert: true },
         );
       }
@@ -63,7 +63,7 @@ export const createPollAnswers = new ValidatedMethod({
       sendEmailToCreator(poll, data, this.userId);
       return PollsAnswers.update(
         { pollId: data.pollId, email: data.email },
-        { $set: { ...data, confirmed: false } },
+        { $set: { ...data, userId: this.userId, confirmed: false } },
         { upsert: true },
       );
     } else if (!poll.public && !this.userId) {
