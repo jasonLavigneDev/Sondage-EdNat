@@ -50,19 +50,23 @@ AppSettings.schema = new SimpleSchema(
     },
     legal: {
       type: SettingsType('legal'),
-      label: getLabel('api.appsettings.labels.legal'),
+      // label: getLabel('api.appsettings.labels.legal'),
+      optional: true,
     },
     accessibility: {
       type: SettingsType('accessibility'),
-      label: getLabel('api.appsettings.labels.accessibility'),
+      // label: getLabel('api.appsettings.labels.accessibility'),
+      optional: true,
     },
     gcu: {
       type: SettingsType('gcu'),
-      label: getLabel('api.appsettings.labels.gcu'),
+      // label: getLabel('api.appsettings.labels.gcu'),
+      optional: true,
     },
     personalData: {
       type: SettingsType('personal_data'),
-      label: getLabel('api.appsettings.labels.personal_data'),
+      // label: getLabel('api.appsettings.labels.personal_data'),
+      optional: true,
     },
   },
   { clean: { removeEmptyStrings: false }, tracker: Tracker },
