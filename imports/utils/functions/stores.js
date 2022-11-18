@@ -3,6 +3,7 @@ import { writable } from 'svelte/store';
 import { Accounts } from 'meteor/accounts-base';
 import { useTracker } from 'meteor/rdb:svelte-meteor-data';
 import { POLLS_TYPES } from '../enums';
+import AppSettings from '../../api/appsettings/appsettings';
 
 // Application state management
 const INITIAL_GLOBAL_STATE = {
@@ -43,6 +44,19 @@ export const currentUser = useTracker(() => Meteor.user());
 export const loggingIn = useTracker(() => Meteor.loggingIn());
 export const accountsConfigured = useTracker(() => Accounts.loginServicesConfigured());
 export const newPollStore = writable({ ...EMPTY_NEW_POLL });
+export const settings = useTracker(() => {
+  Meteor.subscribe('appsettings.all');
+  return (
+    AppSettings.findOne() || {
+      maintenance: null,
+      textMaintenance: '',
+      legal: { external: false, link: '', content: '' },
+      accessibility: { external: false, link: '', content: '' },
+      gcu: { external: false, link: '', content: '' },
+      personalData: { external: false, link: '', content: '' },
+    }
+  );
+});
 
 const store = writable(INITIAL_GLOBAL_STATE);
 
