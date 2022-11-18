@@ -4,7 +4,7 @@
   import { Accounts } from 'meteor/accounts-base';
   import { onDestroy } from 'svelte';
   import { ROUTES } from '/imports/utils/enums';
-  import AppSettings from '/imports/api/appsettings/appsettings';
+  import { settings } from '../utils/functions/stores';
 
   // components
   import Loader from '/imports/ui/components/common/Loader.svelte';
@@ -24,12 +24,7 @@
 
   router.subscribe((_) => window.scrollTo(0, 0));
 
-  let settings;
-  $: settings = useTracker(() => {
-    Meteor.subscribe('appsettings.all');
-    return AppSettings.findOne() || { maintenance: null, textMaintenance: '' };
-  });
-  $: loading = $loggingIn || $settings.maintence === null;
+  $: loading = $loggingIn || $settings.maintenance === null;
   let userFailed = false;
 
   // detect account creation failure (i.e: if logging in from keycloak)
