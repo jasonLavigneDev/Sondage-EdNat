@@ -17,7 +17,7 @@
 Install process :
 
 ```
-git clone https://gitlab.mim-libre.fr/alphabet/laboite
+git clone https://gitlab.mim-libre.fr/alphabet/laboite.git
 cd laboite
 cp config/settings.development.json.sample config/settings.development.json
 cd app

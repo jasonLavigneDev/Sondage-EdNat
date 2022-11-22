@@ -102,9 +102,9 @@
       "title_edit": "Édition du sondage: Informations",
       "title_meeting_edit": "Édition du Rendez-vous: Informations",
       "title_meeting": "Nouveau Rendez-vous: Informations",
-      "title_input": "Titre du sondage",
+      "title_input": "Titre",
       "group_input": "Groupes sondés",
-      "public_input": "Sondage public",
+      "public_input": "Rendre public",
       "group_loading": "Chargement des groupes",
       "group_select": "Ajouter un groupe",
       "type_input": "Type de sondage",
@@ -161,7 +161,10 @@
       "login_with_lb": "Vous avez un compte dans LaBoite",
       "askToConnect": "Connectez-vous pour voir cette page",
       "choosen_date": "Date choisie",
-      "unavailable": "Indisponible"
+      "unavailable": "Indisponible",
+      "resume": "Résumé du rendez-vous",
+      "take_meeting": "Rendez-vous pris le ",
+      "modify": "Modifier"
     },
     "maintenance": {
       "title": "Le site est en cours de maintenance"

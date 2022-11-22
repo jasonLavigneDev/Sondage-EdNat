@@ -1,7 +1,7 @@
 {
   "name": "sondage",
   "private": true,
-  "version": "1.4.0",
+  "version": "1.5.0-testing.3",
   "license": "EUPL-1.2",
   "description": "Online polls and meetings",
   "author": "EOLE/PCLL <team@eole.education> - DINUM",
@@ -11,7 +11,7 @@
     "start-dev-css": "npm-run-all --parallel css-watch start",
     "lint": "eslint . --ext js,jsx",
     "lintfix": "eslint --fix . --ext js,jsx",
-    "test": "meteor test --once --exclude-archs 'web.browser.legacy, web.cordova' --driver-package meteortesting:mocha --allow-superuser",
+    "test": "meteor test --once --exclude-archs 'web.browser.legacy, web.cordova' --driver-package meteortesting:mocha --allow-superuser --settings config/settings.development.json.sample",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
     "css-build": "node-sass --omit-source-map-url imports/utils/theme/index.scss imports/utils/theme/index.css",
@@ -79,7 +79,6 @@
     "eslint-plugin-standard": "^4.1.0",
     "node-sass": "^7.0.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.6.0",
-    "sinon": "^10.0.0"
+    "prettier": "^2.6.0"
   }
 }
