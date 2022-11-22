@@ -41,7 +41,7 @@
     "meteor-node-stubs": "^1.2.1",
     "moment": "^2.29.4",
     "simpl-schema": "^1.12.2",
-    "svelte": "^3.52.0",
+    "svelte": "^3.46.4",
     "svelte-fullcalendar": "^1.1.2",
     "svelte-i18n": "^3.4.0",
     "svelte-time-picker": "^1.0.8",
