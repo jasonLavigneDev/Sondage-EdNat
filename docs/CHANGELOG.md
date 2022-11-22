@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.5.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.4.0...release/1.5.0) (2022-11-22)
+
+
+### Features
+
+* **meeting:** add validation modal when answer to a meeting ([c7f9b00](https://gitlab.mim-libre.fr/alphabet/sondage/commit/c7f9b000663fa5f043fc727cb172b558b9589d8c))
+* **meeting:** send email when user submit date ([ce0914d](https://gitlab.mim-libre.fr/alphabet/sondage/commit/ce0914d168027513ecc74e6ca6284bedba0709dd))
+* **modal:** add edit button in validation modal ([f54e5fa](https://gitlab.mim-libre.fr/alphabet/sondage/commit/f54e5fa059e83775abe21bd8ebc5e392e23ef781))
+
+
+### Bug Fixes
+
+* **footer:** use settings subscription in store for footer ([95960bd](https://gitlab.mim-libre.fr/alphabet/sondage/commit/95960bdd4cbb40636759cfddb08b74e1457a288d))
+* **label:** change label in meeting creation ([7a7c219](https://gitlab.mim-libre.fr/alphabet/sondage/commit/7a7c21921bb01719e3f0787276938f46597364ce))
+* **methods:** delete meteor istest for send email method ([5984c11](https://gitlab.mim-libre.fr/alphabet/sondage/commit/5984c11019cb4015201fcb934aa84145512a67d3))
+* **pollanswer:** disable redirect for no connected user ([5d2a2d9](https://gitlab.mim-libre.fr/alphabet/sondage/commit/5d2a2d9f7ba5e136f56529ed064793a907f50bd9))
+* **pollAnswer:** store userId in poll answer ([07ad771](https://gitlab.mim-libre.fr/alphabet/sondage/commit/07ad7718fc948ca113aaa2d310e901281aacd6ba))
+* **poll:** disabled redirect for no connected user ([8f4c436](https://gitlab.mim-libre.fr/alphabet/sondage/commit/8f4c436d39dc87537a242287df8f4f8b49a65037))
+* **test:** add optional into fields and delete label ([cd9ccdc](https://gitlab.mim-libre.fr/alphabet/sondage/commit/cd9ccdcde4ec0b12269d6dac1fc357f83e713f09))
+* **ui:** fix divider in selected date in meeting creation ([6f18ed0](https://gitlab.mim-libre.fr/alphabet/sondage/commit/6f18ed00a03307d80f6f72eb5a551596bdce9d55))
+* **users:** fix published user fields ([657d1f3](https://gitlab.mim-libre.fr/alphabet/sondage/commit/657d1f330b8ee22c3b4522ec7006c89a131ef9a6))
+* **users:** publish keycloak.name to client ([469c0bb](https://gitlab.mim-libre.fr/alphabet/sondage/commit/469c0bbcee8ecd34fbf5bb632b1b7a2559007374))
+
+
+### Tests
+
+* **app:** add all missing tests ([c25ff2d](https://gitlab.mim-libre.fr/alphabet/sondage/commit/c25ff2da08a5fcc30a6c505bb38d886507941dc9))
+* **app:** add two missing tests ([7bd630c](https://gitlab.mim-libre.fr/alphabet/sondage/commit/7bd630c8688eebc9dc7ae72689a1594bbd54319f))
+
 ## [1.4.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.3.0...release/1.4.0) (2022-09-19)
 
 
