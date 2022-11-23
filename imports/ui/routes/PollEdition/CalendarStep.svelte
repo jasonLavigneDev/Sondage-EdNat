@@ -84,7 +84,8 @@
     locale: $locale,
     timeZone: 'local',
     // date handling
-    slotDuration: $newPollStore.duration === '00:15' ? '00:15:00' : '00:30:00',
+    slotDuration:
+      $newPollStore.duration === '00:10' ? '00:10:00' : $newPollStore.duration === '00:15' ? '00:15:00' : '00:30:00',
     selectable: true,
     select: selectTimeSlot,
     selectOverlap: false,
