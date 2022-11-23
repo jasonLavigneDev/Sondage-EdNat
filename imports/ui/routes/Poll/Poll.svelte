@@ -21,6 +21,8 @@
 
   let version = PackageJSON.version;
 
+  $: mobile = () => window.innerWidth < 600;
+
   export let meta;
   let selectedGroups;
   let poll = {};
@@ -204,7 +206,7 @@
           <div class="column is-full">
             <Divider />
           </div>
-          <div class="column is-half">
+          <div class="column is-two-fifths">
             <label class="label">{$_('pages.answer.details')}</label>
             <div class="field">
               <div class="control">
@@ -225,7 +227,14 @@
               </div>
             </div>
           </div>
-          <div class="column is-half">
+          {#if window.innerWidth < 600}
+            <div class="column is-full">
+              <Divider />
+            </div>
+          {:else}
+            <div id="Vdivider" class="column is-one-fifths" />
+          {/if}
+          <div class="column is-two-fifths">
             {#if !Meteor.userId()}
               <label class="label">{$_('pages.answer.login_with_lb')}</label>
               <div class="control">
@@ -282,5 +291,11 @@
   .is-right {
     display: flex;
     justify-content: flex-end;
+  }
+  #Vdivider {
+    border-left: 1px solid var(--lightgrey);
+    margin-left: 10%;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
   }
 </style>
