@@ -139,7 +139,8 @@
       "poll_modified": "Poll successfully modified",
       "missingTitle": "Title is required",
       "missingDate": "Some dates or time slots are missing",
-      "creationError": "Error encountered at poll creation"
+      "creationError": "Error encountered at poll creation",
+      "duplicateSlots": "Some time slots are duplicated"
     },
     "answer": {
       "email": "Your email address",

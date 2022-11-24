@@ -22,6 +22,7 @@
   let selectedGroups;
   let titleOk = false;
   let dateOk = false;
+  let slotsOk = $newPollStore.allDay ? true : false;
 
   $: selectedGroups = useTracker(() =>
     Groups.find({ _id: { $in: $newPollStore.groups } }, { sort: { name: -1 } }).fetch(),
@@ -37,11 +38,21 @@
         ? true
         : $newPollStore.dates.filter((date) => date.slots.length === 0).length === 0
       : $newPollStore.meetingSlots.length > 0;
+  // check that there are no duplicates in time slots
+  if (!$newPollStore.allDay) {
+    let datesOk = true
+    $newPollStore.dates.forEach(day => {
+      let uniqSlots = new Set(day.slots)
+      if (uniqSlots.size != day.slots.length) datesOk = false
+    })
+    if (datesOk) slotsOk = true
+  }
 
   const validatePollEdition = () => {
     if (!titleOk) toast.push($_('pages.new_poll_4.missingTitle'), toasts.error);
     if (!dateOk) toast.push($_('pages.new_poll_4.missingDate'), toasts.error);
-    if (titleOk && dateOk) {
+    if (!slotsOk) toast.push($_('pages.new_poll_4.duplicateSlots'), toasts.error);
+    if (titleOk && dateOk && slotsOk) {
       Meteor.call(
         meta.params._id ? 'polls.update' : 'polls.create',
         {
