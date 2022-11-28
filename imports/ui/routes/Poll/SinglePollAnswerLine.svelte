@@ -3,7 +3,7 @@
   import moment from 'moment';
   import tippy from 'sveltejs-tippy';
   import { toast } from '@zerodevx/svelte-toast';
-  import { toasts } from '../../../utils/enums';
+  import { toasts, ROUTES } from '../../../utils/enums';
 
   export let answer;
   let loading = false;
@@ -50,6 +50,22 @@
           {/if}
         </span>
       </button>
+      <a class="button is-primary" href={ROUTES.EDIT_ANSWER_RM(answer._id)}>
+        <span class="icon">
+          <i class="fas fa-pen" />
+        </span>
+        <span>
+          {$_('components.SinglePollAnswerLine.edit')}
+        </span>
+      </a>
+      <a class="button is-danger" href={ROUTES.CANCEL_ANSWER_RM(answer._id)}>
+        <span class="icon">
+          <i class="fas fa-trash" />
+        </span>
+        <span>
+          {$_('components.SinglePollAnswerLine.cancel')}
+        </span>
+      </a>
     </div>
   </th>
   <td>

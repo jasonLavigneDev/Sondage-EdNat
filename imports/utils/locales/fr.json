@@ -40,6 +40,8 @@
     "edit_poll_2": "Créer - Dates",
     "edit_poll_3": "Créer - Heures",
     "edit_poll_4": "Créer - Validation",
+    "meeting_cancel": "RDV - Annulation",
+    "meeting_edit": "RDV - Edition",
     "legal": "Mentions légales",
     "accessibility": "Accessibilité",
     "gcu": "Conditions générales d'utilisation",
@@ -174,6 +176,21 @@
     "MeetingAnswersList": {
       "title": "Liste des réponses"
     },
+    "MeetingAnswerCancel": {
+      "title": "Annulation du Rendez-vous",
+      "answer_not_found": "Réponse non trouvée",
+      "delete": "Supprimer ce rendez-vous",
+      "goBack": "retour",
+      "sendEmail": "Notifier par courriel",
+      "emailMsg": "Informations complémentaires"
+    },
+    "MeetingAnswerEdit": {
+      "title": "Edition du Rendez-vous",
+      "answer_not_found": "Réponse non trouvée",
+      "submit": "Modifier",
+      "email": "Adresse email",
+      "name": "Nom"
+    },
     "SinglePollLine": {
       "copied": "URL copié dans le presse-papier"
     },
@@ -181,7 +198,9 @@
       "validate": "Valider",
       "validated": "Rdv confirmé",
       "validate_tooltip": "Valider le rdv et envoyer un email",
-      "validated_tooltip": "Le rdv a été ajouté à votre agenda"
+      "validated_tooltip": "Le rdv a été ajouté à votre agenda",
+      "cancel": "Annuler",
+      "edit": "Modifier"
     },
     "StepBar": {
       "infos": "Infos",

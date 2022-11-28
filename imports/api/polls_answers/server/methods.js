@@ -7,7 +7,13 @@ import { POLLS_TYPES } from '../../../utils/enums';
 import PollsAnswers from '../polls_answers';
 import Groups from '../../groups/groups';
 import Polls from '../../polls/polls';
-import { createEventAgendaMeeting, sendEmail, sendEmailToCreator } from '../../events/server/methods';
+import {
+  createEventAgendaMeeting,
+  sendEmail,
+  sendCancelEmail,
+  sendEditEmail,
+  sendEmailToCreator,
+} from '../../events/server/methods';
 
 export const createPollAnswers = new ValidatedMethod({
   name: 'polls_answers.create',
@@ -97,6 +103,72 @@ export const validateMeetingPollAnswer = new ValidatedMethod({
     createEventAgendaMeeting._execute({ userId: this.userId }, { poll, answer });
 
     return PollsAnswers.update({ _id: answerId }, { $set: { confirmed: true } });
+  },
+});
+
+export const cancelMeetingPollAnswer = new ValidatedMethod({
+  name: 'polls_answers.meeting.cancel',
+  validate: new SimpleSchema({
+    answerId: String,
+    emailNotice: Boolean,
+    emailContent: String,
+  }).validator(),
+
+  run({ answerId, emailNotice, emailContent }) {
+    const answer = PollsAnswers.findOne({ _id: answerId });
+    if (!answer) {
+      throw new Meteor.Error('api.polls_answers.methods.get.notFound', 'api.errors.answerNotFound');
+    }
+    const poll = Polls.findOne({ _id: answer.pollId });
+    if (poll.userId !== this.userId) {
+      throw new Meteor.Error('api.polls_answers.methods.cancel.notAllowed', 'api.errors.notAllowed');
+    }
+    if (emailNotice) sendCancelEmail(poll, answer, emailContent);
+    return PollsAnswers.remove({ _id: answerId });
+  },
+});
+
+export const editMeetingPollAnswer = new ValidatedMethod({
+  name: 'polls_answers.meeting.edit',
+  validate: new SimpleSchema({
+    answerId: String,
+    emailNotice: Boolean,
+    email: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Email,
+    },
+    name: String,
+  }).validator(),
+
+  run({ answerId, emailNotice, email, name }) {
+    const answer = PollsAnswers.findOne({ _id: answerId });
+    if (!answer) {
+      throw new Meteor.Error('api.polls_answers.methods.get.notFound', 'api.errors.answerNotFound');
+    }
+    const poll = Polls.findOne({ _id: answer.pollId });
+    if (poll.userId !== this.userId) {
+      throw new Meteor.Error('api.polls_answers.methods.cancel.notAllowed', 'api.errors.notAllowed');
+    }
+    if (emailNotice) sendEditEmail(poll, answer, email, name);
+    return PollsAnswers.update({ _id: answerId }, { $set: { email, name } });
+  },
+});
+
+export const getPollAnswer = new ValidatedMethod({
+  name: 'polls_answers.get',
+  validate: new SimpleSchema({
+    answerId: String,
+  }).validator({ clean: true }),
+  run({ answerId }) {
+    const answer = PollsAnswers.findOne(answerId);
+    if (!answer) {
+      throw new Meteor.Error('api.polls_answers.methods.get.notFound', 'api.errors.answerNotFound');
+    }
+    const poll = Polls.findOne(answer.pollId);
+    if (poll.userId !== this.userId) {
+      throw new Meteor.Error('api.polls_answers.get.notAllowed', 'api.errors.notAllowed');
+    }
+    return answer;
   },
 });
 

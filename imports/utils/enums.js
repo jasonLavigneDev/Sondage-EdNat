@@ -10,6 +10,10 @@ export const ROUTES = {
   EDIT_POLL_RM: (id, page = 1) => `/poll/edit/${id}/${page}`,
   ANSWER_POLL: '/answer/:_id',
   ANSWER_POLL_RM: (id) => `/poll/answer/${id}`,
+  EDIT_ANSWER: '/pollanswer/edit/:_id',
+  EDIT_ANSWER_RM: (id) => `/pollanswer/edit/${id}`,
+  CANCEL_ANSWER: '/pollanswer/cancel/:_id',
+  CANCEL_ANSWER_RM: (id) => `/pollanswer/cancel/${id}`,
   POLLS: '/polls',
   LOGOUT: '/logout',
 };

@@ -7,7 +7,13 @@ import PollsAnswers from '../../polls_answers/polls_answers';
 import Polls from '../../polls/polls';
 import Groups from '../../groups/groups';
 import { DURATIONS_TIME, POLLS_TYPES, ROUTES } from '../../../utils/enums';
-import { meetingTemplate, eventTemplate, adminMeetingTemplate } from './email_template';
+import {
+  meetingTemplate,
+  eventTemplate,
+  adminMeetingTemplate,
+  meetingCancelTemplate,
+  meetingEditTemplate,
+} from './email_template';
 import { EventsAgenda } from '../events';
 
 export const sendEmail = new ValidatedMethod({
@@ -68,6 +74,33 @@ export function sendEmailToCreator(poll, answer, userId) {
     html,
   });
 }
+
+export function sendCancelEmail(poll, answer, content) {
+  const template = meetingCancelTemplate;
+
+  const html = template({ date: moment(answer.meetingSlot).format('LLL'), content });
+  Email.send({
+    to: answer.email,
+    from: Meteor.settings.smtp.fromEmail,
+    subject: `Sondage - annulation de votre rendez-vous pour ${poll.title}`,
+    inReplyTo: Meteor.settings.smtp.toEmail,
+    html,
+  });
+}
+
+export function sendEditEmail(poll, answer, email, name) {
+  const template = meetingEditTemplate;
+
+  const html = template({ date: moment(answer.meetingSlot).format('LLL'), email, name });
+  Email.send({
+    to: email,
+    from: Meteor.settings.smtp.fromEmail,
+    subject: `Sondage - Edition de votre rendez-vous pour ${poll.title}`,
+    inReplyTo: Meteor.settings.smtp.toEmail,
+    html,
+  });
+}
+
 export const createEventAgendaMeeting = new ValidatedMethod({
   name: 'events.createMeeting',
   validate: new SimpleSchema({

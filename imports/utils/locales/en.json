@@ -40,6 +40,8 @@
     "edit_poll_2": "Edit - Dates",
     "edit_poll_3": "Edit - Hours",
     "edit_poll_4": "Edit - Validation",
+    "meeting_cancel": "Meeting - Cancel",
+    "meeting_edit": "Meeting - Edit",
     "legal": "Legal",
     "accessibility": "Accessibility",
     "gcu": "Term of use",
@@ -174,6 +176,21 @@
     "MeetingAnswersList": {
       "title": "Answers list"
     },
+    "MeetingAnswerCancel": {
+      "title": "Meeting cancel",
+      "answer_not_found": "Poll answer not found",
+      "delete": "Delete this meeting",
+      "goBack": "Back",
+      "sendEmail": "Notify via email",
+      "emailMsg": "Further information"
+    },
+    "MeetingAnswerEdit": {
+      "title": "Meeting edition",
+      "answer_not_found": "Poll answer not found",
+      "submit": "Submit",
+      "email": "email address",
+      "name": "name"
+    },
     "SinglePollLine": {
       "copied": "URL copied to clipboard"
     },
@@ -181,7 +198,9 @@
       "validate": "Validate",
       "validated": "Meeting confirmed",
       "validate_tooltip": "Validate the meeting and send an email",
-      "validated_tooltip": "The meeting has been added to your calendar"
+      "validated_tooltip": "The meeting has been added to your calendar",
+      "cancel": "Cancel",
+      "edit": "Edit"
     },
     "StepBar": {
       "infos": "Info",
