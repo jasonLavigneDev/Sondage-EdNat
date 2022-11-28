@@ -7,6 +7,7 @@
   import { ROUTES, toasts } from '/imports/utils/enums';
   import Checkbox from '../../components/common/Checkbox.svelte';
   import BigLink from '/imports/ui/components/common/BigLink.svelte';
+  import isValideMail from '/imports/utils/functions/email';
 
   import PackageJSON from '../../../../package.json';
   import { onMount } from 'svelte';
@@ -17,6 +18,7 @@
   let answer = {};
   let email = '';
   let name = '';
+  let loading = true;
 
   const answerId = meta.params._id;
 
@@ -35,6 +37,7 @@
     if (meta.params._id) {
       Meteor.call('polls_answers.get', { answerId }, (e, r) => {
         if (r) {
+          loading = false;
           answer = r;
           email = r.email;
           name = r.name;
@@ -87,7 +90,11 @@
           />
         </div>
         <div class="column is-half-desktop is-full-mobile is-right">
-          <BigLink action={editMeeting} text={$_('components.MeetingAnswerEdit.submit')} />
+          <BigLink
+            disabled={!isValideMail(email) || !name || loading}
+            action={editMeeting}
+            text={$_('components.MeetingAnswerEdit.submit')}
+          />
         </div>
       </div>
     </div>
