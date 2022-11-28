@@ -97,7 +97,7 @@
     locale: $locale,
     timeZone: 'local',
     // date handling
-    slotDuration: poll.duration === '00:15' ? '00:15:00' : '00:30:00',
+    slotDuration: poll.duration === '00:10' ? '00:10:00' : poll.duration === '00:15' ? '00:15:00' : '00:30:00',
     businessHours: {
       daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
       startTime: '05:00',
