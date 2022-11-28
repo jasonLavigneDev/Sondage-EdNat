@@ -139,7 +139,8 @@
       "poll_modified": "Sondage modifié avec succès",
       "missingTitle": "Un titre est requis",
       "missingDate": "Dates ou tranches horaires manquantes",
-      "creationError": "Erreur lors de la création du sondage"
+      "creationError": "Erreur lors de la création du sondage",
+      "duplicateSlots": "Des créneaux horaires sont en double"
     },
     "answer": {
       "email": "Votre adresse email",
