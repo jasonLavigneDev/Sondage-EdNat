@@ -188,8 +188,9 @@
       "title": "Meeting edition",
       "answer_not_found": "Poll answer not found",
       "submit": "Submit",
-      "email": "email address",
-      "name": "name"
+      "email": "Email address",
+      "name": "Name",
+      "slot": "Time slot"
     },
     "SinglePollLine": {
       "copied": "URL copied to clipboard"

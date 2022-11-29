@@ -5,6 +5,7 @@
   import { toast } from '@zerodevx/svelte-toast';
   import { router } from 'tinro';
   import { ROUTES, toasts } from '/imports/utils/enums';
+  import CalendarPoll from './CalendarPoll.svelte';
   import Checkbox from '../../components/common/Checkbox.svelte';
   import BigLink from '/imports/ui/components/common/BigLink.svelte';
   import isValideMail from '/imports/utils/functions/email';
@@ -14,16 +15,22 @@
   let version = PackageJSON.version;
 
   export let meta;
-  let emailNotice = false;
+  let emailNotice = true;
   let answer = {};
+  let poll = {};
   let email = '';
   let name = '';
+  let meetingSlot = '';
+  let initialDate = '';
   let loading = true;
+  let pollLoaded = false;
+  let answerLoaded = false;
 
   const answerId = meta.params._id;
+  const pollId = meta.params.pollId;
 
   const editMeeting = () => {
-    Meteor.call('polls_answers.meeting.edit', { answerId: answer._id, emailNotice, email, name }, (e) => {
+    Meteor.call('polls_answers.meeting.edit', { answerId: answer._id, emailNotice, email, name, meetingSlot }, (e) => {
       if (e) {
         console.log(e);
         toast.push($_(e.reason), toasts.error);
@@ -33,14 +40,22 @@
     });
   };
 
+  const toggleChoice = (indexOrDate) => {
+    meetingSlot = indexOrDate || initialDate;
+    answer.meetingSlot = indexOrDate;
+  };
+
   const grabData = () => {
     if (meta.params._id) {
       Meteor.call('polls_answers.get', { answerId }, (e, r) => {
+        answerLoaded = true;
+        if (pollLoaded) loading = false;
         if (r) {
-          loading = false;
           answer = r;
           email = r.email;
           name = r.name;
+          meetingSlot = r.meetingSlot;
+          initialDate = r.meetingSlot;
         } else {
           toast.push($_(e.reason), toasts.error);
           router.goto(ROUTES.ADMIN);
@@ -48,6 +63,21 @@
       });
     } else {
       toast.push($_('components.MeetingAnswerEdit.answer_not_found'), toasts.error);
+      router.goto(ROUTES.ADMIN);
+    }
+    if (meta.params.pollId) {
+      Meteor.call('polls.getSinglePollToAnswer', { pollId }, (e, r) => {
+        pollLoaded = true;
+        if (answerLoaded) loading = false;
+        if (r) {
+          poll = r.poll;
+        } else {
+          toast.push($_(e.reason), toasts.error);
+          router.goto(ROUTES.ADMIN);
+        }
+      });
+    } else {
+      toast.push($_('pages.new_poll.poll_not_found'), toasts.error);
       router.goto(ROUTES.ADMIN);
     }
   };
@@ -61,25 +91,38 @@
 <section class="box-transparent">
   <div class="container">
     <h1 class="title is-3">
-      {$_('components.MeetingAnswerEdit.title')} : {moment(answer.meetingSlot).format('LLL')}
+      {$_('components.MeetingAnswerEdit.title')} : {moment(initialDate).format('LLL')}
     </h1>
     <div class="box">
       <div class="field">
+        <div class="control">
+          <Checkbox bind:checked={emailNotice} label={$_('components.MeetingAnswerCancel.sendEmail')} />
+        </div>
+      </div>
+      <div class="field">
         <label class="label">{$_('components.MeetingAnswerEdit.email')}</label>
         <div class="control">
-          <input class="input" type="text" autofocus maxlength="256" bind:value={email} />
+          <input
+            disabled={answer.userId !== null}
+            class="input"
+            type="text"
+            autofocus
+            maxlength="256"
+            bind:value={email}
+          />
         </div>
       </div>
       <div class="field">
         <label class="label">{$_('components.MeetingAnswerEdit.name')}</label>
         <div class="control">
-          <input class="input" type="text" maxlength="256" bind:value={name} />
+          <input disabled={answer.userId !== null} class="input" type="text" maxlength="256" bind:value={name} />
         </div>
       </div>
-      <div class="field">
-        <div class="control">
-          <Checkbox bind:checked={emailNotice} label={$_('components.MeetingAnswerCancel.sendEmail')} />
-        </div>
+      <label class="label">{$_('components.MeetingAnswerEdit.slot')}</label>
+      <div class="column is-full">
+        {#if pollLoaded}
+          <CalendarPoll {answer} {poll} {loading} {toggleChoice} currentAnswer={answer} editMode={true} />
+        {/if}
       </div>
       <div class="columns is-multiline">
         <div class="column is-half-desktop is-full-mobile">

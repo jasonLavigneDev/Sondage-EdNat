@@ -6,6 +6,7 @@ import { Random } from 'meteor/random';
 import faker from 'faker';
 import { Factory } from 'meteor/dburles:factory';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
+import { POLLS_TYPES } from '../../../utils/enums';
 
 import {
   createPollAnswers,
@@ -276,7 +277,12 @@ describe('polls_answers', function () {
     });
     describe('cancelMeetingPollanswer', function () {
       it('should throw error if user is not pollOwner', function () {
-        const poll = Factory.create('poll', { userId: ownerPollUser._id, active: true, public: true });
+        const poll = Factory.create('poll', {
+          userId: ownerPollUser._id,
+          active: true,
+          public: true,
+          type: POLLS_TYPES.MEETING,
+        });
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
@@ -295,7 +301,7 @@ describe('polls_answers', function () {
         );
       });
       it('should delete pollAnswer', function () {
-        const poll = Factory.create('poll', { userId: ownerPollUser._id });
+        const poll = Factory.create('poll', { userId: ownerPollUser._id, type: POLLS_TYPES.MEETING });
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
@@ -312,7 +318,12 @@ describe('polls_answers', function () {
     });
     describe('editMeetingPollanswer', function () {
       it('should throw error if user is not pollOwner', function () {
-        const poll = Factory.create('poll', { userId: ownerPollUser._id, active: true, public: true });
+        const poll = Factory.create('poll', {
+          userId: ownerPollUser._id,
+          active: true,
+          public: true,
+          type: POLLS_TYPES.MEETING,
+        });
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
@@ -324,7 +335,13 @@ describe('polls_answers', function () {
           () => {
             editMeetingPollAnswer._execute(
               { userId: anotherUser._id },
-              { answerId: pollAnswer._id, emailNotice: false, email: 'newmail@test.fr', name: 'titi' },
+              {
+                answerId: pollAnswer._id,
+                emailNotice: false,
+                email: 'newmail@test.fr',
+                name: 'titi',
+                meetingSlot: new Date(),
+              },
             );
           },
           Meteor.Error,
@@ -332,7 +349,8 @@ describe('polls_answers', function () {
         );
       });
       it('should modify pollAnswer', function () {
-        const poll = Factory.create('poll', { userId: ownerPollUser._id });
+        const poll = Factory.create('poll', { userId: ownerPollUser._id, type: POLLS_TYPES.MEETING });
+        const newSlot = new Date();
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
@@ -342,11 +360,18 @@ describe('polls_answers', function () {
         });
         editMeetingPollAnswer._execute(
           { userId: ownerPollUser._id },
-          { answerId: pollAnswer._id, emailNotice: false, email: 'newmail@test.fr', name: 'titi' },
+          {
+            answerId: pollAnswer._id,
+            emailNotice: false,
+            email: 'newmail@test.fr',
+            name: 'titi',
+            meetingSlot: newSlot,
+          },
         );
         const resultPollAnswer = PollsAnswers.findOne({ _id: pollAnswer._id });
         assert.equal(resultPollAnswer.name, 'titi');
         assert.equal(resultPollAnswer.email, 'newmail@test.fr');
+        assert.equal(resultPollAnswer.meetingSlot.toString(), newSlot.toString());
       });
     });
     describe('getPollanswer', function () {

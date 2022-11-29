@@ -50,7 +50,7 @@
           {/if}
         </span>
       </button>
-      <a class="button is-primary" href={ROUTES.EDIT_ANSWER_RM(answer._id)}>
+      <a class="button is-primary" href={ROUTES.EDIT_ANSWER_RM(answer.pollId, answer._id)}>
         <span class="icon">
           <i class="fas fa-pen" />
         </span>

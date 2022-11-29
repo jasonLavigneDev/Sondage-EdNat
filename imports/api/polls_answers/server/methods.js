@@ -120,7 +120,7 @@ export const cancelMeetingPollAnswer = new ValidatedMethod({
       throw new Meteor.Error('api.polls_answers.methods.cancel.notFound', 'api.errors.answerNotFound');
     }
     const poll = Polls.findOne({ _id: answer.pollId });
-    if (poll.userId !== this.userId) {
+    if (poll.userId !== this.userId || poll.type !== POLLS_TYPES.MEETING) {
       throw new Meteor.Error('api.polls_answers.methods.cancel.notAllowed', 'api.errors.notAllowed');
     }
     if (emailNotice) sendCancelEmail(poll, answer, emailContent);
@@ -138,19 +138,20 @@ export const editMeetingPollAnswer = new ValidatedMethod({
       regEx: SimpleSchema.RegEx.Email,
     },
     name: String,
+    meetingSlot: Date,
   }).validator(),
 
-  run({ answerId, emailNotice, email, name }) {
+  run({ answerId, emailNotice, email, name, meetingSlot }) {
     const answer = PollsAnswers.findOne({ _id: answerId });
     if (!answer) {
       throw new Meteor.Error('api.polls_answers.methods.edit.notFound', 'api.errors.answerNotFound');
     }
     const poll = Polls.findOne({ _id: answer.pollId });
-    if (poll.userId !== this.userId) {
+    if (poll.userId !== this.userId || poll.type !== POLLS_TYPES.MEETING) {
       throw new Meteor.Error('api.polls_answers.methods.edit.notAllowed', 'api.errors.notAllowed');
     }
-    if (emailNotice) sendEditEmail(poll, answer, email, name);
-    return PollsAnswers.update({ _id: answerId }, { $set: { email, name } });
+    if (emailNotice) sendEditEmail(poll, email, name, meetingSlot);
+    return PollsAnswers.update({ _id: answerId }, { $set: { email, name, meetingSlot } });
   },
 });
 

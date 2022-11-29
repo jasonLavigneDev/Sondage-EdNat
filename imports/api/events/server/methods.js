@@ -88,10 +88,10 @@ export function sendCancelEmail(poll, answer, content) {
   });
 }
 
-export function sendEditEmail(poll, answer, email, name) {
+export function sendEditEmail(poll, email, name, meetingSlot) {
   const template = meetingEditTemplate;
 
-  const html = template({ date: moment(answer.meetingSlot).format('LLL'), email, name });
+  const html = template({ date: moment(meetingSlot).format('LLL'), email, name });
   Email.send({
     to: email,
     from: Meteor.settings.smtp.fromEmail,

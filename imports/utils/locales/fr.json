@@ -189,7 +189,8 @@
       "answer_not_found": "Réponse non trouvée",
       "submit": "Modifier",
       "email": "Adresse email",
-      "name": "Nom"
+      "name": "Nom",
+      "slot": "Créneau horaire"
     },
     "SinglePollLine": {
       "copied": "URL copié dans le presse-papier"

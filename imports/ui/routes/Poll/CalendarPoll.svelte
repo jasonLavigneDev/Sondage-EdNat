@@ -13,6 +13,8 @@
   export let poll = {};
   export let toggleChoice = () => null;
   export let currentAnswer = '';
+  export let editMode = false;
+
   let answers;
   let options;
   let events;
@@ -28,7 +30,7 @@
   }
 
   const selectSlot = ({ event }) => {
-    if (Meteor.userId() === poll.userId) {
+    if (Meteor.userId() === poll.userId && !editMode) {
       return;
     }
     if (!$answers.find((a) => moment(a.meetingSlot).isSame(event.start))) {
