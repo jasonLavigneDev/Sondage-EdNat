@@ -17,6 +17,8 @@
   import { currentUser, loggingIn } from '/imports/utils/functions/stores';
   import PollStepsRoutes from './routes/PollEdition/PollStepsRoutes.svelte';
   import Poll from './routes/Poll/Poll.svelte';
+  import MeetingAnswerCancel from './routes/Poll/MeetingAnswerCancel.svelte';
+  import MeetingAnswerEdit from './routes/Poll/MeetingAnswerEdit.svelte';
   import Transition from './components/common/Transition.svelte';
   import Logout from './routes/Logout.svelte';
   import Maintenance from './routes/Maintenance.svelte';
@@ -61,6 +63,12 @@
           </Route>
           <Route path={ROUTES.ADMIN} let:meta>
             <Home {meta} />
+          </Route>
+          <Route path={ROUTES.CANCEL_ANSWER} let:meta>
+            <MeetingAnswerCancel {meta} />
+          </Route>
+          <Route path={ROUTES.EDIT_ANSWER} let:meta>
+            <MeetingAnswerEdit {meta} />
           </Route>
           <Route path="/" redirect={ROUTES.POLLS} />
         {/if}

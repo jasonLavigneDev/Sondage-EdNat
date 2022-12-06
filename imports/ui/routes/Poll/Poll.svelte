@@ -8,6 +8,7 @@
 
   import { ROUTES, toasts } from '/imports/utils/enums';
   import { currentUser, loggingIn, accountsConfigured } from '/imports/utils/functions/stores';
+  import isValideMail from '/imports/utils/functions/email';
   // components
   import BigLink from '/imports/ui/components/common/BigLink.svelte';
   import Divider from '/imports/ui/components/common/Divider.svelte';
@@ -126,15 +127,6 @@
       }
     });
   };
-
-  function isValideMail(mail) {
-    var regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
-    if (mail.match(regex)) {
-      return true;
-    }
-    return false;
-  }
 </script>
 
 <svelte:head>
