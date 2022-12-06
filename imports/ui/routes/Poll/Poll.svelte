@@ -16,6 +16,7 @@
   import CalendarPoll from './CalendarPoll.svelte';
   import PollDateTable from './PollDateTable.svelte';
   import { POLLS_TYPES } from '../../../utils/enums';
+  import getGroupName from '/imports/utils/functions/groups'
   import MeetingAnswersList from './MeetingAnswersList.svelte';
   import PackageJSON from '../../../../package.json';
   import Modal from '../../components/common/Modal.svelte';
@@ -187,7 +188,7 @@
                 <div class="tags">
                   {#each selectedGroups as group}
                     <span class="tag is-medium is-primary">
-                      {group.name}
+                      {getGroupName(group)}
                     </span>
                   {/each}
                 </div>
