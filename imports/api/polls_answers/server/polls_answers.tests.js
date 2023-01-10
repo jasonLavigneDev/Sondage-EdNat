@@ -6,8 +6,15 @@ import { Random } from 'meteor/random';
 import faker from 'faker';
 import { Factory } from 'meteor/dburles:factory';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
+import { POLLS_TYPES } from '../../../utils/enums';
 
-import { createPollAnswers, validateMeetingPollAnswer } from './methods';
+import {
+  createPollAnswers,
+  validateMeetingPollAnswer,
+  cancelMeetingPollAnswer,
+  editMeetingPollAnswer,
+  getPollAnswer,
+} from './methods';
 import './publications';
 import PollsAnswers from '../polls_answers';
 import Polls from '../../polls/polls';
@@ -266,6 +273,153 @@ describe('polls_answers', function () {
         validateMeetingPollAnswer._execute({ userId: ownerPollUser._id }, { answerId: pollAnswer._id });
         const resultPollAnswer = PollsAnswers.findOne({ _id: pollAnswer._id });
         assert.isTrue(resultPollAnswer.confirmed);
+      });
+    });
+    describe('cancelMeetingPollanswer', function () {
+      it('should throw error if user is not pollOwner', function () {
+        const poll = Factory.create('poll', {
+          userId: ownerPollUser._id,
+          active: true,
+          public: true,
+          type: POLLS_TYPES.MEETING,
+        });
+        const pollAnswer = Factory.create('poll_answer', {
+          userId: ownerPollUser._id,
+          email: ownerPollUser.emails[0].address,
+          confirmed: true,
+          pollId: poll._id,
+        });
+        assert.throws(
+          () => {
+            cancelMeetingPollAnswer._execute(
+              { userId: anotherUser._id },
+              { answerId: pollAnswer._id, emailNotice: false, emailContent: '' },
+            );
+          },
+          Meteor.Error,
+          /api.polls_answers.methods.cancel.notAllowed/,
+        );
+      });
+      it('should delete pollAnswer', function () {
+        const poll = Factory.create('poll', { userId: ownerPollUser._id, type: POLLS_TYPES.MEETING });
+        const pollAnswer = Factory.create('poll_answer', {
+          userId: ownerPollUser._id,
+          email: ownerPollUser.emails[0].address,
+          confirmed: true,
+          pollId: poll._id,
+        });
+        cancelMeetingPollAnswer._execute(
+          { userId: ownerPollUser._id },
+          { answerId: pollAnswer._id, emailNotice: false, emailContent: '' },
+        );
+        const resultPollAnswer = PollsAnswers.findOne({ _id: pollAnswer._id });
+        assert.equal(resultPollAnswer, null);
+      });
+    });
+    describe('editMeetingPollanswer', function () {
+      it('should throw error if user is not pollOwner', function () {
+        const poll = Factory.create('poll', {
+          userId: ownerPollUser._id,
+          active: true,
+          public: true,
+          type: POLLS_TYPES.MEETING,
+        });
+        const pollAnswer = Factory.create('poll_answer', {
+          userId: ownerPollUser._id,
+          email: ownerPollUser.emails[0].address,
+          name: 'toto',
+          confirmed: true,
+          pollId: poll._id,
+        });
+        assert.throws(
+          () => {
+            editMeetingPollAnswer._execute(
+              { userId: anotherUser._id },
+              {
+                answerId: pollAnswer._id,
+                emailNotice: false,
+                email: 'newmail@test.fr',
+                name: 'titi',
+                meetingSlot: new Date(),
+              },
+            );
+          },
+          Meteor.Error,
+          /api.polls_answers.methods.edit.notAllowed/,
+        );
+      });
+      it('should modify pollAnswer', function () {
+        const poll = Factory.create('poll', { userId: ownerPollUser._id, type: POLLS_TYPES.MEETING });
+        const newSlot = new Date();
+        const pollAnswer = Factory.create('poll_answer', {
+          userId: ownerPollUser._id,
+          email: ownerPollUser.emails[0].address,
+          name: 'toto',
+          confirmed: true,
+          pollId: poll._id,
+        });
+        editMeetingPollAnswer._execute(
+          { userId: ownerPollUser._id },
+          {
+            answerId: pollAnswer._id,
+            emailNotice: false,
+            email: 'newmail@test.fr',
+            name: 'titi',
+            meetingSlot: newSlot,
+          },
+        );
+        const resultPollAnswer = PollsAnswers.findOne({ _id: pollAnswer._id });
+        assert.equal(resultPollAnswer.name, 'titi');
+        assert.equal(resultPollAnswer.email, 'newmail@test.fr');
+        assert.equal(resultPollAnswer.meetingSlot.toString(), newSlot.toString());
+      });
+    });
+    describe('getPollanswer', function () {
+      it('should throw error if user is not pollOwner', function () {
+        const poll = Factory.create('poll', { userId: ownerPollUser._id, active: true, public: true });
+        const pollAnswer = Factory.create('poll_answer', {
+          userId: ownerPollUser._id,
+          email: ownerPollUser.emails[0].address,
+          confirmed: true,
+          pollId: poll._id,
+        });
+        assert.throws(
+          () => {
+            getPollAnswer._execute({ userId: anotherUser._id }, { answerId: pollAnswer._id });
+          },
+          Meteor.Error,
+          /api.polls_answers.methods.get.notAllowed/,
+        );
+      });
+      it('should throw error if poll answer does not exist', function () {
+        const poll = Factory.create('poll', { userId: ownerPollUser._id, active: true, public: true });
+        const pollAnswer = Factory.create('poll_answer', {
+          userId: ownerPollUser._id,
+          email: ownerPollUser.emails[0].address,
+          confirmed: true,
+          pollId: poll._id,
+        });
+        assert.throws(
+          () => {
+            getPollAnswer._execute({ userId: ownerPollUser._id }, { answerId: `xxx${pollAnswer._id}` });
+          },
+          Meteor.Error,
+          /api.polls_answers.methods.get.notFound/,
+        );
+      });
+      it('should send poll answer to poll owner', function () {
+        const poll = Factory.create('poll', { userId: ownerPollUser._id });
+        const pollAnswer = Factory.create('poll_answer', {
+          userId: ownerPollUser._id,
+          email: ownerPollUser.emails[0].address,
+          confirmed: true,
+          pollId: poll._id,
+        });
+        const result = getPollAnswer._execute({ userId: ownerPollUser._id }, { answerId: pollAnswer._id });
+        assert.equal(result._id, pollAnswer._id);
+        assert.equal(result.pollId, poll._id);
+        assert.equal(result.email, ownerPollUser.emails[0].address);
+        assert.equal(result.userId, ownerPollUser._id);
       });
     });
   });
