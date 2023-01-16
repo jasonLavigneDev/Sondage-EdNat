@@ -15,7 +15,7 @@
   import { router } from 'tinro';
   import StepBar from '../../components/common/StepBar.svelte';
   import { POLLS_TYPES } from '../../../utils/enums';
-  import getGroupName from '/imports/utils/functions/groups'
+  import getGroupName from '/imports/utils/functions/groups';
   import PackageJSON from '../../../../package.json';
   let version = PackageJSON.version;
 
@@ -41,12 +41,12 @@
       : $newPollStore.meetingSlots.length > 0;
   // check that there are no duplicates in time slots
   if (!$newPollStore.allDay) {
-    let datesOk = true
-    $newPollStore.dates.forEach(day => {
-      let uniqSlots = new Set(day.slots)
-      if (uniqSlots.size != day.slots.length) datesOk = false
-    })
-    if (datesOk) slotsOk = true
+    let datesOk = true;
+    $newPollStore.dates.forEach((day) => {
+      let uniqSlots = new Set(day.slots);
+      if (uniqSlots.size != day.slots.length) datesOk = false;
+    });
+    if (datesOk) slotsOk = true;
   }
 
   const validatePollEdition = () => {
@@ -215,7 +215,9 @@
         </div>
         <div class="column is-half-desktop is-full-mobile">
           <BigLink
-            link={meta.params._id ? ROUTES.EDIT_POLL_RM(meta.params._id, 3) : ROUTES.NEW_POLL_RM(3)}
+            link={meta.params._id
+              ? ROUTES.EDIT_POLL_RM(meta.params._id, $newPollStore.type === POLLS_TYPES.MEETING ? 2 : 3)
+              : ROUTES.NEW_POLL_RM($newPollStore.type === POLLS_TYPES.MEETING ? 2 : 3)}
             text={$_('pages.new_poll.previous')}
             color="is-secondary"
           />
