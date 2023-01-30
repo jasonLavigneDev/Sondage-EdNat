@@ -10,6 +10,10 @@ export const ROUTES = {
   EDIT_POLL_RM: (id, page = 1) => `/poll/edit/${id}/${page}`,
   ANSWER_POLL: '/answer/:_id',
   ANSWER_POLL_RM: (id) => `/poll/answer/${id}`,
+  EDIT_ANSWER: '/pollanswer/edit/:pollId/:_id',
+  EDIT_ANSWER_RM: (pollId, id) => `/pollanswer/edit/${pollId}/${id}`,
+  CANCEL_ANSWER: '/pollanswer/cancel/:_id',
+  CANCEL_ANSWER_RM: (id) => `/pollanswer/cancel/${id}`,
   POLLS: '/polls',
   LOGOUT: '/logout',
 };
@@ -49,8 +53,9 @@ export const POLLS_TYPES = {
   MEETING: 'MEETING',
 };
 
-export const DURATIONS = ['00:15', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00'];
+export const DURATIONS = ['00:10', '00:15', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00'];
 export const DURATIONS_TIME = {
+  '00:10': 10,
   '00:15': 15,
   '00:30': 30,
   '01:00': 60,

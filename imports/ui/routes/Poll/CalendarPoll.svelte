@@ -13,6 +13,8 @@
   export let poll = {};
   export let toggleChoice = () => null;
   export let currentAnswer = '';
+  export let editMode = false;
+
   let answers;
   let options;
   let events;
@@ -28,7 +30,7 @@
   }
 
   const selectSlot = ({ event }) => {
-    if (Meteor.userId() === poll.userId) {
+    if (Meteor.userId() === poll.userId && !editMode) {
       return;
     }
     if (!$answers.find((a) => moment(a.meetingSlot).isSame(event.start))) {
@@ -97,7 +99,7 @@
     locale: $locale,
     timeZone: 'local',
     // date handling
-    slotDuration: poll.duration === '00:15' ? '00:15:00' : '00:30:00',
+    slotDuration: poll.duration === '00:10' ? '00:10:00' : poll.duration === '00:15' ? '00:15:00' : '00:30:00',
     businessHours: {
       daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
       startTime: '05:00',

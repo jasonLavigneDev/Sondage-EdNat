@@ -8,6 +8,7 @@
 
   import { ROUTES, toasts } from '/imports/utils/enums';
   import { currentUser, loggingIn, accountsConfigured } from '/imports/utils/functions/stores';
+  import isValideMail from '/imports/utils/functions/email';
   // components
   import BigLink from '/imports/ui/components/common/BigLink.svelte';
   import Divider from '/imports/ui/components/common/Divider.svelte';
@@ -15,11 +16,14 @@
   import CalendarPoll from './CalendarPoll.svelte';
   import PollDateTable from './PollDateTable.svelte';
   import { POLLS_TYPES } from '../../../utils/enums';
+  import getGroupName from '/imports/utils/functions/groups'
   import MeetingAnswersList from './MeetingAnswersList.svelte';
   import PackageJSON from '../../../../package.json';
   import Modal from '../../components/common/Modal.svelte';
 
   let version = PackageJSON.version;
+
+  $: mobile = () => window.innerWidth < 600;
 
   export let meta;
   let selectedGroups;
@@ -124,15 +128,6 @@
       }
     });
   };
-
-  function isValideMail(mail) {
-    var regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
-    if (mail.match(regex)) {
-      return true;
-    }
-    return false;
-  }
 </script>
 
 <svelte:head>
@@ -193,7 +188,7 @@
                 <div class="tags">
                   {#each selectedGroups as group}
                     <span class="tag is-medium is-primary">
-                      {group.name}
+                      {getGroupName(group)}
                     </span>
                   {/each}
                 </div>
@@ -204,7 +199,7 @@
           <div class="column is-full">
             <Divider />
           </div>
-          <div class="column is-half">
+          <div class="column is-two-fifths">
             <label class="label">{$_('pages.answer.details')}</label>
             <div class="field">
               <div class="control">
@@ -225,7 +220,14 @@
               </div>
             </div>
           </div>
-          <div class="column is-half">
+          {#if window.innerWidth < 600}
+            <div class="column is-full">
+              <Divider />
+            </div>
+          {:else}
+            <div id="Vdivider" class="column is-one-fifths" />
+          {/if}
+          <div class="column is-two-fifths">
             {#if !Meteor.userId()}
               <label class="label">{$_('pages.answer.login_with_lb')}</label>
               <div class="control">
@@ -282,5 +284,11 @@
   .is-right {
     display: flex;
     justify-content: flex-end;
+  }
+  #Vdivider {
+    border-left: 1px solid var(--lightgrey);
+    margin-left: 10%;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
   }
 </style>
