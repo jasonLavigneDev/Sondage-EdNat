@@ -7,22 +7,22 @@ const sendnotif = ({ groups, title, pollId, content, internalLink }) => {
     axios.defaults.baseURL = Meteor.settings.public.laboiteHost;
     axios.defaults.headers.common['X-API-KEY'] = Meteor.settings.private.laboiteApiKey;
     axios.defaults.headers.post['Content-Type'] = 'application/json';
-    groups.forEach(async (groupId) => {
-      try {
-        const group = Groups.findOne(groupId);
-        await axios.post('/api/notifications', {
-          groupId,
-          content,
-          title,
-          link: internalLink
-            ? `${Meteor.settings.public.laboiteHost}/groups/${group.slug}/events`
-            : `${Meteor.absoluteUrl()}${ROUTES.ANSWER_POLL_RM(pollId).replace('/', '')}?autologin`,
-        });
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+    let link = `${Meteor.absoluteUrl()}${ROUTES.ANSWER_POLL_RM(pollId).replace('/', '')}?autologin`;
+    if (internalLink) {
+      const groupSlug = Groups.findOne(groups[0]).slug; // Take the first groupId to make the link
+      if (groupSlug) {
+        link = `${Meteor.settings.public.laboiteHost}/groups/${groupSlug}/events`;
       }
-    });
+    }
+    axios
+      .post('/api/notifications', {
+        groupsId: groups,
+        content,
+        title,
+        link,
+      })
+      .then(() => console.log(`Send multi groups notif ok for poll: ${pollId}`))
+      .catch((err) => console.log(err));
   } else {
     console.log('Warning: API key is missing in settings (can not send notifications)');
   }
