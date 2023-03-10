@@ -8,11 +8,15 @@ import Polls from '../polls';
 import Groups from '../../groups/groups';
 import PollsAnswers from '../../polls_answers/polls_answers';
 import { sendEmail, createEventAgenda } from '../../events/server/methods';
+import { validatePoll } from '../methods';
 
 export const getSinglePoll = new ValidatedMethod({
   name: 'polls.getSinglePoll',
   validate: new SimpleSchema({
-    pollId: String,
+    pollId: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+    },
   }).validator({ clean: true }),
 
   run({ pollId }) {
@@ -23,7 +27,10 @@ export const getSinglePoll = new ValidatedMethod({
 export const getSinglePollToAnswer = new ValidatedMethod({
   name: 'polls.getSinglePollToAnswer',
   validate: new SimpleSchema({
-    pollId: String,
+    pollId: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+    },
   }).validator({ clean: true }),
 
   run({ pollId }) {
@@ -58,7 +65,10 @@ export const updatePoll = new ValidatedMethod({
   name: 'polls.update',
   validate: new SimpleSchema({
     data: Polls.schema.omit('createdAt', 'updatedAt'),
-    pollId: String,
+    pollId: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+    },
   }).validator({ clean: true }),
 
   run({ data, pollId }) {
@@ -73,7 +83,7 @@ export const updatePoll = new ValidatedMethod({
     } else if (poll.active || poll.completed) {
       throw new Meteor.Error('api.polls.methods.update.active', 'api.errors.notAllowed');
     }
-
+    validatePoll(data);
     return Polls.update({ _id: pollId }, { $set: { ...data } });
   },
 });
@@ -81,7 +91,10 @@ export const updatePoll = new ValidatedMethod({
 export const validatePollAnswer = new ValidatedMethod({
   name: 'polls.validate',
   validate: new SimpleSchema({
-    pollId: String,
+    pollId: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+    },
     date: Date,
   }).validator({ clean: true }),
 

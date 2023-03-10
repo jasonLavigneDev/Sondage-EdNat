@@ -25,6 +25,11 @@
     },
     "tags": {
       "titleValidation": "Choose a slot then validate your choice"
+    },
+    "utils": {
+      "scriptDetected": "Forbidden content has been detected",
+      "badCharsDetected": "Following characters are Forbidden: < > & ' \"",
+      "stringTooLong": "String is too long (max 50k)"
     }
   },
   "links": {

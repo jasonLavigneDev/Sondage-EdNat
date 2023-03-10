@@ -15,6 +15,7 @@ import {
   meetingEditTemplate,
 } from './email_template';
 import { EventsAgenda } from '../events';
+import validateString from '../../../utils/functions/strings';
 
 export const sendEmail = new ValidatedMethod({
   name: 'events.sendEmail',
@@ -25,6 +26,9 @@ export const sendEmail = new ValidatedMethod({
 
   run({ poll, answer }) {
     const cal = ical({ domain: process.env.ROOT_URL, name: 'sondage iCal' });
+    validateString(poll.title);
+    validateString(poll.description);
+    validateString(answer.email);
     cal.createEvent({
       start: moment(answer.meetingSlot),
       end: moment(answer.meetingSlot).add(DURATIONS_TIME[poll.duration], 'minute'),
@@ -109,6 +113,9 @@ export const createEventAgendaMeeting = new ValidatedMethod({
   }).validator({ clean: true }),
 
   run({ poll, answer }) {
+    validateString(poll.title);
+    validateString(poll.description);
+    validateString(answer.email);
     const participantUser = Accounts.findUserByEmail(answer.email);
     EventsAgenda.insert({
       title: poll.title,
@@ -139,6 +146,8 @@ export const createEventAgenda = new ValidatedMethod({
   }).validator({ clean: true }),
 
   run({ poll, date }) {
+    validateString(poll.title);
+    validateString(poll.description);
     let answers = [];
     if (poll.public) {
       answers = PollsAnswers.find({ userId: null, pollId: poll._id }).fetch();
