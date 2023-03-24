@@ -46,7 +46,6 @@
     "svelte-fullcalendar": "^1.1.2",
     "svelte-i18n": "^3.6.0",
     "svelte-time-picker": "^1.0.8",
-    "sveltejs-tippy": "^3.0.0",
     "tinro": "^0.6.12"
   },
   "meteor": {
