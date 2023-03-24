@@ -73,8 +73,7 @@
               messages = error.details.map((err) => err.message);
               toast.push(messages.join('<br/>'), toasts.error);
             } else {
-              console.log(error);
-              toast.push($_(error.message || error.reason || 'pages.new_poll_4.creationError'), toasts.error);
+              toast.push($_(error.reason || error.message || 'pages.new_poll_4.creationError'), toasts.error);
             }
           } else {
             toast.push($_(meta.params._id ? 'pages.new_poll_4.poll_modified' : 'pages.new_poll_4.poll_created'));
