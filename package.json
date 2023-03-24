@@ -25,11 +25,12 @@
     "css": true
   },
   "dependencies": {
-    "@babel/runtime": "^7.20.13",
-    "@fullcalendar/core": "^5.11.3",
-    "@fullcalendar/interaction": "^5.11.3",
-    "@fullcalendar/list": "^5.11.3",
-    "@fullcalendar/timegrid": "^5.11.3",
+    "@babel/runtime": "^7.21.0",
+    "@fullcalendar/core": "^5.11.0",
+    "@fullcalendar/daygrid": "^5.11.0",
+    "@fullcalendar/interaction": "^5.11.0",
+    "@fullcalendar/list": "^5.11.0",
+    "@fullcalendar/timegrid": "^5.11.0",
     "@zerodevx/svelte-toast": "^0.1.4",
     "axios": "^0.21.4",
     "bcrypt": "^5.1.0",
@@ -41,9 +42,9 @@
     "meteor-node-stubs": "^1.2.5",
     "moment": "^2.29.4",
     "simpl-schema": "^1.13.1",
-    "svelte": "^3.55.1",
+    "svelte": "^3.56.0",
     "svelte-fullcalendar": "^1.1.2",
-    "svelte-i18n": "^3.4.0",
+    "svelte-i18n": "^3.6.0",
     "svelte-time-picker": "^1.0.8",
     "sveltejs-tippy": "^3.0.0",
     "tinro": "^0.6.12"
@@ -74,11 +75,11 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-promise": "^4.3.1",
-    "eslint-plugin-react": "^7.32.1",
+    "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-standard": "^4.1.0",
     "node-sass": "^7.0.3",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.3"
+    "prettier": "^2.8.4"
   }
 }
