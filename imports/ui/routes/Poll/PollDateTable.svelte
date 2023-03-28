@@ -1,15 +1,14 @@
 <script>
-  import { Meteor } from "meteor/meteor";
-  import DateDisplay from "../../components/common/DateDisplay.svelte";
-  import Checkbox from "../../components/common/Checkbox.svelte";
-  import Modal from "../../components/common/Modal.svelte";
-  import { useTracker } from "meteor/rdb:svelte-meteor-data";
-  import { toast } from "@zerodevx/svelte-toast";
-  import { _ } from "svelte-i18n";
-  import tippy from "sveltejs-tippy";
-  import PollsAnswers from "../../../api/polls_answers/polls_answers";
-  import moment from "moment";
-  import { toasts } from "../../../utils/enums";
+  import { Meteor } from 'meteor/meteor';
+  import DateDisplay from '../../components/common/DateDisplay.svelte';
+  import Checkbox from '../../components/common/Checkbox.svelte';
+  import Modal from '../../components/common/Modal.svelte';
+  import { useTracker } from 'meteor/rdb:svelte-meteor-data';
+  import { toast } from '@zerodevx/svelte-toast';
+  import { _ } from 'svelte-i18n';
+  import PollsAnswers from '../../../api/polls_answers/polls_answers';
+  import moment from 'moment';
+  import { toasts } from '../../../utils/enums';
 
   export let answer = {};
   export let poll = {};
@@ -20,16 +19,16 @@
   let chosenDateModal;
   let answers;
   $: answers = useTracker(() => {
-    Meteor.subscribe("polls_answers.onePoll", { pollId: poll._id });
+    Meteor.subscribe('polls_answers.onePoll', { pollId: poll._id });
     return PollsAnswers.find({ pollId: poll._id }).fetch();
   });
   const toggleModal = (date) => {
     confirmDateModal = !confirmDateModal;
     chosenDateModal = date;
-  }
+  };
   const confirmDate = (date) => {
     loading = true;
-    Meteor.call("polls.validate", { pollId: poll._id, date }, (e, r) => {
+    Meteor.call('polls.validate', { pollId: poll._id, date }, (e, r) => {
       loading = false;
       grabData();
       if (e) {
@@ -65,51 +64,13 @@
         <tr>
           <th />
           <!-- {#each poll.dates as day} -->
-            {#if !poll.allDay}
-              {#each poll.dates as day}
-                {#each day.slots as time}
-                  <th>
-                    {#if !poll.completed || moment(day.date)
-                        .hour(time.split(":")[0])
-                        .minute(time.split(":")[1])
-                        .isSame(poll.choosenDate)}
-                      <button
-                        disabled={poll.completed}
-                        class="button is-fullwidth"
-                        class:is-loading={loading}
-                        class:is-primary={!poll.completed}
-                        class:is-success={moment(day.date)
-                          .hour(time.split(":")[0])
-                          .minute(time.split(":")[1])
-                          .isSame(poll.choosenDate)}
-                          use:tippy={{
-                            content: $_("pages.answer.confirm_date_tooltip"),
-                            placement: "bottom",
-                          }}
-                        on:click={() =>
-                          poll.completed
-                            ? null
-                            : toggleModal(
-                                moment(day.date)
-                                  .hour(time.split(":")[0])
-                                  .minute(time.split(":")[1])
-                                  .format()
-                              )}
-                      >
-                        {#if !poll.completed}
-                          {$_("pages.answer.confirm_date")}
-                        {:else}
-                          {$_("pages.answer.choosen_date")}
-                        {/if}
-                      </button>
-                    {/if}
-                  </th>
-                {/each}
-              {/each}
-          {:else}
-              {#each poll.dates as day}
+          {#if !poll.allDay}
+            {#each poll.dates as day}
+              {#each day.slots as time}
                 <th>
                   {#if !poll.completed || moment(day.date)
+                      .hour(time.split(':')[0])
+                      .minute(time.split(':')[1])
                       .isSame(poll.choosenDate)}
                     <button
                       disabled={poll.completed}
@@ -117,29 +78,48 @@
                       class:is-loading={loading}
                       class:is-primary={!poll.completed}
                       class:is-success={moment(day.date)
+                        .hour(time.split(':')[0])
+                        .minute(time.split(':')[1])
                         .isSame(poll.choosenDate)}
-                      use:tippy={{
-                        content: $_("pages.answer.confirm_date_tooltip"),
-                        placement: "bottom",
-                      }}
+                      title={$_('pages.answer.confirm_date_tooltip')}
                       on:click={() =>
                         poll.completed
                           ? null
-                          : toggleModal(
-                              moment(day.date)
-                                .format()
-                            )}
+                          : toggleModal(moment(day.date).hour(time.split(':')[0]).minute(time.split(':')[1]).format())}
                     >
                       {#if !poll.completed}
-                        {$_("pages.answer.confirm_date")}
+                        {$_('pages.answer.confirm_date')}
                       {:else}
-                        {$_("pages.answer.choosen_date")}
+                        {$_('pages.answer.choosen_date')}
                       {/if}
                     </button>
                   {/if}
                 </th>
               {/each}
-            {/if}
+            {/each}
+          {:else}
+            {#each poll.dates as day}
+              <th>
+                {#if !poll.completed || moment(day.date).isSame(poll.choosenDate)}
+                  <button
+                    disabled={poll.completed}
+                    class="button is-fullwidth"
+                    class:is-loading={loading}
+                    class:is-primary={!poll.completed}
+                    class:is-success={moment(day.date).isSame(poll.choosenDate)}
+                    title={$_('pages.answer.confirm_date_tooltip')}
+                    on:click={() => (poll.completed ? null : toggleModal(moment(day.date).format()))}
+                  >
+                    {#if !poll.completed}
+                      {$_('pages.answer.confirm_date')}
+                    {:else}
+                      {$_('pages.answer.choosen_date')}
+                    {/if}
+                  </button>
+                {/if}
+              </th>
+            {/each}
+          {/if}
           <!-- {/each} -->
         </tr>
       </tfoot>
@@ -150,7 +130,7 @@
         <td>
           <b>
             {answer._id ? [...$answers, answer].length : $answers.length}
-            {$_("pages.answer.participants")}
+            {$_('pages.answer.participants')}
           </b>
         </td>
         {#each poll.dates as day, index}
@@ -174,7 +154,7 @@
 
       <tr class="is-selected">
         <td>
-          {answer.name ? answer.name : $_("pages.answer.name")}
+          {answer.name ? answer.name : $_('pages.answer.name')}
         </td>
         {#each poll.dates as day, index}
           {#if !poll.allDay && day.slots}
@@ -207,13 +187,7 @@
             {#if !poll.allDay && day.slots}
               {#each day.slots as slo, i}
                 <td>
-                  <Checkbox
-                    center
-                    disabled
-                    checked={single_answer.choices[index].slots.find(
-                      (s) => s === slo
-                    )}
-                  />
+                  <Checkbox center disabled checked={single_answer.choices[index].slots.find((s) => s === slo)} />
                 </td>
               {/each}
             {:else}
@@ -221,8 +195,7 @@
                 <Checkbox
                   center
                   disabled
-                  checked={single_answer.choices[index] &&
-                    single_answer.choices[index].present}
+                  checked={single_answer.choices[index] && single_answer.choices[index].present}
                 />
               </td>
             {/if}
@@ -237,16 +210,16 @@
   toggle={toggleModal}
   active={confirmDateModal}
   action={() => confirmDate(chosenDateModal)}
-  title={$_("pages.answer.modal_title")}
-  validButton={$_("pages.answer.modal_valid")}
+  title={$_('pages.answer.modal_title')}
+  validButton={$_('pages.answer.modal_valid')}
   validClass="is-success"
-  cancelButton={$_("pages.answer.modal_cancel")}
+  cancelButton={$_('pages.answer.modal_cancel')}
   cancelClass="is-white"
 >
-  <p>{$_("pages.answer.modal_text")}</p>
-    {#if poll.allDay}
+  <p>{$_('pages.answer.modal_text')}</p>
+  {#if poll.allDay}
     <DateDisplay date={chosenDateModal} duration={poll.duration} />
-    {:else}
+  {:else}
     <DateDisplay date={chosenDateModal} slot={moment(chosenDateModal).format('LT')} duration={poll.duration} />
-    {/if}
+  {/if}
 </Modal>
