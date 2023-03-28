@@ -109,18 +109,15 @@ export const validatePollAnswer = new ValidatedMethod({
     if (poll.public) {
       const answers = PollsAnswers.find({ userId: null, pollId }).fetch();
       answers.forEach((answer) =>
-        sendEmail.call({
-          poll,
-          answer: {
-            ...answer,
-            meetingSlot: date,
-          },
+        sendEmail(poll, {
+          ...answer,
+          meetingSlot: date,
         }),
       );
     }
 
     if (poll.groups.length) {
-      createEventAgenda._execute({ userId: this.userId }, { poll, date });
+      createEventAgenda(poll, date, this.userId);
       if (!Meteor.isTest) {
         // eslint-disable-next-line global-require
         const sendnotif = require('../../notifications/server/notifSender').default;

@@ -107,8 +107,8 @@ export const validateMeetingPollAnswer = new ValidatedMethod({
       throw new Meteor.Error('api.polls_answers.methods.validate.notAllowed', 'api.errors.notAllowed');
     }
 
-    sendEmail.call({ poll, answer });
-    createEventAgendaMeeting._execute({ userId: this.userId }, { poll, answer });
+    sendEmail(poll, answer);
+    createEventAgendaMeeting(poll, answer, this.userId);
 
     return PollsAnswers.update({ _id: answerId }, { $set: { confirmed: true } });
   },
