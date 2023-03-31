@@ -1,12 +1,11 @@
 <script>
-  import { _ } from "svelte-i18n";
-  import tippy from "sveltejs-tippy";
-  import { toggleActivePoll, removePolls } from "../../../api/polls/methods";
-  import { useTracker } from "meteor/rdb:svelte-meteor-data";
-  import { ROUTES, POLLS_TYPES, toasts } from "../../../utils/enums";
-  import copy from "copy-to-clipboard";
-  import { toast } from "@zerodevx/svelte-toast";
-  import Modal from "../../components/common/Modal.svelte";
+  import { _ } from 'svelte-i18n';
+  import { toggleActivePoll, removePolls } from '../../../api/polls/methods';
+  import { useTracker } from 'meteor/rdb:svelte-meteor-data';
+  import { ROUTES, POLLS_TYPES, toasts } from '../../../utils/enums';
+  import copy from 'copy-to-clipboard';
+  import { toast } from '@zerodevx/svelte-toast';
+  import Modal from '../../components/common/Modal.svelte';
 
   export let poll;
   let votes;
@@ -14,14 +13,14 @@
 
   const tooltip = (content) => ({
     content,
-    placement: "bottom",
+    placement: 'bottom',
   });
   const togglePoll = () => {
     toggleActivePoll.call({ pollId: poll._id });
   };
   const toggleModal = () => (removePollModal = !removePollModal);
   $: votes = useTracker(() => {
-    Meteor.subscribe("polls_answers.getCount", { pollId: poll._id });
+    Meteor.subscribe('polls_answers.getCount', { pollId: poll._id });
     return Counts.get(`polls_answers.get-${poll._id}`);
   });
   const removePoll = () => {
@@ -33,11 +32,9 @@
     });
   };
   const copyToClipboard = () => {
-    const url = `${Meteor.absoluteUrl()}${ROUTES.ANSWER_POLL_RM(
-      poll._id
-    ).replace("/", "")}`;
+    const url = `${Meteor.absoluteUrl()}${ROUTES.ANSWER_POLL_RM(poll._id).replace('/', '')}`;
     copy(url);
-    toast.push($_("components.SinglePollLine.copied"));
+    toast.push($_('components.SinglePollLine.copied'));
   };
 </script>
 
@@ -49,7 +46,7 @@
           class="button is-small is-primary"
           value={poll._id}
           on:click={togglePoll}
-          use:tippy={tooltip($_("pages.home.deactivate_tooltip"))}
+          title={$_('pages.home.deactivate_tooltip')}
         >
           <i class="fas fa-eye" />
         </button>
@@ -63,37 +60,29 @@
           disabled={poll.completed}
           value={poll._id}
           on:click={togglePoll}
-          use:tippy={tooltip($_("pages.home.activate_tooltip"))}
+          title={$_('pages.home.activate_tooltip')}
         >
           <i class="fas fa-eye-slash" />
         </button>
       {/if}
 
-      <a
-        href={!poll.active && $votes === 0
-          ? ROUTES.EDIT_POLL_RM(poll._id)
-          : ROUTES.ADMIN}
-      >
+      <a href={!poll.active && $votes === 0 ? ROUTES.EDIT_POLL_RM(poll._id) : ROUTES.ADMIN}>
         <button
           class="button is-small is-light"
           disabled={poll.active || $votes !== 0}
-          use:tippy={tooltip($_("pages.home.edit_tooltip"))}
+          title={$_('pages.home.edit_tooltip')}
         >
           <i class="fas fa-pen" />
         </button>
       </a>
 
-      <button
-        class="button is-small is-info"
-        use:tippy={tooltip($_("pages.home.link_tooltip"))}
-        on:click={copyToClipboard}
-      >
+      <button class="button is-small is-info" title={$_('pages.home.link_tooltip')} on:click={copyToClipboard}>
         <i class="far fa-copy" />
       </button>
       <a
         href={ROUTES.ANSWER_POLL_RM(poll._id)}
         class="button is-small is-primary"
-        use:tippy={tooltip($_("pages.home.open_tooltip"))}
+        title={$_('pages.home.open_tooltip')}
       >
         <i class="fas fa-external-link-alt" />
       </a>
@@ -101,7 +90,7 @@
         class="button is-small is-danger"
         on:click={toggleModal}
         disabled={poll.active}
-        use:tippy={tooltip($_("pages.home.delete_tooltip"))}
+        title={$_('pages.home.delete_tooltip')}
       >
         <i class="fas fa-trash" />
       </button>
@@ -136,12 +125,12 @@
   toggle={toggleModal}
   active={removePollModal}
   action={removePoll}
-  title={$_("pages.home.remove_title")}
-  validButton={$_("pages.home.remove_valid")}
+  title={$_('pages.home.remove_title')}
+  validButton={$_('pages.home.remove_valid')}
   validClass="is-danger"
-  cancelButton={$_("pages.home.remove_cancel")}
+  cancelButton={$_('pages.home.remove_cancel')}
   cancelClass="is-white"
 >
-  <p>{$_("pages.home.remove_text")}</p>
+  <p>{$_('pages.home.remove_text')}</p>
   <p><b>{poll.title}</b></p>
 </Modal>

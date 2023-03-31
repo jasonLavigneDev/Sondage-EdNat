@@ -1,7 +1,6 @@
 <script>
   import { _ } from 'svelte-i18n';
   import moment from 'moment';
-  import tippy from 'sveltejs-tippy';
   import { toast } from '@zerodevx/svelte-toast';
   import { toasts, ROUTES } from '../../../utils/enums';
 
@@ -33,11 +32,9 @@
         class:is-success={answer.confirmed}
         class:is-primary={!answer.confirmed}
         on:click={validateMeeting}
-        use:tippy={tooltip(
-          answer.confirmed
-            ? $_('components.SinglePollAnswerLine.validated_tooltip')
-            : $_('components.SinglePollAnswerLine.validate_tooltip'),
-        )}
+        title={answer.confirmed
+          ? $_('components.SinglePollAnswerLine.validated_tooltip')
+          : $_('components.SinglePollAnswerLine.validate_tooltip')}
       >
         <span class="icon">
           <i class="fas" class:fa-calendar-check={answer.confirmed} class:fa-paper-plane={!answer.confirmed} />

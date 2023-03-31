@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.6.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.5.0...release/1.6.0) (2023-01-30)
+
+
+### Features
+
+* **groups:** display structure groups correctly ([4cdce24](https://gitlab.mim-libre.fr/alphabet/sondage/commit/4cdce244b93153121bd69cd0c19611c2070e6e3f))
+* **meetings:** add meeting answer cancel and edit page ([62ba40b](https://gitlab.mim-libre.fr/alphabet/sondage/commit/62ba40b5926b72470d3ceb4a20c69744c5561c2c))
+* **meetings:** allow poll owner to edit meeting slot for an answer ([cab6c99](https://gitlab.mim-libre.fr/alphabet/sondage/commit/cab6c99af32ccb1b62b61e6cc2d1b13e092bf84a))
+* **meetings:** check user input on meeting answer edit ([20281e8](https://gitlab.mim-libre.fr/alphabet/sondage/commit/20281e828bccb41398e3baa5de5c52ee7020c489))
+* **meteor:** update meteor to 2.8.1 ([f1b5cca](https://gitlab.mim-libre.fr/alphabet/sondage/commit/f1b5ccae41c392cfbfe39036ea25e4d57bd86d04))
+* **packages:** update meteor to 2.8.0 and others packages ([3771692](https://gitlab.mim-libre.fr/alphabet/sondage/commit/3771692c4576357b1f6686c262e457c39dea99f3))
+* **poll creation:** don't allow duplicate time slots ([dd841b1](https://gitlab.mim-libre.fr/alphabet/sondage/commit/dd841b143a48158edf3d98a871397c1556d02ff3))
+* **poll:** add divider in poll answer ([df5de28](https://gitlab.mim-libre.fr/alphabet/sondage/commit/df5de28b808973390a06f4caeac8624e0680b21e))
+* **polls:** add ten minutes step ([d6e1e50](https://gitlab.mim-libre.fr/alphabet/sondage/commit/d6e1e5017f0582fae0ca7bc957de4b35a3495597))
+
+
+### Bug Fixes
+
+* **edition:** don't add erroneous values at group selection ([d445769](https://gitlab.mim-libre.fr/alphabet/sondage/commit/d445769dbb96321c778f048fd8fac9b1755730c5))
+* **navigation:** add condition on previous button in step 4 ([08907f0](https://gitlab.mim-libre.fr/alphabet/sondage/commit/08907f0f2926e4551e4dd6f7c6ab9dceeaeb7c0e))
+
+
+### Tests
+
+* **meeting:** add tests for poll_answers edit, cancel, get ([16b95c5](https://gitlab.mim-libre.fr/alphabet/sondage/commit/16b95c5f8f709a040b40fb9b55978e258f20ad3c))
+
 ## [1.5.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.4.0...release/1.5.0) (2022-11-22)
 
 

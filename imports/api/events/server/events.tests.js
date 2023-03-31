@@ -44,7 +44,7 @@ describe('events', function () {
 
   describe('createEventAgendaMeeting', function () {
     it('should create an event meeting into agenda with a connected user', function () {
-      createEventAgendaMeeting._execute({ userId: ownerPollUser._id }, { poll, answer: pollAnswer });
+      createEventAgendaMeeting(poll, pollAnswer, ownerPollUser._id);
       const resultEvent = EventsAgenda.findOne({ title: poll.title });
       assert.typeOf(resultEvent, 'object');
       assert.typeOf(resultEvent.start, 'date');
@@ -55,7 +55,7 @@ describe('events', function () {
     });
     it('should create an event meeting into agenda with a guest user', function () {
       const anotherPollAnswer = Factory.create('poll_answer', { email: 'toto@test.com' });
-      createEventAgendaMeeting._execute({ userId: ownerPollUser._id }, { poll, answer: anotherPollAnswer });
+      createEventAgendaMeeting(poll, anotherPollAnswer, ownerPollUser._id);
       const resultEvent = EventsAgenda.findOne({ title: poll.title });
       assert.typeOf(resultEvent, 'object');
       assert.typeOf(resultEvent.start, 'date');
@@ -84,7 +84,7 @@ describe('events', function () {
       });
       Factory.create('poll_answer', { userId: null, pollId: pollGroup._id, email: 'toto@test.com' });
       const date = new Date(Date.now() + 1000 * 60 * 60 * 24);
-      createEventAgenda._execute({ userId: ownerPollUser._id }, { poll: pollGroup, date });
+      createEventAgenda(pollGroup, date, ownerPollUser._id);
       const resultEvent = EventsAgenda.findOne({ title: pollGroup.title });
       assert.typeOf(resultEvent, 'object');
       assert.typeOf(resultEvent.start, 'date');
