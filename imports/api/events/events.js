@@ -106,6 +106,22 @@ EventsAgenda.schema = new SimpleSchema(
       type: String,
       optional: false,
     },
+    createdAt: {
+      type: Date,
+      optional: true,
+      autoValue() {
+        if (this.isInsert) {
+          return new Date();
+        }
+        return this.value;
+      },
+    },
+    updatedAt: {
+      type: Date,
+      autoValue() {
+        return new Date();
+      },
+    },
   },
   { tracker: Tracker },
 );
