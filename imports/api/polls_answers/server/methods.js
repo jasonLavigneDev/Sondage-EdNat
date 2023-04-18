@@ -14,6 +14,7 @@ import {
   sendEditEmail,
   sendEmailToCreator,
 } from '../../events/server/methods';
+import validateString from '../../../utils/functions/strings';
 
 export const createPollAnswers = new ValidatedMethod({
   name: 'polls_answers.create',
@@ -38,6 +39,13 @@ export const createPollAnswers = new ValidatedMethod({
       );
     } else if (poll.completed) {
       throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'api.errors.notAllowed');
+    }
+    validateString(data.email);
+    validateString(data.name);
+    if (data.choices) {
+      data.choices.forEach((choice) => {
+        if (choice.slots) choice.slots.forEach((slot) => validateString(slot));
+      });
     }
     if (!poll.public && this.userId) {
       const isInAGroup = Groups.findOne(
@@ -99,8 +107,8 @@ export const validateMeetingPollAnswer = new ValidatedMethod({
       throw new Meteor.Error('api.polls_answers.methods.validate.notAllowed', 'api.errors.notAllowed');
     }
 
-    sendEmail.call({ poll, answer });
-    createEventAgendaMeeting._execute({ userId: this.userId }, { poll, answer });
+    sendEmail(poll, answer);
+    createEventAgendaMeeting(poll, answer, this.userId);
 
     return PollsAnswers.update({ _id: answerId }, { $set: { confirmed: true } });
   },
@@ -150,6 +158,8 @@ export const editMeetingPollAnswer = new ValidatedMethod({
     if (poll.userId !== this.userId || poll.type !== POLLS_TYPES.MEETING) {
       throw new Meteor.Error('api.polls_answers.methods.edit.notAllowed', 'api.errors.notAllowed');
     }
+    validateString(email);
+    validateString(name);
     if (emailNotice) sendEditEmail(poll, email, name, meetingSlot);
     return PollsAnswers.update({ _id: answerId }, { $set: { email, name, meetingSlot } });
   },

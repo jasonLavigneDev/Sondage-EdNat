@@ -4,6 +4,18 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
 import Polls from './polls';
 import PollsAnswers from '../polls_answers/polls_answers';
+import validateString from '../../utils/functions/strings';
+
+export const validatePoll = (data) => {
+  validateString(data.title);
+  if (data.description) validateString(data.description);
+  if (data.duration) validateString(data.duration);
+  if (data.dates) {
+    data.dates.forEach((date) => {
+      if (date.slots) date.slots.forEach((slot) => validateString(slot));
+    });
+  }
+};
 
 export const createPoll = new ValidatedMethod({
   name: 'polls.create',
@@ -16,13 +28,17 @@ export const createPoll = new ValidatedMethod({
     if (!this.userId) {
       throw new Meteor.Error('api.polls.methods.create.notLoggedIn', 'api.errors.notLoggedIn');
     }
+    validatePoll(data);
     return Polls.insert({ ...data, userId: this.userId });
   },
 });
 export const removePolls = new ValidatedMethod({
   name: 'polls.remove',
   validate: new SimpleSchema({
-    pollId: String,
+    pollId: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+    },
   }).validator({ clean: true }),
 
   run({ pollId }) {
@@ -44,7 +60,10 @@ export const removePolls = new ValidatedMethod({
 export const toggleActivePoll = new ValidatedMethod({
   name: 'polls.toggleActivePoll',
   validate: new SimpleSchema({
-    pollId: String,
+    pollId: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+    },
   }).validator({ clean: true }),
 
   run({ pollId }) {

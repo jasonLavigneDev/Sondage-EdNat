@@ -16,7 +16,7 @@
   import CalendarPoll from './CalendarPoll.svelte';
   import PollDateTable from './PollDateTable.svelte';
   import { POLLS_TYPES } from '../../../utils/enums';
-  import getGroupName from '/imports/utils/functions/groups'
+  import getGroupName from '/imports/utils/functions/groups';
   import MeetingAnswersList from './MeetingAnswersList.svelte';
   import PackageJSON from '../../../../package.json';
   import Modal from '../../components/common/Modal.svelte';
@@ -140,7 +140,7 @@
       {#if poll.title}
         {poll.title}
         {#if !poll.active}
-          <span class="icon is-small">
+          <span title={$_('api.errors.pollNotActive')}>
             <i class="fas fa-lock" />
           </span>
         {/if}
