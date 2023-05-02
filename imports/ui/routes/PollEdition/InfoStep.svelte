@@ -19,7 +19,7 @@
   import StepBar from '../../components/common/StepBar.svelte';
   import Radios from '../../components/common/Radios.svelte';
   import { POLLS_TYPES } from '/imports/utils/enums';
-  import getGroupName from '/imports/utils/functions/groups';
+  import getGroupName from '/imports/utils/functions/groups'
   import PackageJSON from '../../../../package.json';
   let version = PackageJSON.version;
 
@@ -62,17 +62,9 @@
   );
 
   const handleSelect = (event) => {
-    if (event.target.value !== 'null' && !$newPollStore.groups.includes(event.target.value)) {
+    if (event.target.value !== "null" && !$newPollStore.groups.includes(event.target.value)) {
       $newPollStore.groups = [...$newPollStore.groups, event.target.value];
     }
-  };
-
-  const handleTitleChange = (event) => {
-    $newPollStore.title = event.target.value;
-  };
-
-  const handleDescriptionChange = (event) => {
-    $newPollStore.description = event.target.value;
   };
 
   const handleRemoveGroup = (groupId) => {
@@ -114,8 +106,7 @@
                 type="text"
                 autofocus
                 maxlength="32"
-                value={$newPollStore.title}
-                on:blur={handleTitleChange}
+                bind:value={$newPollStore.title}
                 placeholder={$_('pages.new_poll_1.title_input')}
               />
             </div>
@@ -127,8 +118,7 @@
                 class="textarea"
                 maxlength="256"
                 rows="5"
-                value={$newPollStore.description}
-                on:blur={handleDescriptionChange}
+                bind:value={$newPollStore.description}
                 placeholder={$_('pages.new_poll_1.description_input')}
               />
             </div>
