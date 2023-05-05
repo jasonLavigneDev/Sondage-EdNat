@@ -2,7 +2,6 @@
   "public": {
     "appName": "Sondage",
     "appDescription": "Application de sondage et prise de rendez vous",
-    "enableKeycloak": false,
     "keycloakUrl": "",
     "keycloakRealm": "",
     "services": {

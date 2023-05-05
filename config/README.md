@@ -4,16 +4,15 @@ Copy `settings-development.json.sample` to `settings-development.json` and updat
 
 ## public:
 
-| Key                 | Type    | Default value           | Description                                                   |
-| :------------------ | ------- | ----------------------- | ------------------------------------------------------------- |
-| appName             | string  | "Sondage"               | Application Name                                              |
-| appDescription      | string  | ""                      | Application description, it will be displayed under the title |
-| enableKeycloak      | boolean | false                   | If true, keycloak is enabled                                  |
-| keycloakUrl         | string  | ""                      | Keycloak URL                                                  |
-| keycloakRealm       | string  | ""                      | Keycloak Realm                                                |
-| services            | object  | {}                      | Contains services url                                         |
-| services.sondageUrl | string  | "http://localhost:3010" | The url is necessary for filling in the confirmation emails   |
-| laboiteHost         | string  | "http://localhost:3000" | La Boite app url                                              |
+| Key                 | Type   | Default value           | Description                                                   |
+| :------------------ | ------ | ----------------------- | ------------------------------------------------------------- |
+| appName             | string | "Sondage"               | Application Name                                              |
+| appDescription      | string | ""                      | Application description, it will be displayed under the title |
+| keycloakUrl         | string | ""                      | Keycloak URL                                                  |
+| keycloakRealm       | string | ""                      | Keycloak Realm                                                |
+| services            | object | {}                      | Contains services url                                         |
+| services.sondageUrl | string | "http://localhost:3010" | The url is necessary for filling in the confirmation emails   |
+| laboiteHost         | string | "http://localhost:3000" | La Boite app url                                              |
 
 ## keycloak:
 
