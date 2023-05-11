@@ -176,6 +176,10 @@
     },
     "maintenance": {
       "title": "Le site est en cours de maintenance"
+    },
+    "end": {
+      "title": "Choix terminé",
+      "content": "Vous pouvez reprendre une activité normale."
     }
   },
   "components": {

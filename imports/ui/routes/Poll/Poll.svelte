@@ -39,12 +39,6 @@
   };
   let showModal = false;
   const toggleShowModal = () => (showModal = !showModal);
-  const toggleRedirectModal = () => {
-    toggleShowModal();
-    if (answer.userId) {
-      router.goto(ROUTES.POLLS);
-    }
-  };
 
   const grabData = () => {
     if (meta.params._id) {
@@ -118,13 +112,23 @@
 
   const sendAnswer = () => {
     loading = true;
+    if (poll.type === POLLS_TYPES.MEETING){
+      toggleShowModal();
+    }
     Meteor.call('polls_answers.create', { data: answer }, (error, result) => {
       loading = false;
       if (error) {
         toast.push($_(error.reason), toasts.error);
       } else {
-        poll.type === POLLS_TYPES.MEETING ? toggleShowModal() : null;
-        toast.push($_('pages.answer.poll_answered'));
+        if (poll.type === POLLS_TYPES.MEETING){
+          if (answer.userId) {
+            router.goto(ROUTES.POLLS);
+          }else{
+            router.goto(ROUTES.END);
+          }
+        }else{
+          toast.push($_('pages.answer.poll_answered'));
+        }
       }
     });
   };
@@ -250,7 +254,7 @@
             {:else if !poll.completed}
               <BigLink
                 disabled={!isValideMail(answer.email) || !answer.name || loading}
-                action={sendAnswer}
+                action={toggleShowModal}
                 text={$_('pages.new_poll.validate')}
               />
             {:else}
@@ -269,7 +273,7 @@
 <Modal
   toggle={toggleShowModal}
   active={showModal}
-  action={toggleRedirectModal}
+  action={sendAnswer}
   title={$_('pages.answer.resume')}
   validButton={$_('components.SinglePollAnswerLine.validate')}
   validClass="is-success"
