@@ -16,6 +16,7 @@ export const ROUTES = {
   CANCEL_ANSWER_RM: (id) => `/pollanswer/cancel/${id}`,
   POLLS: '/polls',
   LOGOUT: '/logout',
+  END: '/end',
 };
 
 export const toastOptions = {
