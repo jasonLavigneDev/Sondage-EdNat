@@ -16,28 +16,10 @@ Copy `settings-development.json.sample` to `settings-development.json` and updat
 
 ## keycloak:
 
-| Key           | Type     | Default value | Description             |
-| ------------- | -------- | ------------- | ----------------------- |
-| pubkey        | string   | ""            | Keycloak public key     |
-| client        | string   | "sso"         | Keycloak client type    |
-| adminEmails   | [string] | []            | Keycloak admin emails   |
-| adminUser     | string   | ""            | Keycloak admin user     |
-| adminPassword | string   | ""            | Keycloak admin password |
-
-## nextcloud:
-
-| Key               | Type   | Default value | Description        |
-| ----------------- | ------ | ------------- | ------------------ |
-| nextcloudUser     | string | ""            | Nextcloud user     |
-| nextcloudPassword | string | ""            | Nextcloud password |
-| nextcloudQuota    | number | "1073741824"  | Nextcloud quota    |
-
-## rocketChat:
-
-| Key                | Type   | Default value | Description         |
-| ------------------ | ------ | ------------- | ------------------- |
-| rocketChatUser     | string | ""            | RocketChat user     |
-| rocketChatPassword | string | ""            | RocketChat password |
+| Key    | Type   | Default value | Description          |
+| ------ | ------ | ------------- | -------------------- |
+| pubkey | string | ""            | Keycloak public key  |
+| client | string | "sso"         | Keycloak client type |
 
 ## smtp:
 
@@ -49,6 +31,6 @@ Copy `settings-development.json.sample` to `settings-development.json` and updat
 
 ## private:
 
-| Key     | Type     | Default value | Description                           |
-| ------- | -------- | ------------- | ------------------------------------- |
-| apiKeys | [string] | [""]          | API access keys for external services |
+| Key           | Type     | Default value | Description                           |
+| ------------- | -------- | ------------- | ------------------------------------- |
+| laboiteApiKey | [string] | ""            | API access keys for external services |

@@ -11,10 +11,7 @@
   },
   "keycloak": {
     "pubkey": "",
-    "client": "sso",
-    "adminEmails": [],
-    "adminUser": "",
-    "adminPassword": ""
+    "client": "sso"
   },
   "smtp": {
     "url": "smtps://USERNAME:PASSWORD@HOST:PORT",
@@ -22,6 +19,6 @@
     "toEmail": ""
   },
   "private": {
-    "apiKeys": [""]
+    "laboiteApiKey": ""
   }
 }
