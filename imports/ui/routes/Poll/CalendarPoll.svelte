@@ -110,6 +110,7 @@
     eventClick: selectSlot,
     // theme handling
     themeSystem: 'bootstrap',
+    height: 500,
   };
 </script>
 
