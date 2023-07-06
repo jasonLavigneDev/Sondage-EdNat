@@ -2,7 +2,6 @@
   "public": {
     "appName": "Sondage",
     "appDescription": "Application de sondage et prise de rendez vous",
-    "enableKeycloak": false,
     "keycloakUrl": "",
     "keycloakRealm": "",
     "services": {
@@ -12,10 +11,7 @@
   },
   "keycloak": {
     "pubkey": "",
-    "client": "sso",
-    "adminEmails": [],
-    "adminUser": "",
-    "adminPassword": ""
+    "client": "sso"
   },
   "smtp": {
     "url": "smtps://USERNAME:PASSWORD@HOST:PORT",
@@ -23,6 +19,6 @@
     "toEmail": ""
   },
   "private": {
-    "apiKeys": [""]
+    "laboiteApiKey": ""
   }
 }

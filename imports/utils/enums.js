@@ -16,6 +16,7 @@ export const ROUTES = {
   CANCEL_ANSWER_RM: (id) => `/pollanswer/cancel/${id}`,
   POLLS: '/polls',
   LOGOUT: '/logout',
+  END: '/end',
 };
 
 export const toastOptions = {
@@ -53,8 +54,21 @@ export const POLLS_TYPES = {
   MEETING: 'MEETING',
 };
 
-export const DURATIONS = ['00:10', '00:15', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00'];
+export const DURATIONS = [
+  '00:05',
+  '00:10',
+  '00:15',
+  '00:30',
+  '01:00',
+  '01:30',
+  '02:00',
+  '02:30',
+  '03:00',
+  '03:30',
+  '04:00',
+];
 export const DURATIONS_TIME = {
+  '00:05': 5,
   '00:10': 10,
   '00:15': 15,
   '00:30': 30,

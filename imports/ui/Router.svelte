@@ -23,6 +23,7 @@
   import Logout from './routes/Logout.svelte';
   import Maintenance from './routes/Maintenance.svelte';
   import UserWarning from './components/common/UserWarning.svelte';
+  import End from './routes/End.svelte';
 
   router.subscribe((_) => window.scrollTo(0, 0));
 
@@ -56,6 +57,9 @@
       {:else}
         <Route path={ROUTES.LOGIN}>
           <Login />
+        </Route>
+        <Route path={ROUTES.END}>
+          <End />
         </Route>
         {#if $currentUser}
           <Route path={ROUTES.POLLS} let:meta>

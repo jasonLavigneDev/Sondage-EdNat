@@ -6,9 +6,19 @@ Meteor.publish('groups.memberOf', function () {
   return Groups.find(
     {
       $or: [
-        { members: { $in: [this.userId] } },
-        { admins: { $in: [this.userId] } },
-        { animators: { $in: [this.userId] } },
+        { $and: [{ admins: { $in: [this.userId] } }, { type: 15 }] },
+        {
+          $and: [
+            { type: { $ne: 15 } },
+            {
+              $or: [
+                { members: { $in: [this.userId] } },
+                { admins: { $in: [this.userId] } },
+                { animators: { $in: [this.userId] } },
+              ],
+            },
+          ],
+        },
       ],
     },
     {

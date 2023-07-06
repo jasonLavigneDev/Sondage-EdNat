@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.7.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.6.0...release/1.7.0) (2023-04-18)
+
+
+### Features
+
+* **input validation:** validate user string inputs ([a3206c7](https://gitlab.mim-libre.fr/alphabet/sondage/commit/a3206c78fe4ed3956979342ebc6ce0bc55eb5865))
+
+
+### Bug Fixes
+
+* **answer:** add tooltip and center lock icon ([fb42ff8](https://gitlab.mim-libre.fr/alphabet/sondage/commit/fb42ff8cb18ced56f459fc84a1d4951ca336d80a))
+* **events:** add createdAt/updatedAt to events schema ([2964a88](https://gitlab.mim-libre.fr/alphabet/sondage/commit/2964a88042371c8d39d2bda9271f851ca9479a72))
+* **events:** change some meteor methods to internal backend functions ([365719a](https://gitlab.mim-libre.fr/alphabet/sondage/commit/365719aaafaccf26e35b09643672f0c64be3f9f2))
+* **fullcalendar:** downgrade lib fullcalendar ([f3dc861](https://gitlab.mim-libre.fr/alphabet/sondage/commit/f3dc8612e9379af1b247a409845b9be4cea011e6))
+* **fullcalendar:** downgrade lib fullcalendar ([db611d8](https://gitlab.mim-libre.fr/alphabet/sondage/commit/db611d8b4bdb04fa27cd408d76db80780f311544))
+* **tooltip:** change tooltip declaration ([fb7fa44](https://gitlab.mim-libre.fr/alphabet/sondage/commit/fb7fa44d98a9050524b9d5ccec9491ae8bb5ed28))
+
 ## [1.6.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.5.0...release/1.6.0) (2023-01-30)
 
 
