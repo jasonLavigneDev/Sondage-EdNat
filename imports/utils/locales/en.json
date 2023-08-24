@@ -176,6 +176,10 @@
     },
     "maintenance": {
       "title": "Site is currently under maintenance"
+    },
+    "end": {
+      "title": "Your answer has been taken into account",
+      "content": "You can close this page."
     }
   },
   "components": {

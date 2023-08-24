@@ -4,41 +4,22 @@ Copy `settings-development.json.sample` to `settings-development.json` and updat
 
 ## public:
 
-| Key                 | Type    | Default value           | Description                                                   |
-| :------------------ | ------- | ----------------------- | ------------------------------------------------------------- |
-| appName             | string  | "Sondage"               | Application Name                                              |
-| appDescription      | string  | ""                      | Application description, it will be displayed under the title |
-| enableKeycloak      | boolean | false                   | If true, keycloak is enabled                                  |
-| keycloakUrl         | string  | ""                      | Keycloak URL                                                  |
-| keycloakRealm       | string  | ""                      | Keycloak Realm                                                |
-| services            | object  | {}                      | Contains services url                                         |
-| services.sondageUrl | string  | "http://localhost:3010" | The url is necessary for filling in the confirmation emails   |
-| laboiteHost         | string  | "http://localhost:3000" | La Boite app url                                              |
+| Key                 | Type   | Default value           | Description                                                   |
+| :------------------ | ------ | ----------------------- | ------------------------------------------------------------- |
+| appName             | string | "Sondage"               | Application Name                                              |
+| appDescription      | string | ""                      | Application description, it will be displayed under the title |
+| keycloakUrl         | string | ""                      | Keycloak URL                                                  |
+| keycloakRealm       | string | ""                      | Keycloak Realm                                                |
+| services            | object | {}                      | Contains services url                                         |
+| services.sondageUrl | string | "http://localhost:3010" | The url is necessary for filling in the confirmation emails   |
+| laboiteHost         | string | "http://localhost:3000" | La Boite app url                                              |
 
 ## keycloak:
 
-| Key           | Type     | Default value | Description             |
-| ------------- | -------- | ------------- | ----------------------- |
-| pubkey        | string   | ""            | Keycloak public key     |
-| client        | string   | "sso"         | Keycloak client type    |
-| adminEmails   | [string] | []            | Keycloak admin emails   |
-| adminUser     | string   | ""            | Keycloak admin user     |
-| adminPassword | string   | ""            | Keycloak admin password |
-
-## nextcloud:
-
-| Key               | Type   | Default value | Description        |
-| ----------------- | ------ | ------------- | ------------------ |
-| nextcloudUser     | string | ""            | Nextcloud user     |
-| nextcloudPassword | string | ""            | Nextcloud password |
-| nextcloudQuota    | number | "1073741824"  | Nextcloud quota    |
-
-## rocketChat:
-
-| Key                | Type   | Default value | Description         |
-| ------------------ | ------ | ------------- | ------------------- |
-| rocketChatUser     | string | ""            | RocketChat user     |
-| rocketChatPassword | string | ""            | RocketChat password |
+| Key    | Type   | Default value | Description          |
+| ------ | ------ | ------------- | -------------------- |
+| pubkey | string | ""            | Keycloak public key  |
+| client | string | "sso"         | Keycloak client type |
 
 ## smtp:
 
@@ -50,6 +31,6 @@ Copy `settings-development.json.sample` to `settings-development.json` and updat
 
 ## private:
 
-| Key     | Type     | Default value | Description                           |
-| ------- | -------- | ------------- | ------------------------------------- |
-| apiKeys | [string] | [""]          | API access keys for external services |
+| Key           | Type     | Default value | Description                           |
+| ------------- | -------- | ------------- | ------------------------------------- |
+| laboiteApiKey | [string] | ""            | API access keys for external services |

@@ -26,7 +26,7 @@ export function sendEmail(poll, answer) {
   const html = template({
     title: poll.title,
     sender: Meteor.users.findOne(poll.userId),
-    date: moment(answer.meetingSlot).format('LLL'),
+    date: moment(answer.meetingSlot).format('LLL (Z)'),
   });
   Email.send({
     to: answer.email,
@@ -52,7 +52,7 @@ export function sendEmailToCreator(poll, answer, userId) {
   const html = template({
     title: poll.title,
     sender: answerer,
-    date: moment(answer.meetingSlot).format('LLL'),
+    date: moment(answer.meetingSlot).format('LLL (Z)'),
     url: `${Meteor.settings.public.services.sondagesUrl}/poll/answer/${poll._id} `,
     connected,
   });
@@ -68,7 +68,7 @@ export function sendEmailToCreator(poll, answer, userId) {
 export function sendCancelEmail(poll, answer, content) {
   const template = meetingCancelTemplate;
 
-  const html = template({ date: moment(answer.meetingSlot).format('LLL'), content });
+  const html = template({ date: moment(answer.meetingSlot).format('LLL (Z)'), content });
   Email.send({
     to: answer.email,
     from: Meteor.settings.smtp.fromEmail,
@@ -81,7 +81,7 @@ export function sendCancelEmail(poll, answer, content) {
 export function sendEditEmail(poll, email, name, meetingSlot) {
   const template = meetingEditTemplate;
 
-  const html = template({ date: moment(meetingSlot).format('LLL'), email, name });
+  const html = template({ date: moment(meetingSlot).format('LLL (Z)'), email, name });
   Email.send({
     to: email,
     from: Meteor.settings.smtp.fromEmail,

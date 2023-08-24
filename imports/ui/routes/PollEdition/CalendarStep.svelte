@@ -61,6 +61,19 @@
     $newPollStore.meetingSlots = newEvents;
   };
 
+  const calcSlotDurationDisplay = ($newPollStore) => {
+    switch ($newPollStore.duration) {
+      case '00:05':
+        return '00:05:00';
+      case '00:10':
+        return '00:10:00';
+      case '00:15':
+        return '00:15:00';
+      default:
+        return '00:30:00';
+    }
+  };
+
   $: options = {
     initialView: 'timeGridWeek',
     plugins: [timeGridPlugin, interactionPlugin],
@@ -84,8 +97,7 @@
     locale: $locale,
     timeZone: 'local',
     // date handling
-    slotDuration:
-      $newPollStore.duration === '00:10' ? '00:10:00' : $newPollStore.duration === '00:15' ? '00:15:00' : '00:30:00',
+    slotDuration: calcSlotDurationDisplay($newPollStore),
     selectable: true,
     select: selectTimeSlot,
     selectOverlap: false,
