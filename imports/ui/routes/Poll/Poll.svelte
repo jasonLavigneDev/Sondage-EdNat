@@ -112,7 +112,7 @@
 
   const sendAnswer = () => {
     loading = true;
-    if (poll.type === POLLS_TYPES.MEETING){
+    if (poll.type === POLLS_TYPES.MEETING) {
       toggleShowModal();
     }
     Meteor.call('polls_answers.create', { data: answer }, (error, result) => {
@@ -120,13 +120,13 @@
       if (error) {
         toast.push($_(error.reason), toasts.error);
       } else {
-        if (poll.type === POLLS_TYPES.MEETING){
+        if (poll.type === POLLS_TYPES.MEETING) {
           if (answer.userId) {
             router.goto(ROUTES.POLLS);
-          }else{
+          } else {
             router.goto(ROUTES.END);
           }
-        }else{
+        } else {
           toast.push($_('pages.answer.poll_answered'));
         }
       }
@@ -254,7 +254,7 @@
             {:else if !poll.completed}
               <BigLink
                 disabled={!isValideMail(answer.email) || !answer.name || loading}
-                action={toggleShowModal}
+                action={poll.type === POLLS_TYPES.MEETING ? toggleShowModal : sendAnswer}
                 text={$_('pages.new_poll.validate')}
               />
             {:else}
