@@ -8,6 +8,7 @@ Meteor.publish('polls_answers.getCount', function pollAnswersCounts({ pollId }) 
   Counts.publish(this, `polls_answers.get-${pollId}`, PollsAnswers.find({ pollId }));
 });
 Meteor.publish('polls_answers.getCurrentUser', function pollAnswersCurrentUser({ pollId }) {
+  if (this.userId === null) return this.ready();
   return PollsAnswers.find({ pollId, userId: this.userId });
 });
 Meteor.publish('polls_answers.onePoll', function pollAnswersOne({ pollId }) {

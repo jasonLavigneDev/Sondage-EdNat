@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.8.1](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.8.0...release/1.8.1) (2023-08-28)
+
+
+### Bug Fixes
+
+* **answer:** don't show metting modal in poll mode ([4e25cba](https://gitlab.mim-libre.fr/alphabet/sondage/commit/4e25cba1c8099264167a0c7f3bf52250031d644e))
+* **publication:** getCurrentUser sends no answers if not connected ([edd4e06](https://gitlab.mim-libre.fr/alphabet/sondage/commit/edd4e0615ba6719ca3668e6cfca4e4feb594cf53))
+
 ## [1.8.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.7.0...release/1.8.0) (2023-08-24)
 
 
