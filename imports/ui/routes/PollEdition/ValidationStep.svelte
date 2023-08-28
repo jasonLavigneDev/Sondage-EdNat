@@ -59,7 +59,17 @@
         {
           data: {
             ...$newPollStore,
-            dates: $newPollStore.type === POLLS_TYPES.POLL ? $newPollStore.dates.sort((a, b) => a.date - b.date) : [],
+            dates:
+              $newPollStore.type === POLLS_TYPES.POLL
+                ? $newPollStore.dates
+                    .sort((a, b) => a.date - b.date)
+                    .map((date) => {
+                      return {
+                        date: date.date,
+                        slots: date.slots.sort(),
+                      };
+                    })
+                : [],
             meetingSlots:
               $newPollStore.type === POLLS_TYPES.MEETING
                 ? $newPollStore.meetingSlots.sort((a, b) => a.start - b.start)
@@ -197,7 +207,7 @@
                   {#if $newPollStore.allDay}
                     {$_('pages.new_poll_3.allDay_input')}
                   {:else}
-                    {#each day.slots as slot}
+                    {#each day.slots.sort() as slot}
                       <InputTimePicker date={day.date} duration={$newPollStore.duration} value={slot} disabled={true} />
                     {/each}
                   {/if}
