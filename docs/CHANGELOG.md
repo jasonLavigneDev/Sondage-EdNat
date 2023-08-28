@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.8.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.7.0...release/1.8.0) (2023-08-24)
+
+
+### Features
+
+* **calendar:** fix calendar height ([491c6af](https://gitlab.mim-libre.fr/alphabet/sondage/commit/491c6afce19d50fcf483af5c16b2706f7095dd13))
+* **meeting:** add 5min slot for meetings ([bb804a3](https://gitlab.mim-libre.fr/alphabet/sondage/commit/bb804a3be1ab16ed72764094c550eb5a918548de))
+* **meteor:** change meteor base version ([42174a2](https://gitlab.mim-libre.fr/alphabet/sondage/commit/42174a2433dd6d867ab8f4ed74666b4e4cd230c3))
+* **structure:** block creation if user is not admin ([df3f456](https://gitlab.mim-libre.fr/alphabet/sondage/commit/df3f45653a1b8d0ccccfb8fd173cd245464bcd96))
+
+
+### Bug Fixes
+
+* **answer:** can now modify a meeting answer ([60e9a02](https://gitlab.mim-libre.fr/alphabet/sondage/commit/60e9a021b91f892b0ce063c31ae2dbf95cdabf16))
+* **answer:** reword new page text ([6dc2a0e](https://gitlab.mim-libre.fr/alphabet/sondage/commit/6dc2a0e66417e7cb83548c82cd6df4cf1ee73b94))
+* **emails:** add timezone information to dates in emails ([81e8c50](https://gitlab.mim-libre.fr/alphabet/sondage/commit/81e8c50d4aab0b7d0d0c37d774efafbc164bc49c))
+* **notification:** modify call for multigroups notification ([08529d2](https://gitlab.mim-libre.fr/alphabet/sondage/commit/08529d20f9766b41aa5eea6cbe7debb44b3ab7a7))
+* **settings:** remove enableKeycloak setting (Keycloak is mandatory) ([bedf197](https://gitlab.mim-libre.fr/alphabet/sondage/commit/bedf197c588aebc306aa98e71311dfe83e2a77af))
+* **settings:** update config sample and readme ([2136883](https://gitlab.mim-libre.fr/alphabet/sondage/commit/2136883ea11916aab45df2d02190818ac8618f6b))
+* **store:** update store on blur only ([a84a90f](https://gitlab.mim-libre.fr/alphabet/sondage/commit/a84a90f4ca13d1c700a9ae4965ffe7e67cdb254a))
+
+
+### Build System
+
+* **meteor:** update meteor to 2.12 ans meteor libs ([23a5bea](https://gitlab.mim-libre.fr/alphabet/sondage/commit/23a5bea5b114cdca229b9abde4d42cc908ed4c20))
+
 ## [1.7.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.6.0...release/1.7.0) (2023-04-18)
 
 
