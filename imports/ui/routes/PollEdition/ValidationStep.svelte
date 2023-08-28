@@ -197,7 +197,7 @@
             </div>
           {/each}
         {:else}
-          {#each $newPollStore.dates as day}
+          {#each $newPollStore.dates.sort((a, b) => a.date - b.date) as day}
             <div class="column is-one-quarter">
               <div class="block">
                 <div class="title is-6">
