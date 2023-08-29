@@ -21,7 +21,9 @@
       "notApublicPoll": "Ce sondage est privé, vous n'y avez pas accès",
       "emailAlreadyVoted": "Cet email est déjà enregistré avec un vote",
       "pollNotActive": "Ce sondage n'est pas actif, vous ne pouvez pas voter",
-      "slotAlreadyTaken": "Ce créneau est déjà pris"
+      "slotAlreadyTaken": "Ce créneau est déjà pris",
+      "cannotSendEmail": "Echec d'envoi de l'email",
+      "cannotSendEmailToCreator": "Echec d'envoi de l'email au créateur du sondage"
     },
     "tags": {
       "titleValidation": "Choisir un créneau puis valider votre choix"
