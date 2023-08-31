@@ -74,7 +74,7 @@ export const createPollAnswers = new ValidatedMethod({
         throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'api.errors.notAllowed');
       }
     } else if ((poll.public || this.userId) && poll.active) {
-      sendEmailToCreator(poll, data, this.userId);
+      if (poll.type === POLLS_TYPES.MEETING) sendEmailToCreator(poll, data, this.userId);
       return PollsAnswers.update(
         { pollId: data.pollId, email: data.email },
         { $set: { ...data, userId: this.userId, confirmed: false } },
