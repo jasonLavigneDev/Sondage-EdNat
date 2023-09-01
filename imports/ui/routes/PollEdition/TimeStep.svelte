@@ -60,7 +60,6 @@
       $newPollStore.dates[i].slots[index] = time;
     });
   };
-
 </script>
 
 <svelte:head>
@@ -122,7 +121,7 @@
               {/if}
 
               <tbody>
-                {#each $newPollStore.dates as day}
+                {#each $newPollStore.dates.sort((a, b) => a.date - b.date) as day}
                   <tr>
                     <th>
                       {moment(day.date).format($_('components.Time.dateFormat'))}
@@ -195,5 +194,4 @@
   .fa-trash {
     color: red;
   }
-
 </style>

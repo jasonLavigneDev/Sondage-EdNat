@@ -19,7 +19,7 @@
   {#if dates.length}
     <table class="table is-striped is-fullwidth" style="margin-top: -3vh;">
       <tbody>
-        {#each dates as date}
+        {#each dates.sort((a, b) => a.date - b.date) as date}
           <tr>
             <th>
               {#if meetingSlots}
