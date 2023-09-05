@@ -28,14 +28,19 @@ export function sendEmail(poll, answer) {
     sender: Meteor.users.findOne(poll.userId),
     date: moment(answer.meetingSlot).format('LLL (Z)'),
   });
-  Email.send({
-    to: answer.email,
-    from: Meteor.settings.smtp.fromEmail,
-    subject: `Sondage - Votre rdv du ${moment(answer.meetingSlot).format('L')}`,
-    icalEvent: cal.toString(),
-    inReplyTo: Meteor.settings.smtp.toEmail,
-    html,
-  });
+  try {
+    Email.send({
+      to: answer.email,
+      from: Meteor.settings.smtp.fromEmail,
+      subject: `Sondage - Votre rdv du ${moment(answer.meetingSlot).format('L')}`,
+      icalEvent: cal.toString(),
+      inReplyTo: Meteor.settings.smtp.toEmail,
+      html,
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Meteor.Error('api.events.methods.sendEmail', 'api.errors.cannotSendEmail');
+  }
 }
 
 export function sendEmailToCreator(poll, answer, userId) {
@@ -56,39 +61,54 @@ export function sendEmailToCreator(poll, answer, userId) {
     url: `${Meteor.settings.public.services.sondagesUrl}/poll/answer/${poll._id} `,
     connected,
   });
-  Email.send({
-    to: admin.emails[0].address,
-    from: Meteor.settings.smtp.fromEmail,
-    subject: `Rendez-vous - nouveau créneau sélectionné pour le rendez-vous ${poll.title}`,
-    inReplyTo: Meteor.settings.smtp.toEmail,
-    html,
-  });
+  try {
+    Email.send({
+      to: admin.emails[0].address,
+      from: Meteor.settings.smtp.fromEmail,
+      subject: `Rendez-vous - nouveau créneau sélectionné pour le rendez-vous ${poll.title}`,
+      inReplyTo: Meteor.settings.smtp.toEmail,
+      html,
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Meteor.Error('api.events.methods.sendEmailToCreator', 'api.errors.cannotSendEmailToCreator');
+  }
 }
 
 export function sendCancelEmail(poll, answer, content) {
   const template = meetingCancelTemplate;
 
   const html = template({ date: moment(answer.meetingSlot).format('LLL (Z)'), content });
-  Email.send({
-    to: answer.email,
-    from: Meteor.settings.smtp.fromEmail,
-    subject: `Sondage - annulation de votre rendez-vous pour ${poll.title}`,
-    inReplyTo: Meteor.settings.smtp.toEmail,
-    html,
-  });
+  try {
+    Email.send({
+      to: answer.email,
+      from: Meteor.settings.smtp.fromEmail,
+      subject: `Sondage - annulation de votre rendez-vous pour ${poll.title}`,
+      inReplyTo: Meteor.settings.smtp.toEmail,
+      html,
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Meteor.Error('api.events.methods.sendCancelEmail', 'api.errors.cannotSendEmail');
+  }
 }
 
 export function sendEditEmail(poll, email, name, meetingSlot) {
   const template = meetingEditTemplate;
 
   const html = template({ date: moment(meetingSlot).format('LLL (Z)'), email, name });
-  Email.send({
-    to: email,
-    from: Meteor.settings.smtp.fromEmail,
-    subject: `Sondage - Edition de votre rendez-vous pour ${poll.title}`,
-    inReplyTo: Meteor.settings.smtp.toEmail,
-    html,
-  });
+  try {
+    Email.send({
+      to: email,
+      from: Meteor.settings.smtp.fromEmail,
+      subject: `Sondage - Edition de votre rendez-vous pour ${poll.title}`,
+      inReplyTo: Meteor.settings.smtp.toEmail,
+      html,
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Meteor.Error('api.events.methods.sendEditEmail', 'api.errors.cannotSendEmail');
+  }
 }
 
 export function createEventAgendaMeeting(poll, answer, userId) {
