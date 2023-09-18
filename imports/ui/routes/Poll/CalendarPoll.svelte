@@ -76,7 +76,6 @@
   });
 
   $: options = {
-    initialView: 'listWeek',
     plugins: [timeGridPlugin, interactionPlugin, listView],
     firstDay: 1,
     allDaySlot: false,
