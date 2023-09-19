@@ -194,7 +194,9 @@
       "delete": "Supprimer ce rendez-vous",
       "goBack": "retour",
       "sendEmail": "Notifier par courriel",
-      "emailMsg": "Informations complémentaires"
+      "emailMsg": "Informations complémentaires",
+      "userNotified": "L'utilisateur a été notifié de l'annulation par courriel.",
+      "userNotNotified": "Rendez-vous annulé sans notification à l'utilisateur."
     },
     "MeetingAnswerEdit": {
       "title": "Edition du Rendez-vous",
@@ -202,7 +204,9 @@
       "submit": "Modifier",
       "email": "Adresse email",
       "name": "Nom",
-      "slot": "Créneau horaire"
+      "slot": "Créneau horaire",
+      "userNotified": "L'utilisateur a été notifié de la modification par courriel.",
+      "userNotNotified": "Rendez-vous modifié sans notification à l'utilisateur."
     },
     "SinglePollLine": {
       "copied": "URL copié dans le presse-papier"
