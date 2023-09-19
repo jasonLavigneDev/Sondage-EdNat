@@ -76,7 +76,7 @@
   });
 
   $: options = {
-    initialView: 'listWeek',
+    initialView: 'timeGridWeek',
     plugins: [timeGridPlugin, interactionPlugin, listView],
     firstDay: 1,
     allDaySlot: false,
@@ -94,7 +94,7 @@
       timeGridWeek: $_('pages.answer.timeGridWeek'),
     },
     headerToolbar: {
-      left: 'listWeek timeGridWeek',
+      left: 'timeGridWeek listWeek',
     },
     locale: $locale,
     timeZone: 'local',
