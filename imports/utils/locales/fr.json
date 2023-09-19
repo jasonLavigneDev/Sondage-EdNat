@@ -16,7 +16,7 @@
   "api": {
     "errors": {
       "notLoggedIn": "Vous devez être connecté",
-      "answerAlreadyValidated": "Cette réponse à déjà été confirmée",
+      "answerAlreadyValidated": "Cette réponse a déjà été confirmée",
       "notAllowed": "Vous n'êtes pas autorisé a faire ceci",
       "notApublicPoll": "Ce sondage est privé, vous n'y avez pas accès",
       "emailAlreadyVoted": "Cet email est déjà enregistré avec un vote",
@@ -209,7 +209,7 @@
       "userNotNotified": "Rendez-vous modifié sans notification à l'utilisateur."
     },
     "SinglePollLine": {
-      "copied": "URL copié dans le presse-papier"
+      "copied": "URL copiée dans le presse-papier"
     },
     "SinglePollAnswerLine": {
       "validate": "Valider",
