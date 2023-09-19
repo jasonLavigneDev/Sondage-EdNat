@@ -200,7 +200,8 @@
       </div>
       <div class="column is-half-desktop is-full-mobile is-right">
         <BigLink
-          disabled={!$newPollStore.title}
+          disabled={(!$newPollStore.title || !$newPollStore.public) &&
+            (!$newPollStore.title || !!$newPollStore.groups.length == 0)}
           link={meta.params._id ? ROUTES.EDIT_POLL_RM(meta.params._id, 2) : ROUTES.NEW_POLL_RM(2)}
           text={$_('pages.new_poll.next')}
         />
