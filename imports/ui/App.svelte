@@ -1,6 +1,9 @@
 <script>
+  import { Meteor } from 'meteor/meteor';
   import { _ } from 'svelte-i18n';
   import { SvelteToast } from '@zerodevx/svelte-toast';
+  import { onMount } from 'svelte';
+  import Matomo, { matomo } from '@dexlib/svelte-matomo';
 
   import '/imports/utils/locales/index';
   import Router from '/imports/ui/Router.svelte';
@@ -10,6 +13,13 @@
   import { toast_options } from '/imports/utils/enums';
   import PackageJSON from '../../package.json';
   let version = PackageJSON.version;
+
+  const { matomo: matomoSettings } = Meteor.settings.public;
+  onMount(() => {
+    if (matomoSettings?.urlBase) {
+      matomo.trackPageView();
+    }
+  });
 
   let width;
   const { setState } = globalState();
@@ -29,6 +39,9 @@
 <Nav />
 
 <main>
+  {#if matomoSettings?.urlBase}
+    <Matomo url={matomoSettings.urlBase} siteId={matomoSettings.siteIdSondage} />
+  {/if}
   <Router />
 </main>
 
