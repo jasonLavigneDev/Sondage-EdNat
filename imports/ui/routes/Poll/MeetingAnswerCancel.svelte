@@ -24,6 +24,7 @@
         console.log(e);
         toast.push($_(e.reason), toasts.error);
       } else {
+        toast.push($_(`components.MeetingAnswerCancel.${emailNotice ? 'userNotified' : 'userNotNotified'}`));
         router.goto(ROUTES.ANSWER_POLL_RM(answer.pollId));
       }
     });

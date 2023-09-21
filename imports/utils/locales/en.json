@@ -192,7 +192,9 @@
       "delete": "Delete this meeting",
       "goBack": "Back",
       "sendEmail": "Notify via email",
-      "emailMsg": "Further information"
+      "emailMsg": "Further information",
+      "userNotified": "User has been notified of the cancellation by email",
+      "userNotNotified": "Meeting cancelled without notifying the user"
     },
     "MeetingAnswerEdit": {
       "title": "Meeting edition",
@@ -200,7 +202,9 @@
       "submit": "Submit",
       "email": "Email address",
       "name": "Name",
-      "slot": "Time slot"
+      "slot": "Time slot",
+      "userNotified": "User has been notified of the update by email",
+      "userNotNotified": "Meeting updated without notifying the user"
     },
     "SinglePollLine": {
       "copied": "URL copied to clipboard"

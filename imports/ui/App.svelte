@@ -13,7 +13,7 @@
 
   let width;
   const { setState } = globalState();
-  
+
   const checkDeviceSize = () => {
     setState({ mobile: width < 768 });
   };
@@ -35,6 +35,9 @@
 <Footer />
 
 <style>
+  :root {
+    --toastWidth: 24rem;
+  }
   main {
     padding-top: calc(52px + var(--space-between));
     min-height: calc(100vh - 64px);
