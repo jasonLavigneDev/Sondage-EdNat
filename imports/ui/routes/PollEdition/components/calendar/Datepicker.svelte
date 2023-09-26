@@ -71,7 +71,7 @@
     formattedSelected =
       typeof format === "function"
         ? selected.map(format)
-        : selected.map((s) => moment(s.date).format(format));
+        : selected.map((s) => s.date)
   }
 
   onMount(() => {
