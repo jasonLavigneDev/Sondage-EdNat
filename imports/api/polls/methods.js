@@ -29,7 +29,6 @@ export const createPoll = new ValidatedMethod({
       throw new Meteor.Error('api.polls.methods.create.notLoggedIn', 'api.errors.notLoggedIn');
     }
     validatePoll(data);
-    console.log('createPoll', data.dates);
     return Polls.insert({ ...data, userId: this.userId });
   },
 });

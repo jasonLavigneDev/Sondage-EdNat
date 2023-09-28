@@ -68,44 +68,36 @@ console.log('AVANT', JSON.stringify($newPollStore.dates, null, 4))
 console.log($newPollStore.dates)
 console.log('APRES', JSON.stringify(newPollStoreDates, null, 4))
 console.log(newPollStoreDates)
-      // Meteor.call(
-      //   meta.params._id ? 'polls.update' : 'polls.create',
-      //   {
-      //     data: {
-      //       ...$newPollStore,
-      //       dates:
-      //         $newPollStore.type === POLLS_TYPES.POLL
-      //           ? $newPollStore.dates
-      //               .sort((a, b) => a.date - b.date)
-      //               .map((date) => {
-      //                 return {
-      //                   date: date.date,
-      //                   slots: date.slots.sort(),
-      //                 };
-      //               })
-      //           : [],
-      //       meetingSlots:
-      //         $newPollStore.type === POLLS_TYPES.MEETING
-      //           ? $newPollStore.meetingSlots.sort((a, b) => a.start - b.start)
-      //           : [],
-      //     },
-      //     pollId: meta.params._id,
-      //   },
-      //   (error) => {
-      //     if (error) {
-      //       if (error.details) {
-      //         messages = error.details.map((err) => err.message);
-      //         toast.push(messages.join('<br/>'), toasts.error);
-      //       } else {
-      //         toast.push($_(error.reason || error.message || 'pages.new_poll_4.creationError'), toasts.error);
-      //       }
-      //     } else {
-      //       toast.push($_(meta.params._id ? 'pages.new_poll_4.poll_modified' : 'pages.new_poll_4.poll_created'));
-      //       router.goto(ROUTES.ADMIN);
-      //       newPollStore.set({ ...EMPTY_NEW_POLL });
-      //     }
-      //   },
-      // );
+
+      Meteor.call(
+        meta.params._id ? 'polls.update' : 'polls.create',
+        {
+          data: {
+            ...$newPollStore,
+            dates:
+              $newPollStore.type === POLLS_TYPES.POLL ? newPollStoreDates : [],
+            meetingSlots:
+              $newPollStore.type === POLLS_TYPES.MEETING
+                ? $newPollStore.meetingSlots.sort((a, b) => a.start - b.start)
+                : [],
+          },
+          pollId: meta.params._id,
+        },
+        (error) => {
+          if (error) {
+            if (error.details) {
+              messages = error.details.map((err) => err.message);
+              toast.push(messages.join('<br/>'), toasts.error);
+            } else {
+              toast.push($_(error.reason || error.message || 'pages.new_poll_4.creationError'), toasts.error);
+            }
+          } else {
+            toast.push($_(meta.params._id ? 'pages.new_poll_4.poll_modified' : 'pages.new_poll_4.poll_created'));
+            router.goto(ROUTES.ADMIN);
+            newPollStore.set({ ...EMPTY_NEW_POLL });
+          }
+        },
+      );
     }
   };
 </script>
