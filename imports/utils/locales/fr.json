@@ -161,7 +161,7 @@
       "allDay": "Toute la journée",
       "listWeek": "Liste",
       "timeGridWeek": "Calendrier",
-      "poll_answered": "Sondage répondu avec succès",
+      "poll_answered": "Vos réponses ont été enregistrées",
       "confirm_date": "Choisir cette date",
       "confirm_date_tooltip": "Confirmer cette date et notifier tout le monde",
       "modal_title": "Confirmer cette date",
@@ -181,7 +181,7 @@
     },
     "end": {
       "title": "Votre réponse a bien été enregistrée",
-      "content": "Vous pouvez reprendre une activité normale."
+      "content": "vous pouvez fermer cet onglet"
     }
   },
   "components": {
