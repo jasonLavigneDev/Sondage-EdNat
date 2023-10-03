@@ -46,8 +46,10 @@ export const getSinglePollToAnswer = new ValidatedMethod({
       },
       { fields: { _id: 1 } },
     );
+    const author = Meteor.users.findOne(poll.userId) || { firstName: '', lastName: '' };
     const data = {
       poll,
+      author: { firstName: author.firstName, lastName: author.lastName },
       selectedGroups: Groups.find({ _id: { $in: poll.groups } }).fetch(),
       answer: this.userId ? PollsAnswers.findOne({ pollId, userId: this.userId }) : null,
     };

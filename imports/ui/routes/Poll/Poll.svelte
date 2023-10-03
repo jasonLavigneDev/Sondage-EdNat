@@ -28,6 +28,7 @@
   export let meta;
   let selectedGroups;
   let poll = {};
+  let author = { firstName: '', lastName: '' };
   let loading = false;
   let askToConnect = false;
   let answer = {
@@ -47,6 +48,7 @@
         loading = false;
         if (r) {
           poll = r.poll;
+          author = r.author;
           selectedGroups = r.selectedGroups;
           if (r.answer) {
             answer = r.answer;
@@ -164,11 +166,16 @@
     {#if poll._id}
       <div class="box">
         <div class="columns is-multiline">
-          <div class="column is-full">
+          <div class="column is-half">
             <div class="field">
               <label class="label">{$_('pages.answer.description')}</label>
               {poll.description || ''}
             </div>
+          </div>
+          <div class="column is-half">
+            <label class="label">{$_('pages.answer.author')}</label>
+            {author.firstName}
+            {author.lastName} ({moment(poll.createdAt).format('LLL')})
           </div>
           <div class="column is-half">
             <div class="field">
