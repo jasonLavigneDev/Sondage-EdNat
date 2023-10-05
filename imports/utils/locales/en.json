@@ -172,7 +172,8 @@
       "unavailable": "Indisponible",
       "resume": "Meeting resume",
       "take_meeting": "Meeting made on ",
-      "modify": "Edit"
+      "modify": "Edit",
+      "author": "Author"
     },
     "maintenance": {
       "title": "Site is currently under maintenance"

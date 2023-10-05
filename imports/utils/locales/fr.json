@@ -174,7 +174,8 @@
       "unavailable": "Indisponible",
       "resume": "Résumé du rendez-vous",
       "take_meeting": "Rendez-vous pris le ",
-      "modify": "Modifier"
+      "modify": "Modifier",
+      "author": "Auteur"
     },
     "maintenance": {
       "title": "Le site est en cours de maintenance"
