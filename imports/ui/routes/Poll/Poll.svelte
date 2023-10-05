@@ -175,7 +175,7 @@
           <div class="column is-half">
             <label class="label">{$_('pages.answer.author')}</label>
             {author.firstName}
-            {author.lastName} ({moment(poll.createdAt).format('LLL')})
+            {author.lastName} ({moment(poll.updatedAt).format('LLL')})
           </div>
           <div class="column is-half">
             <div class="field">
