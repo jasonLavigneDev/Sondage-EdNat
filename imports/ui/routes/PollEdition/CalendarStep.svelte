@@ -69,6 +69,12 @@
         return '00:10:00';
       case '00:15':
         return '00:15:00';
+      case '00:20':
+        return '00:20:00';
+      case '00:25':
+        return '00:25:00';
+      case '00:45':
+        return '00:45:00';
       default:
         return '00:30:00';
     }

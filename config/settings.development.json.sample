@@ -7,7 +7,11 @@
     "services": {
       "sondagesUrl": "http://localhost:3010"
     },
-    "laboiteHost": "http://localhost:3000"
+    "laboiteHost": "http://localhost:3000",
+    "matomo": {
+      "siteIdSondage": 1,
+      "urlBase": ""
+    }
   },
   "keycloak": {
     "pubkey": "",
