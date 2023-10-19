@@ -60,7 +60,7 @@ export const adminMeetingTemplate = ({ sender, title, date, url, connected }) =>
 </div>
 <br/>
 <div>
-    Vous pouvez valider le créneau avec le liens suivant ${url}
+    Vous pouvez valider le créneau avec le lien suivant ${url}
 </div>
 <br/>
 `;
