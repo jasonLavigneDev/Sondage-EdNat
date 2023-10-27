@@ -74,12 +74,13 @@ export const createPollAnswers = new ValidatedMethod({
         throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'api.errors.notAllowed');
       }
     } else if ((poll.public || this.userId) && poll.active) {
-      if (poll.type === POLLS_TYPES.MEETING) sendEmailToCreator(poll, data, this.userId);
-      return PollsAnswers.update(
+      const result = PollsAnswers.update(
         { pollId: data.pollId, email: data.email },
         { $set: { ...data, userId: this.userId, confirmed: false } },
         { upsert: true },
       );
+      if (poll.type === POLLS_TYPES.MEETING) sendEmailToCreator(poll, data, this.userId);
+      return result;
     } else if (!poll.public && !this.userId) {
       throw new Meteor.Error('api.polls_answers.methods.create.notPublic', 'api.errors.pollNotActive');
     } else {
@@ -106,11 +107,10 @@ export const validateMeetingPollAnswer = new ValidatedMethod({
     } else if (poll.userId !== this.userId) {
       throw new Meteor.Error('api.polls_answers.methods.validate.notAllowed', 'api.errors.notAllowed');
     }
-
-    sendEmail(poll, answer);
+    const result = PollsAnswers.update({ _id: answerId }, { $set: { confirmed: true } });
     createEventAgendaMeeting(poll, answer, this.userId);
-
-    return PollsAnswers.update({ _id: answerId }, { $set: { confirmed: true } });
+    sendEmail(poll, answer);
+    return result;
   },
 });
 
