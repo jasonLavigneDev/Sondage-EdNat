@@ -19,6 +19,7 @@ export const EMPTY_NEW_POLL = {
   meetingSlots: [],
   duration: '00:30',
   public: false,
+  hideParticipantsList: false,
   allDay: false,
   type: POLLS_TYPES.POLL,
 };

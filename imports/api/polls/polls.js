@@ -144,6 +144,11 @@ Polls.schema = new SimpleSchema(
         return new Date();
       },
     },
+    hideParticipantsList: {
+      type: Boolean,
+      label: 'Hide participants list',
+      defaultValue: false,
+    },
   },
   { clean: { removeEmptyStrings: false }, tracker: Tracker },
 );

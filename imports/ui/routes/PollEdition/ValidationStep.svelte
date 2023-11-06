@@ -142,13 +142,20 @@
               </div>
             {/await}
           </div>
-
           <div class="field">
             <div class="control">
               <label class="label title is-4">
                 {$_('pages.new_poll_1.public_input')}
               </label>
               {$_($newPollStore.public ? 'pages.new_poll.yes' : 'pages.new_poll.no')}
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <label class="label title is-4">
+                {$_('pages.new_poll_1.hideParticipantsList_input')}
+              </label>
+              {$_($newPollStore.hideParticipantsList ? 'pages.new_poll.yes' : 'pages.new_poll.no')}
             </div>
           </div>
         </div>
