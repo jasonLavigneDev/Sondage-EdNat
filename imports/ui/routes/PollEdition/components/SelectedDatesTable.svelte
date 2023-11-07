@@ -17,31 +17,33 @@
   <h3 class="title is-5">{$_('pages.new_poll_2.selected_dates')}</h3>
   <Divider />
   {#if dates.length}
-    <table class="table is-striped is-fullwidth" style="margin-top: -3vh;">
-      <tbody>
-        {#each dates as date}
-          <tr>
-            <th>
-              {#if meetingSlots}
-                {moment(date.start).format($_('components.Time.dateFormat'))} /
-                {moment(date.start).format('HH:mm')}
-                -
-                {moment(date.end).format('HH:mm')}
-              {:else}
-                {moment(date.date).format($_('components.Time.dateFormat'))}
-              {/if}
-            </th>
-            <th>
-              <button on:click={() => removeDate(date)} class="button is-rounded is-primary is-small mt-2">
-                <span class="icon is-small">
-                  <i class="fas fa-trash" />
-                </span>
-              </button>
-            </th>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
+    <div style="height:{meetingSlots ? '84vh' : '37vh'}; overflow-y: auto">
+      <table class="table is-striped is-fullwidth">
+        <tbody>
+          {#each dates.sort((a, b) => a.date - b.date) as date}
+            <tr>
+              <th>
+                {#if meetingSlots}
+                  {moment(date.start).format($_('components.Time.dateFormat'))} /
+                  {moment(date.start).format('HH:mm')}
+                  -
+                  {moment(date.end).format('HH:mm')}
+                {:else}
+                  {moment(date.date).format($_('components.Time.dateFormat'))}
+                {/if}
+              </th>
+              <th>
+                <button on:click={() => removeDate(date)} class="button is-rounded is-primary is-small mt-2">
+                  <span class="icon is-small">
+                    <i class="fas fa-trash" />
+                  </span>
+                </button>
+              </th>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </div>
   {:else}
     <NoResults title={$_('pages.new_poll_2.no_selected_dates')} />
   {/if}
