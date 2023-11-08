@@ -108,15 +108,6 @@ export const validatePollAnswer = new ValidatedMethod({
     } else if (poll.completed) {
       throw new Meteor.Error('api.polls_answers.methods.validate.notAllowed', 'api.errors.notAllowed');
     }
-    if (poll.public) {
-      const answers = PollsAnswers.find({ userId: null, pollId }).fetch();
-      answers.forEach((answer) =>
-        sendEmail(poll, {
-          ...answer,
-          meetingSlot: date,
-        }),
-      );
-    }
 
     if (poll.groups.length) {
       createEventAgenda(poll, date, this.userId);
@@ -132,7 +123,23 @@ export const validatePollAnswer = new ValidatedMethod({
         });
       }
     }
-    return Polls.update({ _id: pollId }, { $set: { completed: true, choosenDate: date, active: false } });
+    const result = Polls.update({ _id: pollId }, { $set: { completed: true, choosenDate: date, active: false } });
+    if (poll.public) {
+      const answers = PollsAnswers.find({ userId: null, pollId }).fetch();
+      let emailErrors = false;
+      answers.forEach((answer) => {
+        try {
+          sendEmail(poll, {
+            ...answer,
+            meetingSlot: date,
+          });
+        } catch (error) {
+          emailErrors = true;
+        }
+      });
+      if (emailErrors) throw new Meteor.Error('api.events.methods.sendEmail', 'api.errors.cannotSendEmail');
+    }
+    return result;
   },
 });
 
