@@ -90,11 +90,11 @@
     },
     buttonText: {
       today: $_('today'),
-      listWeek: $_('pages.answer.listWeek'),
+      listYear: $_('pages.answer.listYear'),
       timeGridWeek: $_('pages.answer.timeGridWeek'),
     },
     headerToolbar: {
-      left: 'timeGridWeek listWeek',
+      left: 'timeGridWeek listYear',
     },
     locale: $locale,
     timeZone: 'local',

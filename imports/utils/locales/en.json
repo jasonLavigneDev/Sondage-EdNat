@@ -157,7 +157,7 @@
       "description": "Description",
       "participants": "Participants",
       "allDay": "All day",
-      "listWeek": "List",
+      "listYear": "List",
       "timeGridWeek": "Calendar",
       "confirm_date": "Choose this date",
       "confirm_date_tooltip": "Confirm this date and notify everyone",
