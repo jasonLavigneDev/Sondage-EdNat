@@ -20,5 +20,10 @@ Meteor.publish('polls_answers.onePoll', function pollAnswersOne({ pollId }) {
     query.userId = { $ne: this.userId };
   }
   Counts.publish(this, 'polls_answers.onePoll', PollsAnswers.find(query), { noReady: true });
-  return PollsAnswers.find(query, pollOwner || poll.type === POLLS_TYPES.POLL ? {} : { fields: { email: 0, name: 0 } });
+  return PollsAnswers.find(
+    query,
+    !poll.hideParticipantsList && (pollOwner || poll.type === POLLS_TYPES.POLL)
+      ? {}
+      : { fields: { email: 0, name: 0 } },
+  );
 });

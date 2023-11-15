@@ -53,6 +53,7 @@ describe('polls_answers', function () {
     let ownerPollUser;
     let poll;
     let pollTypePoll;
+    let pollTypePollHideParticipants;
     let meetingPoll;
 
     beforeEach(function () {
@@ -79,6 +80,19 @@ describe('polls_answers', function () {
         pollId: pollTypePoll._id,
         email: ownerPollUser.emails[0].address,
         userId: ownerPollUser._id,
+      });
+      // variables for poll type poll with hide participants
+      pollTypePollHideParticipants = Factory.create('poll', {
+        active: true,
+        userId: ownerPollUser._id,
+        type: 'POLL',
+        hideParticipantsList: true,
+      });
+      _.times(7, () => {
+        Factory.create('poll_answer', {
+          pollId: pollTypePollHideParticipants._id,
+          email: anotherUser.emails[0].address,
+        });
       });
       // variables for poll type meeting
       meetingPoll = Factory.create('poll', { active: true, userId: ownerPollUser._id, type: 'MEETING' });
@@ -119,6 +133,14 @@ describe('polls_answers', function () {
           collector.collect('polls_answers.onePoll', { pollId: pollTypePoll._id }, (collections) => {
             assert.equal(collections.counts[0].count, 7);
             assert.containsAllKeys(collections.polls_answers[0], ['name', 'email', 'userId']);
+            done();
+          });
+        });
+        it('does return all pollanswers exclude name and email', function (done) {
+          const collector = new PublicationCollector({});
+          collector.collect('polls_answers.onePoll', { pollId: pollTypePollHideParticipants._id }, (collections) => {
+            assert.equal(collections.counts[0].count, 7);
+            assert.doesNotHaveAnyKeys(collections.polls_answers[0], ['name', 'email']);
             done();
           });
         });
