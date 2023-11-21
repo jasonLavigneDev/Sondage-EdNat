@@ -178,7 +178,7 @@
           {/if}
         {/each}
       </tr>
-      {#if !poll.hideParticipantsList}
+      {#if Meteor.userId() === poll.userId || !poll.hideParticipantsList}
         {#each $answers as single_answer}
           <tr>
             <td>

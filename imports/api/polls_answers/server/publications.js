@@ -22,7 +22,7 @@ Meteor.publish('polls_answers.onePoll', function pollAnswersOne({ pollId }) {
   Counts.publish(this, 'polls_answers.onePoll', PollsAnswers.find(query), { noReady: true });
   return PollsAnswers.find(
     query,
-    !poll.hideParticipantsList && (pollOwner || poll.type === POLLS_TYPES.POLL)
+    pollOwner || (poll.type === POLLS_TYPES.POLL && !poll.hideParticipantsList)
       ? {}
       : { fields: { email: 0, name: 0 } },
   );
