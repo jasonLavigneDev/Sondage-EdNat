@@ -114,6 +114,7 @@
       "title_input": "Titre",
       "group_input": "Groupes sondés",
       "public_input": "Rendre public",
+      "hideParticipantsList_input": "Masquer les participants",
       "group_loading": "Chargement des groupes",
       "group_select": "Ajouter un groupe",
       "type_input": "Type de sondage",

@@ -178,30 +178,32 @@
           {/if}
         {/each}
       </tr>
-      {#each $answers as single_answer}
-        <tr>
-          <td>
-            {single_answer.name}
-          </td>
-          {#each poll.dates as day, index}
-            {#if !poll.allDay && day.slots}
-              {#each day.slots as slo, i}
+      {#if Meteor.userId() === poll.userId || !poll.hideParticipantsList}
+        {#each $answers as single_answer}
+          <tr>
+            <td>
+              {single_answer.name}
+            </td>
+            {#each poll.dates as day, index}
+              {#if !poll.allDay && day.slots}
+                {#each day.slots as slo, i}
+                  <td>
+                    <Checkbox center disabled checked={single_answer.choices[index].slots.find((s) => s === slo)} />
+                  </td>
+                {/each}
+              {:else}
                 <td>
-                  <Checkbox center disabled checked={single_answer.choices[index].slots.find((s) => s === slo)} />
+                  <Checkbox
+                    center
+                    disabled
+                    checked={single_answer.choices[index] && single_answer.choices[index].present}
+                  />
                 </td>
-              {/each}
-            {:else}
-              <td>
-                <Checkbox
-                  center
-                  disabled
-                  checked={single_answer.choices[index] && single_answer.choices[index].present}
-                />
-              </td>
-            {/if}
-          {/each}
-        </tr>
-      {/each}
+              {/if}
+            {/each}
+          </tr>
+        {/each}
+      {/if}
     </tbody>
   </table>
 </div>

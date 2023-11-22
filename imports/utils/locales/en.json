@@ -112,6 +112,7 @@
       "title_input": "Title",
       "group_input": "Groups polled",
       "public_input": "Make public",
+      "hideParticipantsList_input": "Hide participants",
       "group_loading": "Loading groups",
       "group_select": "Add a group",
       "type_input": "Poll type",
