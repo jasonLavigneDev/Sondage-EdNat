@@ -128,6 +128,8 @@
           } else {
             router.goto(ROUTES.END);
           }
+        } else if (!answer.userId) {
+          router.goto(ROUTES.END);
         } else {
           toast.push($_('pages.answer.poll_answered'));
         }
