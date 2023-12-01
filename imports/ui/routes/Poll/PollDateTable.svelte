@@ -17,10 +17,15 @@
   export let grabData = () => null;
   let confirmDateModal = false;
   let chosenDateModal;
+  let totalParticipants;
   let answers;
   $: answers = useTracker(() => {
     Meteor.subscribe('polls_answers.onePoll', { pollId: poll._id });
     return PollsAnswers.find({ pollId: poll._id }).fetch();
+  });
+  $: totalParticipants = useTracker(() => {
+    Meteor.subscribe('polls_answers.getCount', { pollId: poll._id });
+    return Counts.get(`polls_answers.get-${poll._id}`);
   });
   const toggleModal = (date) => {
     confirmDateModal = !confirmDateModal;
@@ -129,7 +134,7 @@
       <tr>
         <td>
           <b>
-            {answer._id ? [...$answers, answer].length : $answers.length}
+            {$totalParticipants}
             {$_('pages.answer.participants')}
           </b>
         </td>
