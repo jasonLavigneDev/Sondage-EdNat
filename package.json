@@ -14,7 +14,7 @@
     "test": "meteor test --once --exclude-archs 'web.browser.legacy, web.cordova' --driver-package meteortesting:mocha --allow-superuser --settings config/settings.development.json.sample",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
-    "css-build": "node-sass --omit-source-map-url imports/utils/theme/index.scss imports/utils/theme/index.css",
+    "css-build": "sass imports/utils/theme/index.scss imports/utils/theme/index.css",
     "css-watch": "yarn css-build --watch"
   },
   "svelte:compiler": {
@@ -42,6 +42,7 @@
     "ical-generator": "^1.15.4",
     "meteor-node-stubs": "^1.2.7",
     "moment": "^2.29.4",
+    "sass": "^1.69.5",
     "simpl-schema": "^1.13.1",
     "svelte": "^3.59.2",
     "svelte-fullcalendar": "^1.1.2",
@@ -78,7 +79,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-standard": "^4.1.0",
-    "node-sass": "^8.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8"
   },
