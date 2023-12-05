@@ -32,7 +32,7 @@
     "@fullcalendar/interaction": "^5.11.5",
     "@fullcalendar/list": "^5.11.5",
     "@fullcalendar/timegrid": "^5.11.5",
-    "@zerodevx/svelte-toast": "^0.1.4",
+    "@zerodevx/svelte-toast": "^0.9.5",
     "axios": "^1.6.2",
     "bcrypt": "^5.1.1",
     "bulma": "^0.9.4",
