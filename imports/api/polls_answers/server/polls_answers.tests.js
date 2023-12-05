@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import { Random } from 'meteor/random';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { Factory } from 'meteor/dburles:factory';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import { POLLS_TYPES } from '../../../utils/enums';
