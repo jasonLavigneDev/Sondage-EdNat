@@ -8,11 +8,12 @@
   import timeGridPlugin from '@fullcalendar/timegrid';
   import listView from '@fullcalendar/list';
   import PollsAnswers from '../../../api/polls_answers/polls_answers';
+  import slotsIncludes from '../../../utils/functions/answers';
 
   export let answer = {};
   export let poll = {};
   export let toggleChoice = () => null;
-  export let currentAnswer = '';
+  export let currentAnswer = {};
   export let editMode = false;
 
   let answers;
@@ -20,9 +21,15 @@
   let events;
 
   $: answers = useTracker(() => {
+    // load all answers for this poll, except current user's answer
     Meteor.subscribe('polls_answers.onePoll', { pollId: poll._id });
-    Meteor.subscribe('polls_answers.getCurrentUser', { pollId: poll._id });
-    return PollsAnswers.find({ pollId: poll._id }).fetch();
+    return PollsAnswers.find({ pollId: poll._id })
+      .fetch()
+      .map((a) => {
+        // change meetingSlot to array for old pollAnswers
+        a.meetingSlot = Array.isArray(a.meetingSlot) ? a.meetingSlot : [a.meetingSlot];
+        return a;
+      });
   });
 
   function canSeeEmail(myemail, email) {
@@ -33,18 +40,19 @@
     if (Meteor.userId() === poll.userId && !editMode) {
       return;
     }
-    if (!$answers.find((a) => moment(a.meetingSlot).isSame(event.start))) {
-      if (moment(answer.meetingSlot).isSame(event.start)) {
-        toggleChoice(null);
-      } else {
-        toggleChoice(event.start);
-      }
+    if (!$answers.find((a) => slotsIncludes(a.meetingSlot, event.start) && a._id !== answer._id)) {
+      toggleChoice(event.start);
     }
   };
 
   $: events = poll.meetingSlots.map(({ start, end }) => {
-    const answerToSlot = $answers.find((a) => moment(a.meetingSlot).isSame(start));
-    if (moment(answer.meetingSlot).isSame(start)) {
+    const answerToSlot = slotsIncludes(answer.meetingSlot, start)
+      ? answer
+      : $answers.find((a) => {
+          if (editMode && a.email === answer.email) return false;
+          return slotsIncludes(a.meetingSlot, start);
+        });
+    if (slotsIncludes(answer.meetingSlot, start)) {
       return {
         start,
         end,
@@ -64,8 +72,8 @@
         className: !canSeeEmail(currentAnswer.email, answerToSlot.email)
           ? 'fc-slot-unavailable'
           : answerToSlot.confirmed
-          ? 'fc-slot-confirmed'
-          : 'fc-slot-taken',
+            ? 'fc-slot-confirmed'
+            : 'fc-slot-taken',
       };
     } else {
       return {

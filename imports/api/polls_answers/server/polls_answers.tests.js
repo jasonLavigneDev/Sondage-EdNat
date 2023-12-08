@@ -280,6 +280,7 @@ describe('polls_answers', function () {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
           pollId: poll._id,
+          meetingSlot: [new Date()],
         });
         validateMeetingPollAnswer._execute({ userId: ownerPollUser._id }, { answerId: pollAnswer._id });
         const eventResult = EventsAgenda.findOne({ title: poll.title });
@@ -291,6 +292,7 @@ describe('polls_answers', function () {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
           pollId: poll._id,
+          meetingSlot: [new Date()],
         });
         validateMeetingPollAnswer._execute({ userId: ownerPollUser._id }, { answerId: pollAnswer._id });
         const resultPollAnswer = PollsAnswers.findOne({ _id: pollAnswer._id });
@@ -346,12 +348,14 @@ describe('polls_answers', function () {
           public: true,
           type: POLLS_TYPES.MEETING,
         });
+        const slot = new Date();
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
           name: 'toto',
           confirmed: true,
           pollId: poll._id,
+          meetingSlot: [slot],
         });
         assert.throws(
           () => {
@@ -362,7 +366,8 @@ describe('polls_answers', function () {
                 emailNotice: false,
                 email: 'newmail@test.fr',
                 name: 'titi',
-                meetingSlot: new Date(),
+                meetingSlot: [slot],
+                initialSlots: [slot],
               },
             );
           },
@@ -379,6 +384,7 @@ describe('polls_answers', function () {
           name: 'toto',
           confirmed: true,
           pollId: poll._id,
+          meetingSlot: [],
         });
         editMeetingPollAnswer._execute(
           { userId: ownerPollUser._id },
@@ -387,13 +393,14 @@ describe('polls_answers', function () {
             emailNotice: false,
             email: 'newmail@test.fr',
             name: 'titi',
-            meetingSlot: newSlot,
+            meetingSlot: [newSlot],
+            initialSlots: [],
           },
         );
         const resultPollAnswer = PollsAnswers.findOne({ _id: pollAnswer._id });
         assert.equal(resultPollAnswer.name, 'titi');
         assert.equal(resultPollAnswer.email, 'newmail@test.fr');
-        assert.equal(resultPollAnswer.meetingSlot.toString(), newSlot.toString());
+        assert.equal(resultPollAnswer.meetingSlot[0].toString(), newSlot.toString());
       });
     });
     describe('getPollanswer', function () {

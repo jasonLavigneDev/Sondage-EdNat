@@ -24,7 +24,7 @@
       "slotAlreadyTaken": "This slot is already reserved"
     },
     "tags": {
-      "titleValidation": "Choose a slot then validate your choice"
+      "titleValidation": "Choose slots then validate your choice"
     },
     "utils": {
       "scriptDetected": "Forbidden content has been detected",
@@ -189,9 +189,9 @@
       "title": "Answers list"
     },
     "MeetingAnswerCancel": {
-      "title": "Meeting cancel",
+      "title": "Cancelling meetings with",
       "answer_not_found": "Poll answer not found",
-      "delete": "Delete this meeting",
+      "delete": "Delete these meetings",
       "goBack": "Back",
       "sendEmail": "Notify via email",
       "emailMsg": "Further information",
@@ -199,7 +199,7 @@
       "userNotNotified": "Meeting cancelled without notifying the user"
     },
     "MeetingAnswerEdit": {
-      "title": "Meeting edition",
+      "title": "Edit meeting with",
       "answer_not_found": "Poll answer not found",
       "submit": "Submit",
       "email": "Email address",

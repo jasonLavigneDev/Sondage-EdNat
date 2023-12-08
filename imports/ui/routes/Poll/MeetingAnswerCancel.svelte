@@ -55,7 +55,7 @@
 <section class="box-transparent">
   <div class="container">
     <h1 class="title is-3">
-      {$_('components.MeetingAnswerCancel.title')} : {moment(answer.meetingSlot).format('LLL')}
+      {$_('components.MeetingAnswerCancel.title')} : {answer.name}
     </h1>
     <div class="box">
       <div class="field">

@@ -15,6 +15,7 @@ import {
   sendEmailToCreator,
 } from '../../events/server/methods';
 import validateString from '../../../utils/functions/strings';
+import slotsIncludes from '../../../utils/functions/answers';
 
 export const createPollAnswers = new ValidatedMethod({
   name: 'polls_answers.create',
@@ -27,11 +28,6 @@ export const createPollAnswers = new ValidatedMethod({
 
     if (PollsAnswers.findOne({ pollId: data.pollId, email: data.email }) && !this.userId) {
       throw new Meteor.Error('api.polls_answers.methods.create.emailAlreadyVoted', 'api.errors.emailAlreadyVoted');
-    } else if (
-      poll.type === POLLS_TYPES.MEETING &&
-      PollsAnswers.findOne({ pollId: data.pollId, meetingSlot: data.meetingSlot })
-    ) {
-      throw new Meteor.Error('api.polls_answers.methods.create.slotAlreadyTaken', 'api.errors.slotAlreadyTaken');
     } else if (poll.type === POLLS_TYPES.MEETING && poll.userId === this.userId) {
       throw new Meteor.Error(
         'api.polls_answers.methods.create.youCantHaveAMeetingWithYourself',
@@ -39,6 +35,12 @@ export const createPollAnswers = new ValidatedMethod({
       );
     } else if (poll.completed) {
       throw new Meteor.Error('api.polls_answers.methods.create.notAllowed', 'api.errors.notAllowed');
+    } else if (poll.type === POLLS_TYPES.MEETING) {
+      // check if any meeting slot is already taken
+      data.meetingSlot.forEach((slot) => {
+        if (PollsAnswers.findOne({ pollId: data.pollId, userId: { $ne: this.userId }, meetingSlot: slot }))
+          throw new Meteor.Error('api.polls_answers.methods.create.slotAlreadyTaken', 'api.errors.slotAlreadyTaken');
+      });
     }
     validateString(data.email);
     validateString(data.name);
@@ -146,10 +148,17 @@ export const editMeetingPollAnswer = new ValidatedMethod({
       regEx: SimpleSchema.RegEx.Email,
     },
     name: String,
-    meetingSlot: Date,
+    meetingSlot: Array,
+    'meetingSlot.$': {
+      type: Date,
+    },
+    initialSlots: Array,
+    'initialSlots.$': {
+      type: Date,
+    },
   }).validator(),
 
-  run({ answerId, emailNotice, email, name, meetingSlot }) {
+  run({ answerId, emailNotice, email, name, meetingSlot, initialSlots }) {
     const answer = PollsAnswers.findOne({ _id: answerId });
     if (!answer) {
       throw new Meteor.Error('api.polls_answers.methods.edit.notFound', 'api.errors.answerNotFound');
@@ -160,7 +169,20 @@ export const editMeetingPollAnswer = new ValidatedMethod({
     }
     validateString(email);
     validateString(name);
-    if (emailNotice) sendEditEmail(poll, email, name, meetingSlot);
+    if (emailNotice) {
+      // email user if user information has changed
+      if (answer.email !== email || answer.name !== name) sendEditEmail(poll, email, name);
+      // email user if new meeting created
+      meetingSlot.forEach((slot) => {
+        if (answer.confirmed && !slotsIncludes(initialSlots, slot))
+          sendEmail(poll, { ...answer, name, email, meetingSlot: [slot] });
+      });
+      // email user if meeting cancelled
+      initialSlots.forEach((slot) => {
+        if (!slotsIncludes(meetingSlot, slot))
+          sendCancelEmail(poll, { ...answer, name, email, meetingSlot: [slot] }, '');
+      });
+    }
     return PollsAnswers.update({ _id: answerId }, { $set: { email, name, meetingSlot } });
   },
 });

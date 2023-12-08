@@ -20,12 +20,10 @@ export const meetingCancelTemplate = ({ date, content }) => `
     </div>
 `;
 
-export const meetingEditTemplate = ({ date, email, name }) => `
+export const meetingEditTemplate = ({ email, name }) => `
     <h4>Votre rendez vous a été édité</h4>
     <br/>
     <div>
-    Date: ${date}
-    <br/>
     Votre nom: ${name}
     <br/>
     Votre adresse email: ${email}

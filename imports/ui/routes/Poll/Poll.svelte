@@ -9,6 +9,7 @@
   import { ROUTES, toasts } from '/imports/utils/enums';
   import { currentUser, loggingIn, accountsConfigured } from '/imports/utils/functions/stores';
   import isValideMail from '/imports/utils/functions/email';
+  import slotsIncludes from '/imports/utils/functions/answers';
   // components
   import BigLink from '/imports/ui/components/common/BigLink.svelte';
   import Divider from '/imports/ui/components/common/Divider.svelte';
@@ -34,7 +35,7 @@
   let answer = {
     email: '',
     name: '',
-    meetingSlot: null,
+    meetingSlot: [],
     userId: Meteor.userId(),
     choices: [],
   };
@@ -52,6 +53,10 @@
           selectedGroups = r.selectedGroups;
           if (r.answer) {
             answer = r.answer;
+            // convert meetingSlot to list if it is a single value
+            if (answer.meetingSlot && !Array.isArray(answer.meetingSlot)) {
+              answer.meetingSlot = [answer.meetingSlot];
+            } else if (answer.meetingSlot === null) answer.meetingSlot = [];
           } else {
             answer = {
               ...answer,
@@ -108,7 +113,15 @@
         }
       }
     } else {
-      answer.meetingSlot = indexOrDate;
+      let newSlots = [];
+      if (slotsIncludes(answer.meetingSlot, indexOrDate)) {
+        newSlots = answer.meetingSlot.filter((s) => !moment(s).isSame(indexOrDate));
+      } else {
+        newSlots = [...answer.meetingSlot, indexOrDate].sort();
+      }
+      // if slots are changed, consider that all chosen slots are no longer confirmed
+      answer.confirmed = false;
+      answer.meetingSlot = newSlots;
     }
   };
 
@@ -249,7 +262,9 @@
             {/if}
           </div>
           <div class="column is-full">
-            <h3 class="title is-3">{$_('api.tags.titleValidation')} :</h3>
+            {#if poll.type === POLLS_TYPES.POLL || poll.userId !== Meteor.userId()}
+              <h3 class="title is-3">{$_('api.tags.titleValidation')} :</h3>
+            {/if}
             {#if poll.type === POLLS_TYPES.POLL}
               <PollDateTable {toggleChoice} {answer} {poll} {grabData} />
             {:else}
@@ -290,7 +305,14 @@
   cancelButton={$_('pages.answer.modify')}
 >
   <p><b>{poll.title}</b></p>
-  <p>{$_('pages.answer.take_meeting')} {moment(answer.meetingSlot).format('LLL')}</p>
+  <p>
+    {$_('pages.answer.take_meeting')}
+  </p>
+  <ul>
+    {#each answer.meetingSlot as slot}
+      <li>{moment(slot).format('LLL')}</li>
+    {/each}
+  </ul>
 </Modal>
 
 <style>

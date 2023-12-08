@@ -39,7 +39,11 @@ describe('events', function () {
     anotherUser = Factory.create('user');
     ownerPollUser = Factory.create('user');
     poll = Factory.create('poll', { active: false, public: true, userId: ownerPollUser._id });
-    pollAnswer = Factory.create('poll_answer', { userId: anotherUser._id, email: anotherUser.emails[0].address });
+    pollAnswer = Factory.create('poll_answer', {
+      userId: anotherUser._id,
+      email: anotherUser.emails[0].address,
+      meetingSlot: [new Date()],
+    });
   });
 
   describe('createEventAgendaMeeting', function () {
@@ -54,7 +58,7 @@ describe('events', function () {
       assert.isEmpty(resultEvent.guests);
     });
     it('should create an event meeting into agenda with a guest user', function () {
-      const anotherPollAnswer = Factory.create('poll_answer', { email: 'toto@test.com' });
+      const anotherPollAnswer = Factory.create('poll_answer', { email: 'toto@test.com', meetingSlot: [new Date()] });
       createEventAgendaMeeting(poll, anotherPollAnswer, ownerPollUser._id);
       const resultEvent = EventsAgenda.findOne({ title: poll.title });
       assert.typeOf(resultEvent, 'object');

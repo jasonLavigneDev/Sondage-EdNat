@@ -26,7 +26,7 @@
       "cannotSendEmailToCreator": "Echec d'envoi de l'email au créateur du sondage"
     },
     "tags": {
-      "titleValidation": "Choisir un créneau puis valider votre choix"
+      "titleValidation": "Choisir des créneaux puis valider votre choix"
     },
     "utils": {
       "scriptDetected": "Du contenu non autorisé a été détecté",
@@ -191,9 +191,9 @@
       "title": "Liste des réponses"
     },
     "MeetingAnswerCancel": {
-      "title": "Annulation du Rendez-vous",
+      "title": "Annulation des Rendez-vous avec",
       "answer_not_found": "Réponse non trouvée",
-      "delete": "Supprimer ce rendez-vous",
+      "delete": "Supprimer ces rendez-vous",
       "goBack": "retour",
       "sendEmail": "Notifier par courriel",
       "emailMsg": "Informations complémentaires",
@@ -201,7 +201,7 @@
       "userNotNotified": "Rendez-vous annulé sans notification à l'utilisateur."
     },
     "MeetingAnswerEdit": {
-      "title": "Edition du Rendez-vous",
+      "title": "Edition du Rendez-vous avec",
       "answer_not_found": "Réponse non trouvée",
       "submit": "Modifier",
       "email": "Adresse email",
