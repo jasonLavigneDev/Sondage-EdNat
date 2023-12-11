@@ -66,12 +66,8 @@
         </button>
       {/if}
 
-      <a href={!poll.active && $votes === 0 ? ROUTES.EDIT_POLL_RM(poll._id) : ROUTES.ADMIN}>
-        <button
-          class="button is-small is-light"
-          disabled={poll.active || $votes !== 0}
-          title={$_('pages.home.edit_tooltip')}
-        >
+      <a href={!poll.active ? ROUTES.EDIT_POLL_RM(poll._id) : ROUTES.ADMIN}>
+        <button class="button is-small is-light" disabled={poll.active} title={$_('pages.home.edit_tooltip')}>
           <i class="fas fa-pen" />
         </button>
       </a>
