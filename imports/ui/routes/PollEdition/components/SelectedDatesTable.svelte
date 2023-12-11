@@ -9,7 +9,7 @@
   export let meetingSlots = false;
   export let answers;
 
-  $: isSlotTaken = (date) => Boolean(answers.find((a) => moment(a.meetingSlot).isSame(date.start)));
+  $: isSlotTaken = (date) => Boolean(answers?.find((a) => moment(a.meetingSlot).isSame(date.start)));
 
   const removeDate = (date) => {
     dates = dates.filter((d) => d !== date);
