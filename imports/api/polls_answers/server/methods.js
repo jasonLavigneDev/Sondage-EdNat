@@ -9,8 +9,10 @@ import Groups from '../../groups/groups';
 import Polls from '../../polls/polls';
 import {
   createEventAgendaMeeting,
+  deleteEventAgendaMeeting,
   sendEmail,
   sendCancelEmail,
+  sendCancelEmailToCreator,
   sendEditEmail,
   sendEmailToCreator,
 } from '../../events/server/methods';
@@ -26,7 +28,8 @@ export const createPollAnswers = new ValidatedMethod({
   run({ data }) {
     const poll = Polls.findOne({ _id: data.pollId });
 
-    if (PollsAnswers.findOne({ pollId: data.pollId, email: data.email }) && !this.userId) {
+    const previousAnswer = PollsAnswers.findOne({ pollId: data.pollId, email: data.email });
+    if (previousAnswer && !this.userId) {
       throw new Meteor.Error('api.polls_answers.methods.create.emailAlreadyVoted', 'api.errors.emailAlreadyVoted');
     } else if (poll.type === POLLS_TYPES.MEETING && poll.userId === this.userId) {
       throw new Meteor.Error(
@@ -81,7 +84,22 @@ export const createPollAnswers = new ValidatedMethod({
         { $set: { ...data, userId: this.userId, confirmed: false } },
         { upsert: true },
       );
-      if (poll.type === POLLS_TYPES.MEETING) sendEmailToCreator(poll, data, this.userId);
+      if (poll.type === POLLS_TYPES.MEETING) {
+        // email poll owner about new slots chosen by user
+        sendEmailToCreator(poll, data, this.userId);
+        if (previousAnswer && previousAnswer.confirmed) {
+          // if previous answer was confirmed by poll owner
+          // - delete previously created events from poll owner agenda
+          // - email poll owner about cancelled meeting slots
+          deleteEventAgendaMeeting(poll, previousAnswer, poll.userId);
+          const initialSlots = previousAnswer.meetingSlot;
+          initialSlots.forEach((slot) => {
+            if (!slotsIncludes(data.meetingSlot, slot)) {
+              sendCancelEmailToCreator(poll, { ...data, meetingSlot: [slot] }, '');
+            }
+          });
+        }
+      }
       return result;
     } else if (!poll.public && !this.userId) {
       throw new Meteor.Error('api.polls_answers.methods.create.notPublic', 'api.errors.pollNotActive');
@@ -133,8 +151,10 @@ export const cancelMeetingPollAnswer = new ValidatedMethod({
     if (poll.userId !== this.userId || poll.type !== POLLS_TYPES.MEETING) {
       throw new Meteor.Error('api.polls_answers.methods.cancel.notAllowed', 'api.errors.notAllowed');
     }
+    const result = PollsAnswers.remove({ _id: answerId });
     if (emailNotice) sendCancelEmail(poll, answer, emailContent);
-    return PollsAnswers.remove({ _id: answerId });
+    deleteEventAgendaMeeting(poll, answer, this.userId);
+    return result;
   },
 });
 
@@ -169,21 +189,26 @@ export const editMeetingPollAnswer = new ValidatedMethod({
     }
     validateString(email);
     validateString(name);
+    const result = PollsAnswers.update({ _id: answerId }, { $set: { email, name, meetingSlot } });
     if (emailNotice) {
       // email user if user information has changed
       if (answer.email !== email || answer.name !== name) sendEditEmail(poll, email, name);
       // email user if new meeting created
       meetingSlot.forEach((slot) => {
-        if (answer.confirmed && !slotsIncludes(initialSlots, slot))
+        if (answer.confirmed && !slotsIncludes(initialSlots, slot)) {
+          createEventAgendaMeeting(poll, { ...answer, name, email, meetingSlot: [slot] }, this.userId);
           sendEmail(poll, { ...answer, name, email, meetingSlot: [slot] });
+        }
       });
       // email user if meeting cancelled
       initialSlots.forEach((slot) => {
-        if (!slotsIncludes(meetingSlot, slot))
+        if (!slotsIncludes(meetingSlot, slot)) {
+          deleteEventAgendaMeeting(poll, { ...answer, name, email, meetingSlot: [slot] }, this.userId);
           sendCancelEmail(poll, { ...answer, name, email, meetingSlot: [slot] }, '');
+        }
       });
     }
-    return PollsAnswers.update({ _id: answerId }, { $set: { email, name, meetingSlot } });
+    return result;
   },
 });
 

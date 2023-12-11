@@ -1,13 +1,7 @@
 import moment from 'moment';
 
 function slotsIncludes(slots, start) {
-  let response = false;
-  slots.forEach((slot) => {
-    if (moment(slot).isSame(start)) {
-      response = true;
-    }
-  });
-  return response;
+  return slots.some((slot) => moment(slot).isSame(start));
 }
 
 export default slotsIncludes;

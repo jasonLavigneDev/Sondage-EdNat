@@ -12,8 +12,8 @@ export const meetingTemplate = ({ sender, date }) => `
     <br/>
 `;
 
-export const meetingCancelTemplate = ({ date, content }) => `
-    <h4>Votre rendez vous le ${date} a été annulé</h4>
+export const meetingCancelTemplate = ({ date, meetWith, content }) => `
+    <h4>Votre rendez vous le ${date} avec ${meetWith} a été annulé</h4>
     <br/>
     <div>
     ${content}

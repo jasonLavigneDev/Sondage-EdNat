@@ -81,23 +81,41 @@ export function sendEmailToCreator(poll, answer, userId) {
   });
 }
 
-export function sendCancelEmail(poll, answer, content) {
+function _sendCancelEmail(email, poll, slot, meetWith, content) {
   const template = meetingCancelTemplate;
+  const html = template({ date: moment(slot).format('LLL (Z)'), meetWith, content });
+  try {
+    Email.send({
+      to: email,
+      from: Meteor.settings.smtp.fromEmail,
+      subject: `Sondage - annulation de votre rendez-vous pour ${poll.title}`,
+      inReplyTo: Meteor.settings.smtp.toEmail,
+      html,
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Meteor.Error('api.events.methods.sendCancelEmail', 'api.errors.cannotSendEmail');
+  }
+}
+
+export function sendCancelEmail(poll, answer, content) {
+  const pollOwner = Meteor.users.findOne(poll.userId);
+  const ownerEmail = pollOwner?.emails[0].address;
+  const meetWith = `${pollOwner.firstName} ${pollOwner.lastName} (${ownerEmail})`;
   answer.meetingSlot.forEach((slot) => {
-    const html = template({ date: moment(slot).format('LLL (Z)'), content });
-    try {
-      Email.send({
-        to: answer.email,
-        from: Meteor.settings.smtp.fromEmail,
-        subject: `Sondage - annulation de votre rendez-vous pour ${poll.title}`,
-        inReplyTo: Meteor.settings.smtp.toEmail,
-        html,
-      });
-    } catch (error) {
-      console.log(error);
-      throw new Meteor.Error('api.events.methods.sendCancelEmail', 'api.errors.cannotSendEmail');
-    }
+    _sendCancelEmail(answer.email, poll, slot, meetWith, content);
   });
+}
+
+export function sendCancelEmailToCreator(poll, answer, content) {
+  const pollOwner = Meteor.users.findOne(poll.userId);
+  const ownerEmail = pollOwner?.emails[0].address;
+  if (ownerEmail) {
+    const meetWith = `${answer.name} (${answer.email})`;
+    answer.meetingSlot.forEach((slot) => {
+      _sendCancelEmail(ownerEmail, poll, slot, meetWith, content);
+    });
+  }
 }
 
 export function sendEditEmail(poll, email, name) {
@@ -142,6 +160,21 @@ export function createEventAgendaMeeting(poll, answer, userId) {
       userId,
     });
   });
+}
+
+export function deleteEventAgendaMeeting(poll, answer, userId) {
+  // events have been created only if answer is confirmed
+  if (answer.confirmed) {
+    const slots = !Array.isArray(answer.meetingSlot) ? [answer.meetingSlot] : answer.meetingSlot;
+    slots.forEach((slot) => {
+      EventsAgenda.remove({
+        title: poll.title,
+        start: slot,
+        allDay: poll.allDay,
+        userId,
+      });
+    });
+  }
 }
 
 export function createEventAgenda(poll, date, userId) {
