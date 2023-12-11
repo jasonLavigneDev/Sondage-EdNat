@@ -7,6 +7,9 @@
 
   export let dates = null;
   export let meetingSlots = false;
+  export let answers;
+
+  $: isSlotTaken = (date) => Boolean(answers.find((a) => moment(a.meetingSlot).isSame(date.start)));
 
   const removeDate = (date) => {
     dates = dates.filter((d) => d !== date);
@@ -33,7 +36,11 @@
                 {/if}
               </th>
               <th>
-                <button on:click={() => removeDate(date)} class="button is-rounded is-primary is-small mt-2">
+                <button
+                  disabled={isSlotTaken(date)}
+                  on:click={() => removeDate(date)}
+                  class="button is-rounded is-primary is-small mt-2"
+                >
                   <span class="icon is-small">
                     <i class="fas fa-trash" />
                   </span>

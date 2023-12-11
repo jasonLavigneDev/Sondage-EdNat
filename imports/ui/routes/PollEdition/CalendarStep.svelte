@@ -2,11 +2,13 @@
   import { _, locale } from 'svelte-i18n';
   import { ROUTES } from '/imports/utils/enums';
   import FullCalendar from 'svelte-fullcalendar';
+  import { useTracker } from 'meteor/rdb:svelte-meteor-data';
   import moment from 'moment';
   import allLocales from '@fullcalendar/core/locales-all';
   import interactionPlugin from '@fullcalendar/interaction'; // for selectable
   import timeGridPlugin from '@fullcalendar/timegrid';
   import SelectedDatesTable from './components/SelectedDatesTable.svelte';
+  import PollsAnswers from '../../../api/polls_answers/polls_answers';
 
   // components
   import BigLink from '/imports/ui/components/common/BigLink.svelte';
@@ -19,8 +21,16 @@
   import PackageJSON from '../../../../package.json';
   let version = PackageJSON.version;
   export let meta;
+  export let currentAnswer = '';
+  export let answer = {};
 
-  let options;
+  let pollId = meta.params._id;
+
+  $: answers = useTracker(() => {
+    Meteor.subscribe('polls_answers.onePoll', { pollId: pollId });
+    Meteor.subscribe('polls_answers.getCurrentUser', { pollId: pollId });
+    return PollsAnswers.find({ pollId }).fetch();
+  });
 
   const selectTimeSlot = ({ start, end }) => {
     if (start < new Date()) {
@@ -47,13 +57,43 @@
     });
     $newPollStore.meetingSlots = [...$newPollStore.meetingSlots, ...newTimesSlots];
   };
+
+  $: events = $newPollStore.meetingSlots.map(({ start, end }) => {
+    const answerToSlot = $answers.find((a) => moment(a.meetingSlot).isSame(start));
+    if (moment(answer.meetingSlot).isSame(start)) {
+      return {
+        start,
+        end,
+        title: currentAnswer.name,
+        className:
+          answerToSlot && answerToSlot.confirmed && answerToSlot.email === currentAnswer.email
+            ? 'fc-slot-confirmed'
+            : 'fc-slot-current',
+      };
+    } else if (answerToSlot) {
+      return {
+        start,
+        end,
+        title: answerToSlot.name,
+
+        className: answerToSlot.confirmed ? 'fc-slot-confirmed' : 'fc-slot-taken',
+      };
+    } else {
+      return {
+        start,
+        end,
+      };
+    }
+  });
+
   const resetSlots = () => {
     $newPollStore.meetingSlots = [];
   };
   const removeEvent = ({ event }) => {
     const newEvents = [];
     $newPollStore.meetingSlots.forEach((e) => {
-      if (moment(e.start).isSame(event.start)) {
+      const answerToSlot = $answers.find((a) => moment(a.meetingSlot).isSame(event.start));
+      if (moment(e.start).isSame(event.start) && !answerToSlot) {
         return;
       }
       newEvents.push(e);
@@ -118,7 +158,7 @@
       endTime: '22:00',
     },
     // events handling
-    events: $newPollStore.meetingSlots,
+    events,
     eventClick: removeEvent,
     // theme handling
     themeSystem: 'bootstrap',
@@ -176,7 +216,7 @@
         </div>
       </div>
       <div class="column is-one-third-desktop is-full-mobile">
-        <SelectedDatesTable bind:dates={$newPollStore.meetingSlots} meetingSlots={true} />
+        <SelectedDatesTable bind:dates={$newPollStore.meetingSlots} answers={$answers} meetingSlots={true} />
       </div>
       <div class="column is-full">
         <Divider />
