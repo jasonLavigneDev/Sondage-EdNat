@@ -1,11 +1,12 @@
 <script>
-  import { globalState } from "/imports/utils/functions/stores";
+  import { globalState } from '/imports/utils/functions/stores';
 
   const { state } = globalState();
-  export let link = "",
-    text = "",
+  export let loading = false;
+  export let link = '',
+    text = '',
     action = null,
-    color = "is-primary",
+    color = 'is-primary',
     disabled = false;
   const onClick = () => (action ? action() : null);
 </script>
@@ -13,6 +14,7 @@
 {#if action && !link}
   <button
     class:is-fullwidth={$state.mobile}
+    class:is-loading={loading}
     class:disabled
     class={`button ${color}`}
     on:click={disabled ? null : onClick}
@@ -25,7 +27,7 @@
     class:disabled
     class={`button ${color}`}
     rel="prefetch"
-    href={disabled ? "" : link}
+    href={disabled ? '' : link}
     on:click={disabled ? null : onClick}
   >
     {text}</a
@@ -37,8 +39,10 @@
   button {
     font-size: 16px;
     transition: all 0.2s ease-in-out;
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    box-shadow:
+      0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 5px 0px rgba(0, 0, 0, 0.12);
     border-radius: 8px;
   }
   .disabled {

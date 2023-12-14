@@ -31,6 +31,7 @@
   let poll = {};
   let author = { firstName: '', lastName: '' };
   let loading = false;
+  let answering = false;
   let askToConnect = false;
   let answer = {
     email: '',
@@ -126,12 +127,12 @@
   };
 
   const sendAnswer = () => {
-    loading = true;
+    answering = true;
     if (poll.type === POLLS_TYPES.MEETING) {
       toggleShowModal();
     }
     Meteor.call('polls_answers.create', { data: answer }, (error, result) => {
-      loading = false;
+      answering = false;
       if (error) {
         toast.push($_(error.reason), toasts.error);
       } else {
@@ -277,6 +278,7 @@
               <BigLink link={ROUTES.ADMIN} text={$_('pages.new_poll.back')} />
             {:else if !poll.completed}
               <BigLink
+                loading={answering}
                 disabled={!isValideMail(answer.email) || !answer.name || loading}
                 action={poll.type === POLLS_TYPES.MEETING ? toggleShowModal : sendAnswer}
                 text={$_('pages.new_poll.validate')}

@@ -1,6 +1,5 @@
 <script>
   import { _ } from 'svelte-i18n';
-  import moment from 'moment';
   import { Meteor } from 'meteor/meteor';
   import { toast } from '@zerodevx/svelte-toast';
   import { router } from 'tinro';
@@ -16,15 +15,19 @@
   let emailNotice = true;
   let emailMsg = '';
   let answer = {};
+  let cancelling = false;
   const answerId = meta.params._id;
 
   const cancelMeeting = () => {
+    cancelling = true;
     Meteor.call('polls_answers.meeting.cancel', { answerId: answer._id, emailNotice, emailContent: emailMsg }, (e) => {
       if (e) {
         console.log(e);
         toast.push($_(e.reason), toasts.error);
+        cancelling = false;
       } else {
         toast.push($_(`components.MeetingAnswerCancel.${emailNotice ? 'userNotified' : 'userNotNotified'}`));
+        cancelling = false;
         router.goto(ROUTES.ANSWER_POLL_RM(answer.pollId));
       }
     });
@@ -78,7 +81,12 @@
           />
         </div>
         <div class="column is-half-desktop is-full-mobile is-right">
-          <BigLink action={cancelMeeting} text={$_('components.MeetingAnswerCancel.delete')} color="is-danger" />
+          <BigLink
+            action={cancelMeeting}
+            loading={cancelling}
+            text={$_('components.MeetingAnswerCancel.delete')}
+            color="is-danger"
+          />
         </div>
       </div>
     </div>

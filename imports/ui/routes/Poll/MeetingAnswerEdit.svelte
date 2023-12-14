@@ -25,11 +25,13 @@
   let pollLoaded = false;
   let answerLoaded = false;
   let initialSlots = [];
+  let editing = false;
 
   const answerId = meta.params._id;
   const pollId = meta.params.pollId;
 
   const editMeeting = () => {
+    editing = true;
     Meteor.call(
       'polls_answers.meeting.edit',
       { answerId: answer._id, emailNotice, email, name, meetingSlot: answer.meetingSlot, initialSlots },
@@ -37,8 +39,10 @@
         if (e) {
           console.log(e);
           toast.push($_(e.reason), toasts.error);
+          editing = false;
         } else {
           toast.push($_(`components.MeetingAnswerEdit.${emailNotice ? 'userNotified' : 'userNotNotified'}`));
+          editing = false;
           router.goto(ROUTES.ANSWER_POLL_RM(answer.pollId));
         }
       },
@@ -145,6 +149,7 @@
         </div>
         <div class="column is-half-desktop is-full-mobile is-right">
           <BigLink
+            loading={editing}
             disabled={!isValideMail(email) || !name || loading || answer.meetingSlot.length === 0}
             action={editMeeting}
             text={$_('components.MeetingAnswerEdit.submit')}
