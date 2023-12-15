@@ -3,22 +3,22 @@ a {
 }
 
 @font-face {
-  font-family: "WorkSansBold";
-  src: url("./fonts/worksans-bold-webfont.woff2") format("woff2"),
-    url("./fonts/worksans-bold-webfont.woff") format("woff");
+  font-family: 'WorkSansBold';
+  src: url('./fonts/worksans-bold-webfont.woff2') format('woff2'),
+    url('./fonts/worksans-bold-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "WorkSansRegular";
-  src: url("./fonts/worksans-regular-webfont.woff2") format("woff2"),
-    url("./fonts/worksans-regular-webfont.woff") format("woff");
+  font-family: 'WorkSansRegular';
+  src: url('./fonts/worksans-regular-webfont.woff2') format('woff2'),
+    url('./fonts/worksans-regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 *:not(i):not(.material-icons):not(.fc-icon) {
-  font-family: "WorkSansRegular" !important;
+  font-family: 'WorkSansRegular' !important;
 }
 .hidden {
   display: none;
@@ -31,7 +31,7 @@ h4,
 h5,
 h6,
 .title {
-  font-family: "WorkSansBold" !important;
+  font-family: 'WorkSansBold' !important;
 }
 
 .title,
@@ -71,5 +71,12 @@ p,
 .fc-slot-confirmed {
   background-color: #48c774 !important;
   border-color: #48c774 !important;
+  cursor: not-allowed;
+}
+
+.fc-slot-unavailable {
+  background-color: #c74848 !important;
+  border-color: #c74848 !important;
+  color: #ffffff;
   cursor: not-allowed;
 }
