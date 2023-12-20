@@ -14,33 +14,36 @@ import {
 import { EventsAgenda } from '../events';
 
 export function sendEmail(poll, answer) {
-  const cal = ical({ domain: process.env.ROOT_URL, name: 'sondage iCal' });
-  cal.createEvent({
-    start: moment(answer.meetingSlot),
-    end: moment(answer.meetingSlot).add(DURATIONS_TIME[poll.duration], 'minute'),
-    summary: poll.title,
-    description: poll.description,
-    url: new URL(ROUTES.ANSWER_POLL_RM(poll._id), process.env.ROOT_URL).href,
-  });
-  const template = poll.type === POLLS_TYPES.POLL ? eventTemplate : meetingTemplate;
-  const html = template({
-    title: poll.title,
-    sender: Meteor.users.findOne(poll.userId),
-    date: moment(answer.meetingSlot).format('LLL (Z)'),
-  });
-  try {
-    Email.send({
-      to: answer.email,
-      from: Meteor.settings.smtp.fromEmail,
-      subject: `Sondage - Votre rdv du ${moment(answer.meetingSlot).format('L')}`,
-      icalEvent: cal.toString(),
-      inReplyTo: Meteor.settings.smtp.toEmail,
-      html,
+  const slots = !Array.isArray(answer.meetingSlot) ? [answer.meetingSlot] : answer.meetingSlot;
+  slots.forEach((slot) => {
+    const cal = ical({ domain: process.env.ROOT_URL, name: 'sondage iCal' });
+    cal.createEvent({
+      start: moment(slot),
+      end: moment(slot).add(DURATIONS_TIME[poll.duration], 'minute'),
+      summary: poll.title,
+      description: poll.description,
+      url: new URL(ROUTES.ANSWER_POLL_RM(poll._id), process.env.ROOT_URL).href,
     });
-  } catch (error) {
-    console.log(error);
-    throw new Meteor.Error('api.events.methods.sendEmail', 'api.errors.cannotSendEmail');
-  }
+    const template = poll.type === POLLS_TYPES.POLL ? eventTemplate : meetingTemplate;
+    const html = template({
+      title: poll.title,
+      sender: Meteor.users.findOne(poll.userId),
+      date: moment(slot).format('LLL (Z)'),
+    });
+    try {
+      Email.send({
+        to: answer.email,
+        from: Meteor.settings.smtp.fromEmail,
+        subject: `Sondage - Votre rdv du ${moment(slot).format('L')}`,
+        icalEvent: cal.toString(),
+        inReplyTo: Meteor.settings.smtp.toEmail,
+        html,
+      });
+    } catch (error) {
+      console.log(error);
+      throw new Meteor.Error('api.events.methods.sendEmail', 'api.errors.cannotSendEmail');
+    }
+  });
 }
 
 export function sendEmailToCreator(poll, answer, userId) {
@@ -54,34 +57,36 @@ export function sendEmailToCreator(poll, answer, userId) {
   }
 
   const admin = Meteor.users.findOne(poll.userId);
-  const html = template({
-    title: poll.title,
-    sender: answerer,
-    date: moment(answer.meetingSlot).format('LLL (Z)'),
-    url: `${Meteor.settings.public.services.sondagesUrl}/poll/answer/${poll._id} `,
-    connected,
-  });
-  try {
-    Email.send({
-      to: admin.emails[0].address,
-      from: Meteor.settings.smtp.fromEmail,
-      subject: `Rendez-vous - nouveau créneau sélectionné pour le rendez-vous ${poll.title}`,
-      inReplyTo: Meteor.settings.smtp.toEmail,
-      html,
+  const slots = !Array.isArray(answer.meetingSlot) ? [answer.meetingSlot] : answer.meetingSlot;
+  slots.forEach((slot) => {
+    const html = template({
+      title: poll.title,
+      sender: answerer,
+      date: moment(slot).format('LLL (Z)'),
+      url: `${Meteor.settings.public.services.sondagesUrl}/poll/answer/${poll._id} `,
+      connected,
     });
-  } catch (error) {
-    console.log(error);
-    throw new Meteor.Error('api.events.methods.sendEmailToCreator', 'api.errors.cannotSendEmailToCreator');
-  }
+    try {
+      Email.send({
+        to: admin.emails[0].address,
+        from: Meteor.settings.smtp.fromEmail,
+        subject: `Rendez-vous - nouveau créneau sélectionné pour le rendez-vous ${poll.title}`,
+        inReplyTo: Meteor.settings.smtp.toEmail,
+        html,
+      });
+    } catch (error) {
+      console.log(error);
+      throw new Meteor.Error('api.events.methods.sendEmailToCreator', 'api.errors.cannotSendEmailToCreator');
+    }
+  });
 }
 
-export function sendCancelEmail(poll, answer, content) {
+function _sendCancelEmail(email, poll, slot, meetWith, content) {
   const template = meetingCancelTemplate;
-
-  const html = template({ date: moment(answer.meetingSlot).format('LLL (Z)'), content });
+  const html = template({ date: moment(slot).format('LLL (Z)'), meetWith, content });
   try {
     Email.send({
-      to: answer.email,
+      to: email,
       from: Meteor.settings.smtp.fromEmail,
       subject: `Sondage - annulation de votre rendez-vous pour ${poll.title}`,
       inReplyTo: Meteor.settings.smtp.toEmail,
@@ -93,10 +98,30 @@ export function sendCancelEmail(poll, answer, content) {
   }
 }
 
-export function sendEditEmail(poll, email, name, meetingSlot) {
+export function sendCancelEmail(poll, answer, content) {
+  const pollOwner = Meteor.users.findOne(poll.userId);
+  const ownerEmail = pollOwner?.emails[0].address;
+  const meetWith = `${pollOwner.firstName} ${pollOwner.lastName} (${ownerEmail})`;
+  answer.meetingSlot.forEach((slot) => {
+    _sendCancelEmail(answer.email, poll, slot, meetWith, content);
+  });
+}
+
+export function sendCancelEmailToCreator(poll, answer, content) {
+  const pollOwner = Meteor.users.findOne(poll.userId);
+  const ownerEmail = pollOwner?.emails[0].address;
+  if (ownerEmail) {
+    const meetWith = `${answer.name} (${answer.email})`;
+    answer.meetingSlot.forEach((slot) => {
+      _sendCancelEmail(ownerEmail, poll, slot, meetWith, content);
+    });
+  }
+}
+
+export function sendEditEmail(poll, email, name) {
   const template = meetingEditTemplate;
 
-  const html = template({ date: moment(meetingSlot).format('LLL (Z)'), email, name });
+  const html = template({ email, name });
   try {
     Email.send({
       to: email,
@@ -113,25 +138,43 @@ export function sendEditEmail(poll, email, name, meetingSlot) {
 
 export function createEventAgendaMeeting(poll, answer, userId) {
   const participantUser = Accounts.findUserByEmail(answer.email);
-  EventsAgenda.insert({
-    title: poll.title,
-    location: '',
-    start: moment(answer.meetingSlot).format(),
-    end: moment(answer.meetingSlot).add(DURATIONS_TIME[poll.duration], 'minute').format(),
-    allDay: poll.allDay,
-    participants: participantUser
-      ? [
-          {
-            _id: participantUser._id,
-            email: answer.email,
-          },
-        ]
-      : [],
-    guests: participantUser ? [] : [answer.email],
-    description: poll.description,
-    groups: [],
-    userId,
+  const slots = !Array.isArray(answer.meetingSlot) ? [answer.meetingSlot] : answer.meetingSlot;
+  slots.forEach((slot) => {
+    EventsAgenda.insert({
+      title: poll.title,
+      location: '',
+      start: moment(slot).format(),
+      end: moment(slot).add(DURATIONS_TIME[poll.duration], 'minute').format(),
+      allDay: poll.allDay,
+      participants: participantUser
+        ? [
+            {
+              _id: participantUser._id,
+              email: answer.email,
+            },
+          ]
+        : [],
+      guests: participantUser ? [] : [answer.email],
+      description: poll.description,
+      groups: [],
+      userId,
+    });
   });
+}
+
+export function deleteEventAgendaMeeting(poll, answer, userId) {
+  // events have been created only if answer is confirmed
+  if (answer.confirmed) {
+    const slots = !Array.isArray(answer.meetingSlot) ? [answer.meetingSlot] : answer.meetingSlot;
+    slots.forEach((slot) => {
+      EventsAgenda.remove({
+        title: poll.title,
+        start: slot,
+        allDay: poll.allDay,
+        userId,
+      });
+    });
+  }
 }
 
 export function createEventAgenda(poll, date, userId) {

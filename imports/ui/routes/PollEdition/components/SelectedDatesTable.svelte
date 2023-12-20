@@ -4,12 +4,13 @@
 
   import Divider from '/imports/ui/components/common/Divider.svelte';
   import NoResults from '/imports/ui/components/common/NoResults.svelte';
+  import slotsIncludes from '/imports/utils/functions/answers';
 
   export let dates = null;
   export let meetingSlots = false;
   export let answers;
 
-  $: isSlotTaken = (date) => Boolean(answers?.find((a) => moment(a.meetingSlot).isSame(date.start)));
+  $: isSlotTaken = (date) => Boolean(answers?.find((a) => slotsIncludes(a.meetingSlot, date.start)));
 
   const removeDate = (date) => {
     dates = dates.filter((d) => d !== date);

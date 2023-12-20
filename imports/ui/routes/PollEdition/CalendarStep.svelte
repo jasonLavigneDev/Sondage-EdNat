@@ -16,20 +16,25 @@
   import { newPollStore } from '/imports/utils/functions/stores';
   import StepBar from '../../components/common/StepBar.svelte';
   import timeSlotsGen from '../../../utils/functions/timeSlotsGen';
+  import slotsIncludes from '../../../utils/functions/answers';
   import { toast } from '@zerodevx/svelte-toast';
   import { DURATIONS, DURATIONS_TIME, toasts } from '../../../utils/enums';
   import PackageJSON from '../../../../package.json';
   let version = PackageJSON.version;
   export let meta;
-  export let currentAnswer = '';
-  export let answer = {};
 
   let pollId = meta.params._id;
 
   $: answers = useTracker(() => {
     Meteor.subscribe('polls_answers.onePoll', { pollId: pollId });
     Meteor.subscribe('polls_answers.getCurrentUser', { pollId: pollId });
-    return PollsAnswers.find({ pollId }).fetch();
+    return PollsAnswers.find({ pollId })
+      .fetch()
+      .map((a) => {
+        // change meetingSlot to array for old pollAnswers
+        a.meetingSlot = Array.isArray(a.meetingSlot) ? a.meetingSlot : [a.meetingSlot];
+        return a;
+      });
   });
 
   const selectTimeSlot = ({ start, end }) => {
@@ -59,18 +64,8 @@
   };
 
   $: events = $newPollStore.meetingSlots.map(({ start, end }) => {
-    const answerToSlot = $answers.find((a) => moment(a.meetingSlot).isSame(start));
-    if (moment(answer.meetingSlot).isSame(start)) {
-      return {
-        start,
-        end,
-        title: currentAnswer.name,
-        className:
-          answerToSlot && answerToSlot.confirmed && answerToSlot.email === currentAnswer.email
-            ? 'fc-slot-confirmed'
-            : 'fc-slot-current',
-      };
-    } else if (answerToSlot) {
+    const answerToSlot = $answers.find((a) => slotsIncludes(a.meetingSlot, start));
+    if (answerToSlot) {
       return {
         start,
         end,
@@ -91,8 +86,8 @@
   };
   const removeEvent = ({ event }) => {
     const newEvents = [];
+    const answerToSlot = $answers.find((a) => slotsIncludes(a.meetingSlot, event.start));
     $newPollStore.meetingSlots.forEach((e) => {
-      const answerToSlot = $answers.find((a) => moment(a.meetingSlot).isSame(event.start));
       if (moment(e.start).isSame(event.start) && !answerToSlot) {
         return;
       }

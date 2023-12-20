@@ -21,7 +21,10 @@
       return Counts.get(`polls_answers.get-${poll._id}`);
     } else if (poll.type === POLLS_TYPES.MEETING) {
       Meteor.subscribe('polls_answers.getCurrentUser', { pollId: poll._id });
-      return PollsAnswers.findOne({ pollId: poll._id });
+      const answer = PollsAnswers.findOne({ pollId: poll._id });
+      // convert meetingSlot to array for old pollAnswers
+      if (answer) answer.meetingSlot = Array.isArray(answer.meetingSlot) ? answer.meetingSlot : [answer.meetingSlot];
+      return answer;
     }
   });
   const copyToClipboard = () => {
@@ -62,7 +65,11 @@
     <td> {$typeDataVote} </td>
   {:else if poll.type === POLLS_TYPES.MEETING}
     {#if $typeDataVote}
-      <td> {moment($typeDataVote.meetingSlot).format('LLL')} </td>
+      <td>
+        {#each $typeDataVote.meetingSlot as slot}
+          {moment(slot).format('LLL')}<br />
+        {/each}
+      </td>
     {:else}
       <td> {$_('polls_datas.noAnswer')} </td>
     {/if}

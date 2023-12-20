@@ -12,6 +12,7 @@
 
   import PackageJSON from '../../../../package.json';
   import { onMount } from 'svelte';
+  import slotsIncludes from '../../../utils/functions/answers';
   let version = PackageJSON.version;
 
   export let meta;
@@ -20,30 +21,43 @@
   let poll = {};
   let email = '';
   let name = '';
-  let meetingSlot = '';
-  let initialDate = '';
   let loading = true;
   let pollLoaded = false;
   let answerLoaded = false;
+  let initialSlots = [];
+  let editing = false;
 
   const answerId = meta.params._id;
   const pollId = meta.params.pollId;
 
   const editMeeting = () => {
-    Meteor.call('polls_answers.meeting.edit', { answerId: answer._id, emailNotice, email, name, meetingSlot }, (e) => {
-      if (e) {
-        console.log(e);
-        toast.push($_(e.reason), toasts.error);
-      } else {
-        toast.push($_(`components.MeetingAnswerEdit.${emailNotice ? 'userNotified' : 'userNotNotified'}`));
-        router.goto(ROUTES.ANSWER_POLL_RM(answer.pollId));
-      }
-    });
+    editing = true;
+    Meteor.call(
+      'polls_answers.meeting.edit',
+      { answerId: answer._id, emailNotice, email, name, meetingSlot: answer.meetingSlot, initialSlots },
+      (e) => {
+        if (e) {
+          console.log(e);
+          toast.push($_(e.reason), toasts.error);
+          editing = false;
+        } else {
+          toast.push($_(`components.MeetingAnswerEdit.${emailNotice ? 'userNotified' : 'userNotNotified'}`));
+          editing = false;
+          router.goto(ROUTES.ANSWER_POLL_RM(answer.pollId));
+        }
+      },
+    );
   };
 
   const toggleChoice = (indexOrDate) => {
-    meetingSlot = indexOrDate || initialDate;
-    answer.meetingSlot = indexOrDate;
+    let newSlots = [];
+    if (slotsIncludes(answer.meetingSlot, indexOrDate)) {
+      newSlots = answer.meetingSlot.filter((s) => !moment(s).isSame(indexOrDate));
+    } else {
+      newSlots = [...answer.meetingSlot, indexOrDate].sort();
+    }
+    // if slots are changed, consider that all chosen slots are no longer confirmed
+    answer.meetingSlot = newSlots;
   };
 
   const grabData = () => {
@@ -55,8 +69,8 @@
           answer = r;
           email = r.email;
           name = r.name;
-          meetingSlot = r.meetingSlot;
-          initialDate = r.meetingSlot;
+          answer.meetingSlot = Array.isArray(r.meetingSlot) ? r.meetingSlot : [r.meetingSlot];
+          initialSlots = [...answer.meetingSlot];
         } else {
           toast.push($_(e.reason), toasts.error);
           router.goto(ROUTES.ADMIN);
@@ -92,7 +106,7 @@
 <section class="box-transparent">
   <div class="container">
     <h1 class="title is-3">
-      {$_('components.MeetingAnswerEdit.title')} : {moment(initialDate).format('LLL')}
+      {$_('components.MeetingAnswerEdit.title')} : {name}
     </h1>
     <div class="box">
       <div class="field">
@@ -122,7 +136,7 @@
       <label class="label">{$_('components.MeetingAnswerEdit.slot')}</label>
       <div class="column is-full">
         {#if pollLoaded}
-          <CalendarPoll {answer} {poll} {loading} {toggleChoice} currentAnswer={answer} editMode={true} />
+          <CalendarPoll {answer} {poll} {toggleChoice} currentAnswer={answer} editMode={true} />
         {/if}
       </div>
       <div class="columns is-multiline">
@@ -135,7 +149,8 @@
         </div>
         <div class="column is-half-desktop is-full-mobile is-right">
           <BigLink
-            disabled={!isValideMail(email) || !name || loading}
+            loading={editing}
+            disabled={!isValideMail(email) || !name || loading || answer.meetingSlot.length === 0}
             action={editMeeting}
             text={$_('components.MeetingAnswerEdit.submit')}
           />
