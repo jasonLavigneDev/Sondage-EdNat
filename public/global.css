@@ -72,3 +72,10 @@ p,
   background-color: #48c774 !important;
   border-color: #48c774 !important;
 }
+
+.fc-slot-unavailable {
+  background-color: #c74848 !important;
+  border-color: #c74848 !important;
+  color: #ffffff;
+  cursor: not-allowed;
+}
