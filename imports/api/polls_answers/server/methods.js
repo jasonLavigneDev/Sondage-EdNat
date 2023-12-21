@@ -92,7 +92,9 @@ export const createPollAnswers = new ValidatedMethod({
           // - delete previously created events from poll owner agenda
           // - email poll owner about cancelled meeting slots
           deleteEventAgendaMeeting(poll, previousAnswer, poll.userId);
-          const initialSlots = previousAnswer.meetingSlot;
+          const initialSlots = Array.isArray(previousAnswer.meetingSlot)
+            ? previousAnswer.meetingSlot
+            : [previousAnswer.meetingSlot];
           initialSlots.forEach((slot) => {
             if (!slotsIncludes(data.meetingSlot, slot)) {
               sendCancelEmailToCreator(poll, { ...data, meetingSlot: [slot] }, '');
