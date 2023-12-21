@@ -247,6 +247,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });
@@ -263,6 +264,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: false,
           pollId: poll._id,
         });
@@ -279,18 +281,20 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           pollId: poll._id,
           meetingSlot: [new Date()],
         });
         validateMeetingPollAnswer._execute({ userId: ownerPollUser._id }, { answerId: pollAnswer._id });
-        const eventResult = EventsAgenda.findOne({ title: poll.title });
-        assert.equal(eventResult.title, 'Pour le test');
+        const eventResult = EventsAgenda.findOne({ title: `${poll.title} (${pollAnswer.name})` });
+        assert.equal(eventResult.title, `Pour le test (${pollAnswer.name})`);
       });
       it('should update pollAnswer', function () {
         const poll = Factory.create('poll', { userId: ownerPollUser._id });
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           pollId: poll._id,
           meetingSlot: [new Date()],
         });
@@ -310,6 +314,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });
@@ -329,6 +334,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });
@@ -409,6 +415,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });
@@ -425,6 +432,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });
@@ -441,6 +449,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });

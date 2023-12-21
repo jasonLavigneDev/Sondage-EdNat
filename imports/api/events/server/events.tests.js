@@ -43,13 +43,14 @@ describe('events', function () {
       userId: anotherUser._id,
       email: anotherUser.emails[0].address,
       meetingSlot: [new Date()],
+      name: `${anotherUser.firstName} ${anotherUser.lastName}`,
     });
   });
 
   describe('createEventAgendaMeeting', function () {
     it('should create an event meeting into agenda with a connected user', function () {
       createEventAgendaMeeting(poll, pollAnswer, ownerPollUser._id);
-      const resultEvent = EventsAgenda.findOne({ title: poll.title });
+      const resultEvent = EventsAgenda.findOne({ title: `${poll.title} (${pollAnswer.name})` });
       assert.typeOf(resultEvent, 'object');
       assert.typeOf(resultEvent.start, 'date');
       assert.typeOf(resultEvent.end, 'date');
@@ -58,9 +59,13 @@ describe('events', function () {
       assert.isEmpty(resultEvent.guests);
     });
     it('should create an event meeting into agenda with a guest user', function () {
-      const anotherPollAnswer = Factory.create('poll_answer', { email: 'toto@test.com', meetingSlot: [new Date()] });
+      const anotherPollAnswer = Factory.create('poll_answer', {
+        email: 'toto@test.com',
+        meetingSlot: [new Date()],
+        name: 'toto test',
+      });
       createEventAgendaMeeting(poll, anotherPollAnswer, ownerPollUser._id);
-      const resultEvent = EventsAgenda.findOne({ title: poll.title });
+      const resultEvent = EventsAgenda.findOne({ title: `${poll.title} (${anotherPollAnswer.name})` });
       assert.typeOf(resultEvent, 'object');
       assert.typeOf(resultEvent.start, 'date');
       assert.typeOf(resultEvent.end, 'date');

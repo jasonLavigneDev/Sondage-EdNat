@@ -140,8 +140,10 @@ export function createEventAgendaMeeting(poll, answer, userId) {
   const participantUser = Accounts.findUserByEmail(answer.email);
   const slots = !Array.isArray(answer.meetingSlot) ? [answer.meetingSlot] : answer.meetingSlot;
   slots.forEach((slot) => {
+    const title = `${poll.title} (${answer.name})`;
+    const description = `Rendez vous avec ${answer.name}`;
     EventsAgenda.insert({
-      title: poll.title,
+      title,
       location: '',
       start: moment(slot).format(),
       end: moment(slot).add(DURATIONS_TIME[poll.duration], 'minute').format(),
@@ -155,7 +157,7 @@ export function createEventAgendaMeeting(poll, answer, userId) {
           ]
         : [],
       guests: participantUser ? [] : [answer.email],
-      description: poll.description,
+      description,
       groups: [],
       userId,
     });
@@ -165,10 +167,11 @@ export function createEventAgendaMeeting(poll, answer, userId) {
 export function deleteEventAgendaMeeting(poll, answer, userId) {
   // events have been created only if answer is confirmed
   if (answer.confirmed) {
+    const title = `${poll.title} (${answer.name})`;
     const slots = !Array.isArray(answer.meetingSlot) ? [answer.meetingSlot] : answer.meetingSlot;
     slots.forEach((slot) => {
       EventsAgenda.remove({
-        title: poll.title,
+        title,
         start: slot,
         allDay: poll.allDay,
         userId,
