@@ -177,8 +177,8 @@
       "take_meeting": "Rendez-vous pris le ",
       "modify": "Modifier",
       "author": "Auteur",
-      "emailRequired": "Adresse email est nécessaire",
-      "nameRequired": "Nom est nécessaire"
+      "emailRequired": "Adresse mail requise",
+      "nameRequired": "Nom et prénom requis"
     },
     "maintenance": {
       "title": "Le site est en cours de maintenance"

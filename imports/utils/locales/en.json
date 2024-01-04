@@ -176,7 +176,7 @@
       "modify": "Edit",
       "author": "Author",
       "emailRequired": "Email is required",
-      "nameRequired": "Name is required"
+      "nameRequired": "Firstame and lastname are required"
     },
     "maintenance": {
       "title": "Site is currently under maintenance"
