@@ -231,20 +231,28 @@
             <div class="field">
               <div class="control">
                 <input
-                  class="input"
+                  class={!Meteor.userId() && !answer.email ? 'input is-danger' : 'input'}
                   type="email"
                   disabled={Meteor.userId()}
                   bind:value={answer.email}
                   placeholder={$_('pages.answer.email')}
                 />
+              </div>
+              {#if !Meteor.userId() && !answer.email}
+                <p class="help is-danger">{$_('pages.answer.emailRequired')}</p>
+              {/if}
+              <div class="control">
                 <input
-                  class="input"
+                  class={!Meteor.userId() && !answer.name ? 'input is-danger' : 'input'}
                   type="text"
                   disabled={Meteor.userId()}
                   bind:value={answer.name}
                   placeholder={$_('pages.answer.name')}
                 />
               </div>
+              {#if !Meteor.userId() && !answer.name}
+                <p class="help is-danger">{$_('pages.answer.nameRequired')}</p>
+              {/if}
             </div>
           </div>
           {#if window.innerWidth < 600}

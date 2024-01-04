@@ -174,7 +174,9 @@
       "resume": "Meeting resume",
       "take_meeting": "Meeting made on ",
       "modify": "Edit",
-      "author": "Author"
+      "author": "Author",
+      "emailRequired": "Email is required",
+      "nameRequired": "Firstame and lastname are required"
     },
     "maintenance": {
       "title": "Site is currently under maintenance"

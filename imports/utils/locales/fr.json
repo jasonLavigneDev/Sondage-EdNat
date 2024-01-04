@@ -176,7 +176,9 @@
       "resume": "Résumé du rendez-vous",
       "take_meeting": "Rendez-vous pris le ",
       "modify": "Modifier",
-      "author": "Auteur"
+      "author": "Auteur",
+      "emailRequired": "Adresse mail requise",
+      "nameRequired": "Nom et prénom requis"
     },
     "maintenance": {
       "title": "Le site est en cours de maintenance"
