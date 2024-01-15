@@ -12,20 +12,18 @@ export const meetingTemplate = ({ sender, date }) => `
     <br/>
 `;
 
-export const meetingCancelTemplate = ({ date, content }) => `
-    <h4>Votre rendez vous le ${date} a été annulé</h4>
+export const meetingCancelTemplate = ({ date, meetWith, content }) => `
+    <h4>Votre rendez vous le ${date} avec ${meetWith} a été annulé</h4>
     <br/>
     <div>
     ${content}
     </div>
 `;
 
-export const meetingEditTemplate = ({ date, email, name }) => `
+export const meetingEditTemplate = ({ email, name }) => `
     <h4>Votre rendez vous a été édité</h4>
     <br/>
     <div>
-    Date: ${date}
-    <br/>
     Votre nom: ${name}
     <br/>
     Votre adresse email: ${email}

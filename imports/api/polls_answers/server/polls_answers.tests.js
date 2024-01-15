@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import { Random } from 'meteor/random';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { Factory } from 'meteor/dburles:factory';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import { POLLS_TYPES } from '../../../utils/enums';
@@ -53,6 +53,7 @@ describe('polls_answers', function () {
     let ownerPollUser;
     let poll;
     let pollTypePoll;
+    let pollTypePollHideParticipants;
     let meetingPoll;
 
     beforeEach(function () {
@@ -79,6 +80,19 @@ describe('polls_answers', function () {
         pollId: pollTypePoll._id,
         email: ownerPollUser.emails[0].address,
         userId: ownerPollUser._id,
+      });
+      // variables for poll type poll with hide participants
+      pollTypePollHideParticipants = Factory.create('poll', {
+        active: true,
+        userId: ownerPollUser._id,
+        type: 'POLL',
+        hideParticipantsList: true,
+      });
+      _.times(7, () => {
+        Factory.create('poll_answer', {
+          pollId: pollTypePollHideParticipants._id,
+          email: anotherUser.emails[0].address,
+        });
       });
       // variables for poll type meeting
       meetingPoll = Factory.create('poll', { active: true, userId: ownerPollUser._id, type: 'MEETING' });
@@ -119,6 +133,14 @@ describe('polls_answers', function () {
           collector.collect('polls_answers.onePoll', { pollId: pollTypePoll._id }, (collections) => {
             assert.equal(collections.counts[0].count, 7);
             assert.containsAllKeys(collections.polls_answers[0], ['name', 'email', 'userId']);
+            done();
+          });
+        });
+        it('does return all pollanswers exclude name and email', function (done) {
+          const collector = new PublicationCollector({});
+          collector.collect('polls_answers.onePoll', { pollId: pollTypePollHideParticipants._id }, (collections) => {
+            assert.equal(collections.counts[0].count, 7);
+            assert.doesNotHaveAnyKeys(collections.polls_answers[0], ['name', 'email']);
             done();
           });
         });
@@ -225,6 +247,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });
@@ -241,6 +264,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: false,
           pollId: poll._id,
         });
@@ -257,18 +281,22 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           pollId: poll._id,
+          meetingSlot: [new Date()],
         });
         validateMeetingPollAnswer._execute({ userId: ownerPollUser._id }, { answerId: pollAnswer._id });
-        const eventResult = EventsAgenda.findOne({ title: poll.title });
-        assert.equal(eventResult.title, 'Pour le test');
+        const eventResult = EventsAgenda.findOne({ title: `${poll.title} (${pollAnswer.name})` });
+        assert.equal(eventResult.title, `Pour le test (${pollAnswer.name})`);
       });
       it('should update pollAnswer', function () {
         const poll = Factory.create('poll', { userId: ownerPollUser._id });
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           pollId: poll._id,
+          meetingSlot: [new Date()],
         });
         validateMeetingPollAnswer._execute({ userId: ownerPollUser._id }, { answerId: pollAnswer._id });
         const resultPollAnswer = PollsAnswers.findOne({ _id: pollAnswer._id });
@@ -286,6 +314,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });
@@ -305,6 +334,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });
@@ -324,12 +354,14 @@ describe('polls_answers', function () {
           public: true,
           type: POLLS_TYPES.MEETING,
         });
+        const slot = new Date();
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
           name: 'toto',
           confirmed: true,
           pollId: poll._id,
+          meetingSlot: [slot],
         });
         assert.throws(
           () => {
@@ -340,7 +372,8 @@ describe('polls_answers', function () {
                 emailNotice: false,
                 email: 'newmail@test.fr',
                 name: 'titi',
-                meetingSlot: new Date(),
+                meetingSlot: [slot],
+                initialSlots: [slot],
               },
             );
           },
@@ -357,6 +390,7 @@ describe('polls_answers', function () {
           name: 'toto',
           confirmed: true,
           pollId: poll._id,
+          meetingSlot: [],
         });
         editMeetingPollAnswer._execute(
           { userId: ownerPollUser._id },
@@ -365,13 +399,14 @@ describe('polls_answers', function () {
             emailNotice: false,
             email: 'newmail@test.fr',
             name: 'titi',
-            meetingSlot: newSlot,
+            meetingSlot: [newSlot],
+            initialSlots: [],
           },
         );
         const resultPollAnswer = PollsAnswers.findOne({ _id: pollAnswer._id });
         assert.equal(resultPollAnswer.name, 'titi');
         assert.equal(resultPollAnswer.email, 'newmail@test.fr');
-        assert.equal(resultPollAnswer.meetingSlot.toString(), newSlot.toString());
+        assert.equal(resultPollAnswer.meetingSlot[0].toString(), newSlot.toString());
       });
     });
     describe('getPollanswer', function () {
@@ -380,6 +415,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });
@@ -396,6 +432,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });
@@ -412,6 +449,7 @@ describe('polls_answers', function () {
         const pollAnswer = Factory.create('poll_answer', {
           userId: ownerPollUser._id,
           email: ownerPollUser.emails[0].address,
+          name: `${ownerPollUser.firstName} ${ownerPollUser.lastName}`,
           confirmed: true,
           pollId: poll._id,
         });

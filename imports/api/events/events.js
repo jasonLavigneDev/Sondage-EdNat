@@ -50,6 +50,11 @@ const settingsParticipant = new SimpleSchema({
 
 EventsAgenda.schema = new SimpleSchema(
   {
+    eventType: {
+      type: String,
+      optional: true,
+      defaultValue: 'rdv',
+    },
     title: {
       type: String,
       optional: false,
@@ -130,6 +135,7 @@ EventsAgenda.publicFields = {
   title: 1,
   location: 1,
   description: 1,
+  eventType: 1,
   start: 1,
   end: 1,
   allDay: 1,

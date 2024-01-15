@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.9.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.8.1...release/1.9.0) (2023-11-07)
+
+
+### Features
+
+* **calendar:** change button order and set default view ([2b38f41](https://gitlab.mim-libre.fr/alphabet/sondage/commit/2b38f417415b6425cf829fc6fd9c964c2f5f2c2e))
+* **calendar:** change default view in meeting answer ([b3559d1](https://gitlab.mim-libre.fr/alphabet/sondage/commit/b3559d134e768d5287bdcd4a14b3e303377314be))
+* **date:** add scrolling for date picking in meetings and polls step 2 ([c5ce164](https://gitlab.mim-libre.fr/alphabet/sondage/commit/c5ce164736aa0874931572e83de2ed11296286e2))
+* **libs:** update docker node image ([4139076](https://gitlab.mim-libre.fr/alphabet/sondage/commit/4139076d8d3d79e0c44418284b409f4cb058fefb))
+* **libs:** updated npm libs to wanted version ([ef25d32](https://gitlab.mim-libre.fr/alphabet/sondage/commit/ef25d32d3c0989c58b4a547548d2ea73da9ddcd8))
+* **matomo:** integrate matomo client in App.svelte ([0c6dbc9](https://gitlab.mim-libre.fr/alphabet/sondage/commit/0c6dbc90d315d2f63144307d4277be9940488129))
+* **meeting:** add more slots choices ([2a91c68](https://gitlab.mim-libre.fr/alphabet/sondage/commit/2a91c68dc74ec367350c41b1a6f1390a14c5f22d))
+* **node:** change node version to previous version ([70c8a4b](https://gitlab.mim-libre.fr/alphabet/sondage/commit/70c8a4b6016f353390c97e0c2d1eba8cf0841dfc))
+* **poll:** display author and creation date on poll answer page ([5e35cee](https://gitlab.mim-libre.fr/alphabet/sondage/commit/5e35ceea9a4ff13269b9b461dac71ccde44c7503))
+* **style:** add style to redirection page ([2376379](https://gitlab.mim-libre.fr/alphabet/sondage/commit/2376379bfcc352c18c97257b6f2941e428fb5aa8))
+
+
+### Bug Fixes
+
+* **emails:** don't send email to poll creator (only for meetings) ([1aee8c9](https://gitlab.mim-libre.fr/alphabet/sondage/commit/1aee8c92bce6cc907ab3423f5ff543efe8a85518))
+* **fr.json:** spelling correction ([7eb8abb](https://gitlab.mim-libre.fr/alphabet/sondage/commit/7eb8abbfb8f666a4d3d2bb4b03157ad9368f54cb))
+* **fr.json:** spelling corrections ([b8c3e4b](https://gitlab.mim-libre.fr/alphabet/sondage/commit/b8c3e4bf0165bc0bed2ddd3b8cec17a1d88cbee5))
+* **i18n:** update messages when answer on public meeting ([a3f08a6](https://gitlab.mim-libre.fr/alphabet/sondage/commit/a3f08a68305ff1a49e07e636613ff0104412a84f))
+* **meetings:** notification when a meeting has been edited/cancelled ([52d273c](https://gitlab.mim-libre.fr/alphabet/sondage/commit/52d273c08d6eda125a82f5be7e6d3ea6454421f2))
+* **poll:** display last modification date instead of creation date ([3d5b197](https://gitlab.mim-libre.fr/alphabet/sondage/commit/3d5b197c9a64977e81eb15af2faa0cda84ef5465))
+* **polls:** disable button to not be able to create private polls ([929ef97](https://gitlab.mim-libre.fr/alphabet/sondage/commit/929ef97d0f576ea1981c3984de33f6a60773774d))
+* **smtp:** better error message when sending email fails ([ec23333](https://gitlab.mim-libre.fr/alphabet/sondage/commit/ec2333340e7d7454611bef88ada70b720294e05f))
+* **timeslots:** sort days at TimeStep and ValidationStep ([135496d](https://gitlab.mim-libre.fr/alphabet/sondage/commit/135496d99006173c3bce2e31249aa213450b85b8))
+* **timeslots:** sort poll time slots at validation step ([8950fed](https://gitlab.mim-libre.fr/alphabet/sondage/commit/8950fed1159c063666b1002036d46ab1b695235a))
+
 ### [1.8.1](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.8.0...release/1.8.1) (2023-08-28)
 
 
