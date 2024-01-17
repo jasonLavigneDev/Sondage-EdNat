@@ -26,18 +26,16 @@
   const SMALL_LOGO = '/puce_eole.png';
   const LONG_LOGO = '/Sondage.png';
 
-   function handleMenu() {
-      if ( menu.style.display == 'block')
-        menu.style.display = 'none';
-      else menu.style.display = 'block';
-    }
-
+  function handleMenu() {
+    if (menu.style.display == 'block') menu.style.display = 'none';
+    else menu.style.display = 'block';
+  }
 </script>
 
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a href="/" rel="prefetch">
-      <img src={ $state.mobile ? SMALL_LOGO : LONG_LOGO} alt={$_('title')} class="image-app" height="40" />
+      <img src={$state.mobile ? SMALL_LOGO : LONG_LOGO} alt={$_('title')} class="image-app" height="40" />
     </a>
     <div
       role="button"
@@ -67,8 +65,8 @@
     </div>
     <div class="navbar-end">
       {#if $currentUser}
-      <ul>
-        <button class="navbar-item avatar buttonUser" on:click={handleMenu} >
+        <ul>
+          <button class="navbar-item avatar buttonUser" on:click={handleMenu}>
             {$currentUser.firstName}
             <UserAvatar />
             <span class="icon">
@@ -83,10 +81,12 @@
             </li>
             <div class="divider" />
             <li style="padding:8%">
-              <p style="color: rgba(0,0,0,0.4);">{version}</p>
+              <a class="buttonList" href={ROUTES.ABOUT} on:click={() => handleMenu()}>
+                {$_('about')}
+              </a>
             </li>
           </ul>
-          </ul>
+        </ul>
       {/if}
       <LanguageSwitcher />
     </div>
@@ -99,12 +99,12 @@
 
 <style>
   .buttonList {
-    color:black;
+    color: black;
     padding: 8% 0%;
-    height: 100%; 
-    width: 100%; 
-    background: transparent; 
-    border: none
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    border: none;
   }
 
   .buttonList:hover {
@@ -168,7 +168,6 @@
     height: 50px;
   }
   .divider {
-    border-bottom: 0.5px solid rgba(0,0,0,0.2);
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
   }
-
 </style>
