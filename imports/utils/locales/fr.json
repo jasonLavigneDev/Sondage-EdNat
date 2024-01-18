@@ -53,7 +53,8 @@
     "legal": "Mentions légales",
     "accessibility": "Accessibilité",
     "gcu": "Conditions générales d'utilisation",
-    "personalData": "Données personnelles"
+    "personalData": "Données personnelles",
+    "about": "À Propos"
   },
   "polls_datas": {
     "allDay": "Toute la journée",
@@ -194,13 +195,15 @@
       "by": "Réalisation du",
       "and": "du",
       "contributions": "en partenariat avec la",
-      "external": "et des contributeurs externe.",
+      "external": "et des contributeurs externes.",
       "links": "Vous pouvez consulter la",
       "exchange": "Vous pouvez échanger avec nous sur le",
       "chat": "chat Mim-libre",
       "news": "Retrouvez les dernières informations du pôle sur ",
+      "bug": "Vous rencontrez un problème ? Entrez une demande ",
+      "here": "ici",
       "contributing": "Envie de participer à l'amélioration du portail ? Retouvez le projet sur ",
-      "deposit": "Gitlab Mim-libre",
+      "deposit": "forge Mim-libre",
       "information": "Informations de dépannage",
       "Modal": {
         "information": "Vos informations",
