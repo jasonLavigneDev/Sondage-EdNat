@@ -1,5 +1,44 @@
 # Changelog
 
+## [1.10.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.9.0...release/1.10.0) (2024-01-30)
+
+
+### Features
+
+* **answer:** show name and email fields as required when answering ([d53731c](https://gitlab.mim-libre.fr/alphabet/sondage/commit/d53731cab0ea4051fec0160d59c11c72370bd75e))
+* **events:** add eventtype to schema ([a9d8254](https://gitlab.mim-libre.fr/alphabet/sondage/commit/a9d825499e20b096f848852318df6f92e0f3efaf))
+* **faker:** change outdated faker librairie to new faker lib ([4077774](https://gitlab.mim-libre.fr/alphabet/sondage/commit/40777743c23026b004c51374cee6b6d8b1dc3bf9))
+* **lib:** update outdated librairies to wanted version ([6480e22](https://gitlab.mim-libre.fr/alphabet/sondage/commit/6480e2273d39e7e43312d7f177de2a5d63e55d19))
+* **meeting:** adapt ui in edit mode ([a8c5820](https://gitlab.mim-libre.fr/alphabet/sondage/commit/a8c5820195610655f522f680ce2fee40141c24a3))
+* **meeting:** authorize owner to add slots ([da4ddda](https://gitlab.mim-libre.fr/alphabet/sondage/commit/da4ddda6896dcee2a8b011468d6577414fc2ccd1))
+* **meetings:** adapt poll edition to new meetingSlot structure ([0d62895](https://gitlab.mim-libre.fr/alphabet/sondage/commit/0d628958965dabd334eb216221e81fbeb98b974e))
+* **meetings:** add contact information in event title/description ([2ee9846](https://gitlab.mim-libre.fr/alphabet/sondage/commit/2ee98463ad5456b5c956e113d7faf763b6faf062))
+* **meetings:** allow user to choose several meeting slots ([2437764](https://gitlab.mim-libre.fr/alphabet/sondage/commit/2437764928206809d45fb0a12a14b1cc31ff584a))
+* **meetings:** display meeting slots per year in list mode ([95c31ef](https://gitlab.mim-libre.fr/alphabet/sondage/commit/95c31efe9420d776533df963c2ef8feb6d5770b2))
+* **meetings:** remove agenda events and email creator when cancelling ([028246c](https://gitlab.mim-libre.fr/alphabet/sondage/commit/028246cd66b194822f02defc388fd90381c9c33e))
+* **meteor:** update meteor and packages to 2.13.3 ([31735f6](https://gitlab.mim-libre.fr/alphabet/sondage/commit/31735f6f51cd6c5467688f883e839fe64d148d50))
+* **npm:** update outdated libs to wanted version ([010f42d](https://gitlab.mim-libre.fr/alphabet/sondage/commit/010f42d079e89a008a8ea8348b55ed8f3b152c46))
+* **poll:** redirect public user when he respond to a poll ([e0ecc39](https://gitlab.mim-libre.fr/alphabet/sondage/commit/e0ecc39b8a1b667e1c6d5492e24f3258e276de22))
+* **polls:** add checkbox for hide participants ([ce900db](https://gitlab.mim-libre.fr/alphabet/sondage/commit/ce900db5a69180d09f5f555495a2804e8d48832f))
+* **sass:** change deprecated node sass lib to sass lib ([0572fe1](https://gitlab.mim-libre.fr/alphabet/sondage/commit/0572fe11a680d3a55e1cc5c7babd57f3b822adaa))
+* **toast:** update toast librairie ([009e82d](https://gitlab.mim-libre.fr/alphabet/sondage/commit/009e82d6bd47803cb1da21d928cd39e05ac912d1))
+
+
+### Bug Fixes
+
+* **answers:** fix answer count in table ([dcf7064](https://gitlab.mim-libre.fr/alphabet/sondage/commit/dcf7064e0b305fe93ab476dfac48f1b7a48a6b43))
+* **answer:** update translation for required fields ([ed473f9](https://gitlab.mim-libre.fr/alphabet/sondage/commit/ed473f913345747dbd611e46f5c6194902e0720d))
+* **dockerfile:** update process to generate docker image ([a6401ab](https://gitlab.mim-libre.fr/alphabet/sondage/commit/a6401ab97e4974ae293ae554fe3938ceba571d9a))
+* **emails:** error sending email does not prevent answer validation ([bcf60bf](https://gitlab.mim-libre.fr/alphabet/sondage/commit/bcf60bf7b1c4b9b0b16665496b9df6992dc21b27))
+* **meeting:** remove not-allowed cursor for confirmed slots ([5508341](https://gitlab.mim-libre.fr/alphabet/sondage/commit/5508341cf3bba2dd38e120cc8b3786237ece131a))
+* **meetings:** fix fetching meetingSlots for old format pollAnswers ([5a95244](https://gitlab.mim-libre.fr/alphabet/sondage/commit/5a95244c4b9afa92bf261307292f1c50e5078f58))
+* **meeting:** show spinner on buttons during long operations ([7a52b49](https://gitlab.mim-libre.fr/alphabet/sondage/commit/7a52b49fa11360d8f4cf47802d50f6dee05512e9))
+* **meetings:** take old format into account in MeetingAnswersList.svelte ([2cd3264](https://gitlab.mim-libre.fr/alphabet/sondage/commit/2cd326498a03358dfac276586486dceeeaaf5b6c))
+* **poll:** fix app crash when create poll ([71d77c2](https://gitlab.mim-libre.fr/alphabet/sondage/commit/71d77c209993238b3d9d86475d694cf4be04d294))
+* **polls:** fix publication and add test ([a27266e](https://gitlab.mim-libre.fr/alphabet/sondage/commit/a27266e3d55048f3a352ede5d9c03152ab5b0b87))
+* **polls:** poll owner can always see participants list ([abfd1f0](https://gitlab.mim-libre.fr/alphabet/sondage/commit/abfd1f0be88dd944014d62f7f0520fa870dac064))
+* **style:** add missing css class for slot unavailable ([5e3616f](https://gitlab.mim-libre.fr/alphabet/sondage/commit/5e3616f57a0b31e51f3805aedd1924418373c020))
+
 ## [1.9.0](https://gitlab.mim-libre.fr/alphabet/sondage/compare/release/1.8.1...release/1.9.0) (2023-11-07)
 
 
