@@ -1,8 +1,8 @@
 import { Factory } from 'meteor/dburles:factory';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 Factory.define('user', Meteor.users, {
-  firstName: () => faker.name.firstName(),
-  lastName: () => faker.name.lastName(),
+  firstName: () => faker.person.firstName(),
+  lastName: () => faker.person.lastName(),
   emails: () => [{ address: faker.internet.email() }],
 });

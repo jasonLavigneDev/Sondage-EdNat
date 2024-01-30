@@ -14,11 +14,19 @@ Meteor.publish('polls_answers.getCurrentUser', function pollAnswersCurrentUser({
 Meteor.publish('polls_answers.onePoll', function pollAnswersOne({ pollId }) {
   let pollOwner = false;
   const poll = Polls.findOne(pollId);
-  if (poll && poll.userId === this.userId) pollOwner = true;
-  const query = { pollId };
-  if (this.userId) {
-    query.userId = { $ne: this.userId };
+  if (poll) {
+    if (poll.userId === this.userId) pollOwner = true;
+    const query = { pollId };
+    if (this.userId) {
+      query.userId = { $ne: this.userId };
+    }
+    Counts.publish(this, 'polls_answers.onePoll', PollsAnswers.find(query), { noReady: true });
+    return PollsAnswers.find(
+      query,
+      pollOwner || (poll.type === POLLS_TYPES.POLL && !poll.hideParticipantsList)
+        ? {}
+        : { fields: { email: 0, name: 0 } },
+    );
   }
-  Counts.publish(this, 'polls_answers.onePoll', PollsAnswers.find(query), { noReady: true });
-  return PollsAnswers.find(query, pollOwner || poll.type === POLLS_TYPES.POLL ? {} : { fields: { email: 0, name: 0 } });
+  return this.ready();
 });

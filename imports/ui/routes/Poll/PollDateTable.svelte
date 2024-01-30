@@ -17,10 +17,15 @@
   export let grabData = () => null;
   let confirmDateModal = false;
   let chosenDateModal;
+  let totalParticipants;
   let answers;
   $: answers = useTracker(() => {
     Meteor.subscribe('polls_answers.onePoll', { pollId: poll._id });
     return PollsAnswers.find({ pollId: poll._id }).fetch();
+  });
+  $: totalParticipants = useTracker(() => {
+    Meteor.subscribe('polls_answers.getCount', { pollId: poll._id });
+    return Counts.get(`polls_answers.get-${poll._id}`);
   });
   const toggleModal = (date) => {
     confirmDateModal = !confirmDateModal;
@@ -129,7 +134,7 @@
       <tr>
         <td>
           <b>
-            {answer._id ? [...$answers, answer].length : $answers.length}
+            {$totalParticipants}
             {$_('pages.answer.participants')}
           </b>
         </td>
@@ -178,30 +183,32 @@
           {/if}
         {/each}
       </tr>
-      {#each $answers as single_answer}
-        <tr>
-          <td>
-            {single_answer.name}
-          </td>
-          {#each poll.dates as day, index}
-            {#if !poll.allDay && day.slots}
-              {#each day.slots as slo, i}
+      {#if Meteor.userId() === poll.userId || !poll.hideParticipantsList}
+        {#each $answers as single_answer}
+          <tr>
+            <td>
+              {single_answer.name}
+            </td>
+            {#each poll.dates as day, index}
+              {#if !poll.allDay && day.slots}
+                {#each day.slots as slo, i}
+                  <td>
+                    <Checkbox center disabled checked={single_answer.choices[index].slots.find((s) => s === slo)} />
+                  </td>
+                {/each}
+              {:else}
                 <td>
-                  <Checkbox center disabled checked={single_answer.choices[index].slots.find((s) => s === slo)} />
+                  <Checkbox
+                    center
+                    disabled
+                    checked={single_answer.choices[index] && single_answer.choices[index].present}
+                  />
                 </td>
-              {/each}
-            {:else}
-              <td>
-                <Checkbox
-                  center
-                  disabled
-                  checked={single_answer.choices[index] && single_answer.choices[index].present}
-                />
-              </td>
-            {/if}
-          {/each}
-        </tr>
-      {/each}
+              {/if}
+            {/each}
+          </tr>
+        {/each}
+      {/if}
     </tbody>
   </table>
 </div>

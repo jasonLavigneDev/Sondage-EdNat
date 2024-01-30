@@ -1,35 +1,47 @@
 <script>
-  import { fade } from "svelte/transition";
-  export let message;
+  import { fade } from 'svelte/transition';
+  export let message = null;
   export let mainLoader = false;
   const cubes = [
-    "0.5s",
-    "0.6s",
-    "0.7s",
-    "0.8s",
-    "0.9s",
-    "0.4s",
-    "0.5s",
-    "0.6s",
-    "0.7s",
-    "0.8s",
-    "0.3s",
-    "0.4s",
-    "0.5s",
-    "0.6s",
-    "0.7s",
-    "0.2s",
-    "0.3s",
-    "0.4s",
-    "0.5s",
-    "0.6s",
-    "0.1s",
-    "0.2s",
-    "0.3s",
-    "0.4s",
-    "0.5s",
+    '0.5s',
+    '0.6s',
+    '0.7s',
+    '0.8s',
+    '0.9s',
+    '0.4s',
+    '0.5s',
+    '0.6s',
+    '0.7s',
+    '0.8s',
+    '0.3s',
+    '0.4s',
+    '0.5s',
+    '0.6s',
+    '0.7s',
+    '0.2s',
+    '0.3s',
+    '0.4s',
+    '0.5s',
+    '0.6s',
+    '0.1s',
+    '0.2s',
+    '0.3s',
+    '0.4s',
+    '0.5s',
   ];
 </script>
+
+<div class:mainLoader class="wrapper" transition:fade|local={{ duration: 200, delay: 200 }}>
+  <div class="loader-wrapper">
+    <div class="sk-grid">
+      {#each cubes as cube, i}
+        <div class="sk-grid-cube" style="--time:{cube}; --position:{(i % 5) * 25}% {Math.floor(i / 5) * 25}%" />
+      {/each}
+    </div>
+
+    {#if message}<span class="subtitle">{message}</span>{/if}
+  </div>
+</div>
 
 <style>
   .wrapper {
@@ -76,7 +88,7 @@
     float: left;
     animation: sk-grid 1.5s infinite ease-in-out;
     animation-delay: var(--time);
-    background-image: url("/puce_eole.png");
+    background-image: url('/puce_eole.png');
     background-repeat: no-repeat;
     background-attachment: inherit;
     background-position: var(--position);
@@ -94,20 +106,3 @@
     }
   }
 </style>
-
-<div
-  class:mainLoader
-  class="wrapper"
-  transition:fade|local={{ duration: 200, delay: 200 }}>
-  <div class="loader-wrapper">
-    <div class="sk-grid">
-      {#each cubes as cube, i}
-        <div
-          class="sk-grid-cube"
-          style="--time:{cube}; --position:{(i % 5) * 25}% {Math.floor(i / 5) * 25}%" />
-      {/each}
-    </div>
-
-    {#if message}<span class="subtitle">{message}</span>{/if}
-  </div>
-</div>

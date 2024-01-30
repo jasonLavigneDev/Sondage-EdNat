@@ -69,6 +69,8 @@
     {answer.name}
   </td>
   <td>
-    {moment(answer.meetingSlot).format('LLL')}
+    {#each answer.meetingSlot as slot}
+      {moment(slot).format('LLL')}<br />
+    {/each}
   </td>
 </tr>

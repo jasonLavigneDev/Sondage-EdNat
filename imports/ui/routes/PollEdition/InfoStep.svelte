@@ -183,6 +183,14 @@
             <Checkbox bind:checked={$newPollStore.public} label={$_('pages.new_poll_1.public_input')} />
           </div>
         </div>
+        <div class="field">
+          <div class="control">
+            <Checkbox
+              bind:checked={$newPollStore.hideParticipantsList}
+              label={$_('pages.new_poll_1.hideParticipantsList_input')}
+            />
+          </div>
+        </div>
       </div>
     </div>
 
