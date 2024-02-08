@@ -18,21 +18,6 @@ Polls.deny({
   },
 });
 
-const SingleDateSchema = new SimpleSchema({
-  date: {
-    type: Date,
-    label: 'Date',
-  },
-  slots: {
-    type: Array,
-    label: 'Time Slots',
-    optional: true,
-  },
-  'slots.$': {
-    type: String,
-  },
-});
-
 const SingleMeetingSlotSchema = new SimpleSchema({
   start: {
     type: Date,
@@ -117,7 +102,7 @@ Polls.schema = new SimpleSchema(
       defaultValue: [],
     },
     'dates.$': {
-      type: SingleDateSchema,
+      type: Date,
     },
     meetingSlots: {
       type: Array,

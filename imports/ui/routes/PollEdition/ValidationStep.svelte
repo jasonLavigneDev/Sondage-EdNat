@@ -64,10 +64,14 @@
         };        
       })
       
-console.log('AVANT', JSON.stringify($newPollStore.dates, null, 4))
-console.log($newPollStore.dates)
-console.log('APRES', JSON.stringify(newPollStoreDates, null, 4))
-console.log(newPollStoreDates)
+      let newDateArray = []
+      newPollStoreDates.map(d => newDateArray = newDateArray.concat(d.slots))
+
+      console.log('AVANT', JSON.stringify($newPollStore.dates, null, 4))
+      console.log($newPollStore.dates)
+      console.log('APRES', JSON.stringify(newPollStoreDates, null, 4))
+      console.log('newPollStoreDates', newPollStoreDates)
+      console.log('newDateArray', newDateArray)
 
       Meteor.call(
         meta.params._id ? 'polls.update' : 'polls.create',
@@ -75,7 +79,7 @@ console.log(newPollStoreDates)
           data: {
             ...$newPollStore,
             dates:
-              $newPollStore.type === POLLS_TYPES.POLL ? newPollStoreDates : [],
+              $newPollStore.type === POLLS_TYPES.POLL ? newDateArray : [],
             meetingSlots:
               $newPollStore.type === POLLS_TYPES.MEETING
                 ? $newPollStore.meetingSlots.sort((a, b) => a.start - b.start)
