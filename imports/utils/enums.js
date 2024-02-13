@@ -17,6 +17,7 @@ export const ROUTES = {
   POLLS: '/polls',
   LOGOUT: '/logout',
   END: '/end',
+  ABOUT: '/about',
 };
 
 export const toastOptions = {

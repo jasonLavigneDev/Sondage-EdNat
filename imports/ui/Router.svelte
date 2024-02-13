@@ -24,6 +24,7 @@
   import Maintenance from './routes/Maintenance.svelte';
   import UserWarning from './components/common/UserWarning.svelte';
   import End from './routes/End.svelte';
+  import About from './routes/About.svelte';
 
   router.subscribe((_) => window.scrollTo(0, 0));
 
@@ -60,6 +61,9 @@
         </Route>
         <Route path={ROUTES.END}>
           <End />
+        </Route>
+        <Route path={ROUTES.ABOUT}>
+          <About />
         </Route>
         {#if $currentUser}
           <Route path={ROUTES.POLLS} let:meta>

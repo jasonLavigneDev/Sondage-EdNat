@@ -5,6 +5,7 @@
   "back": "Retour",
   "menu": "Menu",
   "logout": "Se déconnecter",
+  "about": "À Propos",
   "today": "Aujourd'hui",
   "name": "Nom",
   "types": {
@@ -52,7 +53,8 @@
     "legal": "Mentions légales",
     "accessibility": "Accessibilité",
     "gcu": "Conditions générales d'utilisation",
-    "personalData": "Données personnelles"
+    "personalData": "Données personnelles",
+    "about": "À Propos"
   },
   "polls_datas": {
     "allDay": "Toute la journée",
@@ -186,6 +188,31 @@
     "end": {
       "title": "Votre réponse a bien été enregistrée",
       "content": "vous pouvez fermer cet onglet"
+    },
+    "AboutPage": {
+      "developped": "Sondage est un service du portail LaBoite sous licence",
+      "socle": "faisant partie du socle",
+      "by": "Réalisation du",
+      "and": "du",
+      "contributions": "en partenariat avec la",
+      "external": "et des contributeurs externes.",
+      "links": "Vous pouvez consulter la",
+      "exchange": "Vous pouvez échanger avec nous sur le",
+      "chat": "chat Mim-libre",
+      "news": "Retrouvez les dernières informations du pôle sur ",
+      "contributing": "Envie de participer à l'amélioration du portail ? Retouvez le projet sur ",
+      "deposit": "forge Mim-libre",
+      "information": "Informations de dépannage",
+      "Modal": {
+        "information": "Vos informations",
+        "navigator": "Navigateur :",
+        "version": "Version :",
+        "os": "Os :",
+        "device": "Appareil :",
+        "close": "Fermer",
+        "copy": "Copier les informations",
+        "success": "Informations copié avec succès"
+      }
     }
   },
   "components": {
