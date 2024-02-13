@@ -48,6 +48,7 @@
     "svelte-fullcalendar": "^1.1.2",
     "svelte-i18n": "^3.7.4",
     "svelte-time-picker": "^1.0.8",
+    "timezone-support": "^3.1.0",
     "tinro": "^0.6.12"
   },
   "meteor": {

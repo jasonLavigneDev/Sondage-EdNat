@@ -10,6 +10,7 @@
   import Loader from '/imports/ui/components/common/Loader.svelte';
 
   // pages
+  import POC_TZ from '/imports/ui/routes/POC_TZ.svelte';
   import Home from '/imports/ui/routes/Home/Home.svelte';
   import Login from '/imports/ui/routes/Login.svelte';
   import Polls from '/imports/ui/routes/Polls/Polls.svelte';
@@ -47,6 +48,9 @@
     <UserWarning />
   {:else}
     <Route>
+      <Route path="/yo">
+        <POC_TZ />
+      </Route>
       <Route path={ROUTES.LOGOUT} let:meta>
         <Logout {meta} />
       </Route>
