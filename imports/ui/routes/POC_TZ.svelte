@@ -5,26 +5,42 @@
 
   import { POLLS_TYPES, TIME_ZONES } from '../../utils/enums';
 
-  // import {listTimeZones, findTimeZone, getZonedTime, getUnixTime} from 'timezone-support'
+  import { zonedTimeToUtc } from 'date-fns-tz';
 
   let polls;
+  let chosenDate;
+  let UTCChosenDate;
+  let currentTZtext;
 
   $: polls = useTracker(() => {
     Meteor.subscribe('polls.owner', { page: 1, limit: 10 });
     return Polls.find({ type: POLLS_TYPES.POLL }, { sort: { createdAt: -1 } }).fetch();
   });
-  $: currentTZ = Intl.DateTimeFormat().resolvedOptions().timeZone
+  $: currentTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   function changeTZ(e) {
-		currentTZ = e.target.value
+		currentTZ = e.target.value;
+    currentTZtext = e.target.selectedOptions.item(0).text;
+    UTCChosenDate = zonedTimeToUtc(chosenDate, currentTZ);
 	}
+  
+  function changeDate(e) {
+    chosenDate = e.target.value;
+    UTCChosenDate = zonedTimeToUtc(chosenDate, currentTZ);
+	}
+
+  const handleSubmit = () => {
+    console.log('chosenDate', chosenDate);
+    console.log('localChosenDate', localChosenDate);
+    console.log('UTCChosenDate', UTCChosenDate);
+  };
+
 </script>
 
 <section class="hero is-medium is-grey is-bold is-centered">
   <div class="hero-body">
     <div class="container has-text-centered">
-      <div class="title is-4">yooooooo ! ({$polls.length})</div>
-      <select id="timezone" name="timezone" class="custom-select" bind:value={currentTZ}
+      <div class="title is-4">yooooooo ! ({$polls.length})      <select id="timezone" name="timezone" class="custom-select" bind:value={currentTZ}
 		on:change={changeTZ}>
         <option value="Africa/Abidjan">Africa/Abidjan GMT+0:00</option>
         <option value="Africa/Accra">Africa/Accra GMT+0:00</option>
@@ -654,8 +670,30 @@
         <option value="PST">PST GMT-8:00</option>
         <option value="SST">SST GMT+11:00</option>
         <option value="VST">VST GMT+7:00</option>
-      </select>
-      <div class="table-container">
+        </select>
+      </div>
+
+      <div class="box">
+        <form on:submit|preventDefault>
+          <label for="party">Saisir une date : </label>
+          <input id="party" type="datetime-local" name="partydate" step="900" bind:value={chosenDate} on:change={changeDate}/>
+          <button on:click={handleSubmit} style="margin: 3%; font-size: 1.2rem;" variant="raised">Envoyer</button>
+          <table class="table table is-striped is-hoverable is-fullwidth is-bordered">
+            <tbody>
+              <tr>
+                <td>
+                  {#if chosenDate}{chosenDate}{/if} pour {currentTZtext}
+                </td>
+                <td>
+                  {#if chosenDate}{UTCChosenDate}{/if}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+
+      <div class="table-container box">
         <table class="table table is-striped is-hoverable is-fullwidth is-bordered">
           <thead>
             <tr>
