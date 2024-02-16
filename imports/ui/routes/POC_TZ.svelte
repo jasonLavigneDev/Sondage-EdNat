@@ -2,8 +2,10 @@
   import { Meteor } from 'meteor/meteor';
   import { useTracker } from 'meteor/rdb:svelte-meteor-data';
   import Polls from '/imports/api/polls/polls';
+  import { toast } from '@zerodevx/svelte-toast';
 
   import { POLLS_TYPES, TIME_ZONES } from '../../utils/enums';
+  import { EMPTY_NEW_POLL } from '/imports/utils/functions/stores';
 
   import { zonedTimeToUtc } from 'date-fns-tz';
 
@@ -11,6 +13,7 @@
   let chosenDate;
   let UTCChosenDate;
   let currentTZtext;
+  let newPoll = EMPTY_NEW_POLL;
 
   $: polls = useTracker(() => {
     Meteor.subscribe('polls.owner', { page: 1, limit: 10 });
@@ -31,8 +34,22 @@
 
   const handleSubmit = () => {
     console.log('chosenDate', chosenDate);
-    console.log('localChosenDate', localChosenDate);
     console.log('UTCChosenDate', UTCChosenDate);
+    let title = `${chosenDate} pour ${currentTZtext}`
+    Meteor.call('polls.create', {data: {...newPoll, dates: [UTCChosenDate], title}},
+      (error) => {
+        if (error) {
+          if (error.details) {
+            messages = error.details.map((err) => err.message);
+            toast.push(messages.join('<br/>'), toasts.error);
+          } else {
+            toast.push("ERREUR", toasts.error);
+          }
+        } else {
+          toast.push("OK");
+        }
+      },
+    );
   };
 
 </script>
@@ -685,7 +702,7 @@
                   {#if chosenDate}{chosenDate}{/if} pour {currentTZtext}
                 </td>
                 <td>
-                  {#if chosenDate}{UTCChosenDate}{/if}
+                  {#if chosenDate}{UTCChosenDate.toISOString()}{/if}
                 </td>
               </tr>
             </tbody>
